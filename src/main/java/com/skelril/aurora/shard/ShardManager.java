@@ -61,7 +61,7 @@ public class ShardManager {
         ShardEditor editor = shard.getEditor();
         do {
             targetRG = constructRegion(shard, nextSearchPt);
-            nextSearchPt = nextSearchPt.add(editor.getDemensions().setY(0));
+            nextSearchPt = nextSearchPt.add(editor.getDimensions().setY(0));
         } while (isCollision(targetRG));
         editor.create(world, targetRG);
         return shard.load(storeRegion(shard, targetRG));
@@ -75,7 +75,7 @@ public class ShardManager {
         return new ProtectedCuboidRegion(
                 shard.getName() + '-' + shard.getQuantity(),
                 new BlockVector(targetPt),
-                new BlockVector(targetPt.add(shard.getEditor().getDemensions()))
+                new BlockVector(targetPt.add(shard.getEditor().getDimensions()))
         );
     }
 

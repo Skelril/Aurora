@@ -25,7 +25,7 @@ public class ShardEditor {
         this.holder = holder;
     }
 
-    public Vector getDemensions() {
+    public Vector getDimensions() {
         return holder.getClipboard().getDimensions();
     }
 
