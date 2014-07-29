@@ -7,39 +7,52 @@
 package com.skelril.aurora.anticheat;
 
 import com.sk89q.commandbook.CommandBook;
+import com.skelril.aurora.events.PrayerApplicationEvent;
+import com.skelril.aurora.events.anticheat.FallBlockerEvent;
+import com.skelril.aurora.events.anticheat.RapidHitEvent;
+import com.skelril.aurora.events.anticheat.ThrowPlayerEvent;
 import com.zachsthings.libcomponents.ComponentInformation;
 import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
+import com.zachsthings.libcomponents.config.ConfigurationBase;
+import com.zachsthings.libcomponents.config.Setting;
+import fr.neatmonster.nocheatplus.checks.CheckType;
+import fr.neatmonster.nocheatplus.hooks.NCPExemptionManager;
+import org.bukkit.Bukkit;
 import org.bukkit.Server;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
 /**
  * Author: Turtle9598
  */
 @ComponentInformation(friendlyName = "Anit-Cheat Compat", desc = "Compatibility layer for Anti-Cheat plugins.")
-@Depend(plugins = {"AntiCheat"})
-public class AntiCheatCompatibilityComponent extends BukkitComponent /* implements Listener, Runnable*/ {
+@Depend(plugins = {"NoCheatPlus"})
+public class AntiCheatCompatibilityComponent extends BukkitComponent implements Listener, Runnable {
 
     private final CommandBook inst = CommandBook.inst();
     private final Logger log = inst.getLogger();
     private final Server server = CommandBook.server();
 
-    //private LocalConfiguration config;
-    //private ConcurrentHashMap<String, ConcurrentHashMap<CheckType, Long>> playerList = new ConcurrentHashMap<>();
+    private LocalConfiguration config;
+    private ConcurrentHashMap<String, ConcurrentHashMap<CheckType, Long>> playerList = new ConcurrentHashMap<>();
 
     @Override
     public void enable() {
 
-        /*
         config = configure(new LocalConfiguration());
         //noinspection AccessStaticViaInstance
         inst.registerEvents(this);
         server.getScheduler().scheduleSyncRepeatingTask(inst, this, 20 * 20, 20 * 5);
-        */
     }
-
-    /*
 
     @Override
     public void reload() {
@@ -74,12 +87,12 @@ public class AntiCheatCompatibilityComponent extends BukkitComponent /* implemen
 
     public void exempt(Player player, CheckType checkType) {
 
-        AntiCheatAPI.exemptPlayer(player, checkType);
+        NCPExemptionManager.exemptPermanently(player, checkType);
     }
 
     public void unexempt(Player player, CheckType checkType) {
 
-        AntiCheatAPI.unexemptPlayer(player, checkType);
+        NCPExemptionManager.unexempt(player, checkType);
     }
 
     public void bypass(Player player, CheckType[] checkTypes) {
@@ -89,7 +102,7 @@ public class AntiCheatCompatibilityComponent extends BukkitComponent /* implemen
         else hashMap = new ConcurrentHashMap<>();
 
         for (CheckType checkType : checkTypes) {
-            if (AntiCheatAPI.isExempt(player, checkType) && !hashMap.containsKey(checkType)) continue;
+            if (NCPExemptionManager.isExempted(player, checkType) && !hashMap.containsKey(checkType)) continue;
             hashMap.put(checkType, System.currentTimeMillis());
             exempt(player, checkType);
         }
@@ -102,19 +115,19 @@ public class AntiCheatCompatibilityComponent extends BukkitComponent /* implemen
         Player player = event.getPlayer();
         if (playerList.containsKey(player.getName())) {
             for (Map.Entry<CheckType, Long> e : playerList.get(player.getName()).entrySet()) {
-                AntiCheatAPI.unexemptPlayer(player, e.getKey());
+                NCPExemptionManager.unexempt(player, e.getKey());
             }
             playerList.remove(player.getName());
         }
     }
 
     private static final CheckType[] playerThrowCheckTypes = new CheckType[]{
-            CheckType.FLY, CheckType.ZOMBE_FLY, CheckType.SPEED, CheckType.SNEAK, CheckType.SPIDER,
-            CheckType.WATER_WALK
+            CheckType.MOVING_SURVIVALFLY, CheckType.MOVING_CREATIVEFLY,
     };
-    private static final CheckType[] fallBlockerCheckTypes = new CheckType[]{CheckType.NOFALL};
+    private static final CheckType[] fallBlockerCheckTypes = new CheckType[]{CheckType.MOVING_NOFALL};
     private static final CheckType[] rapidHitCheckTypes = new CheckType[]{
-            CheckType.NO_SWING, CheckType.FORCEFIELD, CheckType.LONG_REACH, CheckType.AUTOTOOL
+            CheckType.FIGHT_ANGLE, CheckType.FIGHT_DIRECTION, CheckType.FIGHT_NOSWING,
+            CheckType.FIGHT_REACH, CheckType.FIGHT_SPEED
     };
 
     @EventHandler
@@ -144,19 +157,16 @@ public class AntiCheatCompatibilityComponent extends BukkitComponent /* implemen
             case ROCKET:
             case SLAP:
             case DOOM:
-                checkTypes.add(CheckType.FLY);
-                checkTypes.add(CheckType.ZOMBE_FLY);
-                checkTypes.add(CheckType.SPEED);
-                checkTypes.add(CheckType.SNEAK);
-                checkTypes.add(CheckType.SPIDER);
+                checkTypes.add(CheckType.MOVING);
+                checkTypes.add(CheckType.MOVING_CREATIVEFLY);
+                checkTypes.add(CheckType.MOVING_SURVIVALFLY);
             case MERLIN:
             case BUTTERFINGERS:
-                checkTypes.add(CheckType.ITEM_SPAM);
+                checkTypes.add(CheckType.INVENTORY_DROP);
                 break;
             default:
                 return;
         }
         bypass(event.getPlayer(), checkTypes.toArray(new CheckType[checkTypes.size()]));
     }
-    */
 }

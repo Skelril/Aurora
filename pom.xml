@@ -93,6 +93,11 @@
             <artifactId>logblock</artifactId>
             <version>dev-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>fr.neatmonster</groupId>
+            <artifactId>ncpcore</artifactId>
+            <version>static</version>
+        </dependency>
     </dependencies>
 
     <build>
