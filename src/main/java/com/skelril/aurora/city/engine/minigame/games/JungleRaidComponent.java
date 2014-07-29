@@ -52,8 +52,6 @@ import com.skelril.aurora.util.extractor.entity.EDBEExtractor;
 import com.skelril.aurora.util.item.ItemUtil;
 import com.skelril.hackbook.ChunkBook;
 import com.skelril.hackbook.exceptions.UnsupportedFeatureException;
-import com.zachsthings.libcomponents.ComponentInformation;
-import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.InjectComponent;
 import com.zachsthings.libcomponents.config.ConfigurationBase;
 import com.zachsthings.libcomponents.config.Setting;
@@ -98,8 +96,8 @@ import java.util.stream.Collectors;
 /**
  * @author Turtle9598
  */
-@ComponentInformation(friendlyName = "Jungle Raid", desc = "Warfare at it's best!")
-@Depend(components = {AdminComponent.class, PrayerComponent.class}, plugins = {"WorldEdit", "WorldGuard"})
+//@ComponentInformation(friendlyName = "Jungle Raid", desc = "Warfare at it's best!")
+//@Depend(components = {AdminComponent.class, PrayerComponent.class}, plugins = {"WorldEdit", "WorldGuard"})
 public class JungleRaidComponent extends MinigameComponent {
 
     private final CommandBook inst = CommandBook.inst();

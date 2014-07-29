@@ -35,8 +35,6 @@ import com.skelril.aurora.util.player.PlayerState;
 import com.skelril.aurora.util.timer.IntegratedRunnable;
 import com.skelril.aurora.util.timer.TimedRunnable;
 import com.skelril.aurora.util.timer.TimerUtil;
-import com.zachsthings.libcomponents.ComponentInformation;
-import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.InjectComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -50,8 +48,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
-@ComponentInformation(friendlyName = "Mirage Arena", desc = "What will you see next?")
-@Depend(components = {AdminComponent.class}, plugins = {"WorldGuard"})
+//@ComponentInformation(friendlyName = "Mirage Arena", desc = "What will you see next?")
+//@Depend(components = {AdminComponent.class}, plugins = {"WorldGuard"})
 public class MirageArena extends AreaComponent<MirageArenaConfig> implements PersistentArena {
 
     @InjectComponent

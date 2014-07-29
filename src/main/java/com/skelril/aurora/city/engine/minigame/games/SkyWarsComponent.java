@@ -32,7 +32,6 @@ import com.skelril.aurora.city.engine.minigame.PlayerGameState;
 import com.skelril.aurora.events.anticheat.ThrowPlayerEvent;
 import com.skelril.aurora.events.apocalypse.ApocalypseLocalSpawnEvent;
 import com.skelril.aurora.exceptions.UnknownPluginException;
-import com.skelril.aurora.prayer.PrayerComponent;
 import com.skelril.aurora.util.ChanceUtil;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.EnvironmentUtil;
@@ -41,8 +40,6 @@ import com.skelril.aurora.util.checker.RegionChecker;
 import com.skelril.aurora.util.extractor.entity.CombatantPair;
 import com.skelril.aurora.util.extractor.entity.EDBEExtractor;
 import com.skelril.aurora.util.item.ItemUtil;
-import com.zachsthings.libcomponents.ComponentInformation;
-import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.InjectComponent;
 import com.zachsthings.libcomponents.config.ConfigurationBase;
 import com.zachsthings.libcomponents.config.Setting;
@@ -76,8 +73,8 @@ import java.util.stream.Collectors;
 /**
  * @author Turtle9598
  */
-@ComponentInformation(friendlyName = "Sky Wars", desc = "Sky warfare at it's best!")
-@Depend(components = {AdminComponent.class, PrayerComponent.class}, plugins = {"WorldEdit", "WorldGuard"})
+//@ComponentInformation(friendlyName = "Sky Wars", desc = "Sky warfare at it's best!")
+//@Depend(components = {AdminComponent.class, PrayerComponent.class}, plugins = {"WorldEdit", "WorldGuard"})
 public class SkyWarsComponent extends MinigameComponent {
 
     private final CommandBook inst = CommandBook.inst();

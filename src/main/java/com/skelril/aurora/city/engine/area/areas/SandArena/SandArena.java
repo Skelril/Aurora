@@ -19,8 +19,6 @@ import com.skelril.aurora.util.ChanceUtil;
 import com.skelril.aurora.util.LocationUtil;
 import com.skelril.aurora.util.database.IOUtil;
 import com.skelril.aurora.util.player.PlayerState;
-import com.zachsthings.libcomponents.ComponentInformation;
-import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.InjectComponent;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -29,8 +27,8 @@ import org.bukkit.entity.Player;
 import java.io.File;
 import java.util.HashMap;
 
-@ComponentInformation(friendlyName = "Sand Arena", desc = "It's a bit dry")
-@Depend(components = {AdminComponent.class}, plugins = {"WorldGuard"})
+//@ComponentInformation(friendlyName = "Sand Arena", desc = "It's a bit dry")
+//@Depend(components = {AdminComponent.class}, plugins = {"WorldGuard"})
 public class SandArena extends AreaComponent<SandArenaConfig> implements PersistentArena {
 
     @InjectComponent

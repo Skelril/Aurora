@@ -16,7 +16,6 @@ import com.sk89q.util.yaml.YAMLProcessor;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.GlobalRegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import com.skelril.aurora.SacrificeComponent;
 import com.skelril.aurora.admin.AdminComponent;
 import com.skelril.aurora.city.engine.arena.*;
 import com.skelril.aurora.city.engine.arena.factory.FactoryBrewer;
@@ -28,8 +27,6 @@ import com.skelril.aurora.jail.JailComponent;
 import com.skelril.aurora.prayer.PrayerComponent;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.restoration.RestorationUtil;
-import com.zachsthings.libcomponents.ComponentInformation;
-import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.InjectComponent;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
 import com.zachsthings.libcomponents.config.ConfigurationBase;
@@ -48,11 +45,11 @@ import java.util.logging.Logger;
 /**
  * Author: Turtle9598
  */
-@ComponentInformation(friendlyName = "Arena", desc = "Arena Control.")
-@Depend(components = {
-        AdminComponent.class, JailComponent.class, PrayerComponent.class, SacrificeComponent.class,
-        ImpersonalComponent.class, RestorationUtil.class
-}, plugins = {"WorldEdit", "WorldGuard"})
+//@ComponentInformation(friendlyName = "Arena", desc = "Arena Control.")
+//@Depend(components = {
+//        AdminComponent.class, JailComponent.class, PrayerComponent.class, SacrificeComponent.class,
+//        ImpersonalComponent.class, RestorationUtil.class
+//}, plugins = {"WorldEdit", "WorldGuard"})
 public class ArenaComponent extends BukkitComponent implements Listener, Runnable {
 
     private final CommandBook inst = CommandBook.inst();

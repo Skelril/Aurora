@@ -24,8 +24,6 @@ import com.skelril.aurora.util.item.ItemUtil;
 import com.skelril.aurora.util.player.PlayerState;
 import com.skelril.aurora.util.restoration.BaseBlockRecordIndex;
 import com.skelril.aurora.util.restoration.BlockRecord;
-import com.zachsthings.libcomponents.ComponentInformation;
-import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.InjectComponent;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Chunk;
@@ -47,8 +45,8 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-@ComponentInformation(friendlyName = "Grave Yard", desc = "The home of the undead")
-@Depend(components = {AdminComponent.class}, plugins = {"WorldGuard"})
+//@ComponentInformation(friendlyName = "Grave Yard", desc = "The home of the undead")
+//@Depend(components = {AdminComponent.class}, plugins = {"WorldGuard"})
 public class GraveYardArea extends AreaComponent<GraveYardConfig> {
 
     @InjectComponent

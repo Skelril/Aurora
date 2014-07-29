@@ -30,8 +30,6 @@ import com.skelril.aurora.util.item.ItemUtil;
 import com.skelril.aurora.util.player.PlayerState;
 import com.skelril.aurora.util.timer.IntegratedRunnable;
 import com.skelril.aurora.util.timer.TimedRunnable;
-import com.zachsthings.libcomponents.ComponentInformation;
-import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.InjectComponent;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Location;
@@ -46,8 +44,8 @@ import org.bukkit.scheduler.BukkitTask;
 import java.io.File;
 import java.util.*;
 
-@ComponentInformation(friendlyName = "Freaky Four", desc = "The craziest bosses ever")
-@Depend(components = {AdminComponent.class}, plugins = {"WorldGuard"})
+//@ComponentInformation(friendlyName = "Freaky Four", desc = "The craziest bosses ever")
+//@Depend(components = {AdminComponent.class}, plugins = {"WorldGuard"})
 public class FreakyFourArea extends AreaComponent<FreakyFourConfig> implements PersistentArena {
 
     protected static final int groundLevel = 79;

@@ -33,8 +33,6 @@ import com.skelril.aurora.util.timer.TimedRunnable;
 import com.skelril.aurora.util.timer.TimerUtil;
 import com.skelril.hackbook.AttributeBook;
 import com.skelril.hackbook.exceptions.UnsupportedFeatureException;
-import com.zachsthings.libcomponents.ComponentInformation;
-import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.InjectComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Difficulty;
@@ -53,8 +51,8 @@ import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@ComponentInformation(friendlyName = "Giant Boss", desc = "Giant, and a true boss")
-@Depend(components = {AdminComponent.class, PrayerComponent.class}, plugins = {"WorldGuard"})
+//@ComponentInformation(friendlyName = "Giant Boss", desc = "Giant, and a true boss")
+//@Depend(components = {AdminComponent.class, PrayerComponent.class}, plugins = {"WorldGuard"})
 public class GiantBossArea extends AreaComponent<GiantBossConfig> implements PersistentArena {
 
     @InjectComponent

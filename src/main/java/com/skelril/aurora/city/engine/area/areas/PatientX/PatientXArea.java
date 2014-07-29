@@ -22,8 +22,6 @@ import com.skelril.aurora.util.*;
 import com.skelril.aurora.util.database.IOUtil;
 import com.skelril.aurora.util.player.AdminToolkit;
 import com.skelril.aurora.util.player.PlayerState;
-import com.zachsthings.libcomponents.ComponentInformation;
-import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.InjectComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
@@ -39,8 +37,8 @@ import org.bukkit.util.Vector;
 import java.io.File;
 import java.util.*;
 
-@ComponentInformation(friendlyName = "Patient X Arena", desc = "The mad boss of Ice")
-@Depend(components = {AdminComponent.class}, plugins = {"WorldGuard"})
+//@ComponentInformation(friendlyName = "Patient X Arena", desc = "The mad boss of Ice")
+//@Depend(components = {AdminComponent.class}, plugins = {"WorldGuard"})
 public class PatientXArea extends AreaComponent<PatientXConfig> implements PersistentArena {
 
     @InjectComponent
