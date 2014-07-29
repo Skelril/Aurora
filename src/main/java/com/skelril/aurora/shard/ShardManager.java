@@ -35,12 +35,12 @@ public class ShardManager {
         if (instance == null) {
             instance = create(shard);
         }
-        activeShards.add(instance.getName());
+        activeShards.add(instance.getRegion().getId());
         return instance;
     }
 
     public void unloadShard(ShardInstance instance) {
-        activeShards.remove(instance.getName());
+        activeShards.remove(instance.getRegion().getId());
     }
 
     private ShardInstance searchFor(Shard shard) {

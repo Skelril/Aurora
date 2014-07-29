@@ -8,13 +8,33 @@ package com.skelril.aurora.shard;
 
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
-public interface Shard {
-    public String getName();
+public abstract class Shard {
 
-    public ShardEditor getEditor();
-    public ShardInstance load(ProtectedRegion region);
+    private final String name;
+    private final ShardEditor editor;
+    private int quantity = 0;
 
-    public int getQuantity();
-    public void setQuantity(int amt);
-    public void modifyQuantity(int amt);
+    protected Shard(String name, ShardEditor editor) {
+        this.name = name;
+        this.editor = editor;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public ShardEditor getEditor() {
+        return editor;
+    }
+    public abstract ShardInstance load(ProtectedRegion region);
+
+    public int getQuantity() {
+        return quantity;
+    }
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+    public void modifyQuantity(int quantity) {
+        this.quantity += quantity;
+    }
 }

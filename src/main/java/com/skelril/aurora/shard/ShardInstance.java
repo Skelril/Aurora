@@ -7,10 +7,25 @@
 package com.skelril.aurora.shard;
 
 import com.sk89q.worldedit.entity.Player;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
-public interface ShardInstance {
-    public Shard getMaster();
-    public String getName();
+public abstract class ShardInstance {
 
-    public void teleportTo(Player... player);
+    protected Shard shard;
+    protected ProtectedRegion region;
+
+    public ShardInstance(Shard shard, ProtectedRegion region) {
+        this.shard = shard;
+        this.region = region;
+    }
+
+    public Shard getMaster() {
+        return shard;
+    }
+
+    public ProtectedRegion getRegion() {
+        return region;
+    }
+
+    public abstract void teleportTo(Player... player);
 }
