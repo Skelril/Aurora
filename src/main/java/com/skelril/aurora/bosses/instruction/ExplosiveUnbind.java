@@ -6,34 +6,45 @@
 
 package com.skelril.aurora.bosses.instruction;
 
-import com.skelril.OSBL.bukkit.util.BukkitUtil;
-import com.skelril.OSBL.entity.EntityDetail;
-import com.skelril.OSBL.entity.LocalControllable;
-import com.skelril.OSBL.instruction.InstructionResult;
-import com.skelril.OSBL.instruction.UnbindInstruction;
+import com.skelril.OpenBoss.Boss;
+import com.skelril.OpenBoss.EntityDetail;
+import com.skelril.OpenBoss.InstructionResult;
+import com.skelril.OpenBoss.condition.UnbindCondition;
+import com.skelril.OpenBoss.instruction.UnbindInstruction;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 
-public abstract class ExplosiveUnbind<T extends EntityDetail> extends UnbindInstruction<T> {
+public abstract class ExplosiveUnbind implements UnbindInstruction {
+
+    private final UnbindInstruction next;
 
     private final boolean blockBreak;
     private final boolean fire;
 
     protected ExplosiveUnbind(boolean blockBreak, boolean fire) {
+        this(null, blockBreak, fire);
+    }
+
+    protected ExplosiveUnbind(UnbindInstruction next, boolean blockBreak, boolean fire) {
+        this.next = next;
         this.blockBreak = blockBreak;
         this.fire = fire;
     }
 
-    public abstract float getExplosionStrength(T t);
+    public abstract float getExplosionStrength(EntityDetail t);
 
     @Override
-    public InstructionResult<T, UnbindInstruction<T>> process(LocalControllable<T> controllable) {
-        Entity boss = BukkitUtil.getBukkitEntity(controllable);
-        Location target = boss.getLocation();
-        double x = target.getX();
-        double y = target.getY();
-        double z = target.getZ();
-        boss.getWorld().createExplosion(x, y, z, getExplosionStrength(controllable.getDetail()), fire, blockBreak);
-        return null;
+    public InstructionResult<UnbindInstruction> process(UnbindCondition condition) {
+        Boss boss = condition.getBoss();
+        Entity bossEnt = boss.getEntity();
+        Location target = bossEnt.getLocation();
+
+        target.getWorld().createExplosion(
+                target.getX(), target.getY(), target.getZ(),
+                getExplosionStrength(condition.getBoss().getDetail()),
+                fire,
+                blockBreak
+        );
+        return new InstructionResult<>(next);
     }
 }

@@ -6,7 +6,7 @@
 
 package com.skelril.aurora.bosses.detail;
 
-import com.skelril.OSBL.entity.EntityDetail;
+import com.skelril.OpenBoss.EntityDetail;
 
 public class GenericDetail implements EntityDetail {
 }

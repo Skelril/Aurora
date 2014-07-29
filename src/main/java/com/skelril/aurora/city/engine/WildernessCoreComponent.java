@@ -401,19 +401,19 @@ public class WildernessCoreComponent extends BukkitComponent implements Listener
 
             if (entity instanceof Zombie) {
                 if (ChanceUtil.getChance(config.lostRogueChance)) {
-                    rogue.bind(entity, new WBossDetail(level));
+                    rogue.bind((Zombie) entity, new WBossDetail(level));
                 } else if (ChanceUtil.getChance(config.fearKnightChance)) {
-                    fearKnight.bind(entity, new WBossDetail(level));
+                    fearKnight.bind((Zombie) entity, new WBossDetail(level));
                 }
             } else if (entity instanceof Spider) {
                 if (ChanceUtil.getChance(config.fangzChance)) {
-                    fangz.bind(entity, new WBossDetail(level));
+                    fangz.bind((Spider) entity, new WBossDetail(level));
                 }
             } else if (entity instanceof Skeleton) {
                 if (ChanceUtil.getChance(config.stormBringerChance)) {
-                    stormBringer.bind(entity, new WBossDetail(level));
+                    stormBringer.bind((Skeleton) entity, new WBossDetail(level));
                 } else if (ChanceUtil.getChance(config.graveDiggerChance)) {
-                    graveDigger.bind(entity, new WBossDetail(level));
+                    graveDigger.bind((Skeleton) entity, new WBossDetail(level));
                 }
             }
         }

@@ -7,96 +7,83 @@
 package com.skelril.aurora.bosses;
 
 import com.sk89q.commandbook.CommandBook;
-import com.skelril.OSBL.bukkit.BukkitBossDeclaration;
-import com.skelril.OSBL.bukkit.entity.BukkitBoss;
-import com.skelril.OSBL.bukkit.util.BukkitAttackDamage;
-import com.skelril.OSBL.bukkit.util.BukkitUtil;
-import com.skelril.OSBL.entity.LocalControllable;
-import com.skelril.OSBL.entity.LocalEntity;
-import com.skelril.OSBL.instruction.*;
-import com.skelril.OSBL.util.AttackDamage;
+import com.skelril.OpenBoss.Boss;
+import com.skelril.OpenBoss.BossListener;
+import com.skelril.OpenBoss.BossManager;
+import com.skelril.OpenBoss.EntityDetail;
+import com.skelril.OpenBoss.instruction.processor.BindProcessor;
+import com.skelril.OpenBoss.instruction.processor.DamageProcessor;
+import com.skelril.OpenBoss.instruction.processor.DamagedProcessor;
+import com.skelril.OpenBoss.instruction.processor.UnbindProcessor;
 import com.skelril.aurora.bosses.detail.WBossDetail;
 import com.skelril.aurora.bosses.instruction.HealthPrint;
+import com.skelril.aurora.bosses.instruction.WBindInstruction;
 import com.skelril.aurora.bosses.instruction.WDamageModifier;
+import com.skelril.aurora.bosses.instruction.WDropInstruction;
 import com.skelril.aurora.items.custom.CustomItemCenter;
 import com.skelril.aurora.items.implementations.FearSwordImpl;
-import com.skelril.aurora.modifiers.ModifierType;
 import com.skelril.aurora.util.ChanceUtil;
-import com.skelril.aurora.util.EntityUtil;
-import org.bukkit.Location;
 import org.bukkit.Server;
-import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import static com.skelril.aurora.items.custom.CustomItems.*;
-import static com.skelril.aurora.modifiers.ModifierComponent.getModifierCenter;
 
 public class FearKnight {
     private final CommandBook inst = CommandBook.inst();
     private final Logger log = inst.getLogger();
     private final Server server = CommandBook.server();
 
-    private BukkitBossDeclaration<WBossDetail> fearKnight;
+    private BossManager fearKnight = new BossManager();
 
     public FearKnight() {
-        fearKnight = new BukkitBossDeclaration<WBossDetail>(inst, new SimpleInstructionDispatch<>()) {
-            @Override
-            public boolean matchesBind(LocalEntity entity) {
-                return EntityUtil.nameMatches(BukkitUtil.getBukkitEntity(entity), "Fear Knight");
-            }
-        };
+        //noinspection AccessStaticViaInstance
+        inst.registerEvents(new BossListener(fearKnight));
         setupFearKnight();
     }
 
-    public void bind(Damageable entity, WBossDetail detail) {
-        fearKnight.bind(new BukkitBoss<>(entity, detail));
+    public void bind(Zombie entity, WBossDetail detail) {
+        fearKnight.bind(new Boss(entity, detail));
     }
 
     private void setupFearKnight() {
-        List<BindInstruction<WBossDetail>> bindInstructions = fearKnight.bindInstructions;
-        bindInstructions.add(new BindInstruction<WBossDetail>() {
+        BindProcessor bindProcessor = fearKnight.getBindProcessor();
+        bindProcessor.addInstruction(new WBindInstruction("Fear Knight") {
             @Override
-            public InstructionResult<WBossDetail, BindInstruction<WBossDetail>> process(LocalControllable<WBossDetail> controllable) {
-                Entity anEntity = BukkitUtil.getBukkitEntity(controllable);
-                if (anEntity instanceof LivingEntity) {
-                    ((LivingEntity) anEntity).setCustomName("Fear Knight");
-                    int level = controllable.getDetail().getLevel();
-                    ((LivingEntity) anEntity).setMaxHealth(20 * 30 * level);
-                    ((LivingEntity) anEntity).setHealth(20 * 30 * level);
-
-                    EntityEquipment equipment = ((LivingEntity) anEntity).getEquipment();
-                    equipment.setHelmet(CustomItemCenter.build(GOD_HELMET));
-                    equipment.setHelmetDropChance(.25F);
-                    equipment.setChestplate(CustomItemCenter.build(GOD_CHESTPLATE));
-                    equipment.setChestplateDropChance(.25F);
-                    equipment.setLeggings(CustomItemCenter.build(GOD_LEGGINGS));
-                    equipment.setLeggingsDropChance(.25F);
-                    equipment.setBoots(CustomItemCenter.build(GOD_BOOTS));
-                    equipment.setBootsDropChance(.25F);
-
-                    equipment.setItemInHand(CustomItemCenter.build(FEAR_SWORD));
-                    equipment.setItemInHandDropChance(.001F);
-                }
-                return null;
+            public double getHealth(EntityDetail detail) {
+                return 20 * 30 * WBossDetail.getLevel(detail);
             }
         });
+        bindProcessor.addInstruction(condition -> {
+            LivingEntity anEntity = condition.getBoss().getEntity();
 
-        List<UnbindInstruction<WBossDetail>> unbindInstructions = fearKnight.unbindInstructions;
-        unbindInstructions.add(new UnbindInstruction<WBossDetail>() {
+            EntityEquipment equipment = anEntity.getEquipment();
+            equipment.setHelmet(CustomItemCenter.build(GOD_HELMET));
+            equipment.setHelmetDropChance(.25F);
+            equipment.setChestplate(CustomItemCenter.build(GOD_CHESTPLATE));
+            equipment.setChestplateDropChance(.25F);
+            equipment.setLeggings(CustomItemCenter.build(GOD_LEGGINGS));
+            equipment.setLeggingsDropChance(.25F);
+            equipment.setBoots(CustomItemCenter.build(GOD_BOOTS));
+            equipment.setBootsDropChance(.25F);
+
+            equipment.setItemInHand(CustomItemCenter.build(FEAR_SWORD));
+            equipment.setItemInHandDropChance(.001F);
+            return null;
+        });
+
+        UnbindProcessor unbindProcessor = fearKnight.getUnbindProcessor();
+        unbindProcessor.addInstruction(new WDropInstruction() {
             @Override
-            public InstructionResult<WBossDetail, UnbindInstruction<WBossDetail>> process(LocalControllable<WBossDetail> controllable) {
-                Entity boss = BukkitUtil.getBukkitEntity(controllable);
-                Location target = boss.getLocation();
-                int baseLevel = controllable.getDetail().getLevel();
+            public List<ItemStack> getDrops(EntityDetail detail) {
+                int baseLevel = WBossDetail.getLevel(detail);
                 List<ItemStack> itemStacks = new ArrayList<>();
                 for (int i = 0; i < baseLevel; i++) {
                     ItemStack stack;
@@ -116,81 +103,28 @@ public class FearKnight {
                     itemStacks.add(stack);
                     itemStacks.add(CustomItemCenter.build(PHANTOM_GOLD));
                 }
-                if (getModifierCenter().isActive(ModifierType.DOUBLE_WILD_DROPS)) {
-                    itemStacks.addAll(itemStacks.stream().map(ItemStack::clone).collect(Collectors.toList()));
-                }
-                for (ItemStack itemStack : itemStacks) {
-                    target.getWorld().dropItem(target, itemStack);
-                }
-                return null;
-            }
-        });
-        unbindInstructions.add(new UnbindInstruction<WBossDetail>() {
-            @Override
-            public InstructionResult<WBossDetail, UnbindInstruction<WBossDetail>> process(LocalControllable<WBossDetail> controllable) {
-                Entity boss = BukkitUtil.getBukkitEntity(controllable);
-                Location target = boss.getLocation();
-                double baseLevel = controllable.getDetail().getLevel();
-                List<ItemStack> itemStacks = new ArrayList<>();
                 if (ChanceUtil.getChance(5 * (100 - baseLevel))) {
                     itemStacks.add(CustomItemCenter.build(PHANTOM_HYMN));
                 }
-                if (getModifierCenter().isActive(ModifierType.DOUBLE_WILD_DROPS)) {
-                    itemStacks.addAll(itemStacks.stream().map(ItemStack::clone).collect(Collectors.toList()));
-                }
-                for (ItemStack itemStack : itemStacks) {
-                    target.getWorld().dropItem(target, itemStack);
-                }
-                return null;
-            }
-        });
-        unbindInstructions.add(new UnbindInstruction<WBossDetail>() {
-            @Override
-            public InstructionResult<WBossDetail, UnbindInstruction<WBossDetail>> process(LocalControllable<WBossDetail> controllable) {
-                Entity boss = BukkitUtil.getBukkitEntity(controllable);
-                Location target = boss.getLocation();
-                double baseLevel = controllable.getDetail().getLevel();
-                List<ItemStack> itemStacks = new ArrayList<>();
                 if (ChanceUtil.getChance(10 * (100 - baseLevel))) {
                     itemStacks.add(CustomItemCenter.build(PHANTOM_CLOCK));
                 }
-                if (getModifierCenter().isActive(ModifierType.DOUBLE_WILD_DROPS)) {
-                    itemStacks.addAll(itemStacks.stream().map(ItemStack::clone).collect(Collectors.toList()));
-                }
-                for (ItemStack itemStack : itemStacks) {
-                    target.getWorld().dropItem(target, itemStack);
-                }
-                return null;
+                return itemStacks;
             }
         });
-        List<DamageInstruction<WBossDetail>> damageInstructions = fearKnight.damageInstructions;
-        damageInstructions.add(new WDamageModifier());
+
+        DamageProcessor damageProcessor = fearKnight.getDamageProcessor();
+        damageProcessor.addInstruction(new WDamageModifier());
         FearSwordImpl sword = new FearSwordImpl();
-        damageInstructions.add(new DamageInstruction<WBossDetail>() {
-            @Override
-            public InstructionResult<WBossDetail, DamageInstruction<WBossDetail>> process(LocalControllable<WBossDetail> controllable, LocalEntity entity, AttackDamage damage) {
-                Entity attacker = BukkitUtil.getBukkitEntity(controllable);
-                LivingEntity boss;
-                if (attacker instanceof LivingEntity) {
-                    boss = (LivingEntity) attacker;
-                } else {
-                    return null;
-                }
-                Entity eToHit = BukkitUtil.getBukkitEntity(entity);
-                if (!(eToHit instanceof LivingEntity)) return null;
-                sword.getSpecial(boss, (LivingEntity) eToHit).activate();
-                return null;
-            }
+        damageProcessor.addInstruction(condition -> {
+            LivingEntity boss = condition.getBoss().getEntity();
+            Entity eToHit = condition.getAttacked();
+            if (!(eToHit instanceof LivingEntity)) return null;
+            sword.getSpecial(boss, (LivingEntity) eToHit).activate();
+            return null;
         });
 
-        List<DamagedInstruction<WBossDetail>> damagedInstructions = fearKnight.damagedInstructions;
-        damagedInstructions.add(new HealthPrint<>());
-    }
-
-    private EntityDamageEvent getEvent(AttackDamage damage) {
-        if (damage instanceof BukkitAttackDamage) {
-            return ((BukkitAttackDamage) damage).getBukkitEvent();
-        }
-        return null;
+        DamagedProcessor damagedProcessor = fearKnight.getDamagedProcessor();
+        damagedProcessor.addInstruction(new HealthPrint());
     }
 }

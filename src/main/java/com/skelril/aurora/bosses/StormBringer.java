@@ -7,21 +7,21 @@
 package com.skelril.aurora.bosses;
 
 import com.sk89q.commandbook.CommandBook;
-import com.skelril.OSBL.bukkit.BukkitBossDeclaration;
-import com.skelril.OSBL.bukkit.entity.BukkitBoss;
-import com.skelril.OSBL.bukkit.util.BukkitAttackDamage;
-import com.skelril.OSBL.bukkit.util.BukkitUtil;
-import com.skelril.OSBL.entity.LocalControllable;
-import com.skelril.OSBL.entity.LocalEntity;
-import com.skelril.OSBL.instruction.*;
-import com.skelril.OSBL.util.AttackDamage;
+import com.skelril.OpenBoss.Boss;
+import com.skelril.OpenBoss.BossListener;
+import com.skelril.OpenBoss.BossManager;
+import com.skelril.OpenBoss.EntityDetail;
+import com.skelril.OpenBoss.instruction.processor.BindProcessor;
+import com.skelril.OpenBoss.instruction.processor.DamageProcessor;
+import com.skelril.OpenBoss.instruction.processor.DamagedProcessor;
+import com.skelril.OpenBoss.instruction.processor.UnbindProcessor;
 import com.skelril.aurora.bosses.detail.WBossDetail;
 import com.skelril.aurora.bosses.instruction.HealthPrint;
+import com.skelril.aurora.bosses.instruction.WBindInstruction;
 import com.skelril.aurora.bosses.instruction.WDamageModifier;
+import com.skelril.aurora.bosses.instruction.WDropInstruction;
 import com.skelril.aurora.items.custom.CustomItemCenter;
-import com.skelril.aurora.modifiers.ModifierType;
 import com.skelril.aurora.util.ChanceUtil;
-import com.skelril.aurora.util.EntityUtil;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.entity.*;
@@ -31,55 +31,40 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import static com.skelril.aurora.items.custom.CustomItems.*;
-import static com.skelril.aurora.modifiers.ModifierComponent.getModifierCenter;
 
 public class StormBringer {
     private final CommandBook inst = CommandBook.inst();
     private final Logger log = inst.getLogger();
     private final Server server = CommandBook.server();
 
-    private BukkitBossDeclaration<WBossDetail> stormBringer;
+    private BossManager stormBringer = new BossManager();
 
     public StormBringer() {
-        stormBringer = new BukkitBossDeclaration<WBossDetail>(inst, new SimpleInstructionDispatch<>()) {
-            @Override
-            public boolean matchesBind(LocalEntity entity) {
-                return EntityUtil.nameMatches(BukkitUtil.getBukkitEntity(entity), "Storm Bringer");
-            }
-        };
+        //noinspection AccessStaticViaInstance
+        inst.registerEvents(new BossListener(stormBringer));
         setupFangz();
     }
 
-    public void bind(Damageable entity, WBossDetail detail) {
-        stormBringer.bind(new BukkitBoss<>(entity, detail));
+    public void bind(Skeleton entity, WBossDetail detail) {
+        stormBringer.bind(new Boss(entity, detail));
     }
 
     private void setupFangz() {
-        List<BindInstruction<WBossDetail>> bindInstructions = stormBringer.bindInstructions;
-        bindInstructions.add(new BindInstruction<WBossDetail>() {
+        BindProcessor bindProcessor = stormBringer.getBindProcessor();
+        bindProcessor.addInstruction(new WBindInstruction("Storm Bringer") {
             @Override
-            public InstructionResult<WBossDetail, BindInstruction<WBossDetail>> process(LocalControllable<WBossDetail> controllable) {
-                Entity anEntity = BukkitUtil.getBukkitEntity(controllable);
-                if (anEntity instanceof LivingEntity) {
-                    ((LivingEntity) anEntity).setCustomName("Storm Bringer");
-                    int level = controllable.getDetail().getLevel();
-                    ((LivingEntity) anEntity).setMaxHealth(20 * 30 * level);
-                    ((LivingEntity) anEntity).setHealth(20 * 30 * level);
-                }
-                return null;
+            public double getHealth(EntityDetail detail) {
+                return 20 * 30 * WBossDetail.getLevel(detail);
             }
         });
 
-        List<UnbindInstruction<WBossDetail>> unbindInstructions = stormBringer.unbindInstructions;
-        unbindInstructions.add(new UnbindInstruction<WBossDetail>() {
+        UnbindProcessor unbindProcessor = stormBringer.getUnbindProcessor();
+        unbindProcessor.addInstruction(new WDropInstruction() {
             @Override
-            public InstructionResult<WBossDetail, UnbindInstruction<WBossDetail>> process(LocalControllable<WBossDetail> controllable) {
-                Entity boss = BukkitUtil.getBukkitEntity(controllable);
-                Location target = boss.getLocation();
-                int baseLevel = controllable.getDetail().getLevel();
+            public List<ItemStack> getDrops(EntityDetail detail) {
+                int baseLevel = WBossDetail.getLevel(detail);
                 List<ItemStack> itemStacks = new ArrayList<>();
                 itemStacks.add(CustomItemCenter.build(BAT_BOW));
                 for (int i = baseLevel * ChanceUtil.getRandom(3); i > 0; --i) {
@@ -88,59 +73,43 @@ public class StormBringer {
                 for (int i = baseLevel * ChanceUtil.getRandom(9); i > 0; --i) {
                     itemStacks.add(CustomItemCenter.build(GOD_FISH));
                 }
-                if (getModifierCenter().isActive(ModifierType.DOUBLE_WILD_DROPS)) {
-                    itemStacks.addAll(itemStacks.stream().map(ItemStack::clone).collect(Collectors.toList()));
-                }
-                for (ItemStack itemStack : itemStacks) {
-                    target.getWorld().dropItem(target, itemStack);
-                }
-                return null;
+                return itemStacks;
             }
         });
 
-        List<DamageInstruction<WBossDetail>> damageInstructions = stormBringer.damageInstructions;
-        damageInstructions.add(new WDamageModifier());
-        damageInstructions.add(new DamageInstruction<WBossDetail>() {
-            @Override
-            public InstructionResult<WBossDetail, DamageInstruction<WBossDetail>> process(LocalControllable<WBossDetail> controllable, LocalEntity entity, AttackDamage damage) {
-                Entity boss = BukkitUtil.getBukkitEntity(controllable);
-                Entity eToHit = BukkitUtil.getBukkitEntity(entity);
-                if (!(eToHit instanceof LivingEntity) || !getEvent(damage).getCause().equals(EntityDamageEvent.DamageCause.PROJECTILE)) return null;
-                LivingEntity toHit = (LivingEntity) eToHit;
+        DamageProcessor damageProcessor = stormBringer.getDamageProcessor();
+        damageProcessor.addInstruction(new WDamageModifier());
+        damageProcessor.addInstruction(condition -> {
+            Boss boss = condition.getBoss();
+            Entity eToHit = condition.getAttacked();
+            if (!(eToHit instanceof LivingEntity) || !condition.getEvent().getCause().equals(EntityDamageEvent.DamageCause.PROJECTILE)) return null;
+            LivingEntity toHit = (LivingEntity) eToHit;
 
-                Location target = toHit.getLocation();
-                for (int i = controllable.getDetail().getLevel() * ChanceUtil.getRangedRandom(1, 10); i >= 0; --i) {
-                    server.getScheduler().runTaskLater(inst, () -> {
-                        // Simulate a lightning strike
-                        LightningStrike strike = target.getWorld().strikeLightningEffect(target);
-                        for (Entity e : strike.getNearbyEntities(2, 4, 2)) {
-                            if (!e.isValid() || !(e instanceof LivingEntity)) continue;
-                            // Pig Zombie
-                            if (e instanceof Pig) {
-                                e.getWorld().spawn(e.getLocation(), PigZombie.class);
-                                e.remove();
-                                continue;
-                            }
-                            // Creeper
-                            if (e instanceof Creeper) {
-                                ((Creeper) e).setPowered(true);
-                            }
-                            ((LivingEntity) e).damage(1, boss);
+            Location target = toHit.getLocation();
+            for (int i = WBossDetail.getLevel(boss.getDetail()) * ChanceUtil.getRangedRandom(1, 10); i >= 0; --i) {
+                server.getScheduler().runTaskLater(inst, () -> {
+                    // Simulate a lightning strike
+                    LightningStrike strike = target.getWorld().strikeLightningEffect(target);
+                    for (Entity e : strike.getNearbyEntities(2, 4, 2)) {
+                        if (!e.isValid() || !(e instanceof LivingEntity)) continue;
+                        // Pig Zombie
+                        if (e instanceof Pig) {
+                            e.getWorld().spawn(e.getLocation(), PigZombie.class);
+                            e.remove();
+                            continue;
                         }
-                    }, (5 * (6 + i)));
-                }
-                return null;
+                        // Creeper
+                        if (e instanceof Creeper) {
+                            ((Creeper) e).setPowered(true);
+                        }
+                        ((LivingEntity) e).damage(1, boss.getEntity());
+                    }
+                }, (5 * (6 + i)));
             }
+            return null;
         });
 
-        List<DamagedInstruction<WBossDetail>> damagedInstructions = stormBringer.damagedInstructions;
-        damagedInstructions.add(new HealthPrint<>());
-    }
-
-    private EntityDamageEvent getEvent(AttackDamage damage) {
-        if (damage instanceof BukkitAttackDamage) {
-            return ((BukkitAttackDamage) damage).getBukkitEvent();
-        }
-        return null;
+        DamagedProcessor damagedProcessor = stormBringer.getDamagedProcessor();
+        damagedProcessor.addInstruction(new HealthPrint());
     }
 }

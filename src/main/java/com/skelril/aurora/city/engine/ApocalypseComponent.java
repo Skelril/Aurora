@@ -377,8 +377,8 @@ public class ApocalypseComponent extends BukkitComponent implements Listener {
         T entity = location.getWorld().spawn(location, clazz);
         entity.setCustomName("Apocalyptic Zombie");
         entity.setCustomNameVisible(false);
-        if (ChanceUtil.getChance(config.bossChance)) {
-            bossManager.bind(entity);
+        if (entity instanceof Zombie && ChanceUtil.getChance(config.bossChance)) {
+            bossManager.bind((Zombie) entity);
         }
         return entity;
     }

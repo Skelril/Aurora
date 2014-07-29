@@ -7,28 +7,28 @@
 package com.skelril.aurora.bosses;
 
 import com.sk89q.commandbook.CommandBook;
-import com.skelril.OSBL.bukkit.BukkitBossDeclaration;
-import com.skelril.OSBL.bukkit.entity.BukkitBoss;
-import com.skelril.OSBL.bukkit.util.BukkitAttackDamage;
-import com.skelril.OSBL.bukkit.util.BukkitUtil;
-import com.skelril.OSBL.entity.LocalControllable;
-import com.skelril.OSBL.entity.LocalEntity;
-import com.skelril.OSBL.instruction.*;
-import com.skelril.OSBL.util.AttackDamage;
+import com.skelril.OpenBoss.Boss;
+import com.skelril.OpenBoss.BossListener;
+import com.skelril.OpenBoss.BossManager;
+import com.skelril.OpenBoss.EntityDetail;
+import com.skelril.OpenBoss.instruction.processor.BindProcessor;
+import com.skelril.OpenBoss.instruction.processor.DamageProcessor;
+import com.skelril.OpenBoss.instruction.processor.DamagedProcessor;
+import com.skelril.OpenBoss.instruction.processor.UnbindProcessor;
 import com.skelril.aurora.bosses.detail.WBossDetail;
 import com.skelril.aurora.bosses.instruction.HealthPrint;
+import com.skelril.aurora.bosses.instruction.WBindInstruction;
 import com.skelril.aurora.bosses.instruction.WDamageModifier;
+import com.skelril.aurora.bosses.instruction.WDropInstruction;
 import com.skelril.aurora.items.custom.CustomItemCenter;
-import com.skelril.aurora.modifiers.ModifierType;
 import com.skelril.aurora.util.ChanceUtil;
 import com.skelril.aurora.util.DamageUtil;
 import com.skelril.aurora.util.EntityUtil;
-import org.bukkit.Location;
 import org.bukkit.Server;
-import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.entity.Spider;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -36,11 +36,9 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import static com.skelril.aurora.items.custom.CustomItems.POTION_OF_RESTITUTION;
 import static com.skelril.aurora.items.custom.CustomItems.SCROLL_OF_SUMMATION;
-import static com.skelril.aurora.modifiers.ModifierComponent.getModifierCenter;
 
 public class Fangz {
 
@@ -48,57 +46,41 @@ public class Fangz {
     private final Logger log = inst.getLogger();
     private final Server server = CommandBook.server();
 
-    private BukkitBossDeclaration<WBossDetail> fangz;
+    private BossManager fangz = new BossManager();
 
     public Fangz() {
-        fangz = new BukkitBossDeclaration<WBossDetail>(inst, new SimpleInstructionDispatch<>()) {
-            @Override
-            public boolean matchesBind(LocalEntity entity) {
-                return EntityUtil.nameMatches(BukkitUtil.getBukkitEntity(entity), "Fangz");
-            }
-        };
+        //noinspection AccessStaticViaInstance
+        inst.registerEvents(new BossListener(fangz));
         setupFangz();
     }
 
-    public void bind(Damageable entity, WBossDetail detail) {
-        fangz.bind(new BukkitBoss<>(entity, detail));
+    public void bind(Spider entity, WBossDetail detail) {
+        fangz.bind(new Boss(entity, detail));
     }
 
     private void setupFangz() {
-        List<BindInstruction<WBossDetail>> bindInstructions = fangz.bindInstructions;
-        bindInstructions.add(new BindInstruction<WBossDetail>() {
+        BindProcessor bindProcessor = fangz.getBindProcessor();
+        bindProcessor.addInstruction(new WBindInstruction("Fangz") {
             @Override
-            public InstructionResult<WBossDetail, BindInstruction<WBossDetail>> process(LocalControllable<WBossDetail> controllable) {
-                Entity anEntity = BukkitUtil.getBukkitEntity(controllable);
-                if (anEntity instanceof LivingEntity) {
-                    ((LivingEntity) anEntity).setCustomName("Fangz");
-                    int level = controllable.getDetail().getLevel();
-                    ((LivingEntity) anEntity).setMaxHealth(20 * 50 * level);
-                    ((LivingEntity) anEntity).setHealth(20 * 50 * level);
-                }
-                return null;
+            public double getHealth(EntityDetail detail) {
+                return 20 * 50 * WBossDetail.getLevel(detail);
             }
         });
 
-        List<UnbindInstruction<WBossDetail>> unbindInstructions = fangz.unbindInstructions;
-        unbindInstructions.add(new UnbindInstruction<WBossDetail>() {
-            @Override
-            public InstructionResult<WBossDetail, UnbindInstruction<WBossDetail>> process(LocalControllable<WBossDetail> controllable) {
-                Entity boss = BukkitUtil.getBukkitEntity(controllable);
-                for (Entity aEntity : boss.getNearbyEntities(7, 4, 7)) {
-                    if (!(aEntity instanceof LivingEntity)) continue;
-                    ((LivingEntity) aEntity).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20 * 30, 1), true);
-                    ((LivingEntity) aEntity).addPotionEffect(new PotionEffect(PotionEffectType.POISON, 20 * 30, 1), true);
-                }
-                return null;
+        UnbindProcessor unbindProcessor = fangz.getUnbindProcessor();
+        unbindProcessor.addInstruction(condition -> {
+            Entity boss = condition.getBoss().getEntity();
+            for (Entity aEntity : boss.getNearbyEntities(7, 4, 7)) {
+                if (!(aEntity instanceof LivingEntity)) continue;
+                ((LivingEntity) aEntity).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20 * 30, 1), true);
+                ((LivingEntity) aEntity).addPotionEffect(new PotionEffect(PotionEffectType.POISON, 20 * 30, 1), true);
             }
+            return null;
         });
-        unbindInstructions.add(new UnbindInstruction<WBossDetail>() {
+        unbindProcessor.addInstruction(new WDropInstruction() {
             @Override
-            public InstructionResult<WBossDetail, UnbindInstruction<WBossDetail>> process(LocalControllable<WBossDetail> controllable) {
-                Entity boss = BukkitUtil.getBukkitEntity(controllable);
-                Location target = boss.getLocation();
-                int baseLevel = controllable.getDetail().getLevel();
+            public List<ItemStack> getDrops(EntityDetail detail) {
+                int baseLevel = WBossDetail.getLevel(detail);
                 List<ItemStack> itemStacks = new ArrayList<>();
                 for (int i = baseLevel * ChanceUtil.getRandom(3); i > 0; --i) {
                     itemStacks.add(CustomItemCenter.build(POTION_OF_RESTITUTION));
@@ -106,43 +88,28 @@ public class Fangz {
                 for (int i = baseLevel * ChanceUtil.getRandom(10); i > 0; --i) {
                     itemStacks.add(CustomItemCenter.build(SCROLL_OF_SUMMATION));
                 }
-                if (getModifierCenter().isActive(ModifierType.DOUBLE_WILD_DROPS)) {
-                    itemStacks.addAll(itemStacks.stream().map(ItemStack::clone).collect(Collectors.toList()));
-                }
-                for (ItemStack itemStack : itemStacks) {
-                    target.getWorld().dropItem(target, itemStack);
-                }
-                return null;
+                return itemStacks;
             }
         });
 
-        List<DamageInstruction<WBossDetail>> damageInstructions = fangz.damageInstructions;
-        damageInstructions.add(new WDamageModifier());
-        damageInstructions.add(new DamageInstruction<WBossDetail>() {
-            @Override
-            public InstructionResult<WBossDetail, DamageInstruction<WBossDetail>> process(LocalControllable<WBossDetail> controllable, LocalEntity entity, AttackDamage damage) {
-                Entity boss = BukkitUtil.getBukkitEntity(controllable);
-                Entity eToHit = BukkitUtil.getBukkitEntity(entity);
-                if (!(eToHit instanceof LivingEntity)) return null;
-                LivingEntity toHit = (LivingEntity) eToHit;
+        DamageProcessor damageProcessor = fangz.getDamageProcessor();
+        damageProcessor.addInstruction(new WDamageModifier());
+        damageProcessor.addInstruction(condition -> {
+            LivingEntity boss = condition.getBoss().getEntity();
+            Entity eToHit = condition.getAttacked();
+            if (!(eToHit instanceof LivingEntity)) return null;
+            LivingEntity toHit = (LivingEntity) eToHit;
 
-                DamageUtil.multiplyFinalDamage(getEvent(damage), 2);
-                EntityUtil.heal(boss, damage.getDamage());
+            EntityDamageByEntityEvent event = condition.getEvent();
+            DamageUtil.multiplyFinalDamage(event, 2);
+            EntityUtil.heal(boss, event.getDamage());
 
-                toHit.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20 * 15, 0), true);
-                toHit.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 20 * 15, 0), true);
-                return null;
-            }
+            toHit.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20 * 15, 0), true);
+            toHit.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 20 * 15, 0), true);
+            return null;
         });
 
-        List<DamagedInstruction<WBossDetail>> damagedInstructions = fangz.damagedInstructions;
-        damagedInstructions.add(new HealthPrint<>());
-    }
-
-    private EntityDamageEvent getEvent(AttackDamage damage) {
-        if (damage instanceof BukkitAttackDamage) {
-            return ((BukkitAttackDamage) damage).getBukkitEvent();
-        }
-        return null;
+        DamagedProcessor damagedProcessor = fangz.getDamagedProcessor();
+        damagedProcessor.addInstruction(new HealthPrint());
     }
 }

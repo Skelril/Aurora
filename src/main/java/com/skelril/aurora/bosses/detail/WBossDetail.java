@@ -6,7 +6,7 @@
 
 package com.skelril.aurora.bosses.detail;
 
-import com.skelril.OSBL.entity.EntityDetail;
+import com.skelril.OpenBoss.EntityDetail;
 
 public class WBossDetail implements EntityDetail {
 
@@ -18,5 +18,12 @@ public class WBossDetail implements EntityDetail {
 
     public int getLevel() {
         return level;
+    }
+
+    public static int getLevel(EntityDetail detail) {
+        if (detail instanceof WBossDetail) {
+            return ((WBossDetail) detail).getLevel();
+        }
+        return 1;
     }
 }
