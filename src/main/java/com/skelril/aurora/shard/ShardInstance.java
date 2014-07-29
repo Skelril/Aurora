@@ -28,4 +28,5 @@ public abstract class ShardInstance {
     }
 
     public abstract void teleportTo(Player... player);
+    public abstract boolean isActive();
 }
