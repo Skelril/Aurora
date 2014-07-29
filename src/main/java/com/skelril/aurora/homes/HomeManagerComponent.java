@@ -33,7 +33,6 @@ import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedPolygonalRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import com.skelril.aurora.District;
 import com.skelril.aurora.economic.store.AdminStoreComponent;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.RegionUtil;
@@ -49,7 +48,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
@@ -320,10 +318,6 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
             } else {
                 district = args.getString(0).toLowerCase().replace("-district", "");
             }
-
-            if (!giveRuleBook(sender, sender.getName(), district)) {
-                throw new CommandException("No district by that name found in this world.");
-            }
         }
 
         @Command(aliases = {"buy"}, desc = "Buy a house", min = 0, max = 0, flags = "y")
@@ -382,9 +376,6 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
 
                         econ.withdrawPlayer(player.getName(), price);
                         ChatUtil.sendNotice(player, "Home successfully purchased!");
-
-                        // Give them a home owner's manual :P
-                        giveRuleBook(sender, sender.getName(), region.getParent().getId().replace("-district", ""));
                     } else {
                         throw new CommandException();
                     }
@@ -523,8 +514,6 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
             } catch (ProtectionDatabaseException e) {
                 throw new CommandException("Failed to create the region: " + regionString + ".");
             }
-
-            giveRuleBook(sender, player, district);
 
             ChatUtil.sendNotice(admin, "The home: " + regionString + " has been created successfully in "
                     + district + ".");
@@ -783,64 +772,6 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
 
     public static boolean isPlayerHouse(ProtectedRegion region, Player player) {
         return isPlayerHouse(region, new BukkitPlayer(WorldGuardPlugin.inst(), player));
-    }
-
-    private District getDistrict(String district) {
-
-        district = district.toLowerCase();
-
-        switch (district) {
-            case "carpe-diem":
-                return District.CARPE_DIEM;
-            case "glacies-mare":
-                return District.GLACIES_MARE;
-            case "oblitus":
-                return District.OBLITUS;
-            case "vineam":
-                return District.VINEAM;
-        }
-        return District.GLOBAL;
-    }
-
-    private boolean giveRuleBook(CommandSender sender, String player, String district) {
-
-        district = district.toLowerCase();
-        District aDistrict = getDistrict(district);
-
-        return aDistrict != District.GLOBAL && giveRuleBook(sender, player, aDistrict);
-    }
-
-    private boolean giveRuleBook(CommandSender sender, String player, District district) {
-
-        ItemStack ruleBook;
-        switch (district) {
-            case CARPE_DIEM:
-                ruleBook = BookUtil.Rules.BuildingCode.carpeDiem();
-                break;
-            case GLACIES_MARE:
-                ruleBook = BookUtil.Rules.BuildingCode.glaciesMare();
-                break;
-            case OBLITUS:
-                ruleBook = BookUtil.Rules.BuildingCode.obiluts();
-                break;
-            case VINEAM:
-                ruleBook = BookUtil.Rules.BuildingCode.vineam();
-                break;
-            default:
-                return false;
-        }
-
-        Player tPlayer;
-        try {
-            tPlayer = InputUtil.PlayerParser.matchPlayerExactly(sender, player);
-        } catch (CommandException ex) {
-            tPlayer = null;
-        }
-
-        if (tPlayer == null) return false;
-        tPlayer.getInventory().addItem(BookUtil.Rules.BuildingCode.server());
-        tPlayer.getInventory().addItem(ruleBook);
-        return true;
     }
 
     public class TeleportCommands {
