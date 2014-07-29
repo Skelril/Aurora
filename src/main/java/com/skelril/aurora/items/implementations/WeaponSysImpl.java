@@ -8,6 +8,7 @@ package com.skelril.aurora.items.implementations;
 
 import com.skelril.aurora.events.custom.item.SpecialAttackEvent;
 import com.skelril.aurora.items.CustomItemSession;
+import com.skelril.aurora.items.custom.CustomItems;
 import com.skelril.aurora.items.generic.AbstractItemFeatureImpl;
 import com.skelril.aurora.items.generic.weapons.SpecWeaponImpl;
 import com.skelril.aurora.items.specialattack.SpecType;
@@ -16,7 +17,6 @@ import com.skelril.aurora.util.DamageUtil;
 import com.skelril.aurora.util.extractor.entity.CombatantPair;
 import com.skelril.aurora.util.extractor.entity.EDBEExtractor;
 import com.skelril.aurora.util.item.ItemUtil;
-import com.skelril.aurora.util.item.custom.CustomItems;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;

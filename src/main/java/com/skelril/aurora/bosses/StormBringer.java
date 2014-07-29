@@ -18,10 +18,10 @@ import com.skelril.OSBL.util.AttackDamage;
 import com.skelril.aurora.bosses.detail.WBossDetail;
 import com.skelril.aurora.bosses.instruction.HealthPrint;
 import com.skelril.aurora.bosses.instruction.WDamageModifier;
+import com.skelril.aurora.items.custom.CustomItemCenter;
 import com.skelril.aurora.modifiers.ModifierType;
 import com.skelril.aurora.util.ChanceUtil;
 import com.skelril.aurora.util.EntityUtil;
-import com.skelril.aurora.util.item.custom.CustomItemCenter;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.entity.*;
@@ -33,8 +33,8 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import static com.skelril.aurora.items.custom.CustomItems.*;
 import static com.skelril.aurora.modifiers.ModifierComponent.getModifierCenter;
-import static com.skelril.aurora.util.item.custom.CustomItems.*;
 
 public class StormBringer {
     private final CommandBook inst = CommandBook.inst();

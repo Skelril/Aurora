@@ -6,10 +6,10 @@
 
 package com.skelril.aurora.items.implementations;
 
+import com.skelril.aurora.items.custom.CustomItems;
 import com.skelril.aurora.items.generic.AbstractItemFeatureImpl;
 import com.skelril.aurora.util.EnvironmentUtil;
 import com.skelril.aurora.util.item.ItemUtil;
-import com.skelril.aurora.util.item.custom.CustomItems;
 import com.skelril.aurora.util.timer.IntegratedRunnable;
 import com.skelril.aurora.util.timer.TimedRunnable;
 import org.bukkit.Effect;

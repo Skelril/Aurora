@@ -6,10 +6,10 @@
 
 package com.skelril.aurora.items.implementations;
 
+import com.skelril.aurora.items.custom.CustomItems;
 import com.skelril.aurora.items.generic.AbstractItemFeatureImpl;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.item.ItemUtil;
-import com.skelril.aurora.util.item.custom.CustomItems;
 import org.bukkit.entity.Cow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

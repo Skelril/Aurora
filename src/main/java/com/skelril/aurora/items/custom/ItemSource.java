@@ -4,7 +4,7 @@
  * All Rights Reserved
  */
 
-package com.skelril.aurora.util.item.custom;
+package com.skelril.aurora.items.custom;
 
 public enum ItemSource {
     ENCHANTED_FOREST("Enchanted Forest"),

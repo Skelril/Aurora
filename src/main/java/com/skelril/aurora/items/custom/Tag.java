@@ -4,7 +4,7 @@
  * All Rights Reserved
  */
 
-package com.skelril.aurora.util.item.custom;
+package com.skelril.aurora.items.custom;
 
 import org.bukkit.ChatColor;
 

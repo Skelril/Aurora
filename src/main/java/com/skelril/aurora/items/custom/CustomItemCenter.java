@@ -4,7 +4,7 @@
  * All Rights Reserved
  */
 
-package com.skelril.aurora.util.item.custom;
+package com.skelril.aurora.items.custom;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -17,7 +17,7 @@ import org.bukkit.potion.PotionType;
 import java.util.Collection;
 import java.util.HashMap;
 
-import static com.skelril.aurora.util.item.custom.CustomItems.*;
+import static com.skelril.aurora.items.custom.CustomItems.*;
 
 public class CustomItemCenter {
     private static HashMap<CustomItems, CustomItem> items = new HashMap<>();

@@ -8,9 +8,9 @@ package com.skelril.aurora.util.item;
 
 import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldedit.blocks.ItemID;
+import com.skelril.aurora.items.custom.CustomItemCenter;
+import com.skelril.aurora.items.custom.CustomItems;
 import com.skelril.aurora.util.ChanceUtil;
-import com.skelril.aurora.util.item.custom.CustomItemCenter;
-import com.skelril.aurora.util.item.custom.CustomItems;
 import com.skelril.aurora.util.item.itemstack.SerializableItemStack;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
