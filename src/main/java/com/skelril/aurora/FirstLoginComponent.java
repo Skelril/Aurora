@@ -31,7 +31,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
@@ -185,16 +184,6 @@ public class FirstLoginComponent extends BukkitComponent implements Listener {
         if (blockedPlayers.contains(player)) {
             event.setCancelled(true);
             ChatUtil.sendError(player, "Please stick to the path.");
-        }
-    }
-
-    @EventHandler
-    public void onPlayerConnect(PlayerLoginEvent event) {
-
-        if (event.getHostname().contains("arrowcraft") && event.getResult().equals(PlayerLoginEvent.Result.ALLOWED)) {
-
-            event.setKickMessage("Please use \"server.skelril.com\" from now on.");
-            event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
         }
     }
 
