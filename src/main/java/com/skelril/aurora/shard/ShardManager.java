@@ -30,8 +30,8 @@ public class ShardManager {
         this.rgManager = rgManager;
     }
 
-    public ShardInstance findOrCreateShard(Shard shard) {
-        ShardInstance instance = searchFor(shard);
+    public <T extends ShardInstance> T findOrCreateInstance(Shard<T> shard) {
+        T instance = searchFor(shard);
         if (instance == null) {
             instance = create(shard);
         }
@@ -39,23 +39,23 @@ public class ShardManager {
         return instance;
     }
 
-    public void unloadShard(ShardInstance instance) {
+    public void unloadInstance(ShardInstance instance) {
         activeShards.remove(instance.getRegion().getId());
     }
 
-    private ShardInstance searchFor(Shard shard) {
+    private <T extends ShardInstance> T searchFor(Shard<T> shard) {
         int highestHeld = 0;
         for (Map.Entry<String, ProtectedRegion> entry : rgManager.getRegions().entrySet()) {
             shard.setQuantity(++highestHeld);
             String shardName = shard.getName();
             if (entry.getKey().startsWith(shardName) && !activeShards.contains(shardName)) {
-                return shard.load(entry.getValue());
+                return shard.load(world, entry.getValue());
             }
         }
         return null;
     }
 
-    private ShardInstance create(Shard shard) {
+    private <T extends ShardInstance> T create(Shard<T> shard) {
         ProtectedRegion targetRG;
         Vector nextSearchPt = new Vector(0, 0, 0);
         ShardEditor editor = shard.getEditor();
@@ -64,7 +64,7 @@ public class ShardManager {
             nextSearchPt = nextSearchPt.add(editor.getDimensions().setY(0));
         } while (isCollision(targetRG));
         editor.create(world, targetRG);
-        return shard.load(storeRegion(shard, targetRG));
+        return shard.load(world, storeRegion(shard, targetRG));
     }
 
     private boolean isCollision(ProtectedRegion region) {

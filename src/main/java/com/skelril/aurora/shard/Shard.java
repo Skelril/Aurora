@@ -6,9 +6,10 @@
 
 package com.skelril.aurora.shard;
 
+import com.sk89q.worldedit.world.World;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
-public abstract class Shard {
+public abstract class Shard<T extends ShardInstance> {
 
     private final String name;
     private final ShardEditor editor;
@@ -26,7 +27,7 @@ public abstract class Shard {
     public ShardEditor getEditor() {
         return editor;
     }
-    public abstract ShardInstance load(ProtectedRegion region);
+    public abstract T load(World world, ProtectedRegion region);
 
     public int getQuantity() {
         return quantity;
