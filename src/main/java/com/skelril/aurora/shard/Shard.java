@@ -14,7 +14,7 @@ public abstract class Shard {
     private final ShardEditor editor;
     private int quantity = 0;
 
-    protected Shard(String name, ShardEditor editor) {
+    public Shard(String name, ShardEditor editor) {
         this.name = name;
         this.editor = editor;
     }
