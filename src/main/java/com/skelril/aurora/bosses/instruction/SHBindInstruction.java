@@ -19,7 +19,7 @@ public class SHBindInstruction extends NamedBindInstruction {
         this(null, name, health);
     }
 
-    public SHBindInstruction(BindInstruction next, String name, double health) {
+    public SHBindInstruction(InstructionResult<BindInstruction> next, String name, double health) {
         super(next, name);
         this.health = health;
     }

@@ -18,13 +18,13 @@ import java.util.List;
 
 public abstract class DropInstruction implements UnbindInstruction {
 
-    private final UnbindInstruction next;
+    private final InstructionResult<UnbindInstruction> next;
 
     public DropInstruction() {
         this(null);
     }
 
-    public DropInstruction(UnbindInstruction next) {
+    public DropInstruction(InstructionResult<UnbindInstruction> next) {
         this.next = next;
     }
 
@@ -40,6 +40,6 @@ public abstract class DropInstruction implements UnbindInstruction {
     public InstructionResult<UnbindInstruction> process(UnbindCondition condition) {
         Boss boss = condition.getBoss();
         dropItems(boss.getEntity().getLocation(), getDrops(boss.getDetail()));
-        return new InstructionResult<>(next);
+        return next;
     }
 }

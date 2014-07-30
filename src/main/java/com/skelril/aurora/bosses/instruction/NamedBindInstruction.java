@@ -12,7 +12,8 @@ import com.skelril.OpenBoss.instruction.BindInstruction;
 import org.bukkit.entity.LivingEntity;
 
 public class NamedBindInstruction implements BindInstruction {
-    private final BindInstruction next;
+
+    private final InstructionResult<BindInstruction> next;
 
     private final String name;
 
@@ -20,7 +21,7 @@ public class NamedBindInstruction implements BindInstruction {
         this(null, name);
     }
 
-    protected NamedBindInstruction(BindInstruction next, String name) {
+    protected NamedBindInstruction(InstructionResult<BindInstruction> next, String name) {
         this.next = next;
         this.name = name;
     }
@@ -29,6 +30,6 @@ public class NamedBindInstruction implements BindInstruction {
     public InstructionResult<BindInstruction> process(BindCondition condition) {
         LivingEntity anEntity = condition.getBoss().getEntity();
         anEntity.setCustomName(name);
-        return new InstructionResult<>(next);
+        return next;
     }
 }

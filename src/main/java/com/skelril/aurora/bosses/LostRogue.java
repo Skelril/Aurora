@@ -8,10 +8,7 @@ package com.skelril.aurora.bosses;
 
 import com.sk89q.commandbook.CommandBook;
 import com.sk89q.worldedit.blocks.BlockID;
-import com.skelril.OpenBoss.Boss;
-import com.skelril.OpenBoss.BossListener;
-import com.skelril.OpenBoss.BossManager;
-import com.skelril.OpenBoss.EntityDetail;
+import com.skelril.OpenBoss.*;
 import com.skelril.OpenBoss.instruction.processor.BindProcessor;
 import com.skelril.OpenBoss.instruction.processor.DamageProcessor;
 import com.skelril.OpenBoss.instruction.processor.DamagedProcessor;
@@ -74,7 +71,7 @@ public class LostRogue {
                 return itemStacks;
             }
         };
-        unbindProcessor.addInstruction(new ExplosiveUnbind(instruction, true, false) {
+        unbindProcessor.addInstruction(new ExplosiveUnbind(new InstructionResult<>(instruction), true, false) {
             @Override
             public float getExplosionStrength(EntityDetail detail) {
                 double min = 4;

@@ -19,7 +19,7 @@ public abstract class WBindInstruction extends NamedBindInstruction {
         this(null, name);
     }
 
-    public WBindInstruction(BindInstruction next, String name) {
+    public WBindInstruction(InstructionResult<BindInstruction> next, String name) {
         super(next, name);
     }
 

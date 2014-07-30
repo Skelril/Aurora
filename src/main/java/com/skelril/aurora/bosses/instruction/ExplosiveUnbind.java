@@ -16,7 +16,7 @@ import org.bukkit.entity.Entity;
 
 public abstract class ExplosiveUnbind implements UnbindInstruction {
 
-    private final UnbindInstruction next;
+    private final InstructionResult<UnbindInstruction> next;
 
     private final boolean blockBreak;
     private final boolean fire;
@@ -25,7 +25,7 @@ public abstract class ExplosiveUnbind implements UnbindInstruction {
         this(null, blockBreak, fire);
     }
 
-    protected ExplosiveUnbind(UnbindInstruction next, boolean blockBreak, boolean fire) {
+    protected ExplosiveUnbind(InstructionResult<UnbindInstruction> next, boolean blockBreak, boolean fire) {
         this.next = next;
         this.blockBreak = blockBreak;
         this.fire = fire;
@@ -45,6 +45,6 @@ public abstract class ExplosiveUnbind implements UnbindInstruction {
                 fire,
                 blockBreak
         );
-        return new InstructionResult<>(next);
+        return next;
     }
 }

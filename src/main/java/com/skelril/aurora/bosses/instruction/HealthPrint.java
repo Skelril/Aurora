@@ -19,13 +19,13 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class HealthPrint implements DamagedInstruction {
 
-    private final DamagedInstruction next;
+    private final InstructionResult<DamagedInstruction> next;
 
     public HealthPrint() {
         this(null);
     }
 
-    public HealthPrint(DamagedInstruction next) {
+    public HealthPrint(InstructionResult<DamagedInstruction> next) {
         this.next = next;
     }
 
@@ -41,6 +41,6 @@ public class HealthPrint implements DamagedInstruction {
                 PvMComponent.printHealth((Player) attacker, boss);
             }
         }
-        return new InstructionResult<>(next);
+        return next;
     }
 }

@@ -17,13 +17,13 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class WDamageModifier implements DamageInstruction {
 
-    private final DamageInstruction next;
+    private final InstructionResult<DamageInstruction> next;
 
     public WDamageModifier() {
         this(null);
     }
 
-    public WDamageModifier(DamageInstruction next) {
+    public WDamageModifier(InstructionResult<DamageInstruction> next) {
         this.next = next;
     }
 
@@ -35,7 +35,7 @@ public class WDamageModifier implements DamageInstruction {
         int level = getWLevel(condition.getBoss());
         int addDmg = ChanceUtil.getRandom(ChanceUtil.getRandom(level)) - 1;
         event.setDamage(EntityDamageEvent.DamageModifier.BASE, origDmg + addDmg);
-        return new InstructionResult<>(next);
+        return next;
     }
 
     private int getWLevel(Boss boss) {

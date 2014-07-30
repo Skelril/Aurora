@@ -8,18 +8,13 @@ package com.skelril.aurora.bosses;
 
 import com.sk89q.commandbook.CommandBook;
 import com.sk89q.worldedit.blocks.ItemID;
-import com.skelril.OpenBoss.Boss;
-import com.skelril.OpenBoss.BossListener;
-import com.skelril.OpenBoss.BossManager;
-import com.skelril.OpenBoss.EntityDetail;
+import com.skelril.OpenBoss.*;
 import com.skelril.OpenBoss.instruction.processor.BindProcessor;
 import com.skelril.OpenBoss.instruction.processor.DamageProcessor;
 import com.skelril.OpenBoss.instruction.processor.DamagedProcessor;
 import com.skelril.OpenBoss.instruction.processor.UnbindProcessor;
 import com.skelril.aurora.bosses.detail.GenericDetail;
-import com.skelril.aurora.bosses.instruction.DropInstruction;
-import com.skelril.aurora.bosses.instruction.HealthPrint;
-import com.skelril.aurora.bosses.instruction.SHBindInstruction;
+import com.skelril.aurora.bosses.instruction.*;
 import com.skelril.aurora.util.ChanceUtil;
 import org.bukkit.Location;
 import org.bukkit.Server;
@@ -54,7 +49,7 @@ public class ThunderZombie {
         bindProcessor.addInstruction(new SHBindInstruction("Thor Zombie", 500));
 
         UnbindProcessor unbindProcessor = thunderZombie.getUnbindProcessor();
-        unbindProcessor.addInstruction(new DropInstruction() {
+        DropInstruction instruction = new WDropInstruction() {
             @Override
             public List<ItemStack> getDrops(EntityDetail detail) {
                 List<ItemStack> itemStacks = new ArrayList<ItemStack>();
@@ -63,8 +58,14 @@ public class ThunderZombie {
                 }
                 return itemStacks;
             }
+        };
+        unbindProcessor.addInstruction(new ExplosiveUnbind(new InstructionResult<>(instruction), false, false) {
+            @Override
+            public float getExplosionStrength(EntityDetail detail) {
+                return 4F;
+            }
         });
-
+        
         DamageProcessor damageProcessor = thunderZombie.getDamageProcessor();
         damageProcessor.addInstruction(condition -> {
             Entity boss = condition.getBoss().getEntity();
