@@ -23,7 +23,6 @@ import com.skelril.aurora.city.engine.arena.factory.FactoryFloor;
 import com.skelril.aurora.city.engine.arena.factory.FactoryMech;
 import com.skelril.aurora.city.engine.arena.factory.FactorySmelter;
 import com.skelril.aurora.economic.ImpersonalComponent;
-import com.skelril.aurora.jail.JailComponent;
 import com.skelril.aurora.prayer.PrayerComponent;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.restoration.RestorationUtil;
@@ -58,8 +57,6 @@ public class ArenaComponent extends BukkitComponent implements Listener, Runnabl
 
     @InjectComponent
     private AdminComponent adminComponent;
-    @InjectComponent
-    private JailComponent jailComponent;
     @InjectComponent
     private PrayerComponent prayerComponent;
     @InjectComponent

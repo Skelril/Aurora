@@ -19,7 +19,6 @@ import com.skelril.aurora.events.apocalypse.ApocalypseBedSpawnEvent;
 import com.skelril.aurora.events.apocalypse.ApocalypseLocalSpawnEvent;
 import com.skelril.aurora.homes.EnderPearlHomesComponent;
 import com.skelril.aurora.items.custom.CustomItems;
-import com.skelril.aurora.jail.JailComponent;
 import com.skelril.aurora.util.*;
 import com.skelril.aurora.util.checker.Checker;
 import com.skelril.aurora.util.extractor.entity.CombatantPair;
@@ -61,15 +60,13 @@ import java.util.stream.Collectors;
  * @author Turtle9598
  */
 @ComponentInformation(friendlyName = "Apocalypse", desc = "Sends an invasion force after the residents of the server.")
-@Depend(components = {JailComponent.class, AdminComponent.class, EnderPearlHomesComponent.class})
+@Depend(components = {AdminComponent.class, EnderPearlHomesComponent.class})
 public class ApocalypseComponent extends BukkitComponent implements Listener {
 
     private final CommandBook inst = CommandBook.inst();
     private final Logger log = inst.getLogger();
     private final Server server = CommandBook.server();
 
-    @InjectComponent
-    private JailComponent jailComponent;
     @InjectComponent
     private AdminComponent adminComponent;
     @InjectComponent
@@ -294,7 +291,7 @@ public class ApocalypseComponent extends BukkitComponent implements Listener {
     public List<Player> getApplicable(World world) {
         List<Player> applicablePlayers = new ArrayList<>();
         for (Player player : server.getOnlinePlayers()) {
-            if (!player.getWorld().equals(world) || jailComponent.isJailed(player) || adminComponent.isAdmin(player)) {
+            if (!player.getWorld().equals(world) || adminComponent.isAdmin(player)) {
                 continue;
             }
             applicablePlayers.add(player);

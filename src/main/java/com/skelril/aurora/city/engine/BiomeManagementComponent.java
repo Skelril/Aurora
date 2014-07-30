@@ -11,7 +11,6 @@ import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldedit.blocks.ItemID;
 import com.skelril.aurora.admin.AdminComponent;
 import com.skelril.aurora.events.environment.FrostBiteEvent;
-import com.skelril.aurora.jail.JailComponent;
 import com.skelril.aurora.util.ChanceUtil;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.EnvironmentUtil;
@@ -38,15 +37,13 @@ import java.util.logging.Logger;
  * Author: Turtle9598
  */
 @ComponentInformation(friendlyName = "Biome Management", desc = "Biome Management component.")
-@Depend(plugins = {"Vault"}, components = {JailComponent.class, AdminComponent.class})
+@Depend(plugins = {"Vault"}, components = {AdminComponent.class})
 public class BiomeManagementComponent extends BukkitComponent implements Listener, Runnable {
 
     private final CommandBook inst = CommandBook.inst();
     private final Logger log = inst.getLogger();
     private final Server server = CommandBook.server();
 
-    @InjectComponent
-    private JailComponent jailComponent;
     @InjectComponent
     private AdminComponent adminComponent;
 
@@ -109,8 +106,7 @@ public class BiomeManagementComponent extends BukkitComponent implements Listene
             if (config.enableFrozen
                     && EnvironmentUtil.isFrozenBiome(player.getEyeLocation().getBlock().getBiome())
                     && (held == null || held.getTypeId() != BlockID.TORCH)
-                    && !adminComponent.isAdmin(player)
-                    && !jailComponent.isJailed(player)) {
+                    && !adminComponent.isAdmin(player)) {
 
                 int damage = 5 - player.getEyeLocation().getBlock().getLightLevel();
 
