@@ -81,7 +81,7 @@ public class ThunderZombie {
             return null;
         });
 
-        DamagedProcessor damagedProcessor = new DamagedProcessor();
+        DamagedProcessor damagedProcessor = thunderZombie.getDamagedProcessor();
         damagedProcessor.addInstruction(new HealthPrint());
     }
 }
