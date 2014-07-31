@@ -559,6 +559,8 @@ public class AdminStoreComponent extends BukkitComponent {
                 throw new CommandException(NOT_AVAILIBLE);
             }
 
+            inst.checkPermission(sender, "aurora.admin.adminstore.refund." + itemPricePair.getName());
+
             int amt = 1;
             if (args.hasFlag('a')) {
                 amt = Math.max(1, args.getFlagInteger('a'));
