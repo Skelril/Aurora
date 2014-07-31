@@ -9,6 +9,7 @@ package com.skelril.aurora.economic.store;
 import com.sk89q.commandbook.CommandBook;
 import com.sk89q.commandbook.commands.PaginatedResult;
 import com.sk89q.commandbook.session.SessionComponent;
+import com.sk89q.commandbook.util.InputUtil;
 import com.sk89q.commandbook.util.entity.player.PlayerUtil;
 import com.sk89q.minecraft.util.commands.*;
 import com.sk89q.worldedit.Vector;
@@ -528,6 +529,58 @@ public class AdminStoreComponent extends BukkitComponent {
 
     public class AdminStoreCommands {
 
+        @Command(aliases = {"refund"},
+                usage = "[-a amount] <player> <item name>", desc = "Refund an item",
+                flags = "a:", min = 1)
+        public void buyCmd(CommandContext args, CommandSender sender) throws CommandException {
+
+            Player target;
+
+            int arg = 0;
+
+            if (args.argsLength() < 2) {
+                target = PlayerUtil.checkPlayer(sender);
+            } else {
+                target = InputUtil.PlayerParser.matchSinglePlayer(sender, args.getString(arg++));
+            }
+
+            String itemName = args.getJoinedStrings(arg++).toLowerCase();
+
+            if (!hasItemOfName(itemName)) {
+                ItemType type = ItemType.lookup(itemName);
+                if (type == null) {
+                    throw new CommandException(NOT_AVAILIBLE);
+                }
+                itemName = type.getName();
+            }
+            ItemPricePair itemPricePair = itemDatabase.getItem(itemName);
+
+            if (itemPricePair == null) {
+                throw new CommandException(NOT_AVAILIBLE);
+            }
+
+            int amt = 1;
+            if (args.hasFlag('a')) {
+                amt = Math.max(1, args.getFlagInteger('a'));
+            }
+
+            // Get the items and add them to the inventory
+            ItemStack[] itemStacks = getItem(itemPricePair.getName(), amt);
+            for (ItemStack itemStack : itemStacks) {
+                if (target.getInventory().firstEmpty() == -1) {
+                    target.getWorld().dropItem(target.getLocation(), itemStack);
+                    continue;
+                }
+                target.getInventory().addItem(itemStack);
+            }
+
+            String itemString = ChatColor.BLUE + itemPricePair.getName().toUpperCase() + ChatColor.YELLOW + ".";
+            ChatUtil.sendNotice(sender, target.getName() + " has been given " + amt + " new: " + itemString);
+            if (!sender.equals(target)) {
+                ChatUtil.sendNotice(target, "You have been given " + amt + " new: " + itemString);
+            }
+        }
+
         @Command(aliases = {"log"},
                 usage = "[-i item] [-u user] [-p page]", desc = "Item database logs",
                 flags = "i:u:p:s", min = 0, max = 0)
@@ -656,11 +709,11 @@ public class AdminStoreComponent extends BukkitComponent {
         }
     }
 
-    private static boolean hasItemOfName(String name) {
+    public static boolean hasItemOfName(String name) {
         return names.contains(name.toUpperCase().replace(' ', '_'));
     }
 
-    private static ItemStack[] getItem(String name, int amount) throws CommandException {
+    public static ItemStack[] getItem(String name, int amount) throws CommandException {
 
         name = name.toUpperCase().replace(" ", "_");
 
