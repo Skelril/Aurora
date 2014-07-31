@@ -32,7 +32,6 @@ import com.skelril.aurora.util.timer.IntegratedRunnable;
 import com.skelril.aurora.util.timer.TimedRunnable;
 import com.skelril.aurora.util.timer.TimerUtil;
 import org.bukkit.ChatColor;
-import org.bukkit.Difficulty;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.block.BlockState;
@@ -68,9 +67,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
     private boolean flagged = false;
 
     private double toHeal = 0;
-    private int difficulty = Difficulty.HARD.getValue();
     private List<Location> spawnPts = new ArrayList<>();
-    private List<Location> chestPts = new ArrayList<>();
 
     public ShnugglesPrimeInstance(ShnugglesPrimeShard shard, World world, ProtectedRegion region) {
         super(shard, world, region);
@@ -79,7 +76,6 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
 
     public void probeArea() {
         spawnPts.clear();
-        chestPts.clear();
         BlockVector min = getRegion().getParent().getMinimumPoint();
         BlockVector max = getRegion().getParent().getMaximumPoint();
         int minX = min.getBlockX();
@@ -96,10 +92,6 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                     if (!block.getChunk().isLoaded()) block.getChunk().load();
                     if (block.getTypeId() == BlockID.GOLD_BLOCK) {
                         spawnPts.add(block.getLocation().add(0, 2, 0));
-                        continue;
-                    }
-                    if (block.getTypeId() == BlockID.CHEST) {
-                        chestPts.add(block.getLocation());
                     }
                 }
             }
@@ -201,29 +193,10 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
     }
 
     public void equalize() {
-        // Equalize Boss
-        int diff = getBukkitWorld().getDifficulty().getValue();
-        if (getBukkitWorld().isThundering()) {
-            difficulty = diff + diff;
-        } else {
-            difficulty = diff;
-        }
-        double oldMaxHealth = boss.getMaxHealth();
-        double newMaxHealth = 510 + (difficulty * 80);
-        if (newMaxHealth > oldMaxHealth) {
-            boss.setMaxHealth(newMaxHealth);
-            boss.setHealth(Math.min(boss.getHealth() + (newMaxHealth - oldMaxHealth), newMaxHealth));
-        } else if (newMaxHealth != oldMaxHealth) {
-            boss.setHealth(Math.min(boss.getHealth() + (oldMaxHealth - newMaxHealth), newMaxHealth));
-            boss.setMaxHealth(newMaxHealth);
-        }
         // Equalize Players
         for (Player player : getContained(Player.class)) {
             try {
                 getMaster().getAdmin().standardizePlayer(player);
-                if (player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE)) {
-                    player.damage(32, boss);
-                }
                 if (player.getVehicle() != null) {
                     player.getVehicle().eject();
                     ChatUtil.sendWarning(player, "The boss throws you off!");
@@ -232,10 +205,6 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 logger().warning("The player: " + player.getName() + " may have an unfair advantage.");
             }
         }
-    }
-
-    public int getDifficulty() {
-        return difficulty;
     }
 
     public boolean damageHeals() {
@@ -330,13 +299,13 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                             random.nextDouble() * 1 + 1.3,
                             random.nextDouble() * 3 - 1.5
                     ));
-                    player.setFireTicks(difficulty * 18);
+                    player.setFireTicks(20 * 3);
                 }
                 break;
             case 2:
                 ChatUtil.sendWarning(containedP, "Embrace my corruption!");
                 for (Player player : contained) {
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20 * 12, difficulty > 2 ? 1 : 0));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20 * 12, 1));
                 }
                 break;
             case 3:
@@ -353,7 +322,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                         if (boss.hasLineOfSight(player)) {
                             ChatUtil.sendNotice(player, "Come closer...");
                             player.teleport(boss.getLocation());
-                            player.damage(difficulty * 32, boss);
+                            player.damage(100, boss);
                             // Call this event to notify AntiCheat
                             server().getPluginManager().callEvent(new ThrowPlayerEvent(player));
                             player.setVelocity(new Vector(
@@ -366,7 +335,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                         }
                     }
                     ChatUtil.sendNotice(getContained(1, Player.class), "Now wasn't that fun?");
-                }, 20 * (difficulty == 1 ? 14 : 7));
+                }, 20 * 7);
                 break;
             case 5:
                 if (!damageHeals) {
@@ -378,7 +347,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                             if (!isBossSpawned()) return;
                             ChatUtil.sendNotice(getContained(1, Player.class), "Thank you for your assistance.");
                         }
-                    }, 20 * (difficulty * 5));
+                    }, 20 * 12);
                     break;
                 }
                 runAttack(ChanceUtil.getRandom(OPTION_COUNT));
@@ -386,7 +355,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
             case 6:
                 ChatUtil.sendWarning(containedP, "Fire is your friend...");
                 for (Player player : contained) {
-                    player.setFireTicks(20 * (difficulty * 15));
+                    player.setFireTicks(20 * 30);
                 }
                 break;
             case 7:
@@ -409,9 +378,8 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                     }
                     //Attack
                     if (baskInGlory) {
-                        int dmgFact = difficulty * 3 + 1;
                         spawnPts.stream().filter(pt -> ChanceUtil.getChance(12)).forEach(pt -> {
-                            getBukkitWorld().createExplosion(pt.getX(), pt.getY(), pt.getZ(), dmgFact, false, false);
+                            getBukkitWorld().createExplosion(pt.getX(), pt.getY(), pt.getZ(), 10, false, false);
                         });
                         //Schedule Reset
                         server().getScheduler().runTaskLater(inst(), () -> damageHeals = false, 10);
@@ -419,7 +387,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                     }
                     // Notify if avoided
                     ChatUtil.sendNotice(getContained(1, Player.class), "Gah... Afraid are you friends?");
-                }, 20 * (difficulty == 1 ? 14 : 7));
+                }, 20 * 7);
                 break;
             case 8:
                 ChatUtil.sendWarning(containedP, ChatColor.DARK_RED + "I ask thy lord for aid in this all mighty battle...");
@@ -438,7 +406,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                             e.printStackTrace();
                         }
                     });
-                }, 20 * (difficulty == 1 ? 14 : 7));
+                }, 20 * 7);
                 break;
             case 9:
                 ChatUtil.sendNotice(containedP, ChatColor.DARK_RED, "My minions our time is now!");
@@ -454,7 +422,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                             } else {
                                 entity.damage(realDamage, boss);
                             }
-                            toHeal += realDamage * difficulty * .09;
+                            toHeal += realDamage / 3;
                         }
                         if (TimerUtil.matchesFilter(times + 1, -1, 2)) {
                             ChatUtil.sendNotice(getContained(1, Player.class), ChatColor.DARK_AQUA, "The boss has drawn in: " + (int) toHeal + " health.");
