@@ -9,6 +9,7 @@ package com.skelril.aurora.util;
 import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldedit.blocks.BlockType;
+import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.skelril.aurora.util.checker.RegionChecker;
 import org.bukkit.Location;
@@ -378,5 +379,11 @@ public class LocationUtil {
             if (searchBlock.getRelative(blockFace).getTypeId() == id) return true;
         }
         return false;
+    }
+
+    public static Location getCenter(World world, ProtectedRegion region) {
+        CuboidRegion cRegion = new CuboidRegion(region.getMinimumPoint(), region.getMaximumPoint());
+        com.sk89q.worldedit.Vector center = cRegion.getCenter();
+        return new Location(world, center.getBlockX() + .5, center.getBlockY(), center.getBlockZ() + .5);
     }
 }

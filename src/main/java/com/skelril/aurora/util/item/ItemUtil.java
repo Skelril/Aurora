@@ -142,6 +142,10 @@ public class ItemUtil {
         return itemStacks;
     }
 
+    public static ItemStack[] removeItemOfName(ItemStack[] itemStacks, CustomItems item) {
+        return removeItemOfName(itemStacks, item.getColoredName());
+    }
+
     public static ItemStack[] removeItemOfName(ItemStack[] itemStacks, String name) {
 
         for (int i = 0; i < itemStacks.length; i++) {
@@ -185,6 +189,10 @@ public class ItemUtil {
             ((Player) inventoryHolder).updateInventory();
         }
         return true;
+    }
+
+    public static int countItemsOfName(ItemStack[] itemStacks, CustomItems item) {
+        return countItemsOfName(itemStacks, item.getColoredName());
     }
 
     public static int countItemsOfName(ItemStack[] itemStacks, String name) {

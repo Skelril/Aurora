@@ -10,19 +10,19 @@ import com.sk89q.worldedit.entity.Player;
 import com.sk89q.worldedit.world.World;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
-public abstract class ShardInstance {
+public abstract class ShardInstance<K extends Shard> {
 
-    protected Shard shard;
+    protected K shard;
     protected World world;
     protected ProtectedRegion region;
 
-    public ShardInstance(Shard shard, World world, ProtectedRegion region) {
+    public ShardInstance(K shard, World world, ProtectedRegion region) {
         this.shard = shard;
         this.world = world;
         this.region = region;
     }
 
-    public Shard getMaster() {
+    public K getMaster() {
         return shard;
     }
 
