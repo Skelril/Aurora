@@ -193,10 +193,14 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
     }
 
     public void equalize() {
+        flagged = false;
         // Equalize Players
         for (Player player : getContained(Player.class)) {
             try {
                 getMaster().getAdmin().standardizePlayer(player);
+                if (player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE)) {
+                    flagged = true;
+                }
                 if (player.getVehicle() != null) {
                     player.getVehicle().eject();
                     ChatUtil.sendWarning(player, "The boss throws you off!");
@@ -271,7 +275,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
             if ((attackCase == 5 || attackCase == 9) && boss.getHealth() > boss.getMaxHealth() * .9) {
                 attackCase = ChanceUtil.getChance(2) ? 8 : 2;
             }
-            if (flagged && ChanceUtil.getChance(2)) {
+            if (flagged && ChanceUtil.getChance(4)) {
                 attackCase = ChanceUtil.getChance(2) ? 4 : 7;
             }
             for (Player player : contained) {
