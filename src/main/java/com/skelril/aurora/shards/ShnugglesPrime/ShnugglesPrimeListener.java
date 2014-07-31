@@ -29,11 +29,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.PotionEffectType;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -75,22 +71,6 @@ public class ShnugglesPrimeListener extends ShardListener<ShnugglesPrime> {
         ShnugglesPrimeInstance inst = shard.getInstance(event.getPlayer().getLocation());
         if (inst != null) {
             event.setCancelled(true);
-        }
-    }
-
-    @EventHandler(ignoreCancelled = true)
-    public void onConsume(PlayerItemConsumeEvent event) {
-        Player player = event.getPlayer();
-        ShnugglesPrimeInstance inst = shard.getInstance(player.getLocation());
-        if (inst != null) {
-            ItemStack stack = event.getItem();
-            if (stack.getItemMeta() instanceof PotionMeta) {
-                PotionMeta pMeta = (PotionMeta) stack.getItemMeta();
-                if (pMeta.hasCustomEffect(PotionEffectType.DAMAGE_RESISTANCE)) {
-                    ChatUtil.sendWarning(player, "You find yourself unable to drink the potion.");
-                    event.setCancelled(true);
-                }
-            }
         }
     }
 
