@@ -17,6 +17,7 @@ import com.skelril.aurora.prayer.PrayerComponent;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.logging.Logger;
 
@@ -44,8 +45,8 @@ public abstract class AbstractItemFeatureImpl implements Listener {
         return sessions.getSession(CustomItemSession.class, player);
     }
 
-    protected SpecialAttackEvent callSpec(Player owner, SpecType context, SpecialAttack spec) {
-        SpecialAttackEvent event = new SpecialAttackEvent(owner, context, spec);
+    protected SpecialAttackEvent callSpec(Player owner, ItemStack weapon, SpecType context, SpecialAttack spec) {
+        SpecialAttackEvent event = new SpecialAttackEvent(owner, context, weapon, spec);
         server.getPluginManager().callEvent(event);
         return event;
     }

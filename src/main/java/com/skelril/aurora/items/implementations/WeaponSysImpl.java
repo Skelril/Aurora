@@ -82,40 +82,36 @@ public class WeaponSysImpl extends AbstractItemFeatureImpl {
 
             CustomItemSession session = getSession(owner);
 
-            SpecType specType = null;
+            Map<CustomItems, SpecWeaponImpl> weaponMap;
+
+            ItemStack weapon;
+            SpecType specType;
+
             SpecialAttack spec = null;
 
             if (launcher != null) {
-
+                weapon = launcher;
                 specType = SpecType.RANGED;
-
-                for (Map.Entry<CustomItems, SpecWeaponImpl> entry : rangedWeapons.entrySet()) {
-                    if (ItemUtil.isItem(launcher, entry.getKey())) {
-                        SpecWeaponImpl impl = entry.getValue();
-                        if (impl.activate()) {
-                            spec = entry.getValue().getSpecial(owner, target);
-                        }
-                        break;
-                    }
-                }
+                weaponMap = rangedWeapons;
             } else {
-
+                weapon = owner.getItemInHand();
                 specType = SpecType.MELEE;
+                weaponMap = meleeWeapons;
+            }
 
-                for (Map.Entry<CustomItems, SpecWeaponImpl> entry : meleeWeapons.entrySet()) {
-                    if (ItemUtil.isHoldingItem(owner, entry.getKey())) {
-                        SpecWeaponImpl impl = entry.getValue();
-                        if (impl.activate()) {
-                            spec = entry.getValue().getSpecial(owner, target);
-                        }
-                        break;
+            for (Map.Entry<CustomItems, SpecWeaponImpl> entry : weaponMap.entrySet()) {
+                if (ItemUtil.isItem(weapon, entry.getKey())) {
+                    SpecWeaponImpl impl = entry.getValue();
+                    if (impl.activate()) {
+                        spec = entry.getValue().getSpecial(owner, target);
                     }
+                    break;
                 }
             }
 
             if (spec != null && session.canSpec(specType)) {
 
-                SpecialAttackEvent specEvent = callSpec(owner, specType, spec);
+                SpecialAttackEvent specEvent = callSpec(owner, weapon, specType, spec);
 
                 if (!specEvent.isCancelled()) {
                     session.updateSpec(specType, specEvent.getSpec().getCoolDown());

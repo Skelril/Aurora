@@ -13,20 +13,23 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class SpecialAttackEvent extends PlayerEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled = false;
+    private final ItemStack weapon;
     private final SpecType context;
     private SpecialAttack spec;
 
-    public SpecialAttackEvent(final Player owner, final SpecType context, final SpecialAttack spec) {
+    public SpecialAttackEvent(final Player owner, final SpecType context, final ItemStack weapon, final SpecialAttack spec) {
 
         super(owner);
 
         Validate.isTrue(owner.equals(spec.getOwner()), "The owner and the spec owner must match!");
 
+        this.weapon = weapon;
         this.context = context;
         this.spec = spec;
     }
@@ -34,6 +37,10 @@ public class SpecialAttackEvent extends PlayerEvent implements Cancellable {
     public SpecType getContext() {
 
         return context;
+    }
+
+    public ItemStack getWeapon() {
+        return weapon.clone();
     }
 
     public SpecialAttack getSpec() {
