@@ -9,7 +9,9 @@ package com.skelril.aurora.shard;
 import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.session.ClipboardHolder;
 
+import java.io.IOException;
+
 public interface ShardSchematic {
-    public ClipboardHolder getHolder();
+    public ClipboardHolder getHolder() throws IOException;
     public Vector getDimensions();
 }

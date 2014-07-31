@@ -24,7 +24,7 @@ import java.util.Set;
 @TemplateComponent
 public abstract class ShardComponent<A extends Shard<T>, T extends ShardInstance> extends BukkitComponent {
 
-    private WorldEditPlugin WE;
+    protected WorldEditPlugin WE;
 
     @InjectComponent
     protected ShardManagerComponent manager;

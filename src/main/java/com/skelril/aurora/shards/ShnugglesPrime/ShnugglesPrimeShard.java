@@ -60,9 +60,11 @@ public class ShnugglesPrimeShard extends Shard<ShnugglesPrimeInstance> {
 
     private BossManager manager = new BossManager();
 
-    public ShnugglesPrimeShard(String name, ShardEditor editor) {
+    public ShnugglesPrimeShard(String name, ShardEditor editor, AdminComponent admin, PrayerComponent prayers) {
         super(name, editor);
         setUpManager();
+        ShnugglesPrimeShard.admin = admin;
+        ShnugglesPrimeShard.prayers = prayers;
     }
 
     public AdminComponent getAdmin() {

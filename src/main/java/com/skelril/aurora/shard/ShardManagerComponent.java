@@ -18,13 +18,12 @@ public class ShardManagerComponent extends BukkitComponent {
 
     private WorldGuardPlugin WG;
     private ShardManager manager;
-    private World shardWorld;
+    private BukkitWorld shardWorld;
 
     @Override
     public void enable() {
-        shardWorld = Bukkit.getWorld("Dungeon");
-        BukkitWorld world = new BukkitWorld(shardWorld);
-        manager = new ShardManager(world, WG.getRegionManager(shardWorld));
+        shardWorld = new BukkitWorld(Bukkit.getWorld("Dungeon"));
+        manager = new ShardManager(shardWorld, WG.getRegionManager(shardWorld.getWorld()));
     }
 
     public ShardManager getManager() {
@@ -32,6 +31,10 @@ public class ShardManagerComponent extends BukkitComponent {
     }
 
     public World getShardWorld() {
+        return shardWorld.getWorld();
+    }
+
+    public com.sk89q.worldedit.world.World getShardWEWorld() {
         return shardWorld;
     }
 }
