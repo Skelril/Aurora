@@ -30,6 +30,11 @@ import org.bukkit.projectiles.ProjectileSource;
 
 public class FearBowImpl extends AbstractItemFeatureImpl implements SpecWeaponImpl {
     @Override
+    public boolean activate() {
+        return true;
+    }
+
+    @Override
     public SpecialAttack getSpecial(LivingEntity owner, LivingEntity target) {
         switch (ChanceUtil.getRandom(5)) {
             case 1:

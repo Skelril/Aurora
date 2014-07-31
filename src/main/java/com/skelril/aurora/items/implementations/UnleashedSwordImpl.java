@@ -20,6 +20,11 @@ import org.bukkit.entity.LivingEntity;
 
 public class UnleashedSwordImpl extends AbstractItemFeatureImpl implements SpecWeaponImpl {
     @Override
+    public boolean activate() {
+        return true;
+    }
+
+    @Override
     public SpecialAttack getSpecial(LivingEntity owner, LivingEntity target) {
         switch (ChanceUtil.getRandom(6)) {
             case 1:
