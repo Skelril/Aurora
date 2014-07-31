@@ -7,20 +7,18 @@
 package com.skelril.aurora.shard;
 
 import com.sk89q.worldedit.EditSession;
-import com.sk89q.worldedit.EditSessionFactory;
 import com.sk89q.worldedit.MaxChangedBlocksException;
 import com.sk89q.worldedit.Vector;
+import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.function.operation.Operation;
 import com.sk89q.worldedit.function.operation.Operations;
 import com.sk89q.worldedit.world.World;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 public class ShardEditor {
-    private EditSessionFactory factory;
     private ShardSchematic resolver;
 
-    public ShardEditor(EditSessionFactory factory, ShardSchematic resolver) {
-        this.factory = factory;
+    public ShardEditor(ShardSchematic resolver) {
         this.resolver = resolver;
     }
 
@@ -30,7 +28,7 @@ public class ShardEditor {
 
     public void create(World world, ProtectedRegion region) {
 
-        EditSession transaction = factory.getEditSession(world, -1);
+        EditSession transaction = WorldEdit.getInstance().getEditSessionFactory().getEditSession(world, -1);
 
         Operation operation = resolver.getHolder()
                 .createPaste(transaction, transaction.getWorld().getWorldData())
