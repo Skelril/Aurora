@@ -35,4 +35,5 @@ public abstract class ShardInstance<K extends Shard> {
 
     public abstract void teleportTo(Player... player);
     public abstract boolean isActive();
+    public abstract void cleanUp();
 }

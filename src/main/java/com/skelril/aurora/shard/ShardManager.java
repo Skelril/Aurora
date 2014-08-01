@@ -40,6 +40,7 @@ public class ShardManager {
     }
 
     public void unloadInstance(ShardInstance instance) {
+        instance.cleanUp();
         activeShards.remove(instance.getRegion().getId());
     }
 
