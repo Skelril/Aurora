@@ -68,8 +68,8 @@ public class FishingComponent extends BukkitComponent implements Listener {
         public boolean enableArrowFishing = true;
         @Setting("minimum-bow-force")
         public double minBowForce = .85;
-        @Setting("fish-drop-chance")
-        public int fishDropChance = 16;
+        @Setting("fish-drop-chance-sq")
+        public int fishDropChance = 4;
     }
 
     // Native American Crops
@@ -236,13 +236,14 @@ public class FishingComponent extends BukkitComponent implements Listener {
         if (event.hasLaunchForce()) {
 
             Player shooter = arrow.getShooter() instanceof Player ? (Player) arrow.getShooter() : null;
-            dropFish = ChanceUtil.getRandom(dropFish);
 
             if (shooter != null && inst.hasPermission(shooter, "aurora.fishing.arrow.master")) {
-                dropFish = (int) Math.sqrt(dropFish);
+                dropFish = ChanceUtil.getRandom(dropFish);
+            } else {
+                dropFish = ChanceUtil.getRandom((int) Math.pow(dropFish, 2));
             }
         } else {
-            dropFish = ChanceUtil.getRandom(dropFish * dropFish);
+            dropFish = ChanceUtil.getRandom((int) Math.pow(dropFish, 3));
         }
 
         if (ChanceUtil.getChance(dropFish) && EnvironmentUtil.isWater(loc.getBlock())) {

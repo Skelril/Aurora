@@ -31,7 +31,7 @@ public class ChanceActivationEvent extends PlayerEvent implements Cancellable {
 
     /**
      * Returns a {@link com.skelril.aurora.events.custom.item.ChanceActivationEvent.ChanceType}
-     * representing the general concept this chance is being evaulated for.
+     * representing the general concept this chance is being evaluated for.
      *
      * @return the type of chance
      */
