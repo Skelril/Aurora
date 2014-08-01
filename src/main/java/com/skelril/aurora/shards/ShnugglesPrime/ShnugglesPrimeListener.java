@@ -7,6 +7,7 @@
 package com.skelril.aurora.shards.ShnugglesPrime;
 
 import com.skelril.aurora.events.PrayerApplicationEvent;
+import com.skelril.aurora.events.custom.item.ChanceActivationEvent;
 import com.skelril.aurora.events.custom.item.SpecialAttackEvent;
 import com.skelril.aurora.events.environment.CreepSpeakEvent;
 import com.skelril.aurora.events.shard.PartyActivateEvent;
@@ -116,6 +117,18 @@ public class ShnugglesPrimeListener extends ShardListener<ShnugglesPrime> {
         }
         if (generalBlacklistedSpecs.contains(specClass)) {
             event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onChanceActivation(ChanceActivationEvent event) {
+        ShnugglesPrimeInstance inst = shard.getInstance(event.getWhere());
+        if (inst == null) return;
+        switch (event.getType()) {
+            case WEAPON:
+            case ARMOR:
+                event.increaseChance(10);
+                break;
         }
     }
 
