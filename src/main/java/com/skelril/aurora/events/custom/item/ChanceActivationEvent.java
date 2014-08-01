@@ -23,10 +23,48 @@ public class ChanceActivationEvent extends PlayerEvent implements Cancellable {
         setChance(chance);
     }
 
+    /**
+     * Gets the chance divisor. If the chance is 1/50,
+     * this will return 50.
+     *
+     * @return the divisor of the chance
+     */
     public int getChance() {
         return chance;
     }
 
+    /**
+     * Takes the provided argument, and increases the chance by that
+     * amount. For example, if the current chance is 20, and you supply
+     * 5, the new chance will be 15.
+     *
+     * @param amt the amount to subtract from the current chance
+     * @return {@link ChanceActivationEvent#getChance()}
+     */
+    public int increaseChance(int amt) {
+        chance = Math.max(1, chance - amt);
+        return chance;
+    }
+
+    /**
+     * Takes the provided argument, and decreases the chance by that
+     * amount. For example, if the current chance is 20, and you supply
+     * 5, the new chance will be 25.
+     *
+     * @param amt the amount to subtract from the current chance
+     * @return {@link ChanceActivationEvent#getChance()}
+     */
+    public int decreaseChance(int amt) {
+        chance = Math.max(1, chance + amt);
+        return chance;
+    }
+
+    /**
+     * Sets the chance divisor. Supplying 20 for example,
+     * will result in a 1/20 chance.
+     *
+     * @param chance the new divisor
+     */
     public void setChance(int chance) {
         Validate.isTrue(chance > 0, "Chance must be greater than 0.");
         this.chance = chance;
