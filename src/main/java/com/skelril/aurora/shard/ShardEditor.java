@@ -15,6 +15,8 @@ import com.sk89q.worldedit.function.operation.Operations;
 import com.sk89q.worldedit.world.World;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
+import java.io.IOException;
+
 public class ShardEditor {
     private ShardSchematic resolver;
 
@@ -30,13 +32,15 @@ public class ShardEditor {
 
         EditSession transaction = WorldEdit.getInstance().getEditSessionFactory().getEditSession(world, -1);
 
-        Operation operation = resolver.getHolder()
-                .createPaste(transaction, transaction.getWorld().getWorldData())
-                .to(region.getMinimumPoint())
-                .build();
+        Operation operation;
         try {
+            operation = resolver.getHolder()
+                    .createPaste(transaction, transaction.getWorld().getWorldData())
+                    .to(region.getMinimumPoint())
+                    .build();
+
             Operations.completeLegacy(operation);
-        } catch (MaxChangedBlocksException e) {
+        } catch (IOException | MaxChangedBlocksException e) {
             e.printStackTrace();
             transaction.undo(transaction);
         }
