@@ -157,24 +157,12 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
 
     public boolean isBossSpawned() {
         if (!isActive()) return true;
-        boolean found = false;
-        boolean second = false;
-        for (Giant e : getContained(Giant.class)) {
-            if (e.isValid()) {
-                if (!found) {
-                    boss = e;
-                    found = true;
-                } else if (e.getHealth() < boss.getHealth()) {
-                    boss = e;
-                    second = true;
-                } else {
-                    e.remove();
-                }
+        getContained(Giant.class).stream().filter(Entity::isValid).forEach(e -> {
+            Boss b = getMaster().getBossManager().updateLookup(e);
+            if (b == null) {
+                e.remove();
             }
-        }
-        if (second) {
-            getContained(Giant.class).stream().filter(e -> e.isValid() && !e.equals(boss)).forEach(Entity::remove);
-        }
+        });
         return boss != null && boss.isValid();
     }
 
