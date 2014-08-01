@@ -14,6 +14,7 @@ import com.skelril.aurora.shards.ShardComponent;
 import com.zachsthings.libcomponents.InjectComponent;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 import static com.sk89q.commandbook.CommandBook.registerEvents;
 
@@ -46,12 +47,15 @@ public class ShnugglesPrime extends ShardComponent<ShnugglesPrimeShard, Shnuggle
 
     @Override
     public void run() {
-        for (ShnugglesPrimeInstance instance : instances) {
-            if (instance.isActive()) {
-                instance.run();
-            } else {
-                manager.getManager().unloadInstance(instance);
+        Iterator<ShnugglesPrimeInstance> it = instances.iterator();
+        while (it.hasNext()) {
+            ShnugglesPrimeInstance next = it.next();
+            if (next.isActive()) {
+                next.run();
+                continue;
             }
+            manager.getManager().unloadInstance(next);
+            it.remove();
         }
     }
 }
