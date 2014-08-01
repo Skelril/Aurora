@@ -120,6 +120,14 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
     }
 
     @Override
+    public void cleanUp() {
+        if (boss != null && boss.isValid()) {
+            boss.remove();
+        }
+        removeMobs();
+    }
+
+    @Override
     public void run() {
         if (!isBossSpawned()) {
             if (lastDeath == 0 || System.currentTimeMillis() - lastDeath >= 1000 * 60 * 3) {
@@ -143,7 +151,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
     }
 
     public void removeMobs() {
-        getContained(1, Monster.class).forEach(e -> {
+        getContained(Monster.class).forEach(e -> {
             for (int i = 0; i < 20; i++) getBukkitWorld().playEffect(e.getLocation(), Effect.SMOKE, 0);
             e.remove();
         });
