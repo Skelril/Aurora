@@ -17,10 +17,26 @@ public class ChanceActivationEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled = false;
     private int chance;
+    private final ChanceType type;
 
     public ChanceActivationEvent(Player who, int chance) {
+        this(who, chance, ChanceType.GENERIC);
+    }
+
+    public ChanceActivationEvent(Player who, int chance, ChanceType type) {
         super(who);
         setChance(chance);
+        this.type = type;
+    }
+
+    /**
+     * Returns a {@link com.skelril.aurora.events.custom.item.ChanceActivationEvent.ChanceType}
+     * representing the general concept this chance is being evaulated for.
+     *
+     * @return the type of chance
+     */
+    public ChanceType getType() {
+        return type;
     }
 
     /**
@@ -68,6 +84,12 @@ public class ChanceActivationEvent extends PlayerEvent implements Cancellable {
     public void setChance(int chance) {
         Validate.isTrue(chance > 0, "Chance must be greater than 0.");
         this.chance = chance;
+    }
+
+    public static enum ChanceType {
+        GENERIC,
+        WEAPON,
+        ARMOR
     }
 
     @Override
