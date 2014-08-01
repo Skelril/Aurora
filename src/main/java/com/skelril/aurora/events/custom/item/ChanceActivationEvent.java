@@ -8,6 +8,7 @@ package com.skelril.aurora.events.custom.item;
 
 import com.sk89q.worldedit.event.Cancellable;
 import net.minecraft.util.org.apache.commons.lang3.Validate;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
@@ -17,14 +18,20 @@ public class ChanceActivationEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled = false;
     private int chance;
+    private final Location where;
     private final ChanceType type;
 
     public ChanceActivationEvent(Player who, int chance) {
-        this(who, chance, ChanceType.GENERIC);
+        this(who, who.getLocation(), chance, ChanceType.GENERIC);
     }
 
-    public ChanceActivationEvent(Player who, int chance, ChanceType type) {
+    public ChanceActivationEvent(Player who, Location where, int chance) {
+        this(who, where, chance, ChanceType.GENERIC);
+    }
+
+    public ChanceActivationEvent(Player who, Location where, int chance, ChanceType type) {
         super(who);
+        this.where = where;
         setChance(chance);
         this.type = type;
     }
@@ -37,6 +44,15 @@ public class ChanceActivationEvent extends PlayerEvent implements Cancellable {
      */
     public ChanceType getType() {
         return type;
+    }
+
+    /**
+     * The location where this event is applicable.
+     *
+     * @return a copy of the {@link org.bukkit.Location} where the event is taking place
+     */
+    public Location getWhere() {
+        return where.clone();
     }
 
     /**
