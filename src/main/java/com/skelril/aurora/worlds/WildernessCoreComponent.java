@@ -13,7 +13,7 @@ import com.sk89q.commandbook.util.entity.player.PlayerUtil;
 import com.sk89q.minecraft.util.commands.*;
 import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldguard.bukkit.WGBukkit;
-import com.skelril.aurora.SacrificeComponent;
+import com.skelril.aurora.WishingWellComponent;
 import com.skelril.aurora.admin.AdminComponent;
 import com.skelril.aurora.admin.AdminState;
 import com.skelril.aurora.bosses.*;
@@ -524,7 +524,7 @@ public class WildernessCoreComponent extends BukkitComponent implements Listener
             }
 
             drops.addAll(
-                    SacrificeComponent.getCalculatedLoot(server.getConsoleSender(), 1, Math.pow(level, 2) * 64)
+                    WishingWellComponent.getCalculatedLoot(server.getConsoleSender(), 1, Math.pow(level, 2) * 64)
             );
             if (getModifierCenter().isActive(ModifierType.DOUBLE_WILD_DROPS)) {
                 drops.addAll(drops.stream().map(ItemStack::clone).collect(Collectors.toList()));

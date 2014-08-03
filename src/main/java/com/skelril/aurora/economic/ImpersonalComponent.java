@@ -10,7 +10,7 @@ import com.sk89q.commandbook.CommandBook;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import com.skelril.aurora.events.PlayerSacrificeItemEvent;
+import com.skelril.aurora.events.wishingwell.PlayerItemWishEvent;
 import com.zachsthings.libcomponents.ComponentInformation;
 import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
@@ -72,7 +72,7 @@ public class ImpersonalComponent extends BukkitComponent implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onSacrifice(PlayerSacrificeItemEvent event) {
+    public void onSacrifice(PlayerItemWishEvent event) {
 
         if (!check(event.getBlock(), false)) {
             event.setCancelled(true);

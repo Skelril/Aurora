@@ -17,7 +17,8 @@ import com.sk89q.minecraft.util.commands.NestedCommand;
 import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldedit.blocks.ItemID;
 import com.skelril.aurora.economic.store.AdminStoreComponent;
-import com.skelril.aurora.events.PlayerSacrificeItemEvent;
+import com.skelril.aurora.events.wishingwell.PlayerAttemptItemWishEvent;
+import com.skelril.aurora.events.wishingwell.PlayerItemWishEvent;
 import com.skelril.aurora.exceptions.UnsupportedPrayerException;
 import com.skelril.aurora.items.custom.CustomItemCenter;
 import com.skelril.aurora.items.custom.CustomItems;
@@ -26,21 +27,12 @@ import com.skelril.aurora.prayer.PrayerComponent;
 import com.skelril.aurora.prayer.PrayerType;
 import com.skelril.aurora.util.ChanceUtil;
 import com.skelril.aurora.util.ChatUtil;
-import com.skelril.aurora.util.EnvironmentUtil;
-import com.skelril.aurora.util.LocationUtil;
 import com.skelril.aurora.util.item.ItemUtil;
 import com.zachsthings.libcomponents.ComponentInformation;
 import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.InjectComponent;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
-import com.zachsthings.libcomponents.config.ConfigurationBase;
-import com.zachsthings.libcomponents.config.Setting;
-import org.bukkit.ChatColor;
-import org.bukkit.Effect;
-import org.bukkit.Location;
 import org.bukkit.Server;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Chest;
 import org.bukkit.command.CommandSender;
@@ -50,10 +42,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -63,9 +53,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-@ComponentInformation(friendlyName = "Sacrifice", desc = "Sacrifice! Sacrifice! Sacrifice!")
+import static com.zachsthings.libcomponents.bukkit.BasePlugin.callEvent;
+
+@ComponentInformation(friendlyName = "Wishing Well", desc = "Please be a lucky penny!")
 @Depend(components = {SessionComponent.class, PrayerComponent.class})
-public class SacrificeComponent extends BukkitComponent implements Listener, Runnable {
+public class WishingWellComponent extends BukkitComponent implements Listener {
 
     private static final CommandBook inst = CommandBook.inst();
     private final Logger log = inst.getLogger();
@@ -76,56 +68,13 @@ public class SacrificeComponent extends BukkitComponent implements Listener, Run
     @InjectComponent
     private PrayerComponent prayer;
 
-    private LocalConfiguration config;
     private Map<Integer, Integer> entityTaskId = new HashMap<>();
 
     @Override
     public void enable() {
-
-        config = configure(new LocalConfiguration());
         //noinspection AccessStaticViaInstance
         inst.registerEvents(this);
         registerCommands(Commands.class);
-        server.getScheduler().scheduleSyncRepeatingTask(inst, this, 20 * 2, 20);
-    }
-
-    @Override
-    public void reload() {
-
-        super.reload();
-        configure(config);
-    }
-
-    private static class LocalConfiguration extends ConfigurationBase {
-
-        @Setting("sacrificial-block")
-        private String sacrificialBlockString = BlockID.STONE_BRICK + ":3";
-
-        public int sacrificialBlockId = getSacrificialBlockId();
-
-        public byte sacrificialBlockData = getSacrificialBlockData();
-
-        private int getSacrificialBlockId() {
-
-            try {
-                String[] blockData = sacrificialBlockString.trim().split(":");
-                return Integer.parseInt(blockData[0]);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return 98;
-            }
-        }
-
-        private byte getSacrificialBlockData() {
-
-            try {
-                String[] blockData = sacrificialBlockString.trim().split(":");
-                return (byte) Integer.parseInt(blockData[1]);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return 3;
-            }
-        }
     }
 
     private void addEntityTaskId(Entity entity, int taskId) {
@@ -169,7 +118,7 @@ public class SacrificeComponent extends BukkitComponent implements Listener, Run
         List<ItemStack> loot = new ArrayList<>();
 
         // Calculate the modifier
-        int k = inst.hasPermission(sender, "aurora.sacrifice.efficiency") ? 100 : 125;
+        int k = inst.hasPermission(sender, "aurora.wishingwell.efficiency") ? 100 : 125;
         int modifier = calculateModifier(value);
 
         value *= .9;
@@ -418,7 +367,7 @@ public class SacrificeComponent extends BukkitComponent implements Listener, Run
 
         Player player = event.getPlayer();
         BlockState clicked = event.getClickedBlock().getState();
-        SacrificeSession session = sessions.getSession(SacrificeSession.class, player);
+        WishingWellSession session = sessions.getSession(WishingWellSession.class, player);
 
         if (session.hasItems() && clicked instanceof Chest) {
             final int starting = session.remaining();
@@ -435,119 +384,47 @@ public class SacrificeComponent extends BukkitComponent implements Listener, Run
     }
 
     @EventHandler
-    public void onEntityCombust(EntityCombustEvent event) {
-
-        if (entityTaskId.containsKey(event.getEntity().getEntityId())) event.setCancelled(true);
-    }
-
-    private static Set<BlockFace> surrounding = new HashSet<>();
-
-    static {
-        surrounding.add(BlockFace.SELF);
-        surrounding.add(BlockFace.NORTH);
-        surrounding.add(BlockFace.EAST);
-        surrounding.add(BlockFace.SOUTH);
-        surrounding.add(BlockFace.WEST);
-    }
-
-    public void createFire(Block origin) {
-
-        if (origin.getTypeId() != config.getSacrificialBlockId()
-                || origin.getData() != config.getSacrificialBlockData()) return;
-
-        final Block above = origin.getRelative(BlockFace.UP);
-        if (above.getTypeId() == BlockID.AIR) {
-            above.setTypeId(BlockID.FIRE);
-            server.getScheduler().runTaskLater(inst, () -> above.setTypeId(BlockID.AIR), 20 * 4);
-
-            for (BlockFace face : surrounding) {
-                createFire(origin.getRelative(face));
-            }
-        }
-    }
-
-    @EventHandler
     public void onPlayerDropItem(PlayerDropItemEvent event) {
 
         final Player player = event.getPlayer();
         final Item item = event.getItemDrop();
-        if (!inst.hasPermission(player, "aurora.sacrifice")) return;
+        if (!inst.hasPermission(player, "aurora.wishingwell")) return;
 
         int taskId = server.getScheduler().scheduleSyncRepeatingTask(inst, () -> {
             int id = getEntityTaskId(item);
 
             if (item.isDead() || item.getTicksLived() > 40) {
-
                 if (id != -1) {
                     removeEntity(item);
                     server.getScheduler().cancelTask(id);
                 }
             } else {
-                final Block searchBlock = item.getLocation().getBlock().getRelative(BlockFace.DOWN);
-
-                int blockTypeId = searchBlock.getTypeId();
-                int blockData = searchBlock.getData();
-                if ((blockTypeId == config.sacrificialBlockId) && (blockData == config.sacrificialBlockData)) {
-                    try {
-                        // Create the event here
-                        PlayerSacrificeItemEvent sacrificeItemEvent = new PlayerSacrificeItemEvent(player, searchBlock, item.getItemStack());
-                        server.getPluginManager().callEvent(sacrificeItemEvent);
-                        if (sacrificeItemEvent.isCancelled()) return;
-                        createFire(searchBlock);
-                        sacrifice(player, sacrificeItemEvent.getItemStack());
-                        removeEntity(item);
-                        item.remove();
-                        server.getScheduler().cancelTask(id);
-                        player.sendMessage(ChatColor.GOLD + "An ancient fire ignites.");
-                    } catch (Exception e) {
-                        log.warning("The: "
-                                + SacrificeComponent.this.getInformation().friendlyName()
-                                + " component could not contact Pitfall.");
-                    }
+                PlayerAttemptItemWishEvent wishSearchEvent = new PlayerAttemptItemWishEvent(
+                        player,
+                        item.getLocation(),
+                        item.getItemStack()
+                );
+                callEvent(wishSearchEvent);
+                if (!wishSearchEvent.isCancelled() && wishSearchEvent.isAllowed()) {
+                    // Create the event here
+                    PlayerItemWishEvent wishEvent = new PlayerItemWishEvent(
+                            player,
+                            wishSearchEvent,
+                            item.getItemStack()
+                    );
+                    callEvent(wishEvent);
+                    if (wishEvent.isCancelled()) return;
+                    wish(player, wishEvent.getItemStack());
+                    removeEntity(item);
+                    item.remove();
+                    server.getScheduler().cancelTask(id);
                 }
             }
         }, 0, 1); // Start at 0 ticks and repeat every 1 ticks
         addEntityTaskId(item, taskId);
     }
 
-    @Override
-    public void run() {
-
-        for (Player player : server.getOnlinePlayers()) {
-            Location playerLoc = player.getLocation();
-            Block searchBlock = playerLoc.getBlock().getRelative(BlockFace.DOWN, 3);
-            if (searchBlock.getTypeId() == config.sacrificialBlockId
-                    && searchBlock.getData() == config.sacrificialBlockData) {
-                Location airLoc = LocationUtil.findRandomLoc(searchBlock, 3);
-
-                try {
-                    Location newLoc = new Location(player.getWorld(), airLoc.getX(), airLoc.getY(),
-                            airLoc.getZ(), playerLoc.getYaw(), playerLoc.getPitch());
-
-                    Location[] smokeLocation = new Location[4];
-                    smokeLocation[0] = player.getLocation();
-                    smokeLocation[1] = player.getEyeLocation();
-                    smokeLocation[2] = newLoc;
-                    smokeLocation[3] = newLoc.getBlock().getRelative(BlockFace.UP).getLocation();
-
-                    Entity vehicle = player.getVehicle();
-                    if (vehicle != null) {
-                        vehicle.eject();
-                    }
-                    player.teleport(newLoc, PlayerTeleportEvent.TeleportCause.UNKNOWN);
-                    if (vehicle != null) {
-                        vehicle.teleport(player, PlayerTeleportEvent.TeleportCause.UNKNOWN);
-                        vehicle.setPassenger(player);
-                    }
-                    EnvironmentUtil.generateRadialEffect(smokeLocation, Effect.SMOKE);
-                } catch (Exception e) {
-                    log.warning("Could not find a location to teleport the player: " + player.getName() + " to.");
-                }
-            }
-        }
-    }
-
-    private void sacrifice(Player player, ItemStack item) {
+    private void wish(Player player, ItemStack item) {
 
         if (item.getTypeId() == 0) return;
 
@@ -563,11 +440,11 @@ public class SacrificeComponent extends BukkitComponent implements Listener, Run
             return;
         } else if (value < 0) {
             pInventory.addItem(item);
-            ChatUtil.sendError(player, "The gods reject your offer.");
+            ChatUtil.sendError(player, "The well rejects your offer.");
             return;
         }
 
-        SacrificeSession session = sessions.getSession(SacrificeSession.class, player);
+        WishingWellSession session = sessions.getSession(WishingWellSession.class, player);
         session.addItems(getCalculatedLoot(player, -1, value));
 
         while (pInventory.firstEmpty() != -1 && session.hasItems()) {
@@ -575,7 +452,7 @@ public class SacrificeComponent extends BukkitComponent implements Listener, Run
         }
 
         if (session.hasItems()) {
-            ChatUtil.sendNotice(player, "The gods give you the divine touch!");
+            ChatUtil.sendNotice(player, "The well gives you the divine touch!");
             ChatUtil.sendNotice(player, " - Punch a chest to fill it with items");
         }
 
@@ -621,17 +498,17 @@ public class SacrificeComponent extends BukkitComponent implements Listener, Run
 
     public class Commands {
 
-        @Command(aliases = {"sacrifice"}, desc = "Permissions Commands")
-        @NestedCommand({SacrificeCommands.class})
-        public void sacrificeCommands(CommandContext args, CommandSender sender) throws CommandException {
+        @Command(aliases = {"wishingwell"}, desc = "Permissions Commands")
+        @NestedCommand({WishingWellCommands.class})
+        public void wishingWellCommands(CommandContext args, CommandSender sender) throws CommandException {
 
         }
     }
 
-    public class SacrificeCommands {
+    public class WishingWellCommands {
 
         @Command(aliases = {"value"}, desc = "Value an item", flags = "", min = 0, max = 0)
-        public void userGroupSetCmd(CommandContext args, CommandSender sender) throws CommandException {
+        public void valueCmd(CommandContext args, CommandSender sender) throws CommandException {
 
             Player player = PlayerUtil.checkPlayer(sender);
 
@@ -639,11 +516,11 @@ public class SacrificeComponent extends BukkitComponent implements Listener, Run
 
             // Check value & validity
             double value = AdminStoreComponent.priceCheck(questioned);
-            if (value < 0) throw new CommandException("You can't sacrifice that!");
+            if (value < 0) throw new CommandException("You can't use that!");
 
             // Mask the value so it doesn't just show the market price and print it
             int shownValue = (int) Math.round(value * 60.243);
-            ChatUtil.sendNotice(player, "That item has a value of: " + shownValue + " in the sacrificial pit.");
+            ChatUtil.sendNotice(player, "That item has a luck value of: " + shownValue + '.');
         }
     }
 
@@ -651,21 +528,21 @@ public class SacrificeComponent extends BukkitComponent implements Listener, Run
 
         public static boolean getChance(CommandSender sender, int modifier, double rarityL) {
 
-            boolean hasEfficiency = inst.hasPermission(sender, "aurora.sacrifice.efficiency");
+            boolean hasEfficiency = inst.hasPermission(sender, "aurora.wishingwell.efficiency");
             int baseChance = (int) (hasEfficiency ? rarityL * 100 : rarityL * 200);
 
             return ChanceUtil.getChance(Math.max(1, baseChance - modifier));
         }
     }
 
-    // Sacrifice Session
-    private static class SacrificeSession extends PersistentSession {
+    // Wishing Well Session
+    private static class WishingWellSession extends PersistentSession {
 
         public static final long MAX_AGE = TimeUnit.MINUTES.toMillis(30);
 
         private Queue<ItemStack> queue = new ConcurrentLinkedQueue<>();
 
-        protected SacrificeSession() {
+        protected WishingWellSession() {
 
             super(MAX_AGE);
         }

@@ -11,7 +11,7 @@ import com.sk89q.commandbook.CommandBook;
 import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldedit.blocks.ItemID;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import com.skelril.aurora.SacrificeComponent;
+import com.skelril.aurora.WishingWellComponent;
 import com.skelril.aurora.city.engine.area.AreaListener;
 import com.skelril.aurora.events.PrayerApplicationEvent;
 import com.skelril.aurora.events.anticheat.ThrowPlayerEvent;
@@ -392,9 +392,9 @@ public class GiantBossListener extends AreaListener<GiantBossArea> {
                 // Sacrificial drops
                 int m = parent.getWorld().isThundering() ? 3 : 1;
                 m *= player != null ? 3 : 1;
-                event.getDrops().addAll(SacrificeComponent.getCalculatedLoot(server.getConsoleSender(), m, 400000));
-                event.getDrops().addAll(SacrificeComponent.getCalculatedLoot(server.getConsoleSender(), m * 10, 15000));
-                event.getDrops().addAll(SacrificeComponent.getCalculatedLoot(server.getConsoleSender(), m * 32, 4000));
+                event.getDrops().addAll(WishingWellComponent.getCalculatedLoot(server.getConsoleSender(), m, 400000));
+                event.getDrops().addAll(WishingWellComponent.getCalculatedLoot(server.getConsoleSender(), m * 10, 15000));
+                event.getDrops().addAll(WishingWellComponent.getCalculatedLoot(server.getConsoleSender(), m * 32, 4000));
                 // Gold drops
                 for (int i = 0; i < Math.sqrt(amt + m) + GiantBossArea.scalOffst; i++) {
                     event.getDrops().add(new ItemStack(ItemID.GOLD_BAR, ChanceUtil.getRangedRandom(32, 64)));

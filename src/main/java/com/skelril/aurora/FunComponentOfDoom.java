@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
  * Author: Turtle9598
  */
 @ComponentInformation(friendlyName = "Fun of Doom", desc = "Fun of Doom")
-@Depend(components = {SacrificeComponent.class})
+@Depend(components = {WishingWellComponent.class})
 public class FunComponentOfDoom extends BukkitComponent implements Listener {
 
     private final CommandBook inst = CommandBook.inst();
@@ -71,7 +71,7 @@ public class FunComponentOfDoom extends BukkitComponent implements Listener {
 
             Entity e = event.getEntity();
             if (e != null && e.getType().equals(EntityType.FIREBALL)) {
-                for (ItemStack aDrop : SacrificeComponent.getCalculatedLoot(server.getConsoleSender(), 16, 1500)) {
+                for (ItemStack aDrop : WishingWellComponent.getCalculatedLoot(server.getConsoleSender(), 16, 1500)) {
                     Item item = e.getWorld().dropItem(event.getLocation(), aDrop);
                     item.setVelocity(new org.bukkit.util.Vector(
                             r.nextDouble() * 2 - 1,

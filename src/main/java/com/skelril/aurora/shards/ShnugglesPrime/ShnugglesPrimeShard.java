@@ -16,7 +16,7 @@ import com.skelril.OpenBoss.InstructionResult;
 import com.skelril.OpenBoss.instruction.processor.BindProcessor;
 import com.skelril.OpenBoss.instruction.processor.DamagedProcessor;
 import com.skelril.OpenBoss.instruction.processor.UnbindProcessor;
-import com.skelril.aurora.SacrificeComponent;
+import com.skelril.aurora.WishingWellComponent;
 import com.skelril.aurora.admin.AdminComponent;
 import com.skelril.aurora.bosses.instruction.DropInstruction;
 import com.skelril.aurora.bosses.instruction.PersistenceInstruction;
@@ -124,9 +124,9 @@ public class ShnugglesPrimeShard extends Shard<ShnugglesPrimeInstance> {
             int m = inst.getBukkitWorld().isThundering() ? 3 : 1;
             m *= player != null ? 3 : 1;
 
-            drops.addAll(SacrificeComponent.getCalculatedLoot(server().getConsoleSender(), m, 400000));
-            drops.addAll(SacrificeComponent.getCalculatedLoot(server().getConsoleSender(), m * 10, 15000));
-            drops.addAll(SacrificeComponent.getCalculatedLoot(server().getConsoleSender(), m * 32, 4000));
+            drops.addAll(WishingWellComponent.getCalculatedLoot(server().getConsoleSender(), m, 400000));
+            drops.addAll(WishingWellComponent.getCalculatedLoot(server().getConsoleSender(), m * 10, 15000));
+            drops.addAll(WishingWellComponent.getCalculatedLoot(server().getConsoleSender(), m * 32, 4000));
             // Gold drops
             for (int i = 0; i < Math.sqrt(amt + m) + scalOffst; i++) {
                 drops.add(new ItemStack(ItemID.GOLD_BAR, ChanceUtil.getRangedRandom(32, 64)));

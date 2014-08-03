@@ -9,7 +9,7 @@ package com.skelril.aurora.city.engine.area.areas.PatientX;
 import com.sk89q.commandbook.CommandBook;
 import com.sk89q.worldedit.blocks.ItemID;
 import com.sk89q.worldedit.regions.CuboidRegion;
-import com.skelril.aurora.SacrificeComponent;
+import com.skelril.aurora.WishingWellComponent;
 import com.skelril.aurora.admin.AdminState;
 import com.skelril.aurora.city.engine.area.AreaListener;
 import com.skelril.aurora.city.engine.area.areas.DropParty.DropPartyTask;
@@ -315,7 +315,7 @@ public class PatientXListener extends AreaListener<PatientXArea> {
                 List<ItemStack> drops = new ArrayList<>();
                 int playerCount = spectator.isEmpty() ? 1 : contained.size();
                 int dropVal = parent.getConfig().playerVal * playerCount;
-                drops.addAll(SacrificeComponent.getCalculatedLoot(Bukkit.getConsoleSender(), -1, dropVal));
+                drops.addAll(WishingWellComponent.getCalculatedLoot(Bukkit.getConsoleSender(), -1, dropVal));
 
                 switch (ChanceUtil.getRandom(4)) {
                     case 1:

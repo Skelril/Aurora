@@ -10,7 +10,7 @@ import com.sk89q.commandbook.CommandBook;
 import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldedit.blocks.ItemID;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import com.skelril.aurora.SacrificeComponent;
+import com.skelril.aurora.WishingWellComponent;
 import com.skelril.aurora.admin.AdminComponent;
 import com.skelril.aurora.events.PrayerApplicationEvent;
 import com.skelril.aurora.util.ChanceUtil;
@@ -167,7 +167,7 @@ public class Prison extends AbstractRegionedArena implements GenericArena, Liste
         BlockState state = event.getClickedBlock().getLocation().getBlock().getState();
         if (state.getTypeId() == BlockID.CHEST && rewardChest.equals(state.getLocation())) {
 
-            List<ItemStack> loot = SacrificeComponent.getCalculatedLoot(server.getConsoleSender(), 10, 4000);
+            List<ItemStack> loot = WishingWellComponent.getCalculatedLoot(server.getConsoleSender(), 10, 4000);
             int lootSplit = ChanceUtil.getRangedRandom(64 * 2, 64 * 4);
             if (ChanceUtil.getChance(135)) lootSplit *= 10;
             else if (ChanceUtil.getChance(65)) lootSplit *= 2;

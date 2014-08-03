@@ -11,7 +11,7 @@ import com.sk89q.commandbook.CommandBook;
 import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldedit.blocks.ItemID;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import com.skelril.aurora.SacrificeComponent;
+import com.skelril.aurora.WishingWellComponent;
 import com.skelril.aurora.admin.AdminComponent;
 import com.skelril.aurora.events.egg.EggHatchEvent;
 import com.skelril.aurora.util.ChanceUtil;
@@ -148,7 +148,7 @@ public class EnchantedForest extends AbstractRegionedArena implements MonitoredA
         // Sacrifice and make loot list
         List<ItemStack> loot;
         do {
-            loot = SacrificeComponent.getCalculatedLoot(player, amt, value);
+            loot = WishingWellComponent.getCalculatedLoot(player, amt, value);
         } while (loot == null || loot.size() < 1);
 
         // Shuffle and return loot for variety

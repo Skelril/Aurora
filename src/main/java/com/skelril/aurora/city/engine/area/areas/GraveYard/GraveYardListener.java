@@ -11,11 +11,11 @@ import com.sk89q.worldedit.blocks.BaseBlock;
 import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldedit.blocks.ItemID;
 import com.skelril.aurora.city.engine.area.AreaListener;
-import com.skelril.aurora.events.PlayerSacrificeItemEvent;
 import com.skelril.aurora.events.PrayerApplicationEvent;
 import com.skelril.aurora.events.apocalypse.GemOfLifeUsageEvent;
 import com.skelril.aurora.events.custom.item.HymnSingEvent;
 import com.skelril.aurora.events.environment.CreepSpeakEvent;
+import com.skelril.aurora.events.wishingwell.PlayerItemWishEvent;
 import com.skelril.aurora.items.custom.CustomItemCenter;
 import com.skelril.aurora.items.custom.CustomItems;
 import com.skelril.aurora.util.*;
@@ -196,7 +196,7 @@ public class GraveYardListener extends AreaListener<GraveYardArea> {
 
     @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onSacrifice(PlayerSacrificeItemEvent event) {
+    public void onSacrifice(PlayerItemWishEvent event) {
         Player player = event.getPlayer();
         ItemStack item = event.getItemStack();
         Location origin = event.getBlock().getLocation();

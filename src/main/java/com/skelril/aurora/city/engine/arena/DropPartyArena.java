@@ -11,7 +11,7 @@ import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import com.skelril.aurora.SacrificeComponent;
+import com.skelril.aurora.WishingWellComponent;
 import com.skelril.aurora.events.entity.item.DropClearPulseEvent;
 import com.skelril.aurora.items.custom.CustomItemCenter;
 import com.skelril.aurora.items.custom.CustomItems;
@@ -119,7 +119,7 @@ public class DropPartyArena extends AbstractRegionedArena implements CommandTrig
         if (populate) {
             for (int i = 0; i < playerCount * modifier; i++) {
                 drops.add(CustomItemCenter.build(CustomItems.SCROLL_OF_SUMMATION));
-                drops.addAll(SacrificeComponent.getCalculatedLoot(server.getConsoleSender(), 64, populatorValue));
+                drops.addAll(WishingWellComponent.getCalculatedLoot(server.getConsoleSender(), 64, populatorValue));
             }
             drops.add(ItemUtil.makeSkull(CollectionUtil.getElement(server.getOnlinePlayers()).getName()));
         }
