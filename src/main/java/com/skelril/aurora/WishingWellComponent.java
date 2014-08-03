@@ -53,6 +53,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
+import static com.skelril.aurora.events.wishingwell.PlayerAttemptItemWishEvent.Result;
 import static com.zachsthings.libcomponents.bukkit.BasePlugin.callEvent;
 
 @ComponentInformation(friendlyName = "Wishing Well", desc = "Please be a lucky penny!")
@@ -405,16 +406,18 @@ public class WishingWellComponent extends BukkitComponent implements Listener {
                         item.getItemStack()
                 );
                 callEvent(wishSearchEvent);
-                if (!wishSearchEvent.isCancelled() && wishSearchEvent.isAllowed()) {
-                    // Create the event here
-                    PlayerItemWishEvent wishEvent = new PlayerItemWishEvent(
-                            player,
-                            wishSearchEvent,
-                            item.getItemStack()
-                    );
-                    callEvent(wishEvent);
-                    if (wishEvent.isCancelled()) return;
-                    wish(player, wishEvent.getItemStack());
+                if (!wishSearchEvent.isCancelled() && !wishSearchEvent.getResult().equals(Result.DENY)) {
+                    if (wishSearchEvent.getResult().equals(Result.ALLOW)) {
+                        // Create the event here
+                        PlayerItemWishEvent wishEvent = new PlayerItemWishEvent(
+                                player,
+                                wishSearchEvent,
+                                item.getItemStack()
+                        );
+                        callEvent(wishEvent);
+                        if (wishEvent.isCancelled()) return;
+                        wish(player, wishEvent.getItemStack());
+                    }
                     removeEntity(item);
                     item.remove();
                     server.getScheduler().cancelTask(id);

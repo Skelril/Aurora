@@ -28,6 +28,7 @@ import org.bukkit.inventory.meta.BookMeta;
 import java.util.*;
 
 import static com.sk89q.commandbook.CommandBook.registerEvents;
+import static com.skelril.aurora.events.wishingwell.PlayerAttemptItemWishEvent.Result;
 import static com.zachsthings.libcomponents.bukkit.BasePlugin.callEvent;
 
 @ComponentInformation(friendlyName = "Primus Core", desc = "Operate Primus.")
@@ -51,6 +52,7 @@ public class PrimusCoreComponent extends BukkitComponent implements Listener {
                     players.add(aPlayer);
                 }
             }
+            event.setResult(Result.ALLOW_IGNORE);
             callEvent(new PartyActivateEvent(book.getInstance(), players));
         }
     }

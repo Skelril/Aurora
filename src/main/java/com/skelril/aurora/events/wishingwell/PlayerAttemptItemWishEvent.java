@@ -18,7 +18,7 @@ public class PlayerAttemptItemWishEvent extends PlayerEvent implements Cancellab
 
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled = false;
-    private boolean allowed = false;
+    private Result result = Result.DENY;
     private final Location target;
     private ItemStack itemStack;
 
@@ -29,12 +29,12 @@ public class PlayerAttemptItemWishEvent extends PlayerEvent implements Cancellab
         this.itemStack = itemStack;
     }
 
-    public boolean isAllowed() {
-        return allowed;
+    public Result getResult() {
+        return result;
     }
 
-    public void setAllowed(boolean allowed) {
-        this.allowed = allowed;
+    public void setResult(Result result) {
+        this.result = result;
     }
 
     public Location getLocation() {
@@ -69,5 +69,11 @@ public class PlayerAttemptItemWishEvent extends PlayerEvent implements Cancellab
     @Override
     public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
+    }
+
+    public enum Result {
+        ALLOW,
+        ALLOW_IGNORE,
+        DENY
     }
 }
