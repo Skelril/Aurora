@@ -48,7 +48,7 @@ public class ShardManager {
         int highestHeld = 0;
         for (Map.Entry<String, ProtectedRegion> entry : rgManager.getRegions().entrySet()) {
             shard.setQuantity(++highestHeld);
-            String shardName = shard.getName();
+            String shardName = shard.getRGName();
             if (entry.getKey().startsWith(shardName) && !activeShards.contains(shardName)) {
                 return shard.load(world, entry.getValue());
             }
@@ -74,7 +74,7 @@ public class ShardManager {
 
     private ProtectedRegion constructRegion(Shard shard, Vector targetPt) {
         return new ProtectedCuboidRegion(
-                shard.getName() + '-' + shard.getQuantity(),
+                shard.getRGName() + '-' + shard.getQuantity(),
                 new BlockVector(targetPt),
                 new BlockVector(targetPt.add(shard.getEditor().getDimensions()))
         );

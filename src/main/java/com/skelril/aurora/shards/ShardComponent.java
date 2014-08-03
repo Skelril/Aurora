@@ -6,31 +6,56 @@
 
 package com.skelril.aurora.shards;
 
+import com.sk89q.commandbook.CommandBook;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.entity.Player;
+import com.skelril.aurora.exceptions.UnknownPluginException;
 import com.skelril.aurora.shard.Shard;
 import com.skelril.aurora.shard.ShardInstance;
 import com.skelril.aurora.shard.ShardManagerComponent;
 import com.skelril.aurora.util.LocationUtil;
-import com.zachsthings.libcomponents.InjectComponent;
 import com.zachsthings.libcomponents.TemplateComponent;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
 import org.bukkit.Location;
+import org.bukkit.plugin.Plugin;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
 
 @TemplateComponent
 public abstract class ShardComponent<A extends Shard<T>, T extends ShardInstance> extends BukkitComponent {
 
     protected WorldEditPlugin WE;
 
-    @InjectComponent
-    protected ShardManagerComponent manager;
-
     protected A shard;
     protected Set<T> instances = new HashSet<>();
+
+    @Override
+    public void enable() {
+        try {
+            setUpWorldEdit();
+        } catch (UnknownPluginException e) {
+            e.printStackTrace();
+        }
+        server().getScheduler().runTaskLater(CommandBook.inst(), this::start, 2);
+    }
+
+    private void setUpWorldEdit() throws UnknownPluginException {
+        Plugin plugin = server().getPluginManager().getPlugin("WorldEdit");
+
+        // WorldEdit may not be loaded
+        if (plugin == null || !(plugin instanceof WorldEditPlugin)) {
+            throw new UnknownPluginException("WorldEdit");
+        }
+
+        WE = (WorldEditPlugin) plugin;
+    }
+
+    public abstract ShardManagerComponent getManager();
+    public abstract void start();
 
     public A getShard() {
         return shard;
@@ -45,7 +70,7 @@ public abstract class ShardComponent<A extends Shard<T>, T extends ShardInstance
     }
 
     public T makeInstance() {
-        T instance = manager.getManager().findOrCreateInstance(shard);
+        T instance = getManager().getManager().findOrCreateInstance(shard);
         instances.add(instance);
         return instance;
     }

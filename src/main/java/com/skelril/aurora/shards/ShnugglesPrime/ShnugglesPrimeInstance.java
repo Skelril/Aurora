@@ -6,10 +6,10 @@
 
 package com.skelril.aurora.shards.ShnugglesPrime;
 
-import com.sk89q.craftbook.bukkit.BukkitPlayer;
 import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldedit.blocks.ItemID;
+import com.sk89q.worldedit.bukkit.BukkitPlayer;
 import com.sk89q.worldedit.bukkit.BukkitUtil;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.regions.Region;
@@ -76,8 +76,8 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
 
     public void probeArea() {
         spawnPts.clear();
-        BlockVector min = getRegion().getParent().getMinimumPoint();
-        BlockVector max = getRegion().getParent().getMaximumPoint();
+        BlockVector min = getRegion().getMinimumPoint();
+        BlockVector max = getRegion().getMaximumPoint();
         int minX = min.getBlockX();
         int minZ = min.getBlockZ();
         int minY = min.getBlockY();

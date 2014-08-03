@@ -24,6 +24,10 @@ public abstract class Shard<T extends ShardInstance> {
         return name;
     }
 
+    public String getRGName() {
+        return name.replace(" ", "-");
+    }
+
     public ShardEditor getEditor() {
         return editor;
     }

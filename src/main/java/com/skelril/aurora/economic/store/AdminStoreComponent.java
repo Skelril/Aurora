@@ -82,7 +82,7 @@ public class AdminStoreComponent extends BukkitComponent {
         // Get the region
         server.getScheduler().runTaskLater(inst, () -> {
             try {
-                region = getWorldGuard().getGlobalRegionManager().get(Bukkit.getWorld("City")).getRegion("vineam-district-bank");
+                region = getWorldGuard().getGlobalRegionManager().get(Bukkit.getWorld("Primus")).getRegion("market");
             } catch (UnknownPluginException e) {
                 e.printStackTrace();
             }

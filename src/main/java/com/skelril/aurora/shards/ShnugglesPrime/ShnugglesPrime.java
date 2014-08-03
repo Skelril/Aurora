@@ -9,6 +9,7 @@ package com.skelril.aurora.shards.ShnugglesPrime;
 import com.skelril.aurora.admin.AdminComponent;
 import com.skelril.aurora.prayer.PrayerComponent;
 import com.skelril.aurora.shard.ShardEditor;
+import com.skelril.aurora.shard.ShardManagerComponent;
 import com.skelril.aurora.shards.BasicShardSchematic;
 import com.skelril.aurora.shards.ShardComponent;
 import com.zachsthings.libcomponents.ComponentInformation;
@@ -30,9 +31,16 @@ public class ShnugglesPrime extends ShardComponent<ShnugglesPrimeShard, Shnuggle
     private AdminComponent admin;
     @InjectComponent
     private PrayerComponent prayers;
+    @InjectComponent
+    protected ShardManagerComponent manager;
 
     @Override
-    public void enable() {
+    public ShardManagerComponent getManager() {
+        return manager;
+    }
+
+    @Override
+    public void start() {
         try {
             shard = new ShnugglesPrimeShard(
                     new ShardEditor(
