@@ -49,7 +49,7 @@ public class ShardManager {
         for (Map.Entry<String, ProtectedRegion> entry : rgManager.getRegions().entrySet()) {
             shard.setQuantity(++highestHeld);
             String shardName = shard.getRGName();
-            if (entry.getKey().startsWith(shardName) && !activeShards.contains(shardName)) {
+            if (entry.getKey().startsWith(shardName) && !activeShards.contains(entry.getKey())) {
                 return shard.load(world, entry.getValue());
             }
         }
