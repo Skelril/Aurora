@@ -69,7 +69,7 @@ public class ShardManager {
     }
 
     private boolean isCollision(ProtectedRegion region) {
-        return rgManager.getApplicableRegions(region).size() > 1;
+        return rgManager.getApplicableRegions(region).size() > 0;
     }
 
     private ProtectedRegion constructRegion(Shard shard, Vector targetPt) {
