@@ -199,7 +199,7 @@ public class GraveYardListener extends AreaListener<GraveYardArea> {
     public void onSacrifice(PlayerItemWishEvent event) {
         Player player = event.getPlayer();
         ItemStack item = event.getItemStack();
-        Location origin = event.getBlock().getLocation();
+        Location origin = event.getParentEvent().getLocation();
         boolean isInRewardsRoom = LocationUtil.isInRegion(parent.getWorld(), parent.rewards, origin);
         int c;
         int o = 1;

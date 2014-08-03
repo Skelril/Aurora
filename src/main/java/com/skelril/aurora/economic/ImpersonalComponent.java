@@ -74,7 +74,7 @@ public class ImpersonalComponent extends BukkitComponent implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onSacrifice(PlayerItemWishEvent event) {
 
-        if (!check(event.getBlock(), false)) {
+        if (!check(event.getParentEvent().getLocation().getBlock(), false)) {
             event.setCancelled(true);
         }
     }
