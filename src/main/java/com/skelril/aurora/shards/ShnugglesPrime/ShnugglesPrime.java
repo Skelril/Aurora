@@ -29,7 +29,6 @@ public class ShnugglesPrime extends ShardComponent<ShnugglesPrimeShard, Shnuggle
     public void enable() {
         try {
             shard = new ShnugglesPrimeShard(
-                    "Shnuggles Prime",
                     new ShardEditor(
                             new BasicShardSchematic(
                                     "Shnuggles Prime",

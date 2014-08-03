@@ -27,7 +27,7 @@ public class BasicShardSchematic implements ShardSchematic {
     private final Vector dimensions;
 
     public BasicShardSchematic(String shardName, WorldData worldData) throws IOException {
-        this(new File(CommandBook.inst().getDataFolder(), "shards/" + shardName + "/" + "arena.schematic"), worldData);
+        this(new File(CommandBook.inst().getDataFolder(), "shards/" + shardName.replace(" ", "\\ ") + "/" + "arena.schematic"), worldData);
     }
 
     public BasicShardSchematic(File targetFile, WorldData worldData) throws IOException {
