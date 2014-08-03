@@ -262,7 +262,6 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
     public void runAttack(int attackCase) {
         int delay = ChanceUtil.getRangedRandom(13000, 17000);
         if (lastAttack != 0 && System.currentTimeMillis() - lastAttack <= delay) return;
-        Collection<Player> containedP = getContained(1, Player.class);
         Collection<Player> contained = getContained(Player.class);
         if (contained == null || contained.size() <= 0) return;
         if (attackCase < 1 || attackCase > OPTION_COUNT) attackCase = ChanceUtil.getRandom(OPTION_COUNT);
@@ -291,7 +290,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
         }
         switch (attackCase) {
             case 1:
-                ChatUtil.sendWarning(containedP, "Taste my wrath!");
+                ChatUtil.sendWarning(contained, "Taste my wrath!");
                 for (Player player : contained) {
                     // Call this event to notify AntiCheat
                     server().getPluginManager().callEvent(new ThrowPlayerEvent(player));
@@ -304,19 +303,19 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 }
                 break;
             case 2:
-                ChatUtil.sendWarning(containedP, "Embrace my corruption!");
+                ChatUtil.sendWarning(contained, "Embrace my corruption!");
                 for (Player player : contained) {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20 * 12, 1));
                 }
                 break;
             case 3:
-                ChatUtil.sendWarning(containedP, "Are you BLIND? Mwhahahaha!");
+                ChatUtil.sendWarning(contained, "Are you BLIND? Mwhahahaha!");
                 for (Player player : contained) {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20 * 4, 0));
                 }
                 break;
             case 4:
-                ChatUtil.sendWarning(containedP, ChatColor.DARK_RED + "Tango time!");
+                ChatUtil.sendWarning(contained, ChatColor.DARK_RED + "Tango time!");
                 server().getScheduler().runTaskLater(inst(), () -> {
                     if (!isBossSpawned()) return;
                     for (Player player : getContained(Player.class)) {
@@ -340,7 +339,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 break;
             case 5:
                 if (!damageHeals) {
-                    ChatUtil.sendWarning(containedP, "I am everlasting!");
+                    ChatUtil.sendWarning(contained, "I am everlasting!");
                     damageHeals = true;
                     server().getScheduler().runTaskLater(inst(), () -> {
                         if (damageHeals) {
@@ -354,13 +353,13 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 runAttack(ChanceUtil.getRandom(OPTION_COUNT));
                 return;
             case 6:
-                ChatUtil.sendWarning(containedP, "Fire is your friend...");
+                ChatUtil.sendWarning(contained, "Fire is your friend...");
                 for (Player player : contained) {
                     player.setFireTicks(20 * 30);
                 }
                 break;
             case 7:
-                ChatUtil.sendWarning(containedP, ChatColor.DARK_RED + "Bask in my glory!");
+                ChatUtil.sendWarning(contained, ChatColor.DARK_RED + "Bask in my glory!");
                 server().getScheduler().runTaskLater(inst(), () -> {
                     if (!isBossSpawned()) return;
                     // Set defaults
@@ -391,8 +390,8 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 }, 20 * 7);
                 break;
             case 8:
-                ChatUtil.sendWarning(containedP, ChatColor.DARK_RED + "I ask thy lord for aid in this all mighty battle...");
-                ChatUtil.sendWarning(containedP, ChatColor.DARK_RED + "Heed thy warning, or perish!");
+                ChatUtil.sendWarning(contained, ChatColor.DARK_RED + "I ask thy lord for aid in this all mighty battle...");
+                ChatUtil.sendWarning(contained, ChatColor.DARK_RED + "Heed thy warning, or perish!");
                 server().getScheduler().runTaskLater(inst(), () -> {
                     if (!isBossSpawned()) return;
                     ChatUtil.sendWarning(getContained(1, Player.class), "May those who appose me die a death like no other...");
@@ -410,7 +409,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 }, 20 * 7);
                 break;
             case 9:
-                ChatUtil.sendNotice(containedP, ChatColor.DARK_RED, "My minions our time is now!");
+                ChatUtil.sendNotice(contained, ChatColor.DARK_RED, "My minions our time is now!");
                 IntegratedRunnable minionEater = new IntegratedRunnable() {
                     @Override
                     public boolean run(int times) {
