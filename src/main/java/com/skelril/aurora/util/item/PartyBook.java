@@ -12,6 +12,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -52,6 +53,16 @@ public class PartyBook {
         this.owner = owner;
     }
 
+    public Set<String> getPlayers() {
+        return Collections.unmodifiableSet(players);
+    }
+
+    public Set<String> getAllPlayers() {
+        HashSet<String> allPlayers = new HashSet<>();
+        allPlayers.add(owner);
+        allPlayers.addAll(players);
+        return Collections.unmodifiableSet(allPlayers);
+    }
     public void addPlayer(String player) {
         players.add(player);
     }
