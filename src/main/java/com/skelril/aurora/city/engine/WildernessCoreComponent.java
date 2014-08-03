@@ -33,8 +33,6 @@ import com.skelril.aurora.util.extractor.entity.EDBEExtractor;
 import com.skelril.aurora.util.item.ItemUtil;
 import com.skelril.aurora.util.timer.IntegratedRunnable;
 import com.skelril.aurora.util.timer.TimedRunnable;
-import com.zachsthings.libcomponents.ComponentInformation;
-import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.InjectComponent;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
 import com.zachsthings.libcomponents.config.ConfigurationBase;
@@ -77,8 +75,8 @@ import static org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 /**
  * Author: Turtle9598
  */
-@ComponentInformation(friendlyName = "Wilderness Core", desc = "Operate the wilderness.")
-@Depend(components = {AdminComponent.class, SessionComponent.class})
+//@ComponentInformation(friendlyName = "Wilderness Core", desc = "Operate the wilderness.")
+//@Depend(components = {AdminComponent.class, SessionComponent.class})
 public class WildernessCoreComponent extends BukkitComponent implements Listener, Runnable {
 
     private final CommandBook inst = CommandBook.inst();
