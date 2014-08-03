@@ -334,7 +334,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                             ChatUtil.sendNotice(player, "Fine... No tango this time...");
                         }
                     }
-                    ChatUtil.sendNotice(getContained(1, Player.class), "Now wasn't that fun?");
+                    ChatUtil.sendNotice(getContained(Player.class), "Now wasn't that fun?");
                 }, 20 * 7);
                 break;
             case 5:
@@ -345,7 +345,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                         if (damageHeals) {
                             damageHeals = false;
                             if (!isBossSpawned()) return;
-                            ChatUtil.sendNotice(getContained(1, Player.class), "Thank you for your assistance.");
+                            ChatUtil.sendNotice(getContained(Player.class), "Thank you for your assistance.");
                         }
                     }, 20 * 12);
                     break;
@@ -386,7 +386,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                         return;
                     }
                     // Notify if avoided
-                    ChatUtil.sendNotice(getContained(1, Player.class), "Gah... Afraid are you friends?");
+                    ChatUtil.sendNotice(getContained(Player.class), "Gah... Afraid are you friends?");
                 }, 20 * 7);
                 break;
             case 8:
@@ -394,9 +394,9 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 ChatUtil.sendWarning(contained, ChatColor.DARK_RED + "Heed thy warning, or perish!");
                 server().getScheduler().runTaskLater(inst(), () -> {
                     if (!isBossSpawned()) return;
-                    ChatUtil.sendWarning(getContained(1, Player.class), "May those who appose me die a death like no other...");
+                    ChatUtil.sendWarning(getContained(Player.class), "May those who appose me die a death like no other...");
                     getContained(Player.class).stream().filter(boss::hasLineOfSight).forEach(player -> {
-                        ChatUtil.sendWarning(getContained(1, Player.class), "Perish " + player.getName() + "!");
+                        ChatUtil.sendWarning(getContained(Player.class), "Perish " + player.getName() + "!");
                         try {
                             getMaster().getPrayers().influencePlayer(
                                     player,
@@ -425,7 +425,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                             toHeal += realDamage / 3;
                         }
                         if (TimerUtil.matchesFilter(times + 1, -1, 2)) {
-                            ChatUtil.sendNotice(getContained(1, Player.class), ChatColor.DARK_AQUA, "The boss has drawn in: " + (int) toHeal + " health.");
+                            ChatUtil.sendNotice(getContained(Player.class), ChatColor.DARK_AQUA, "The boss has drawn in: " + (int) toHeal + " health.");
                         }
                         return true;
                     }
