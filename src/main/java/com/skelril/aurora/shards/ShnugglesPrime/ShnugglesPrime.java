@@ -11,13 +11,19 @@ import com.skelril.aurora.prayer.PrayerComponent;
 import com.skelril.aurora.shard.ShardEditor;
 import com.skelril.aurora.shards.BasicShardSchematic;
 import com.skelril.aurora.shards.ShardComponent;
+import com.zachsthings.libcomponents.ComponentInformation;
+import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.InjectComponent;
 
 import java.io.IOException;
 import java.util.Iterator;
 
+import static com.sk89q.commandbook.CommandBook.inst;
 import static com.sk89q.commandbook.CommandBook.registerEvents;
+import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
 
+@ComponentInformation(friendlyName = "Shnuggles Prime", desc = "Shnuggles Prime Boss.")
+@Depend(components = {AdminComponent.class, PrayerComponent.class})
 public class ShnugglesPrime extends ShardComponent<ShnugglesPrimeShard, ShnugglesPrimeInstance> implements Runnable {
 
     @InjectComponent
@@ -42,6 +48,7 @@ public class ShnugglesPrime extends ShardComponent<ShnugglesPrimeShard, Shnuggle
             e.printStackTrace();
         }
         registerEvents(new ShnugglesPrimeListener(this));
+        server().getScheduler().runTaskTimer(inst(), this, 20, 20);
     }
 
     @Override
