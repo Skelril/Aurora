@@ -449,6 +449,13 @@ public class AdminComponent extends BukkitComponent implements Listener {
         loadInventory(Bukkit.getOfflinePlayer(event.getUniqueId()));
     }
 
+    @EventHandler(ignoreCancelled = true)
+    public void onPlayerJoin(PlayerLoginEvent event) {
+        if (!inst.hasPermission(event.getPlayer(), "aurora.admin.adminmode.admin")) {
+            event.setResult(PlayerLoginEvent.Result.KICK_WHITELIST);
+            event.setKickMessage("We are currently in Admin Only mode, \nthe server will be back on the 10th.");
+        }
+    }
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
 
