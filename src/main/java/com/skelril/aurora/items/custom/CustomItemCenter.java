@@ -14,7 +14,6 @@ import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 
-import java.util.Collection;
 import java.util.HashMap;
 
 import static com.skelril.aurora.items.custom.CustomItems.*;
@@ -529,8 +528,10 @@ public class CustomItemCenter {
         addItem(doomFeather);
     }
 
-    public static Collection<CustomItem> values() {
-        return items.values();
+    public static CustomItem get(CustomItems item) {
+        CustomItemCloneVisitor visitor = new CustomItemCloneVisitor();
+        visitor.visit(items.get(item));
+        return visitor.out();
     }
 
     public static ItemStack build(CustomItems item) {

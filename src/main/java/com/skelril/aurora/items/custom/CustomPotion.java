@@ -23,6 +23,11 @@ public class CustomPotion extends CustomItem {
         assert base.getType() == Material.POTION;
     }
 
+    public CustomPotion(CustomPotion potion) {
+        super(potion);
+        effects.addAll(potion.getEffects());
+    }
+
     public void addEffect(Potion effect) {
         effects.add(effect);
     }
@@ -33,6 +38,11 @@ public class CustomPotion extends CustomItem {
 
     public List<Potion> getEffects() {
         return effects;
+    }
+
+    @Override
+    public void accept(CustomItemVisitor visitor) {
+        visitor.visit(this);
     }
 
     @Override

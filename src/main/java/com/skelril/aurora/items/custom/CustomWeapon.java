@@ -19,7 +19,17 @@ public class CustomWeapon extends CustomEquipment {
         addTag(ChatColor.RED, "Damage Modifier", String.valueOf(damageMod));
     }
 
+    public CustomWeapon(CustomWeapon weapon) {
+        super(weapon);
+        damageMod = weapon.getDamageMod();
+    }
+
     public double getDamageMod() {
         return damageMod;
+    }
+
+    @Override
+    public void accept(CustomItemVisitor visitor) {
+        visitor.visit(this);
     }
 }

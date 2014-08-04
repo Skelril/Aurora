@@ -20,6 +20,15 @@ public class CustomEquipment extends CustomItem {
         this(item, new ItemStack(type));
     }
 
+    public CustomEquipment(CustomEquipment equipment) {
+        super(equipment);
+    }
+
+    @Override
+    public void accept(CustomItemVisitor visitor) {
+        visitor.visit(this);
+    }
+
     @Override
     public ItemStack build() {
         ItemStack stack = super.build();

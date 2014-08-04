@@ -36,8 +36,21 @@ public class CustomItem {
         this(item, new ItemStack(type));
     }
 
+    public CustomItem(CustomItem item) {
+        this(item.getItem(), item.getBase());
+        tags.addAll(item.getTags());
+        lore.addAll(item.getLore());
+        enchants.addAll(item.getEnchants());
+        useDocs.addAll(item.getUseDocs());
+        sources.addAll(item.getSources());
+    }
+
     public CustomItems getItem() {
         return item;
+    }
+
+    public ItemStack getBase() {
+        return base.clone();
     }
 
     public void addTag(Tag tag) {
@@ -93,6 +106,9 @@ public class CustomItem {
         return sources;
     }
 
+    public void accept(CustomItemVisitor visitor) {
+        visitor.visit(this);
+    }
 
     public ItemStack build() {
         ItemStack itemStack = base.clone();
