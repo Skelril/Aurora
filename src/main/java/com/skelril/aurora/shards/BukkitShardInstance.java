@@ -13,6 +13,7 @@ import com.skelril.aurora.shard.Shard;
 import com.skelril.aurora.shard.ShardInstance;
 import com.skelril.aurora.util.LocationUtil;
 import com.skelril.aurora.util.WEAPIUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -43,6 +44,13 @@ public abstract class BukkitShardInstance<S extends Shard> extends ShardInstance
 
     public void expire() {
         expired = true;
+        teleportAll(Bukkit.getWorlds().get(0).getSpawnLocation());
+    }
+
+    public void teleportAll(Location location) {
+        for (org.bukkit.entity.Player player : getContained(org.bukkit.entity.Player.class)) {
+            player.teleport(location);
+        }
     }
 
     public <K extends Entity> Collection<K> getContained(Class<K> clazz) {

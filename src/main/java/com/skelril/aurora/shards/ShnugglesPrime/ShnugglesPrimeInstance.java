@@ -65,6 +65,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
 
     private long lastUltimateAttack = -1;
     private boolean flagged = false;
+    private int emptyTicks = 0;
 
     private double toHeal = 0;
     private List<Location> spawnPts = new ArrayList<>();
@@ -120,6 +121,12 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
     }
 
     @Override
+    public void prepare() {
+        removeMobs();
+        spawnBoss();
+    }
+
+    @Override
     public void cleanUp() {
         if (boss != null) {
             getMaster().getBossManager().silentUnbind(boss);
@@ -129,14 +136,18 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
 
     @Override
     public void run() {
-        if (!isBossSpawned()) {
-            if (lastDeath == 0 || System.currentTimeMillis() - lastDeath >= 1000 * 60 * 3) {
-                removeMobs();
-                spawnBoss();
+        if (!isBossSpawned() || emptyTicks > 60) {
+            if (System.currentTimeMillis() - lastDeath >= 1000 * 60 * 3) {
+                expire();
             }
-        } else if (!isEmpty()) {
-            equalize();
-            runAttack(ChanceUtil.getRandom(OPTION_COUNT));
+        } else {
+            if (isEmpty()) {
+                ++emptyTicks;
+            } else {
+                emptyTicks = 0;
+                equalize();
+                runAttack(ChanceUtil.getRandom(OPTION_COUNT));
+            }
         }
     }
 
@@ -165,7 +176,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
     }
 
     public boolean isBossSpawned() {
-        if (!isActive()) return true;
+        boss = null;
         getContained(Giant.class).stream().filter(Entity::isValid).forEach(e -> {
             Boss b = getMaster().getBossManager().updateLookup(e);
             if (b == null) {

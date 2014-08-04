@@ -50,7 +50,9 @@ public class ShardManager {
             shard.setQuantity(++highestHeld);
             String shardName = shard.getRGName();
             if (entry.getKey().startsWith(shardName) && !activeShards.contains(entry.getKey())) {
-                return shard.load(world, entry.getValue());
+                T shardInst = shard.load(world, entry.getValue());
+                shardInst.prepare();
+                return shardInst;
             }
         }
         return null;
