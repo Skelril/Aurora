@@ -32,7 +32,7 @@ public class ShnugglesPrime extends ShardComponent<ShnugglesPrimeShard, Shnuggle
     @InjectComponent
     private PrayerComponent prayers;
     @InjectComponent
-    protected ShardManagerComponent manager;
+    private ShardManagerComponent manager;
 
     @Override
     public ShardManagerComponent getManager() {

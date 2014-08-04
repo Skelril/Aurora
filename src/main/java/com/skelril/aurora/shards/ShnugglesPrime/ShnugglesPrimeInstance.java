@@ -56,7 +56,7 @@ import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
 
 public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeShard> implements Runnable {
 
-    private Giant boss = null;
+    private Boss boss = null;
     private long lastAttack = 0;
     private int lastAttackNumber = -1;
     private long lastDeath = 0;
@@ -121,8 +121,8 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
 
     @Override
     public void cleanUp() {
-        if (boss != null && boss.isValid()) {
-            boss.remove();
+        if (boss != null) {
+            getMaster().getBossManager().silentUnbind(boss);
         }
         removeMobs();
     }
@@ -140,12 +140,13 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
         }
     }
 
-    public Giant getBoss() {
-        return boss;
+    public LivingEntity getBoss() {
+        return boss.getEntity();
     }
 
     public void healBoss(float percentHealth) {
         if (isBossSpawned()) {
+            LivingEntity boss = getBoss();
             EntityUtil.heal(boss, boss.getMaxHealth() * percentHealth);
         }
     }
@@ -169,9 +170,11 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
             Boss b = getMaster().getBossManager().updateLookup(e);
             if (b == null) {
                 e.remove();
+            } else {
+                boss = b;
             }
         });
-        return boss != null && boss.isValid();
+        return boss != null;
     }
 
     public void spawnBoss() {
@@ -179,8 +182,8 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
         BlockVector max = getRegion().getMaximumPoint();
         Region region = new CuboidRegion(min, max);
         Location l = BukkitUtil.toLocation(getBukkitWorld(), region.getCenter());
-        boss = getBukkitWorld().spawn(l, Giant.class);
-        getMaster().getBossManager().bind(new Boss(boss, new SBossDetail(this)));
+        boss = new Boss(getBukkitWorld().spawn(l, Giant.class), new SBossDetail(this));
+        getMaster().getBossManager().bind(boss);
     }
 
     public void bossDied() {
@@ -224,6 +227,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
     }
 
     public void printBossHealth() {
+        LivingEntity boss = getBoss();
         int current = (int) Math.ceil(boss.getHealth());
         int max = (int) Math.ceil(boss.getMaxHealth());
         String message = "Boss Health: " + current + " / " + max;
@@ -260,6 +264,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
     public static final int OPTION_COUNT = 9;
 
     public void runAttack(int attackCase) {
+        LivingEntity boss = getBoss();
         int delay = ChanceUtil.getRangedRandom(13000, 17000);
         if (lastAttack != 0 && System.currentTimeMillis() - lastAttack <= delay) return;
         Collection<Player> contained = getContained(Player.class);
