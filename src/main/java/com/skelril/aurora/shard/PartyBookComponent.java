@@ -17,11 +17,13 @@ import com.sk89q.minecraft.util.commands.NestedCommand;
 import com.skelril.aurora.admin.AdminComponent;
 import com.skelril.aurora.events.shard.PartyActivateEvent;
 import com.skelril.aurora.events.wishingwell.PlayerAttemptItemWishEvent;
+import com.skelril.aurora.items.custom.CustomItems;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.extractor.entity.CombatantPair;
 import com.skelril.aurora.util.extractor.entity.EDBEExtractor;
-import com.skelril.aurora.util.item.PartyBook;
-import com.skelril.aurora.util.item.PartyScroll;
+import com.skelril.aurora.util.item.ItemUtil;
+import com.skelril.aurora.util.item.PartyBookReader;
+import com.skelril.aurora.util.item.PartyScrollReader;
 import com.zachsthings.libcomponents.ComponentInformation;
 import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
@@ -60,7 +62,15 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerAttemptItemWish(PlayerAttemptItemWishEvent event) {
-        PartyBook partyBook = PartyBook.getPartyBook(event.getItemStack());
+
+        ItemStack stack = event.getItemStack();
+
+        // Remove party books whether we can fully parse them or not
+        if (ItemUtil.isItem(stack, CustomItems.PARTY_BOOK)) {
+            event.setResult(Result.ALLOW_IGNORE);
+        }
+
+        PartyBookReader partyBook = PartyBookReader.getFrom(stack);
         if (partyBook == null) return;
         List<Player> players = new ArrayList<>();
         for (String player : partyBook.getAllPlayers()) {
@@ -69,7 +79,6 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
                 players.add(aPlayer);
             }
         }
-        event.setResult(Result.ALLOW_IGNORE);
         callEvent(new PartyActivateEvent(partyBook.getShard(), players));
     }
 
@@ -87,9 +96,9 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
         Player attacker = result.getAttacker();
         Player defender = result.getDefender();
 
-        PartyBook partyBook = PartyBook.getPartyBook(attacker.getItemInHand());
+        PartyBookReader partyBook = PartyBookReader.getFrom(attacker.getItemInHand());
         if (partyBook == null) return;
-        defender.getInventory().addItem(new PartyScroll(partyBook.getShard(), attacker.getName()).buildScroll());
+        defender.getInventory().addItem(new PartyScrollReader(partyBook.getShard(), attacker.getName()).build());
         ChatUtil.sendNotice(defender, attacker.getName() + " has given you a party scroll!");
         ChatUtil.sendNotice(defender, "Right click to accept, drop to decline.");
     }
@@ -97,7 +106,7 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
     @EventHandler
     public void onItemDrop(PlayerDropItemEvent event) {
         Item stack = event.getItemDrop();
-        if (PartyScroll.getPartyScroll(stack.getItemStack()) != null) {
+        if (ItemUtil.isItem(stack.getItemStack(), CustomItems.PARTY_SCROLL)) {
             ChatUtil.sendWarning(event.getPlayer(), "Invitation declined!");
             stack.remove();
         }
@@ -110,7 +119,7 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
         switch (event.getAction()) {
             case RIGHT_CLICK_BLOCK:
             case RIGHT_CLICK_AIR:
-                PartyScroll scroll = PartyScroll.getPartyScroll(itemStack);
+                PartyScrollReader scroll = PartyScrollReader.getPartyScroll(itemStack);
                 if (scroll == null) {
                     return;
                 }
@@ -124,10 +133,10 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
                 ItemStack[] itemStacks = target.getInventory().getContents();
                 for (int i = 0; i < itemStacks.length; ++i) {
                     if (itemStacks[i] == null) continue;
-                    PartyBook book = PartyBook.getPartyBook(itemStacks[i]);
+                    PartyBookReader book = PartyBookReader.getFrom(itemStacks[i]);
                     if (book == null) continue;
                     book.addPlayer(player.getName());
-                    itemStacks[i] = book.buildBook();
+                    itemStacks[i] = book.build();
                     break;
                 }
                 target.getInventory().setContents(itemStacks);
@@ -174,7 +183,7 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
         public void getCmd(CommandContext args, CommandSender sender) throws CommandException {
             Player player = PlayerUtil.checkPlayer(sender);
             ShardType type = ShardType.valueOf(args.getJoinedStrings(0).toUpperCase().replaceAll(" ", "_"));
-            player.getInventory().addItem(new PartyBook(type, player.getName()).buildBook());
+            player.getInventory().addItem(new PartyBookReader(type, player.getName()).build());
         }
     }
 }

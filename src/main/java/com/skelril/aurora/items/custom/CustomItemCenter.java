@@ -515,6 +515,15 @@ public class CustomItemCenter {
         madMilk.addUse("When drank, it will turn into a Magic Bucket.");
         addItem(madMilk);
 
+        CustomItem partyBook = new CustomItem(PARTY_BOOK, Material.WRITTEN_BOOK);
+        partyBook.addUse("Hit other players with the book to invite them to your party.");
+        partyBook.addUse("Throw the book into the wishing well to start an instance.");
+        addItem(partyBook);
+
+        CustomItem partyScroll = new CustomItem(PARTY_SCROLL, Material.PAPER);
+        partyScroll.addUse("Right click to accept a party invitation.");
+        addItem(partyScroll);
+
         CustomItem pwngBow = new CustomItem(PWNG_BOW, Material.BOW);
         pwngBow.addEnchant(Enchantment.ARROW_DAMAGE, 1000);
         addItem(pwngBow);

@@ -98,6 +98,10 @@ public enum CustomItems {
     SCROLL_OF_SUMMATION(ChatColor.GOLD, "Scroll of Summation"),
     HYMN_OF_SUMMATION(ChatColor.GOLD, "Hymn of Summation"),
 
+    // Instance Items
+    PARTY_BOOK(ChatColor.DARK_GREEN, "Party Book"),
+    PARTY_SCROLL(ChatColor.DARK_GREEN, "Party Scroll"),
+
     // Miscellaneous
     MAD_MILK(ChatColor.DARK_AQUA, "Mad Milk"),
     GOD_FISH(ChatColor.BLUE, "God Fish"),

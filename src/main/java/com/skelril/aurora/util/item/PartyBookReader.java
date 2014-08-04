@@ -7,8 +7,12 @@
 package com.skelril.aurora.util.item;
 
 import com.google.common.collect.Lists;
-import com.sk89q.worldedit.blocks.ItemID;
+import com.skelril.aurora.items.custom.CustomItem;
+import com.skelril.aurora.items.custom.CustomItemCenter;
+import com.skelril.aurora.items.custom.CustomItems;
+import com.skelril.aurora.shard.ShardOwnerTag;
 import com.skelril.aurora.shard.ShardType;
+import com.skelril.aurora.shard.ShardTypeTag;
 import net.minecraft.util.com.google.common.collect.Sets;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
@@ -16,41 +20,43 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
-public class PartyBook {
+public class PartyBookReader {
 
     private ShardType shard;
     private String owner;
     private Set<String> players = new HashSet<>();
 
-    public PartyBook(ShardType shard, String owner) {
+    public PartyBookReader(ShardType shard, String owner) {
         this.shard = shard;
         this.owner = owner;
     }
 
-    public PartyBook(ShardType shard, String owner, Set<String> players) {
+    public PartyBookReader(ShardType shard, String owner, Set<String> players) {
         this(shard, owner);
         this.players = players;
     }
 
-    public static PartyBook getPartyBook(ItemStack itemStack) {
-        if (itemStack == null || itemStack.getTypeId() != ItemID.WRITTEN_BOOK) {
+    public static PartyBookReader getFrom(ItemStack itemStack) {
+        if (!ItemUtil.isItem(itemStack, CustomItems.PARTY_BOOK)) {
             return null;
         }
 
         ItemMeta iMeta = itemStack.getItemMeta();
         if (iMeta instanceof BookMeta) {
             BookMeta meta = (BookMeta) iMeta;
-            ShardType type = null;
-            for (ShardType shard : ShardType.values()) {
-                if (shard.getColoredName().equals(meta.getTitle())) {
-                    type = shard;
-                    break;
-                }
+            Map<String, String> map = ItemUtil.getItemTags(itemStack);
+
+            if (map != null) {
+                String ownerTag = map.get(ShardOwnerTag.getTypeColor() + ShardOwnerTag.getTypeKey());
+                String shardTag = map.get(ShardTypeTag.getTypeColor() + ShardTypeTag.getTypeKey());
+                if (ownerTag == null || shardTag == null) return null;
+                ShardType type = ShardType.matchFrom(shardTag);
+                if (type == null) return null;
+                return new PartyBookReader(type, ownerTag, Sets.newHashSet(meta.getPages()));
             }
-            if (type == null) return null;
-            return new PartyBook(type, meta.getAuthor(), Sets.newHashSet(meta.getPages()));
         }
         return null;
     }
@@ -93,11 +99,12 @@ public class PartyBook {
         players.remove(player);
     }
 
-    public ItemStack buildBook() {
-        ItemStack book = new ItemStack(ItemID.WRITTEN_BOOK);
+    public ItemStack build() {
+        CustomItem partyBook = CustomItemCenter.get(CustomItems.PARTY_BOOK);
+        partyBook.addTag(new ShardTypeTag(shard));
+        partyBook.addTag(new ShardOwnerTag(owner));
+        ItemStack book = partyBook.build();
         BookMeta bMeta = (BookMeta) book.getItemMeta();
-        bMeta.setTitle(shard.getColoredName());
-        bMeta.setAuthor(owner);
         bMeta.setPages(Lists.newArrayList(players));
         book.setItemMeta(bMeta);
         return book;

@@ -38,4 +38,13 @@ public enum ShardType {
     public String toString() {
         return color + name;
     }
+
+    public static ShardType matchFrom(String string) {
+        for (ShardType type : values()) {
+            if (type.getColoredName().equals(string)) {
+                return type;
+            }
+        }
+        return null;
+    }
 }
