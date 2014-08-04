@@ -4,7 +4,7 @@
  * All Rights Reserved
  */
 
-package com.skelril.aurora.worlds;
+package com.skelril.aurora.shard;
 
 import com.sk89q.commandbook.session.SessionComponent;
 import com.sk89q.commandbook.util.entity.player.PlayerUtil;
@@ -14,7 +14,6 @@ import com.sk89q.minecraft.util.commands.CommandException;
 import com.skelril.aurora.admin.AdminComponent;
 import com.skelril.aurora.events.shard.PartyActivateEvent;
 import com.skelril.aurora.events.wishingwell.PlayerAttemptItemWishEvent;
-import com.skelril.aurora.shards.ShardType;
 import com.skelril.aurora.util.item.PartyBook;
 import com.zachsthings.libcomponents.ComponentInformation;
 import com.zachsthings.libcomponents.Depend;
@@ -33,9 +32,9 @@ import static com.sk89q.commandbook.CommandBook.registerEvents;
 import static com.skelril.aurora.events.wishingwell.PlayerAttemptItemWishEvent.Result;
 import static com.zachsthings.libcomponents.bukkit.BasePlugin.callEvent;
 
-@ComponentInformation(friendlyName = "Primus Core", desc = "Operate Primus.")
+@ComponentInformation(friendlyName = "Party Book", desc = "Operate Party Books.")
 @Depend(components = {AdminComponent.class, SessionComponent.class})
-public class PrimusCoreComponent extends BukkitComponent implements Listener {
+public class PartyBookComponent extends BukkitComponent implements Listener {
 
     @Override
     public void enable() {

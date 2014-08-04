@@ -8,7 +8,6 @@ package com.skelril.aurora.shard;
 
 import com.sk89q.worldedit.world.World;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import com.skelril.aurora.shards.ShardType;
 
 public abstract class Shard<T extends ShardInstance> {
 

@@ -4,7 +4,7 @@
  * All Rights Reserved
  */
 
-package com.skelril.aurora.shards;
+package com.skelril.aurora.shard;
 
 import org.bukkit.ChatColor;
 

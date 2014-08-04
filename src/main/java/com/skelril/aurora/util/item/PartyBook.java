@@ -8,7 +8,7 @@ package com.skelril.aurora.util.item;
 
 import com.google.common.collect.Lists;
 import com.sk89q.worldedit.blocks.ItemID;
-import com.skelril.aurora.shards.ShardType;
+import com.skelril.aurora.shard.ShardType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 

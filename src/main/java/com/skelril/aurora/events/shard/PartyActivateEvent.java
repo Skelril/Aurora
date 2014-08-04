@@ -6,7 +6,7 @@
 
 package com.skelril.aurora.events.shard;
 
-import com.skelril.aurora.shards.ShardType;
+import com.skelril.aurora.shard.ShardType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

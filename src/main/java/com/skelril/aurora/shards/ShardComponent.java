@@ -13,6 +13,7 @@ import com.skelril.aurora.exceptions.UnknownPluginException;
 import com.skelril.aurora.shard.Shard;
 import com.skelril.aurora.shard.ShardInstance;
 import com.skelril.aurora.shard.ShardManagerComponent;
+import com.skelril.aurora.shard.ShardType;
 import com.skelril.aurora.util.LocationUtil;
 import com.zachsthings.libcomponents.TemplateComponent;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;

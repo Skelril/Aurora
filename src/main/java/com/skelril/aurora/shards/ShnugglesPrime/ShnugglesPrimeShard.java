@@ -26,7 +26,7 @@ import com.skelril.aurora.items.custom.CustomItemCenter;
 import com.skelril.aurora.prayer.PrayerComponent;
 import com.skelril.aurora.shard.Shard;
 import com.skelril.aurora.shard.ShardEditor;
-import com.skelril.aurora.shards.ShardType;
+import com.skelril.aurora.shard.ShardType;
 import com.skelril.aurora.util.ChanceUtil;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.EntityUtil;
