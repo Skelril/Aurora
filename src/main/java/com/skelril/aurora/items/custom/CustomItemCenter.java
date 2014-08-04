@@ -515,6 +515,18 @@ public class CustomItemCenter {
         madMilk.addUse("If thrown into a brewing vat at the factory, a melt down will occur in which all undead creatures die.");
         madMilk.addUse("When drank, it will turn into a Magic Bucket.");
         addItem(madMilk);
+
+        CustomItem pwngBow = new CustomItem(PWNG_BOW, Material.BOW);
+        pwngBow.addEnchant(Enchantment.ARROW_DAMAGE, 1000);
+        addItem(pwngBow);
+
+        CustomItem pwngSword = new CustomItem(PWNG_SWORD, Material.DIAMOND_SWORD);
+        pwngBow.addEnchant(Enchantment.DAMAGE_ALL, 1000);
+        addItem(pwngSword);
+
+        CustomItem doomFeather = new CustomItem(DOOM_FEATHER, Material.FEATHER);
+        doomFeather.addEnchant(Enchantment.KNOCKBACK, 1000);
+        addItem(doomFeather);
     }
 
     public static Collection<CustomItem> values() {

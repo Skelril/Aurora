@@ -553,13 +553,8 @@ public class AdminStoreComponent extends BukkitComponent {
                 }
                 itemName = type.getName();
             }
-            ItemPricePair itemPricePair = itemDatabase.getItem(itemName);
 
-            if (itemPricePair == null) {
-                throw new CommandException(NOT_AVAILIBLE);
-            }
-
-            inst.checkPermission(sender, "aurora.admin.adminstore.refund." + itemPricePair.getName());
+            inst.checkPermission(sender, "aurora.admin.adminstore.refund." + itemName);
 
             int amt = 1;
             if (args.hasFlag('a')) {
@@ -567,7 +562,7 @@ public class AdminStoreComponent extends BukkitComponent {
             }
 
             // Get the items and add them to the inventory
-            ItemStack[] itemStacks = getItem(itemPricePair.getName(), amt);
+            ItemStack[] itemStacks = getItem(itemName, amt);
             for (ItemStack itemStack : itemStacks) {
                 if (target.getInventory().firstEmpty() == -1) {
                     target.getWorld().dropItem(target.getLocation(), itemStack);
@@ -576,7 +571,7 @@ public class AdminStoreComponent extends BukkitComponent {
                 target.getInventory().addItem(itemStack);
             }
 
-            String itemString = ChatColor.BLUE + itemPricePair.getName().toUpperCase() + ChatColor.YELLOW + ".";
+            String itemString = ChatColor.BLUE + itemName.toUpperCase() + ChatColor.YELLOW + ".";
             ChatUtil.sendNotice(sender, target.getName() + " has been given " + amt + " new: " + itemString);
             if (!sender.equals(target)) {
                 ChatUtil.sendNotice(target, "You have been given " + amt + " new: " + itemString);
