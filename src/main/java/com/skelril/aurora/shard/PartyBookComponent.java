@@ -147,6 +147,18 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
 
     public class Commands {
 
+        @Command(aliases = {"leave"},
+                usage = "", desc = "Leave an instance",
+                flags = "", min = 0, max = 0)
+        public void leaveCmd(CommandContext args, CommandSender sender) throws CommandException {
+            Player player = PlayerUtil.checkPlayer(sender);
+            if (!player.getWorld().getName().equals("Exemplar")) {
+                throw new CommandException("You must be in an instance to use this command.");
+            }
+            player.teleport(Bukkit.getWorlds().get(0).getSpawnLocation());
+            ChatUtil.sendNotice(player, "You've left the instance.");
+        }
+
         @Command(aliases = {"partybook", "pbook"}, desc = "Party book commands")
         @NestedCommand(PartyBookCommands.class)
         public void partyBookCmds(CommandContext args, CommandSender sender) throws CommandException {
