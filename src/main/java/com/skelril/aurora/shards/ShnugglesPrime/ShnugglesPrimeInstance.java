@@ -136,7 +136,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
 
     @Override
     public void run() {
-        if (!isBossSpawned() || emptyTicks > 60) {
+        if ((!isBossSpawned() && lastDeath != 0) || emptyTicks > 60) {
             if (System.currentTimeMillis() - lastDeath >= 1000 * 60 * 3) {
                 expire();
             }
