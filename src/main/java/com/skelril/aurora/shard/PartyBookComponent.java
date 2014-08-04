@@ -6,6 +6,7 @@
 
 package com.skelril.aurora.shard;
 
+import com.google.common.collect.Lists;
 import com.sk89q.commandbook.commands.PaginatedResult;
 import com.sk89q.commandbook.session.SessionComponent;
 import com.sk89q.commandbook.util.entity.player.PlayerUtil;
@@ -38,7 +39,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import static com.sk89q.commandbook.CommandBook.inst;
@@ -146,15 +147,25 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
 
     public class PartyBookCommands {
         @Command(aliases = {"list"},
-                usage = "[instance name]", desc = "List party books",
-                flags = "p:", min = 2)
+                usage = "[-p page] [instance name]", desc = "List party books",
+                flags = "p:", min = 0)
         public void listCmd(CommandContext args, CommandSender sender) throws CommandException {
+            List<ShardType> shardTypes = Lists.newArrayList(ShardType.values());
+            if (args.argsLength() > 0) {
+                String prefix = args.getJoinedStrings(0);
+                Iterator<ShardType> it = shardTypes.iterator();
+                while (it.hasNext()) {
+                    if (!it.next().getName().startsWith(prefix)) {
+                        it.remove();
+                    }
+                }
+            }
             new PaginatedResult<ShardType>(ChatColor.GOLD + "Party Books") {
                 @Override
                 public String format(ShardType shardType) {
                     return ChatColor.BLUE + shardType.getName().toUpperCase();
                 }
-            }.display(sender, Arrays.asList(ShardType.values()), args.getFlagInteger('p'));
+            }.display(sender, shardTypes, args.getFlagInteger('p', 1));
         }
 
         @Command(aliases = {"get"},
