@@ -43,7 +43,6 @@ public class BasicShardSchematic implements ShardSchematic {
             try (BufferedInputStream bis = new BufferedInputStream(fis)) {
                 ClipboardReader reader = ClipboardFormat.SCHEMATIC.getReader(bis);
                 Clipboard clipboard = reader.read(worldData);
-                clipboard.setOrigin(clipboard.getOrigin().setY(0));
                 return new ClipboardHolder(clipboard, worldData);
             }
         }

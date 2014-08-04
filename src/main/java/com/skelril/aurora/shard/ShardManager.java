@@ -76,7 +76,7 @@ public class ShardManager {
         return new ProtectedCuboidRegion(
                 shard.getRGName() + '-' + shard.getQuantity(),
                 new BlockVector(targetPt),
-                new BlockVector(targetPt.add(shard.getEditor().getDimensions()))
+                new BlockVector(targetPt.add(shard.getEditor().getDimensions().subtract(1, 1, 1)))
         );
     }
 

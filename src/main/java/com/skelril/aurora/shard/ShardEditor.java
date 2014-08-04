@@ -12,6 +12,8 @@ import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.function.operation.Operation;
 import com.sk89q.worldedit.function.operation.Operations;
+import com.sk89q.worldedit.regions.Region;
+import com.sk89q.worldedit.session.ClipboardHolder;
 import com.sk89q.worldedit.world.World;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
@@ -34,7 +36,10 @@ public class ShardEditor {
 
         Operation operation;
         try {
-            operation = resolver.getHolder()
+            ClipboardHolder holder = resolver.getHolder();
+            Region clipReg = holder.getClipboard().getRegion();
+            holder.getClipboard().setOrigin(clipReg.getMinimumPoint());
+            operation = holder
                     .createPaste(transaction, transaction.getWorld().getWorldData())
                     .to(region.getMinimumPoint())
                     .build();
