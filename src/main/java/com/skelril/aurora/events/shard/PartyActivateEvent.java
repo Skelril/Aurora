@@ -6,6 +6,7 @@
 
 package com.skelril.aurora.events.shard;
 
+import com.skelril.aurora.shards.ShardType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -16,16 +17,16 @@ public class PartyActivateEvent extends Event {
 
     private static final HandlerList handlers = new HandlerList();
 
-    private final String shardName;
+    private final ShardType shard;
     private final List<Player> players;
 
-    public PartyActivateEvent(String shardName, List<Player> players) {
-        this.shardName = shardName;
+    public PartyActivateEvent(ShardType shard, List<Player> players) {
+        this.shard = shard;
         this.players = players;
     }
 
-    public String getShardName() {
-        return shardName;
+    public ShardType getShard() {
+        return shard;
     }
 
     public List<Player> getPlayers() {

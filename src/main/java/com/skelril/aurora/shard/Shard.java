@@ -8,24 +8,25 @@ package com.skelril.aurora.shard;
 
 import com.sk89q.worldedit.world.World;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import com.skelril.aurora.shards.ShardType;
 
 public abstract class Shard<T extends ShardInstance> {
 
-    private final String name;
+    private final ShardType shard;
     private final ShardEditor editor;
     private int quantity = 0;
 
-    public Shard(String name, ShardEditor editor) {
-        this.name = name;
+    public Shard(ShardType shard, ShardEditor editor) {
+        this.shard = shard;
         this.editor = editor;
     }
 
-    public String getName() {
-        return name;
+    public ShardType getType() {
+        return shard;
     }
 
     public String getRGName() {
-        return name.toLowerCase().replace(" ", "-");
+        return shard.getName().toLowerCase().replace(" ", "-");
     }
 
     public ShardEditor getEditor() {

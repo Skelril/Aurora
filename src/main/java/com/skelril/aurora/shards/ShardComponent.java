@@ -65,8 +65,8 @@ public abstract class ShardComponent<A extends Shard<T>, T extends ShardInstance
         return instances;
     }
 
-    public boolean matchesShard(String name) {
-        return shard.getName().equals(name);
+    public boolean matchesShard(ShardType aShard) {
+        return shard.getType().equals(aShard);
     }
 
     public T makeInstance() {

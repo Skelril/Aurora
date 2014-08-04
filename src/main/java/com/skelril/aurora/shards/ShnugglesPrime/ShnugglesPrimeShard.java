@@ -26,6 +26,7 @@ import com.skelril.aurora.items.custom.CustomItemCenter;
 import com.skelril.aurora.prayer.PrayerComponent;
 import com.skelril.aurora.shard.Shard;
 import com.skelril.aurora.shard.ShardEditor;
+import com.skelril.aurora.shards.ShardType;
 import com.skelril.aurora.util.ChanceUtil;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.EntityUtil;
@@ -61,7 +62,7 @@ public class ShnugglesPrimeShard extends Shard<ShnugglesPrimeInstance> {
     private BossManager manager = new BossManager();
 
     public ShnugglesPrimeShard(ShardEditor editor, AdminComponent admin, PrayerComponent prayers) {
-        super("Shnuggles Prime", editor);
+        super(ShardType.SHNUGGLES_PRIME, editor);
         setUpManager();
         ShnugglesPrimeShard.admin = admin;
         ShnugglesPrimeShard.prayers = prayers;

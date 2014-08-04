@@ -8,7 +8,7 @@ package com.skelril.aurora.util.item;
 
 import com.google.common.collect.Lists;
 import com.sk89q.worldedit.blocks.ItemID;
-import org.bukkit.ChatColor;
+import com.skelril.aurora.shards.ShardType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
@@ -18,31 +18,41 @@ import java.util.Set;
 
 public class PartyBook {
 
-    private String instance;
+    private ShardType shard;
     private String owner;
     private Set<String> players = new HashSet<>();
 
-    public PartyBook(String instance, String owner, Set<String> players) {
-        this.instance = instance;
+    public PartyBook(ShardType shard, String owner, Set<String> players) {
+        this.shard = shard;
         this.owner = owner;
         this.players = players;
     }
 
     public PartyBook(BookMeta meta) {
-        if (!meta.getTitle().startsWith(String.valueOf(ChatColor.BLUE))) {
-            throw new IllegalArgumentException();
+        ShardType shard = getShardFromBook(meta);
+        if (shard == null) {
+            throw new IllegalArgumentException("Invalid shard book");
         }
-        instance = ChatColor.stripColor(meta.getTitle());
-        owner = meta.getAuthor();
-        players.addAll(meta.getPages());
+        this.shard = shard;
+        this.owner = meta.getAuthor();
+        this.players.addAll(meta.getPages());
     }
 
-    public String getInstance() {
-        return instance;
+    public static ShardType getShardFromBook(BookMeta meta) {
+        for (ShardType shard : ShardType.values()) {
+            if (shard.getColoredName().equals(meta.getTitle())) {
+                return shard;
+            }
+        }
+        return null;
     }
 
-    public void setInstance(String instance) {
-        this.instance = instance;
+    public ShardType getShard() {
+        return shard;
+    }
+
+    public void setShard(ShardType shard) {
+        this.shard = shard;
     }
 
     public String getOwner() {
@@ -78,7 +88,7 @@ public class PartyBook {
     public ItemStack buildBook() {
         ItemStack book = new ItemStack(ItemID.WRITTEN_BOOK);
         BookMeta bMeta = (BookMeta) book.getItemMeta();
-        bMeta.setTitle(ChatColor.BLUE + instance);
+        bMeta.setTitle(shard.getColoredName());
         bMeta.setAuthor(owner);
         bMeta.setPages(Lists.newArrayList(players));
         book.setItemMeta(bMeta);

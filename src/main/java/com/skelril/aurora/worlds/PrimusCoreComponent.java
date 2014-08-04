@@ -14,6 +14,7 @@ import com.sk89q.minecraft.util.commands.CommandException;
 import com.skelril.aurora.admin.AdminComponent;
 import com.skelril.aurora.events.shard.PartyActivateEvent;
 import com.skelril.aurora.events.wishingwell.PlayerAttemptItemWishEvent;
+import com.skelril.aurora.shards.ShardType;
 import com.skelril.aurora.util.item.PartyBook;
 import com.zachsthings.libcomponents.ComponentInformation;
 import com.zachsthings.libcomponents.Depend;
@@ -24,6 +25,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.meta.BookMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
 
@@ -43,8 +45,10 @@ public class PrimusCoreComponent extends BukkitComponent implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerAttemptItemWish(PlayerAttemptItemWishEvent event) {
-        if (event.getItemStack().getItemMeta() instanceof BookMeta) {
-            PartyBook book = new PartyBook((BookMeta) event.getItemStack().getItemMeta());
+        ItemMeta meta = event.getItemStack().getItemMeta();
+        if (meta instanceof BookMeta) {
+            if (PartyBook.getShardFromBook((BookMeta) meta) == null) return;
+            PartyBook book = new PartyBook((BookMeta) meta);
             List<Player> players = new ArrayList<>();
             for (String player : book.getAllPlayers()) {
                 Player aPlayer = Bukkit.getPlayerExact(player);
@@ -53,7 +57,7 @@ public class PrimusCoreComponent extends BukkitComponent implements Listener {
                 }
             }
             event.setResult(Result.ALLOW_IGNORE);
-            callEvent(new PartyActivateEvent(book.getInstance(), players));
+            callEvent(new PartyActivateEvent(book.getShard(), players));
         }
     }
 
@@ -63,7 +67,7 @@ public class PrimusCoreComponent extends BukkitComponent implements Listener {
                 flags = "", min = 2)
         public void graveDigger(CommandContext args, CommandSender sender) throws CommandException {
             Player player = PlayerUtil.checkPlayer(sender);
-            String instance = args.getString(0);
+            ShardType instance = ShardType.valueOf(args.getString(0).toUpperCase());
             String players = args.getJoinedStrings(1);
             Set<String> playerNames = new HashSet<>();
             Collections.addAll(playerNames, players.split(","));
