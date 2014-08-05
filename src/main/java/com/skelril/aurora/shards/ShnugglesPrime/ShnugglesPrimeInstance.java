@@ -73,6 +73,8 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
     public ShnugglesPrimeInstance(ShnugglesPrimeShard shard, World world, ProtectedRegion region) {
         super(shard, world, region);
         probeArea();
+        removeMobs();
+        spawnBoss();
     }
 
     public void probeArea() {
@@ -118,12 +120,6 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 bPlayer.teleport(target);
             }
         }
-    }
-
-    @Override
-    public void prepare() {
-        removeMobs();
-        spawnBoss();
     }
 
     @Override
