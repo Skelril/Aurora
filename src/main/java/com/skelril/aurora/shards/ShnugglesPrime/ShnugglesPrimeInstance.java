@@ -10,9 +10,6 @@ import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldedit.blocks.ItemID;
 import com.sk89q.worldedit.bukkit.BukkitPlayer;
-import com.sk89q.worldedit.bukkit.BukkitUtil;
-import com.sk89q.worldedit.regions.CuboidRegion;
-import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.world.World;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.skelril.OpenBoss.Boss;
@@ -158,6 +155,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
         }
     }
 
+    @Override
     public void removeMobs() {
         getContained(Monster.class).forEach(e -> {
             for (int i = 0; i < 20; i++) getBukkitWorld().playEffect(e.getLocation(), Effect.SMOKE, 0);
@@ -185,10 +183,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
     }
 
     public void spawnBoss() {
-        BlockVector min = getRegion().getMinimumPoint();
-        BlockVector max = getRegion().getMaximumPoint();
-        Region region = new CuboidRegion(min, max);
-        Location l = BukkitUtil.toLocation(getBukkitWorld(), region.getCenter());
+        Location l = LocationUtil.getCenter(getBukkitWorld(), getRegion());
         boss = new Boss(getBukkitWorld().spawn(l, Giant.class), new SBossDetail(this));
         getMaster().getBossManager().bind(boss);
     }

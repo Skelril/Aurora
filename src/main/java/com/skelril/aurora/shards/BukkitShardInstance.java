@@ -6,7 +6,6 @@
 
 package com.skelril.aurora.shards;
 
-import com.sk89q.worldedit.entity.Player;
 import com.sk89q.worldedit.world.World;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.skelril.aurora.shard.Shard;
@@ -17,6 +16,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -30,11 +30,6 @@ public abstract class BukkitShardInstance<S extends Shard> extends ShardInstance
 
     public BukkitShardInstance(S shard, World world, ProtectedRegion region) {
         super(shard, world, region);
-    }
-
-    @Override
-    public void teleportTo(Player... player) {
-
     }
 
     @Override
@@ -144,6 +139,12 @@ public abstract class BukkitShardInstance<S extends Shard> extends ShardInstance
 
     public boolean contains(ProtectedRegion region, Location location) {
         return LocationUtil.isInRegion(getBukkitWorld(), region, location);
+    }
+
+    public void removeMobs() {
+        getContained(LivingEntity.class).stream()
+                .filter(e -> !(e instanceof org.bukkit.entity.Player))
+                .forEach(Entity::remove);
     }
 
     public org.bukkit.World getBukkitWorld() {

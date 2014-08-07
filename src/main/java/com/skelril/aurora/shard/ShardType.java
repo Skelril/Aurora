@@ -11,7 +11,8 @@ import org.bukkit.ChatColor;
 public enum ShardType {
 
     // Bosses
-    SHNUGGLES_PRIME(ChatColor.BLUE, "Shnuggles Prime");
+    SHNUGGLES_PRIME(ChatColor.BLUE, "Shnuggles Prime"),
+    PATIENT_X(ChatColor.DARK_RED, "Patient X");
 
     private ChatColor color;
     private String name;
