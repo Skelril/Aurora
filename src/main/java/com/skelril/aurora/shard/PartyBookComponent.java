@@ -98,6 +98,11 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
 
         PartyBookReader partyBook = PartyBookReader.getFrom(attacker.getItemInHand());
         if (partyBook == null) return;
+
+        if (!event.isCancelled()) {
+            event.setCancelled(true);
+        }
+
         defender.getInventory().addItem(new PartyScrollReader(partyBook.getShard(), attacker.getName()).build());
         ChatUtil.sendNotice(defender, attacker.getName() + " has given you a party scroll!");
         ChatUtil.sendNotice(defender, "Right click to accept, drop to decline.");
