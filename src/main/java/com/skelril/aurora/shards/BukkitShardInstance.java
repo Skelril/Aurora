@@ -15,10 +15,7 @@ import com.skelril.aurora.util.WEAPIUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Arrow;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.ExperienceOrb;
-import org.bukkit.entity.Monster;
+import org.bukkit.entity.*;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -149,7 +146,7 @@ public abstract class BukkitShardInstance<S extends Shard> extends ShardInstance
     }
 
     public void remove() {
-        remove(Monster.class, ExperienceOrb.class, Arrow.class);
+        remove(Monster.class, ExperienceOrb.class, Item.class, Arrow.class);
     }
 
     public void remove(Class<?>... classes) {
