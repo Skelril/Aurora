@@ -144,17 +144,6 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
         }
     }
 
-    public LivingEntity getBoss() {
-        return boss.getEntity();
-    }
-
-    public void healBoss(float percentHealth) {
-        if (isBossSpawned()) {
-            LivingEntity boss = getBoss();
-            EntityUtil.heal(boss, boss.getMaxHealth() * percentHealth);
-        }
-    }
-
     @Override
     public void removeMobs() {
         getContained(Monster.class).forEach(e -> {
@@ -186,6 +175,17 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
         Location l = LocationUtil.getCenter(getBukkitWorld(), getRegion());
         boss = new Boss(getBukkitWorld().spawn(l, Giant.class), new SBossDetail(this));
         getMaster().getBossManager().bind(boss);
+    }
+
+    public LivingEntity getBoss() {
+        return boss.getEntity();
+    }
+
+    public void healBoss(float percentHealth) {
+        if (isBossSpawned()) {
+            LivingEntity boss = getBoss();
+            EntityUtil.heal(boss, boss.getMaxHealth() * percentHealth);
+        }
     }
 
     public void bossDied() {

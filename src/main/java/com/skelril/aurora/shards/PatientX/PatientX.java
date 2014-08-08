@@ -53,7 +53,8 @@ public class PatientX extends ShardComponent<PatientXShard, PatientXInstance> im
                     ),
                     config = configure(
                             new PatientXConfig()
-                    )
+                    ),
+                    admin
             );
         } catch (IOException e) {
             e.printStackTrace();

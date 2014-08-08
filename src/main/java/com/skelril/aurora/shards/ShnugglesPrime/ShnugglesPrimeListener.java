@@ -6,6 +6,7 @@
 
 package com.skelril.aurora.shards.ShnugglesPrime;
 
+import com.sk89q.worldedit.blocks.ItemID;
 import com.skelril.aurora.events.PrayerApplicationEvent;
 import com.skelril.aurora.events.custom.item.ChanceActivationEvent;
 import com.skelril.aurora.events.custom.item.SpecialAttackEvent;
@@ -23,14 +24,18 @@ import com.skelril.aurora.items.specialattack.attacks.ranged.misc.MobAttack;
 import com.skelril.aurora.items.specialattack.attacks.ranged.unleashed.Famine;
 import com.skelril.aurora.items.specialattack.attacks.ranged.unleashed.GlowingFog;
 import com.skelril.aurora.shards.ShardListener;
+import com.skelril.aurora.util.ChanceUtil;
 import com.skelril.aurora.util.ChatUtil;
 import org.bukkit.entity.Giant;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -52,8 +57,7 @@ public class ShnugglesPrimeListener extends ShardListener<ShnugglesPrime> {
     public void onPlayerToggleFlight(PlayerToggleFlightEvent event) {
         Player player = event.getPlayer();
         ShnugglesPrimeInstance inst = shard.getInstance(player.getLocation());
-        if (inst == null) return;
-        if (event.isFlying() && inst.contains(player) && !inst.getMaster().getAdmin().isAdmin(player)) {
+        if (inst != null && event.isFlying() && !inst.getMaster().getAdmin().isAdmin(player)) {
             event.setCancelled(true);
             ChatUtil.sendNotice(player, "You cannot fly here!");
         }
@@ -129,6 +133,20 @@ public class ShnugglesPrimeListener extends ShardListener<ShnugglesPrime> {
             case ARMOR:
                 event.increaseChance(10);
                 break;
+        }
+    }
+
+    @EventHandler
+    public void onEntityDeath(EntityDeathEvent event) {
+        LivingEntity entity = event.getEntity();
+        ShnugglesPrimeInstance inst = shard.getInstance(entity);
+        if (inst == null) return;
+        event.getDrops().clear();
+        if (entity instanceof Zombie && ((Zombie) entity).isBaby()) {
+            if (ChanceUtil.getChance(28)) {
+                event.getDrops().add(new ItemStack(ItemID.GOLD_NUGGET, ChanceUtil.getRandom(3)));
+            }
+            event.setDroppedExp(14);
         }
     }
 

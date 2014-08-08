@@ -47,12 +47,14 @@ public class ShardManager {
     private <T extends ShardInstance> T searchFor(Shard<T> shard) {
         int highestHeld = 0;
         for (Map.Entry<String, ProtectedRegion> entry : rgManager.getRegions().entrySet()) {
-            shard.setQuantity(++highestHeld);
             String shardName = shard.getRGName();
-            if (entry.getKey().startsWith(shardName) && !activeShards.contains(entry.getKey())) {
-                T shardInst = shard.load(world, entry.getValue());
-                shardInst.prepare();
-                return shardInst;
+            if (entry.getKey().startsWith(shardName)) {
+                shard.setQuantity(++highestHeld);
+                if (!activeShards.contains(entry.getKey())) {
+                    T shardInst = shard.load(world, entry.getValue());
+                    shardInst.prepare();
+                    return shardInst;
+                }
             }
         }
         return null;
