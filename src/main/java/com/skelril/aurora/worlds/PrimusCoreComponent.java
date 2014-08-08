@@ -47,21 +47,22 @@ public class PrimusCoreComponent extends BukkitComponent implements Listener {
 
         ItemStack stack = event.getItemStack();
 
-        // Remove party books whether we can fully parse them or not
-        if (!ItemUtil.isItem(stack, CustomItems.PARTY_BOOK)) {
-            return;
-        }
+        boolean isPartyBook = ItemUtil.isItem(stack, CustomItems.PARTY_BOOK);
 
         boolean worldB = world.equals(event.getLocation().getWorld());
         boolean waterB = EnvironmentUtil.isWater(event.getLocation().getBlock());
 
-        if (!worldB) {
+        if (!worldB && isPartyBook) {
             event.setResult(PlayerAttemptItemWishEvent.Result.ALLOW_IGNORE);
             return;
         }
 
         if (!waterB) return;
-        event.setResult(PlayerAttemptItemWishEvent.Result.ALLOW_IGNORE);
+
+        event.setResult(PlayerAttemptItemWishEvent.Result.ALLOW);
+        if (isPartyBook) {
+            event.setResult(PlayerAttemptItemWishEvent.Result.ALLOW_IGNORE);
+        }
 
         PartyBookReader partyBook = PartyBookReader.getFrom(stack);
         if (partyBook == null) return;
