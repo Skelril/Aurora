@@ -126,6 +126,14 @@ public class PatientXInstance extends BukkitShardInstance<PatientXShard> impleme
     }
 
     @Override
+    public void cleanUp() {
+        if (boss != null) {
+            getMaster().getBossManager().silentUnbind(boss);
+        }
+        removeMobs();
+    }
+
+    @Override
     public void run() {
         if ((!isBossSpawned() && lastDeath != 0) || emptyTicks > 60) {
             if (System.currentTimeMillis() - lastDeath >= 1000 * 60 * 5) {

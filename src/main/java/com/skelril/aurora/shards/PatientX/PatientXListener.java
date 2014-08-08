@@ -6,6 +6,7 @@
 
 package com.skelril.aurora.shards.PatientX;
 
+import com.skelril.aurora.events.PlayerInstanceDeathEvent;
 import com.skelril.aurora.events.PrayerApplicationEvent;
 import com.skelril.aurora.events.apocalypse.ApocalypseLocalSpawnEvent;
 import com.skelril.aurora.events.custom.item.ChanceActivationEvent;
@@ -28,6 +29,8 @@ import com.skelril.aurora.items.specialattack.attacks.ranged.unleashed.GlowingFo
 import com.skelril.aurora.shards.ShardListener;
 import com.skelril.aurora.util.ChanceUtil;
 import com.skelril.aurora.util.ChatUtil;
+import com.skelril.aurora.util.KeepAction;
+import com.skelril.aurora.util.player.PlayerRespawnProfile_1_7_10;
 import org.bukkit.Location;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -196,6 +199,15 @@ public class PatientXListener extends ShardListener<PatientX> {
             }
             event.setDroppedExp(20);
         }
+    }
+
+    @EventHandler
+    public void onPlayerInstDeath(PlayerInstanceDeathEvent event) {
+        PatientXInstance inst = shard.getInstance(event.getPlayer());
+        if (inst == null) return;
+        PlayerRespawnProfile_1_7_10 profile = event.getProfile();
+        profile.setLevelAction(KeepAction.DESTROY);
+        profile.setExperienceAction(KeepAction.DESTROY);
     }
 
     @EventHandler

@@ -7,6 +7,7 @@
 package com.skelril.aurora.shards.ShnugglesPrime;
 
 import com.sk89q.worldedit.blocks.ItemID;
+import com.skelril.aurora.events.PlayerInstanceDeathEvent;
 import com.skelril.aurora.events.PrayerApplicationEvent;
 import com.skelril.aurora.events.custom.item.ChanceActivationEvent;
 import com.skelril.aurora.events.custom.item.SpecialAttackEvent;
@@ -26,6 +27,8 @@ import com.skelril.aurora.items.specialattack.attacks.ranged.unleashed.GlowingFo
 import com.skelril.aurora.shards.ShardListener;
 import com.skelril.aurora.util.ChanceUtil;
 import com.skelril.aurora.util.ChatUtil;
+import com.skelril.aurora.util.KeepAction;
+import com.skelril.aurora.util.player.PlayerRespawnProfile_1_7_10;
 import org.bukkit.entity.Giant;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -148,6 +151,15 @@ public class ShnugglesPrimeListener extends ShardListener<ShnugglesPrime> {
             }
             event.setDroppedExp(14);
         }
+    }
+
+    @EventHandler
+    public void onPlayerInstDeath(PlayerInstanceDeathEvent event) {
+        ShnugglesPrimeInstance inst = shard.getInstance(event.getPlayer());
+        if (inst == null) return;
+        PlayerRespawnProfile_1_7_10 profile = event.getProfile();
+        profile.setLevelAction(KeepAction.DESTROY);
+        profile.setExperienceAction(KeepAction.DESTROY);
     }
 
     @EventHandler
