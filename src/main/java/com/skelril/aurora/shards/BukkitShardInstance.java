@@ -15,8 +15,10 @@ import com.skelril.aurora.util.WEAPIUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.ExperienceOrb;
+import org.bukkit.entity.Monster;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -40,6 +42,11 @@ public abstract class BukkitShardInstance<S extends Shard> extends ShardInstance
     public void expire() {
         expired = true;
         teleportAll(Bukkit.getWorlds().get(0).getSpawnLocation());
+    }
+
+    @Override
+    public void cleanUp() {
+        remove();
     }
 
     public void teleportAll(Location location) {
@@ -141,8 +148,12 @@ public abstract class BukkitShardInstance<S extends Shard> extends ShardInstance
         return LocationUtil.isInRegion(getBukkitWorld(), region, location);
     }
 
-    public void removeMobs() {
-        getContained(LivingEntity.class).stream()
+    public void remove() {
+        remove(Monster.class, ExperienceOrb.class, Arrow.class);
+    }
+
+    public void remove(Class<?>... classes) {
+        getContained(classes).stream()
                 .filter(e -> !(e instanceof org.bukkit.entity.Player))
                 .forEach(Entity::remove);
     }

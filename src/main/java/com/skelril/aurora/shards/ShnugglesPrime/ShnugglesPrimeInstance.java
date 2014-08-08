@@ -29,7 +29,6 @@ import com.skelril.aurora.util.timer.IntegratedRunnable;
 import com.skelril.aurora.util.timer.TimedRunnable;
 import com.skelril.aurora.util.timer.TimerUtil;
 import org.bukkit.ChatColor;
-import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.block.BlockState;
 import org.bukkit.enchantments.Enchantment;
@@ -70,7 +69,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
     public ShnugglesPrimeInstance(ShnugglesPrimeShard shard, World world, ProtectedRegion region) {
         super(shard, world, region);
         probeArea();
-        removeMobs();
+        remove();
         spawnBoss();
     }
 
@@ -124,7 +123,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
         if (boss != null) {
             getMaster().getBossManager().silentUnbind(boss);
         }
-        removeMobs();
+        super.cleanUp();
     }
 
     @Override
@@ -142,14 +141,6 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 runAttack(ChanceUtil.getRandom(OPTION_COUNT));
             }
         }
-    }
-
-    @Override
-    public void removeMobs() {
-        getContained(Monster.class).forEach(e -> {
-            for (int i = 0; i < 20; i++) getBukkitWorld().playEffect(e.getLocation(), Effect.SMOKE, 0);
-            e.remove();
-        });
     }
 
     public void buffBabies() {
@@ -371,7 +362,6 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                     if (!isBossSpawned()) return;
                     // Set defaults
                     boolean baskInGlory = getContained(Player.class).size() == 0;
-                    damageHeals = true;
                     // Check Players
                     for (Player player : getContained(Player.class)) {
                         if (inst().hasPermission(player, "aurora.prayer.intervention") && ChanceUtil.getChance(3)) {
@@ -385,6 +375,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                     }
                     //Attack
                     if (baskInGlory) {
+                        damageHeals = true;
                         spawnPts.stream().filter(pt -> ChanceUtil.getChance(12)).forEach(pt -> {
                             getBukkitWorld().createExplosion(pt.getX(), pt.getY(), pt.getZ(), 10, false, false);
                         });

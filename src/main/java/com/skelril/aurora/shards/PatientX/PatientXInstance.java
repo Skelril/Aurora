@@ -57,7 +57,7 @@ public class PatientXInstance extends BukkitShardInstance<PatientXShard> impleme
     public PatientXInstance(PatientXShard shard, World world, ProtectedRegion region) {
         super(shard, world, region);
         setUp();
-        removeMobs();
+        remove();
         spawnBoss();
     }
 
@@ -130,7 +130,7 @@ public class PatientXInstance extends BukkitShardInstance<PatientXShard> impleme
         if (boss != null) {
             getMaster().getBossManager().silentUnbind(boss);
         }
-        removeMobs();
+        super.cleanUp();
     }
 
     @Override

@@ -15,10 +15,9 @@ import com.sk89q.minecraft.util.commands.CommandContext;
 import com.sk89q.minecraft.util.commands.CommandException;
 import com.sk89q.minecraft.util.commands.NestedCommand;
 import com.skelril.aurora.admin.AdminComponent;
+import com.skelril.aurora.events.PlayerVsPlayerEvent;
 import com.skelril.aurora.items.custom.CustomItems;
 import com.skelril.aurora.util.ChatUtil;
-import com.skelril.aurora.util.extractor.entity.CombatantPair;
-import com.skelril.aurora.util.extractor.entity.EDBEExtractor;
 import com.skelril.aurora.util.item.ItemUtil;
 import com.skelril.aurora.util.item.PartyBookReader;
 import com.skelril.aurora.util.item.PartyScrollReader;
@@ -30,10 +29,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -55,19 +52,10 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
         registerCommands(Commands.class);
     }
 
-    EDBEExtractor<Player, Player, Projectile> extractor = new EDBEExtractor<>(
-            Player.class,
-            Player.class,
-            Projectile.class
-    );
-
     @EventHandler
-    public void onPvP(EntityDamageByEntityEvent event) {
-        CombatantPair<Player, Player, Projectile> result = extractor.extractFrom(event);
-        if (result == null) return;
-
-        Player attacker = result.getAttacker();
-        Player defender = result.getDefender();
+    public void onPvP(PlayerVsPlayerEvent event) {
+        Player attacker = event.getPlayer();
+        Player defender = event.getDefender();
 
         PartyBookReader partyBook = PartyBookReader.getFrom(attacker.getItemInHand());
         if (partyBook == null) return;

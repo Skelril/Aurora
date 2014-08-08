@@ -18,6 +18,7 @@ import com.sk89q.worldguard.protection.events.DisallowedPVPEvent;
 import com.sk89q.worldguard.protection.flags.DefaultFlag;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import com.skelril.aurora.events.PlayerVsPlayerEvent;
 import com.skelril.aurora.exceptions.UnknownPluginException;
 import com.skelril.aurora.exceptions.UnsupportedPrayerException;
 import com.skelril.aurora.homes.HomeManagerComponent;
@@ -48,6 +49,8 @@ import org.bukkit.plugin.Plugin;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+
+import static com.zachsthings.libcomponents.bukkit.BasePlugin.callEvent;
 
 @ComponentInformation(friendlyName = "PvP", desc = "Skelril PvP management.")
 @Depend(components = {SessionComponent.class, PrayerComponent.class}, plugins = "WorldGuard")
@@ -179,6 +182,20 @@ public class PvPComponent extends BukkitComponent implements Listener {
             Player.class,
             Projectile.class
     );
+
+    @EventHandler
+    public void onPvPAttempt(EntityDamageByEntityEvent event) {
+
+        CombatantPair<Player, Player, Projectile> result = extractor.extractFrom(event);
+
+        if (result == null) return;
+
+        PlayerVsPlayerEvent pvpEvent = new PlayerVsPlayerEvent(result.getAttacker(), result.getDefender());
+        callEvent(pvpEvent);
+        if (pvpEvent.isCancelled()) {
+            event.setCancelled(true);
+        }
+    }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerDamage(EntityDamageByEntityEvent event) {
