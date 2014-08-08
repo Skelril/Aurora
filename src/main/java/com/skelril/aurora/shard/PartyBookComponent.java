@@ -64,7 +64,17 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
             event.setCancelled(true);
         }
 
-        defender.getInventory().addItem(new PartyScrollReader(partyBook.getShard(), attacker.getName()).build());
+        if (partyBook.getAllPlayers().contains(defender.getName())) {
+            ChatUtil.sendError(attacker, defender.getName() + " is already in that party!");
+            return;
+        }
+
+        ItemStack scroll = new PartyScrollReader(partyBook.getShard(), attacker.getName()).build();
+        if (defender.getInventory().containsAtLeast(scroll, 1)) {
+            ChatUtil.sendError(attacker, defender.getName() + " already has an invite to that party!");
+            return;
+        }
+        defender.getInventory().addItem(scroll);
         ChatUtil.sendNotice(defender, attacker.getName() + " has given you a party scroll!");
         ChatUtil.sendNotice(defender, "Right click to accept, drop to decline.");
     }
@@ -107,6 +117,7 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
                 }
                 target.getInventory().setContents(itemStacks);
                 ChatUtil.sendNotice(player, "Invitation accepted!");
+                ChatUtil.sendNotice(target, player.getName() + " accepted your invitation!");
                 break;
         }
     }
