@@ -15,8 +15,6 @@ import com.sk89q.minecraft.util.commands.CommandContext;
 import com.sk89q.minecraft.util.commands.CommandException;
 import com.sk89q.minecraft.util.commands.NestedCommand;
 import com.skelril.aurora.admin.AdminComponent;
-import com.skelril.aurora.events.shard.PartyActivateEvent;
-import com.skelril.aurora.events.wishingwell.PlayerAttemptItemWishEvent;
 import com.skelril.aurora.items.custom.CustomItems;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.extractor.entity.CombatantPair;
@@ -40,14 +38,11 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import static com.sk89q.commandbook.CommandBook.inst;
 import static com.sk89q.commandbook.CommandBook.registerEvents;
-import static com.skelril.aurora.events.wishingwell.PlayerAttemptItemWishEvent.Result;
-import static com.zachsthings.libcomponents.bukkit.BasePlugin.callEvent;
 import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
 
 @ComponentInformation(friendlyName = "Party Book", desc = "Operate Party Books.")
@@ -58,28 +53,6 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
     public void enable() {
         registerEvents(this);
         registerCommands(Commands.class);
-    }
-
-    @EventHandler(ignoreCancelled = true)
-    public void onPlayerAttemptItemWish(PlayerAttemptItemWishEvent event) {
-
-        ItemStack stack = event.getItemStack();
-
-        // Remove party books whether we can fully parse them or not
-        if (ItemUtil.isItem(stack, CustomItems.PARTY_BOOK)) {
-            event.setResult(Result.ALLOW_IGNORE);
-        }
-
-        PartyBookReader partyBook = PartyBookReader.getFrom(stack);
-        if (partyBook == null) return;
-        List<Player> players = new ArrayList<>();
-        for (String player : partyBook.getAllPlayers()) {
-            Player aPlayer = Bukkit.getPlayerExact(player);
-            if (aPlayer != null) {
-                players.add(aPlayer);
-            }
-        }
-        callEvent(new PartyActivateEvent(partyBook.getShard(), players));
     }
 
     EDBEExtractor<Player, Player, Projectile> extractor = new EDBEExtractor<>(
@@ -151,18 +124,6 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
     }
 
     public class Commands {
-
-        @Command(aliases = {"leave"},
-                usage = "", desc = "Leave an instance",
-                flags = "", min = 0, max = 0)
-        public void leaveCmd(CommandContext args, CommandSender sender) throws CommandException {
-            Player player = PlayerUtil.checkPlayer(sender);
-            if (!player.getWorld().getName().equals("Exemplar")) {
-                throw new CommandException("You must be in an instance to use this command.");
-            }
-            player.teleport(Bukkit.getWorlds().get(0).getSpawnLocation());
-            ChatUtil.sendNotice(player, "You've left the instance.");
-        }
 
         @Command(aliases = {"partybook", "pbook"}, desc = "Party book commands")
         @NestedCommand(PartyBookCommands.class)
