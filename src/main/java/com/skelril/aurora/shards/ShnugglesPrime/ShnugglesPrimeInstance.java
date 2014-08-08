@@ -21,10 +21,7 @@ import com.skelril.aurora.prayer.PrayerComponent;
 import com.skelril.aurora.prayer.PrayerType;
 import com.skelril.aurora.shard.ShardInstance;
 import com.skelril.aurora.shards.BukkitShardInstance;
-import com.skelril.aurora.util.ChanceUtil;
-import com.skelril.aurora.util.ChatUtil;
-import com.skelril.aurora.util.EntityUtil;
-import com.skelril.aurora.util.LocationUtil;
+import com.skelril.aurora.util.*;
 import com.skelril.aurora.util.timer.IntegratedRunnable;
 import com.skelril.aurora.util.timer.TimedRunnable;
 import com.skelril.aurora.util.timer.TimerUtil;
@@ -90,7 +87,10 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                     block = getBukkitWorld().getBlockAt(x, y, z).getState();
                     if (!block.getChunk().isLoaded()) block.getChunk().load();
                     if (block.getTypeId() == BlockID.GOLD_BLOCK) {
-                        spawnPts.add(block.getLocation().add(0, 2, 0));
+                        Location target = block.getLocation().add(0, 2, 0);
+                        if (target.getBlock().isEmpty()) {
+                            spawnPts.add(target);
+                        }
                     }
                 }
             }
@@ -109,10 +109,13 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
 
     @Override
     public void teleportTo(com.sk89q.worldedit.entity.Player... players) {
-        Location target = LocationUtil.getCenter(getBukkitWorld(), region);
+        Location target;
         for (com.sk89q.worldedit.entity.Player player : players) {
             if (player instanceof BukkitPlayer) {
                 Player bPlayer = ((BukkitPlayer) player).getPlayer();
+                do {
+                    target = CollectionUtil.getElement(spawnPts);
+                } while (boss != null && target.distanceSquared(getBoss().getLocation()) < 7 * 7);
                 bPlayer.teleport(target);
             }
         }
@@ -138,6 +141,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
             } else {
                 emptyTicks = 0;
                 equalize();
+                requestXPCleanup();
                 runAttack(ChanceUtil.getRandom(OPTION_COUNT));
             }
         }
@@ -201,6 +205,10 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 logger().warning("The player: " + player.getName() + " may have an unfair advantage.");
             }
         }
+    }
+
+    public void requestXPCleanup() {
+        getContained(ExperienceOrb.class).stream().filter(e -> e.getTicksLived() > 20 * 13).forEach(Entity::remove);
     }
 
     public boolean damageHeals() {
