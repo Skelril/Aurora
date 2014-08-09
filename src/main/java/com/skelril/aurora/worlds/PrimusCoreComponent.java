@@ -81,15 +81,15 @@ public class PrimusCoreComponent extends BukkitComponent implements Listener {
 
     public class LocalConfiguration extends ConfigurationBase {
         @Setting("primus.world")
-        String primusWorld = "Primus";
+        public String primusWorld = "Primus";
         @Setting("wilderness.world")
-        String wildernessWorld = "Wilderness";
+        public String wildernessWorld = "Wilderness";
         @Setting("wilderness.portal-region")
-        String wildernessPortal = "wilderness-portal";
+        public String wildernessPortal = "wilderness-portal";
         @Setting("building.main-world.world")
-        String mainWorld = "Sion";
+        public String mainWorld = "Sion";
         @Setting("building.main-world.portal-region")
-        String mainWorldPortal = "sion-portal";
+        public String mainWorldPortal = "sion-portal";
     }
 
     private Player getPassenger(Entity entity) {

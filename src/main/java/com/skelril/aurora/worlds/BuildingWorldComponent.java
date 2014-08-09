@@ -81,9 +81,9 @@ public class BuildingWorldComponent extends BukkitComponent implements Listener 
 
     public class LocalConfiguration extends ConfigurationBase {
         @Setting("primus.world")
-        String primusWorld = "Primus";
+        public String primusWorld = "Primus";
         @Setting("building-worlds")
-        List<String> worlds = Arrays.asList(
+        public List<String> worlds = Arrays.asList(
                 "Sion"
         );
     }
