@@ -28,8 +28,6 @@ import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.LocationUtil;
 import com.skelril.aurora.util.database.IOUtil;
 import com.skelril.aurora.util.player.PlayerState;
-import com.zachsthings.libcomponents.ComponentInformation;
-import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.InjectComponent;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
 import com.zachsthings.libcomponents.config.ConfigurationBase;
@@ -49,8 +47,8 @@ import java.util.logging.Logger;
 /**
  * Author: Turtle9598
  */
-@ComponentInformation(friendlyName = "Legit Core", desc = "Operate the legit world.")
-@Depend(components = {AdminComponent.class, SessionComponent.class, EnderPearlHomesComponent.class})
+//@ComponentInformation(friendlyName = "Legit Core", desc = "Operate the legit world.")
+//@Depend(components = {AdminComponent.class, SessionComponent.class, EnderPearlHomesComponent.class})
 public class LegitCoreComponent extends BukkitComponent implements Listener {
 
     private final CommandBook inst = CommandBook.inst();
