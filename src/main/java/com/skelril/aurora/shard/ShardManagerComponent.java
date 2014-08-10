@@ -150,6 +150,14 @@ public class ShardManagerComponent extends BukkitComponent implements Listener {
                 if (identity.getExperienceAction() == KeepAction.KEEP) {
                     player.setExp(identity.getExperience());
                 }
+
+                Location respawn = event.getRespawnLocation();
+                World shardWorld = getShardWorld();
+                if (respawn.getWorld().equals(shardWorld)) {
+                    if (respawn.distanceSquared(shardWorld.getSpawnLocation()) < 12) {
+                        event.setRespawnLocation(getPrimusSpawn());
+                    }
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -200,8 +208,12 @@ public class ShardManagerComponent extends BukkitComponent implements Listener {
         }
     }
 
+    private Location getPrimusSpawn() {
+        return Bukkit.getWorlds().get(0).getSpawnLocation();
+    }
+
     public void leaveInstance(Player player) {
-        player.teleport(Bukkit.getWorlds().get(0).getSpawnLocation());
+        player.teleport(getPrimusSpawn());
     }
 
     public class Commands {
