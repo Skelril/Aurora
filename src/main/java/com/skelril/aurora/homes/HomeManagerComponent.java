@@ -37,8 +37,6 @@ import com.skelril.aurora.economic.store.AdminStoreComponent;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.RegionUtil;
 import com.skelril.aurora.util.item.BookUtil;
-import com.zachsthings.libcomponents.ComponentInformation;
-import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.ChatColor;
@@ -60,8 +58,8 @@ import java.util.logging.Logger;
 /**
  * Author: Turtle9598
  */
-@ComponentInformation(friendlyName = "Home Manager", desc = "Home ECS")
-@Depend(plugins = {"WorldEdit", "WorldGuard"}, components = AdminStoreComponent.class)
+//@ComponentInformation(friendlyName = "Home Manager", desc = "Home ECS")
+//@Depend(plugins = {"WorldEdit", "WorldGuard"}, components = AdminStoreComponent.class)
 public class HomeManagerComponent extends BukkitComponent implements Listener {
 
     private final CommandBook inst = CommandBook.inst();

@@ -12,7 +12,6 @@ import com.skelril.aurora.events.HomeTeleportEvent;
 import com.skelril.aurora.util.ChanceUtil;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.LocationUtil;
-import com.zachsthings.libcomponents.ComponentInformation;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -36,7 +35,7 @@ import java.util.logging.Logger;
 /**
  * @author Turtle9598
  */
-@ComponentInformation(friendlyName = "Ender Pearl Homes", desc = "Teleport with enderpearls!")
+//@ComponentInformation(friendlyName = "Ender Pearl Homes", desc = "Teleport with enderpearls!")
 public class EnderPearlHomesComponent extends BukkitComponent implements Listener {
 
     private final CommandBook inst = CommandBook.inst();
