@@ -17,8 +17,6 @@ import com.skelril.aurora.items.custom.CustomItems;
 import com.skelril.aurora.util.ChanceUtil;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.LocationUtil;
-import com.zachsthings.libcomponents.ComponentInformation;
-import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
 import com.zachsthings.libcomponents.config.ConfigurationBase;
 import com.zachsthings.libcomponents.config.Setting;
@@ -45,8 +43,8 @@ import java.util.logging.Logger;
 /**
  * @author Turtle9598
  */
-@ComponentInformation(friendlyName = "First Login", desc = "Get stuff the first time you come.")
-@Depend(plugins = {"WorldGuard"})
+//@ComponentInformation(friendlyName = "First Login", desc = "Get stuff the first time you come.")
+//@Depend(plugins = {"WorldGuard"})
 public class FirstLoginComponent extends BukkitComponent implements Listener {
 
     private final CommandBook inst = CommandBook.inst();
