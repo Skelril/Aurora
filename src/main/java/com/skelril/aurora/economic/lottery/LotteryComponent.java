@@ -260,7 +260,7 @@ public class LotteryComponent extends BukkitComponent implements Listener {
         int m = 0;
         int sold = 0;
 
-        b = (int) (economy.getBalance(playerName) / config.ticketPrice);
+        b = (int) (economy.getBalance(player) / config.ticketPrice);
 
         m = config.maxPerLotto - lotteryTicketDatabase.getTickets(playerName);
 
@@ -282,12 +282,12 @@ public class LotteryComponent extends BukkitComponent implements Listener {
             sold = 0;
         }
 
-        if (!economy.has(playerName, config.ticketPrice * sold)) {
+        if (!economy.has(player, config.ticketPrice * sold)) {
             throw new CommandException("You do not have enough " + economy.currencyNamePlural() + ".");
         }
 
         if (sold > 0) {
-            economy.withdrawPlayer(playerName, config.ticketPrice * sold);
+            economy.withdrawPlayer(player, config.ticketPrice * sold);
 
             lotteryTicketDatabase.addTickets(playerName, sold);
             lotteryTicketDatabase.save();
@@ -321,7 +321,7 @@ public class LotteryComponent extends BukkitComponent implements Listener {
             economy.bankWithdraw(LOTTERY_BANK_ACCOUNT, economy.bankBalance(LOTTERY_BANK_ACCOUNT).balance);
         } catch (Throwable t) {
         }
-        economy.depositPlayer(name, cash);
+        economy.depositPlayer(Bukkit.getOfflinePlayer(name), cash);
         Bukkit.broadcastMessage(ChatColor.YELLOW + name + " has won: " +
                 ChatUtil.makeCountString(economy.format(cash), " via the lottery!"));
 

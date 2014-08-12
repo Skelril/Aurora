@@ -453,7 +453,7 @@ public class AdminComponent extends BukkitComponent implements Listener {
     public void onPlayerJoin(PlayerLoginEvent event) {
         if (!inst.hasPermission(event.getPlayer(), "aurora.admin.adminmode.admin")) {
             event.setResult(PlayerLoginEvent.Result.KICK_WHITELIST);
-            event.setKickMessage("We are currently in Admin Only mode, \nthe server will be back on the 10th.");
+            event.setKickMessage("We are currently in Admin Only mode, \nthe server is anticipated to be back on the 13th.");
         }
     }
     @EventHandler

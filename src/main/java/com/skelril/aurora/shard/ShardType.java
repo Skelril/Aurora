@@ -12,7 +12,10 @@ public enum ShardType {
 
     // Bosses
     SHNUGGLES_PRIME(ChatColor.BLUE, "Shnuggles Prime"),
-    PATIENT_X(ChatColor.DARK_RED, "Patient X");
+    PATIENT_X(ChatColor.DARK_RED, "Patient X"),
+
+    // Minigames
+    GOLD_RUSH(ChatColor.GOLD, "Gold Rush");
 
     private ChatColor color;
     private String name;

@@ -37,7 +37,11 @@ public abstract class BukkitShardInstance<S extends Shard> extends ShardInstance
     }
 
     public void expire() {
+        expirePlayers();
         expired = true;
+    }
+
+    public void expirePlayers() {
         teleportAll(Bukkit.getWorlds().get(0).getSpawnLocation());
     }
 

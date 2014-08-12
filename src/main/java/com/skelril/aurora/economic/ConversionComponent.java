@@ -119,7 +119,7 @@ public class ConversionComponent extends BukkitComponent implements Listener {
 
                     player.updateInventory();
 
-                    economy.depositPlayer(player.getName(), amount - flexAmount);
+                    economy.depositPlayer(player, amount - flexAmount);
                     if (amount - flexAmount != 1) {
                         ChatUtil.sendNotice(player, "You deposited: "
                                 + ChatUtil.makeCountString(economy.format(amount - flexAmount), "."));
@@ -134,7 +134,7 @@ public class ConversionComponent extends BukkitComponent implements Listener {
                 if (player.isSneaking()) return;
                 try {
                     int tranCount = Integer.parseInt(sign.getLine(2));
-                    int bankGold = (int) economy.getBalance(player.getName());
+                    int bankGold = (int) economy.getBalance(player);
                     int amount = 0;
                     int flexAmount = 0;
 
@@ -174,7 +174,7 @@ public class ConversionComponent extends BukkitComponent implements Listener {
 
                     player.updateInventory();
 
-                    economy.withdrawPlayer(player.getName(), amount - flexAmount);
+                    economy.withdrawPlayer(player, amount - flexAmount);
                     if (amount - flexAmount != 1) {
                         ChatUtil.sendNotice(player, "You withdrew: "
                                 + ChatUtil.makeCountString(economy.format(amount - flexAmount), "."));

@@ -357,7 +357,7 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
             // If they have used the flag y proceed to buy the house
             // otherwise inform them about how to buy the house
             if (args.hasFlag('y')) {
-                if (!econ.has(player.getName(), price)) {
+                if (!econ.has(player, price)) {
                     throw new CommandException("Sorry, you cannot currently afford this house.");
                 }
                 try {
@@ -372,7 +372,7 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
 
                         outliner.revert(player.getWorld(), region);
 
-                        econ.withdrawPlayer(player.getName(), price);
+                        econ.withdrawPlayer(player, price);
                         ChatUtil.sendNotice(player, "Home successfully purchased!");
                     } else {
                         throw new CommandException();
@@ -426,7 +426,7 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
 
                         outliner.outline(player.getWorld(), region);
 
-                        econ.depositPlayer(player.getName(), price);
+                        econ.depositPlayer(player, price);
                         ChatUtil.sendNotice(player, "Home successfully sold!");
                     } else {
                         throw new CommandException();

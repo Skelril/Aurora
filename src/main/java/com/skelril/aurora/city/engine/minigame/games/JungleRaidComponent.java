@@ -430,7 +430,7 @@ public class JungleRaidComponent extends MinigameComponent {
 
         double amt = BASE_AMT * modifier;
 
-        economy.depositPlayer(player.getName(), amt);
+        economy.depositPlayer(player, amt);
         ChatUtil.sendNotice(player, "You received: " + economy.format(amt) + '.');
     }
 

@@ -18,10 +18,12 @@ import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.skelril.aurora.events.PlayerInstanceDeathEvent;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.KeepAction;
+import com.skelril.aurora.util.ProfileUtil;
 import com.skelril.aurora.util.database.IOUtil;
 import com.skelril.aurora.util.player.PlayerRespawnProfile_1_7_10;
 import com.zachsthings.libcomponents.ComponentInformation;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
+import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -81,6 +83,19 @@ public class ShardManagerComponent extends BukkitComponent implements Listener {
         return shardWorld;
     }
 
+    public void setRespawnProfile(PlayerRespawnProfile_1_7_10 profile) {
+        Validate.notNull(profile, "The profile cannot be null.");
+        playerState.put(profile.getOwner(), profile);
+    }
+
+    public PlayerRespawnProfile_1_7_10 getRespawnProfile(UUID owner) {
+        return playerState.get(owner);
+    }
+
+    public PlayerRespawnProfile_1_7_10 remRespawnProfile(UUID owner) {
+        return playerState.remove(owner);
+    }
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         World world = getShardWorld();
@@ -96,6 +111,9 @@ public class ShardManagerComponent extends BukkitComponent implements Listener {
         Player player = event.getEntity();
         World world = getShardWorld();
         if (!event.getEntity().getWorld().equals(world)) return;
+
+        // Externally set
+        if (playerState.containsKey(player.getUniqueId())) return;
 
         PlayerInstanceDeathEvent deathEvent = new PlayerInstanceDeathEvent(
                 player,
@@ -134,22 +152,10 @@ public class ShardManagerComponent extends BukkitComponent implements Listener {
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
         // Restore their inventory if they have one stored
-        if (playerState.containsKey(player.getUniqueId())) {
+        PlayerRespawnProfile_1_7_10 identity = playerState.get(player.getUniqueId());
+        if (identity != null) {
             try {
-                PlayerRespawnProfile_1_7_10 identity = playerState.get(player.getUniqueId());
-                // Restore the contents
-                if (identity.getInvAction() == KeepAction.KEEP) {
-                    player.getInventory().setContents(identity.getInventoryContents());
-                }
-                if (identity.getArmorAction() == KeepAction.KEEP) {
-                    player.getInventory().setArmorContents(identity.getArmourContents());
-                }
-                if (identity.getLevelAction() == KeepAction.KEEP) {
-                    player.setLevel(identity.getLevel());
-                }
-                if (identity.getExperienceAction() == KeepAction.KEEP) {
-                    player.setExp(identity.getExperience());
-                }
+                ProfileUtil.restore(player, identity);
 
                 Location respawn = event.getRespawnLocation();
                 World shardWorld = getShardWorld();
@@ -213,6 +219,10 @@ public class ShardManagerComponent extends BukkitComponent implements Listener {
     }
 
     public void leaveInstance(Player player) {
+        PlayerRespawnProfile_1_7_10 profile = playerState.remove(player.getUniqueId());
+        if (profile != null) {
+            ProfileUtil.restore(player, profile);
+        }
         player.teleport(getPrimusSpawn());
     }
 

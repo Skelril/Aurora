@@ -144,7 +144,7 @@ public class AdminStoreComponent extends BukkitComponent {
                 rebate = price * .017;
             }
 
-            if (!econ.has(playerName, price)) {
+            if (!econ.has(player, price)) {
                 throw new CommandException("You do not have enough money to purchase that item(s).");
             }
 
@@ -162,7 +162,7 @@ public class AdminStoreComponent extends BukkitComponent {
             econ.bankDeposit("Lottery", lottery);
 
             // Charge the money and send the sender some feedback
-            econ.withdrawPlayer(playerName, price - rebate);
+            econ.withdrawPlayer(player, price - rebate);
             transactionDatabase.logTransaction(playerName, itemName, amt);
             transactionDatabase.save();
             String priceString = ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(price), "");
@@ -311,7 +311,7 @@ public class AdminStoreComponent extends BukkitComponent {
             }
             transactionDatabase.save();
 
-            econ.depositPlayer(playerName, payment);
+            econ.depositPlayer(player, payment);
             player.getInventory().setContents(itemStacks);
 
             String paymentString = ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(payment), "");
@@ -381,13 +381,13 @@ public class AdminStoreComponent extends BukkitComponent {
                 if (cost < 0) {
                     throw new CommandException("That item cannot be enchanted!");
                 }
-                if (!econ.has(player.getName(), cost)) {
+                if (!econ.has(player, cost)) {
                     throw new CommandException("You don't have enough money!");
                 }
                 String priceString = ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(cost), "");
                 if (args.hasFlag('y')) {
                     ChatUtil.sendNotice(sender, "Item enchanted for " + priceString + "!");
-                    econ.withdrawPlayer(player.getName(), cost);
+                    econ.withdrawPlayer(player, cost);
                 } else {
                     ChatUtil.sendNotice(sender, "That will cost " + priceString + '.');
                     ChatUtil.sendNotice(sender, "To confirm, use:");

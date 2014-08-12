@@ -6,10 +6,10 @@
 
 package com.skelril.aurora.util;
 
-import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldedit.blocks.BlockType;
 import com.sk89q.worldedit.regions.CuboidRegion;
+import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.skelril.aurora.util.checker.RegionChecker;
 import org.bukkit.Location;
@@ -183,6 +183,25 @@ public class LocationUtil {
         return false;
     }
 
+    public static boolean containsPlayer(World world, Region region) {
+        for (Player player : world.getPlayers()) {
+            if (isInRegion(region, player)) return true;
+        }
+        return false;
+    }
+
+    public static boolean isInRegion(Region region, Entity entity) {
+        return isInRegion(region, entity.getLocation());
+    }
+
+    public static boolean isInRegion(Region region, Location location) {
+        return region.contains(new com.sk89q.worldedit.Vector(
+                location.getX(),
+                location.getY(),
+                location.getZ()
+        ));
+    }
+
     public static boolean isInRegion(ProtectedRegion region, Entity entity) {
 
         return isInRegion(region, entity.getLocation());
@@ -319,7 +338,8 @@ public class LocationUtil {
         return new Location(world, v.getX(), y, v.getZ());
     }
 
-    public static com.sk89q.worldedit.Vector pickLocation(BlockVector min, BlockVector max) {
+    public static com.sk89q.worldedit.Vector pickLocation(com.sk89q.worldedit.Vector min,
+                                                          com.sk89q.worldedit.Vector max) {
         return pickLocation(min.getX(), max.getX(), min.getZ(), max.getZ());
     }
 

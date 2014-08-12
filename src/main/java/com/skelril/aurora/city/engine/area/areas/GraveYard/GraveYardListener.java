@@ -210,7 +210,7 @@ public class GraveYardListener extends AreaListener<GraveYardArea> {
             if (isInRewardsRoom) {
                 amount = 100;
             }
-            parent.economy.depositPlayer(player.getName(), amount * item.getAmount());
+            parent.economy.depositPlayer(player, amount * item.getAmount());
             event.setItemStack(null);
         } else if (ItemUtil.isItem(item, CustomItems.FEAR_SWORD) || ItemUtil.isItem(item, CustomItems.FEAR_BOW)) {
             if (!isInRewardsRoom) {
