@@ -394,7 +394,7 @@ public class PatientXInstance extends BukkitShardInstance<PatientXShard> impleme
                     final double old = player.getHealth();
                     player.setHealth(3);
                     server().getScheduler().runTaskLater(inst(), () -> {
-                        if (player.isValid() && !contains(player)) return;
+                        if (!player.isValid() || !contains(player)) return;
                         player.setHealth(old * .75);
                     }, 20 * 2);
                 }
