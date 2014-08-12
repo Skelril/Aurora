@@ -64,7 +64,7 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
             event.setCancelled(true);
         }
 
-        if (attacker.getName().equals(partyBook.getOwner())) {
+        if (!attacker.getName().equals(partyBook.getOwner())) {
             ChatUtil.sendError(attacker, "You are not the owner of that Party Book!");
             return;
         }
