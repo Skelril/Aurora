@@ -22,7 +22,6 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
 
 import java.util.List;
@@ -40,13 +39,6 @@ public class FreakyFourListener extends ShardListener<FreakyFour> {
             List<Player> players = event.getPlayers();
             ChatUtil.sendWarning(players, "You think you can beat us? Ha! we'll see about that...");
         }
-    }
-
-    @EventHandler
-    public void onExplosion(EntityExplodeEvent event) {
-        FreakyFourInstance inst = shard.getInstance(event.getLocation());
-        if (inst == null) return;
-        event.blockList().clear();
     }
 
     @EventHandler

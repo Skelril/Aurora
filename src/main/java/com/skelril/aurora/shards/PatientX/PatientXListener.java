@@ -7,7 +7,6 @@
 package com.skelril.aurora.shards.PatientX;
 
 import com.skelril.aurora.events.PlayerInstanceDeathEvent;
-import com.skelril.aurora.events.PlayerVsPlayerEvent;
 import com.skelril.aurora.events.PrayerApplicationEvent;
 import com.skelril.aurora.events.apocalypse.ApocalypseLocalSpawnEvent;
 import com.skelril.aurora.events.custom.item.ChanceActivationEvent;
@@ -36,7 +35,10 @@ import org.bukkit.Location;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.entity.*;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 
 import java.util.HashSet;
@@ -183,23 +185,6 @@ public class PatientXListener extends ShardListener<PatientX> {
                 p.getWorld().createExplosion(pt.getX(), pt.getY(), pt.getZ(), 3, false, false);
             }
         }
-    }
-
-    @EventHandler
-    public void onExplosion(EntityExplodeEvent event) {
-        PatientXInstance inst = shard.getInstance(event.getLocation());
-        if (inst == null) return;
-        event.blockList().clear();
-    }
-
-    @EventHandler(ignoreCancelled = true)
-    public void onPvP(PlayerVsPlayerEvent event) {
-        PatientXInstance inst = shard.getInstance(event.getDefender());
-        if (inst == null) {
-            inst = shard.getInstance(event.getPlayer());
-        }
-        if (inst == null) return;
-        event.setCancelled(true);
     }
 
     @EventHandler

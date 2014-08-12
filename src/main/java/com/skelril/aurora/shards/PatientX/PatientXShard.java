@@ -9,6 +9,8 @@ package com.skelril.aurora.shards.PatientX;
 import com.sk89q.worldedit.blocks.ItemID;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.world.World;
+import com.sk89q.worldguard.protection.flags.DefaultFlag;
+import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.skelril.OpenBoss.BossListener;
 import com.skelril.OpenBoss.BossManager;
@@ -26,6 +28,7 @@ import com.skelril.aurora.bosses.instruction.SHBindInstruction;
 import com.skelril.aurora.city.engine.area.areas.DropParty.DropPartyTask;
 import com.skelril.aurora.items.custom.CustomItemCenter;
 import com.skelril.aurora.items.custom.CustomItems;
+import com.skelril.aurora.shard.FlagProfile;
 import com.skelril.aurora.shard.Shard;
 import com.skelril.aurora.shard.ShardEditor;
 import com.skelril.aurora.shard.ShardType;
@@ -64,6 +67,7 @@ public class PatientXShard extends Shard<PatientXInstance> {
     private AdminComponent admin;
 
     private AdminToolkit admintlkt;
+    private FlagProfile flagProfile = new FlagProfile();
     private BossManager manager = new BossManager();
 
     public PatientXShard(ShardEditor editor, PatientXConfig config, AdminComponent admin) {
@@ -102,6 +106,11 @@ public class PatientXShard extends Shard<PatientXInstance> {
     }
 
     private void setUpManager() {
+
+        flagProfile.setFlag(DefaultFlag.ICE_MELT, StateFlag.State.DENY);
+        flagProfile.setFlag(DefaultFlag.PVP, StateFlag.State.DENY);
+        flagProfile.setFlag(DefaultFlag.TNT, StateFlag.State.DENY);
+        flagProfile.setFlag(DefaultFlag.OTHER_EXPLOSION, StateFlag.State.DENY);
 
         registerEvents(new BossListener(manager));
 
@@ -261,6 +270,11 @@ public class PatientXShard extends Shard<PatientXInstance> {
                 return null;
             });
         });
+    }
+
+    @Override
+    public FlagProfile getFlagProfile() {
+        return flagProfile;
     }
 
     @Override

@@ -23,6 +23,7 @@ public abstract class Shard<T extends ShardInstance> {
     public ShardType getType() {
         return shard;
     }
+    public abstract FlagProfile getFlagProfile();
 
     public String getRGName() {
         return shard.getName().toLowerCase().replace(" ", "-");

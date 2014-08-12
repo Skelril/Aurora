@@ -8,7 +8,6 @@ package com.skelril.aurora.shards.GoldRush;
 
 import com.sk89q.worldedit.blocks.BlockID;
 import com.skelril.aurora.events.PlayerAdminModeChangeEvent;
-import com.skelril.aurora.events.PlayerVsPlayerEvent;
 import com.skelril.aurora.events.PrayerApplicationEvent;
 import com.skelril.aurora.events.ServerShutdownEvent;
 import com.skelril.aurora.events.shard.PartyActivateEvent;
@@ -139,16 +138,6 @@ public class GoldRushListener extends ShardListener<GoldRush> {
             ChatUtil.sendNotice(player, "[Partner] Don't question my logic...\n");
             inst.payPlayer(player);
         }
-    }
-
-    @EventHandler(ignoreCancelled = true)
-    public void onPvP(PlayerVsPlayerEvent event) {
-        GoldRushInstance inst = shard.getInstance(event.getDefender());
-        if (inst == null) {
-            inst = shard.getInstance(event.getPlayer());
-        }
-        if (inst == null) return;
-        event.setCancelled(true);
     }
 
     @EventHandler

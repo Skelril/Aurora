@@ -8,7 +8,6 @@ package com.skelril.aurora.shards.ShnugglesPrime;
 
 import com.sk89q.worldedit.blocks.ItemID;
 import com.skelril.aurora.events.PlayerInstanceDeathEvent;
-import com.skelril.aurora.events.PlayerVsPlayerEvent;
 import com.skelril.aurora.events.PrayerApplicationEvent;
 import com.skelril.aurora.events.custom.item.ChanceActivationEvent;
 import com.skelril.aurora.events.custom.item.SpecialAttackEvent;
@@ -37,7 +36,6 @@ import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.inventory.ItemStack;
@@ -153,23 +151,6 @@ public class ShnugglesPrimeListener extends ShardListener<ShnugglesPrime> {
             }
             event.setDroppedExp(14);
         }
-    }
-
-    @EventHandler(ignoreCancelled = true)
-    public void onPvP(PlayerVsPlayerEvent event) {
-        ShnugglesPrimeInstance inst = shard.getInstance(event.getDefender());
-        if (inst == null) {
-            inst = shard.getInstance(event.getPlayer());
-        }
-        if (inst == null) return;
-        event.setCancelled(true);
-    }
-
-    @EventHandler
-    public void onExplosion(EntityExplodeEvent event) {
-        ShnugglesPrimeInstance inst = shard.getInstance(event.getLocation());
-        if (inst == null) return;
-        event.blockList().clear();
     }
 
     @EventHandler

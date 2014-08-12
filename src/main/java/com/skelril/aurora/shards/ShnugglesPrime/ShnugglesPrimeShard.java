@@ -8,6 +8,8 @@ package com.skelril.aurora.shards.ShnugglesPrime;
 
 import com.sk89q.worldedit.blocks.ItemID;
 import com.sk89q.worldedit.world.World;
+import com.sk89q.worldguard.protection.flags.DefaultFlag;
+import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.skelril.OpenBoss.BossListener;
 import com.skelril.OpenBoss.BossManager;
@@ -24,6 +26,7 @@ import com.skelril.aurora.bosses.instruction.SHBindInstruction;
 import com.skelril.aurora.events.anticheat.ThrowPlayerEvent;
 import com.skelril.aurora.items.custom.CustomItemCenter;
 import com.skelril.aurora.prayer.PrayerComponent;
+import com.skelril.aurora.shard.FlagProfile;
 import com.skelril.aurora.shard.Shard;
 import com.skelril.aurora.shard.ShardEditor;
 import com.skelril.aurora.shard.ShardType;
@@ -59,6 +62,7 @@ public class ShnugglesPrimeShard extends Shard<ShnugglesPrimeInstance> {
     private static AdminComponent admin;
     private static PrayerComponent prayers;
 
+    private FlagProfile flagProfile = new FlagProfile();
     private BossManager manager = new BossManager();
 
     public ShnugglesPrimeShard(ShardEditor editor, AdminComponent admin, PrayerComponent prayers) {
@@ -90,6 +94,10 @@ public class ShnugglesPrimeShard extends Shard<ShnugglesPrimeInstance> {
     }
 
     private void setUpManager() {
+
+        flagProfile.setFlag(DefaultFlag.PVP, StateFlag.State.DENY);
+        flagProfile.setFlag(DefaultFlag.TNT, StateFlag.State.DENY);
+        flagProfile.setFlag(DefaultFlag.OTHER_EXPLOSION, StateFlag.State.DENY);
 
         registerEvents(new BossListener(manager));
 
@@ -233,6 +241,11 @@ public class ShnugglesPrimeShard extends Shard<ShnugglesPrimeInstance> {
             }
             return null;
         });
+    }
+
+    @Override
+    public FlagProfile getFlagProfile() {
+        return flagProfile;
     }
 
     @Override

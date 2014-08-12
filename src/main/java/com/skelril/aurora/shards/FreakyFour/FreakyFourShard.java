@@ -7,14 +7,13 @@
 package com.skelril.aurora.shards.FreakyFour;
 
 import com.sk89q.worldedit.world.World;
+import com.sk89q.worldguard.protection.flags.DefaultFlag;
+import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.skelril.OpenBoss.BossListener;
 import com.skelril.OpenBoss.BossManager;
 import com.skelril.aurora.admin.AdminComponent;
-import com.skelril.aurora.shard.Shard;
-import com.skelril.aurora.shard.ShardEditor;
-import com.skelril.aurora.shard.ShardManagerComponent;
-import com.skelril.aurora.shard.ShardType;
+import com.skelril.aurora.shard.*;
 import com.skelril.aurora.shards.FreakyFour.boss.CharlotteBossManager;
 import com.skelril.aurora.shards.FreakyFour.boss.DaBombBossManager;
 import com.skelril.aurora.shards.FreakyFour.boss.FrimusBossManager;
@@ -35,6 +34,8 @@ public class FreakyFourShard extends Shard<FreakyFourInstance> {
 
     private Economy economy;
 
+    private FlagProfile flagProfile = new FlagProfile();
+
     public FreakyFourShard(ShardEditor editor, FreakyFourConfig config,
                            AdminComponent admin, ShardManagerComponent manager,
                            Economy economy) {
@@ -48,6 +49,10 @@ public class FreakyFourShard extends Shard<FreakyFourInstance> {
     }
 
     private void setUp() {
+        flagProfile.setFlag(DefaultFlag.PVP, StateFlag.State.DENY);
+        flagProfile.setFlag(DefaultFlag.TNT, StateFlag.State.DENY);
+        flagProfile.setFlag(DefaultFlag.OTHER_EXPLOSION, StateFlag.State.DENY);
+
         bossManagers.put(FreakyFourBoss.CHARLOTTE, new CharlotteBossManager(config));
         bossManagers.put(FreakyFourBoss.FRIMUS, new FrimusBossManager(config));
         bossManagers.put(FreakyFourBoss.DA_BOMB, new DaBombBossManager(config));
@@ -75,6 +80,11 @@ public class FreakyFourShard extends Shard<FreakyFourInstance> {
 
     public Economy getEconomy() {
         return economy;
+    }
+
+    @Override
+    public FlagProfile getFlagProfile() {
+        return flagProfile;
     }
 
     @Override

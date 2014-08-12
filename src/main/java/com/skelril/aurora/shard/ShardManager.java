@@ -85,6 +85,7 @@ public class ShardManager {
     }
 
     private ProtectedRegion storeRegion(Shard shard, ProtectedRegion region) {
+        region.setFlags(shard.getFlagProfile().construct());
         rgManager.addRegion(region);
         try {
             rgManager.save();
