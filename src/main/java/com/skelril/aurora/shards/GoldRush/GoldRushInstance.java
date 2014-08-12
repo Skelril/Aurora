@@ -292,7 +292,11 @@ public class GoldRushInstance extends BukkitShardInstance<GoldRushShard> impleme
 
     @Override
     public void expirePlayers() {
-        getContained(Player.class).stream().forEach(p -> p.setHealth(0));
+        if (isComplete()) {
+            getContained(Player.class).stream().forEach(this::payPlayer);
+        } else {
+            getContained(Player.class).stream().forEach(p -> p.setHealth(0));
+        }
     }
 
     @Override
