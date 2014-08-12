@@ -258,6 +258,10 @@ public class GoldRushInstance extends BukkitShardInstance<GoldRushShard> impleme
     }
 
     public boolean checkLevers() {
+        if (!checkingLevers) {
+            return leversTriggered;
+        }
+
         for (Map.Entry<Location, Boolean> lever : leverBlocks.entrySet()) {
             Lever aLever = (Lever) lever.getKey().getBlock().getState().getData();
             if (aLever.isPowered() != lever.getValue()) return false;
@@ -389,13 +393,13 @@ public class GoldRushInstance extends BukkitShardInstance<GoldRushShard> impleme
             return;
         }
         equalize();
-        if (keysTriggered || checkKeys()) {
+        if (checkKeys()) {
             unlockKeys();
             if (LocationUtil.containsPlayer(getBukkitWorld(), roomOne)) {
                 setDoor(doorOne, BlockID.AIR);
             } else {
                 setDoor(doorOne, BlockID.IRON_BLOCK);
-                if (checkingLevers && (checkLevers() || leversTriggered)) {
+                if (checkLevers()) {
                     unlockLevers();
                 } else {
                     randomizeLevers();
@@ -473,6 +477,10 @@ public class GoldRushInstance extends BukkitShardInstance<GoldRushShard> impleme
     }
 
     public boolean checkKeys() {
+        if (!checkingKeys) {
+            return keysTriggered;
+        }
+
         for (Location lock : locks) {
             Sign aSign = (Sign) lock.getBlock().getState();
             if (aSign.getLine(2).startsWith("-")) return false;
