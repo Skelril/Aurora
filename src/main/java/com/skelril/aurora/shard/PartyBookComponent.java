@@ -64,6 +64,11 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
             event.setCancelled(true);
         }
 
+        if (attacker.getName().equals(partyBook.getOwner())) {
+            ChatUtil.sendError(attacker, "You are not the owner of that Party Book!");
+            return;
+        }
+
         if (partyBook.getAllPlayers().contains(defender.getName())) {
             ChatUtil.sendError(attacker, defender.getName() + " is already in that party!");
             return;
@@ -82,9 +87,20 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
     @EventHandler
     public void onItemDrop(PlayerDropItemEvent event) {
         Item stack = event.getItemDrop();
-        if (ItemUtil.isItem(stack.getItemStack(), CustomItems.PARTY_SCROLL)) {
-            ChatUtil.sendWarning(event.getPlayer(), "Invitation declined!");
+        ItemStack itemStack = stack.getItemStack();
+        Player player = event.getPlayer();
+        if (ItemUtil.isItem(itemStack, CustomItems.PARTY_SCROLL)) {
+            ChatUtil.sendWarning(player, "Invitation declined!");
             stack.remove();
+        } else if (ItemUtil.isItem(itemStack, CustomItems.PARTY_BOOK)) {
+            // Remove any extra Party Books
+            ItemStack[] itemStacks = player.getInventory().getContents();
+            for (int i = 0; i < itemStacks.length; ++i) {
+                if (ItemUtil.isItem(itemStacks[i], CustomItems.PARTY_BOOK)) {
+                    itemStacks[i] = null;
+                }
+            }
+            player.getInventory().setContents(itemStacks);
         }
     }
 
@@ -106,14 +122,28 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
                     ChatUtil.sendError(player, "Invitation expired!");
                     return;
                 }
+                boolean foundBook = false;
                 ItemStack[] itemStacks = target.getInventory().getContents();
                 for (int i = 0; i < itemStacks.length; ++i) {
-                    if (itemStacks[i] == null) continue;
-                    PartyBookReader book = PartyBookReader.getFrom(itemStacks[i]);
-                    if (book == null) continue;
-                    book.addPlayer(player.getName());
-                    itemStacks[i] = book.build();
-                    break;
+                    if (!ItemUtil.isItem(itemStacks[i], CustomItems.PARTY_BOOK)) continue;
+                    if (!foundBook) {
+                        PartyBookReader book = PartyBookReader.getFrom(itemStacks[i]);
+                        if (book != null && book.getShard() == scroll.getShard()) {
+                            book.addPlayer(player.getName());
+                            itemStacks[i] = book.build();
+                            foundBook = true;
+                            continue;
+                        }
+                    }
+                    // Notify Invite Holder
+                    ChatUtil.sendError(player, target.getName() + " has too many Party Books, or no longer has a Party Book.");
+                    ChatUtil.sendError(player, "You will need a new invitation.");
+
+                    // Notify Book Holder
+                    ChatUtil.sendError(target, "Your invitation to " + scroll.getShard() + " for " + player.getName() + " has been invalidated.");
+                    ChatUtil.sendNotice(target, "If you still want to play with " + player.getName() + " please make sure");
+                    ChatUtil.sendNotice(target, "you have only one Party Book, then reinvite " + player.getName() + ".");
+                    return;
                 }
                 target.getInventory().setContents(itemStacks);
                 ChatUtil.sendNotice(player, "Invitation accepted!");
@@ -162,8 +192,12 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
                 flags = "", min = 1)
         public void getCmd(CommandContext args, CommandSender sender) throws CommandException {
             Player player = PlayerUtil.checkPlayer(sender);
-            ShardType type = ShardType.valueOf(args.getJoinedStrings(0).toUpperCase().replaceAll(" ", "_"));
-            player.getInventory().addItem(new PartyBookReader(type, player.getName()).build());
+            try {
+                ShardType type = ShardType.valueOf(args.getJoinedStrings(0).toUpperCase().replaceAll(" ", "_"));
+                player.getInventory().addItem(new PartyBookReader(type, player.getName()).build());
+            } catch (IllegalArgumentException ex) {
+                throw new CommandException("There's no instance by that name!");
+            }
         }
     }
 }
