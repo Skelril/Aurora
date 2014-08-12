@@ -165,13 +165,10 @@ public class PatientXInstance extends BukkitShardInstance<PatientXShard> impleme
     }
 
     public boolean isBossSpawned() {
-        boss = null;
         getContained(Zombie.class).stream().filter(Entity::isValid).filter(z -> !z.isBaby()).forEach(e -> {
             Boss b = getMaster().getBossManager().updateLookup(e);
             if (b == null) {
                 e.remove();
-            } else {
-                boss = b;
             }
         });
         return boss != null;

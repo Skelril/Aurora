@@ -6,6 +6,7 @@
 
 package com.skelril.aurora.shards;
 
+import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.world.World;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.skelril.aurora.shard.Shard;
@@ -72,6 +73,12 @@ public abstract class BukkitShardInstance<S extends Shard> extends ShardInstance
                 .collect(Collectors.toList());
     }
 
+    public <K extends Entity> Collection<K> getContained(Region region, Class<K> clazz) {
+        return getBukkitWorld().getEntitiesByClass(clazz).stream()
+                .filter(e -> e.isValid() && LocationUtil.isInRegion(region, e))
+                .collect(Collectors.toList());
+    }
+
     public Collection<Entity> getContained() {
         return getContained(Entity.class);
     }
@@ -91,6 +98,12 @@ public abstract class BukkitShardInstance<S extends Shard> extends ShardInstance
     }
 
     public Collection<Entity> getContained(ProtectedRegion region, Class<?>... classes) {
+        return getBukkitWorld().getEntitiesByClasses(classes).stream()
+                .filter(e -> e.isValid() && LocationUtil.isInRegion(region, e))
+                .collect(Collectors.toList());
+    }
+
+    public Collection<Entity> getContained(Region region, Class<?>... classes) {
         return getBukkitWorld().getEntitiesByClasses(classes).stream()
                 .filter(e -> e.isValid() && LocationUtil.isInRegion(region, e))
                 .collect(Collectors.toList());

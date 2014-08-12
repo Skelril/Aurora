@@ -13,6 +13,7 @@ public enum ShardType {
     // Bosses
     SHNUGGLES_PRIME(ChatColor.BLUE, "Shnuggles Prime", SubType.BOSS),
     PATIENT_X(ChatColor.DARK_RED, "Patient X", SubType.BOSS),
+    FREAKY_FOUR(ChatColor.DARK_RED, "Freaky Four", SubType.BOSS, 1),
 
     // Minigames
     GOLD_RUSH(ChatColor.GOLD, "Gold Rush", SubType.MINIGAME);
@@ -20,11 +21,17 @@ public enum ShardType {
     private ChatColor color;
     private String name;
     private SubType subType;
+    private int maxPlayers;
 
     private ShardType(ChatColor color, String name, SubType subType) {
+        this(color, name, subType, -1);
+    }
+
+    private ShardType(ChatColor color, String name, SubType subType, int maxPlayers) {
         this.color = color;
         this.name = name;
         this.subType = subType;
+        this.maxPlayers = maxPlayers;
     }
 
     public ChatColor getColor() {
@@ -41,6 +48,10 @@ public enum ShardType {
 
     public SubType getSubType() {
         return subType;
+    }
+
+    public int getMaxPlayers() {
+        return maxPlayers;
     }
 
     @Override

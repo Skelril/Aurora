@@ -406,4 +406,9 @@ public class LocationUtil {
         com.sk89q.worldedit.Vector center = cRegion.getCenter();
         return new Location(world, center.getBlockX() + .5, center.getBlockY(), center.getBlockZ() + .5);
     }
+
+    public static Location getCenter(World world, Region region) {
+        com.sk89q.worldedit.Vector center = region.getCenter();
+        return new Location(world, center.getBlockX() + .5, center.getBlockY(), center.getBlockZ() + .5);
+    }
 }

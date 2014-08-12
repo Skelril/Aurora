@@ -69,6 +69,12 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
             return;
         }
 
+        int max = partyBook.getShard().getMaxPlayers();
+        if (max != -1 && partyBook.getAllPlayers().size() > max) {
+            ChatUtil.sendError(attacker, "You've reached the maximum players allowed in this Party Book!");
+            return;
+        }
+
         if (partyBook.getAllPlayers().contains(defender.getName())) {
             ChatUtil.sendError(attacker, defender.getName() + " is already in that party!");
             return;
