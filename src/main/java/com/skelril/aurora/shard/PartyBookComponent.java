@@ -185,9 +185,12 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
             new PaginatedResult<ShardType>(ChatColor.GOLD + "Party Books") {
                 @Override
                 public String format(ShardType shardType) {
+                    int maxPlayers = shardType.getMaxPlayers();
                     return ChatColor.BLUE + shardType.getName().toUpperCase()
                             + ChatColor.YELLOW + " (Type: "
                             + ChatColor.WHITE + shardType.getSubType().getProperName()
+                            + ChatColor.YELLOW + ", Max players: "
+                            + ChatColor.WHITE + (maxPlayers == -1 ? "Unlimted" : maxPlayers)
                             + ChatColor.YELLOW + ")";
                 }
             }.display(sender, shardTypes, args.getFlagInteger('p', 1));
