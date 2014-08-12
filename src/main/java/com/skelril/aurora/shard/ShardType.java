@@ -11,19 +11,20 @@ import org.bukkit.ChatColor;
 public enum ShardType {
 
     // Bosses
-    SHNUGGLES_PRIME(ChatColor.BLUE, "Shnuggles Prime"),
-    PATIENT_X(ChatColor.DARK_RED, "Patient X"),
+    SHNUGGLES_PRIME(ChatColor.BLUE, "Shnuggles Prime", SubType.BOSS),
+    PATIENT_X(ChatColor.DARK_RED, "Patient X", SubType.BOSS),
 
     // Minigames
-    GOLD_RUSH(ChatColor.GOLD, "Gold Rush");
+    GOLD_RUSH(ChatColor.GOLD, "Gold Rush", SubType.MINIGAME);
 
     private ChatColor color;
     private String name;
+    private SubType subType;
 
-    private ShardType(ChatColor color, String name) {
-
+    private ShardType(ChatColor color, String name, SubType subType) {
         this.color = color;
         this.name = name;
+        this.subType = subType;
     }
 
     public ChatColor getColor() {
@@ -38,6 +39,10 @@ public enum ShardType {
         return color + name;
     }
 
+    public SubType getSubType() {
+        return subType;
+    }
+
     @Override
     public String toString() {
         return color + name;
@@ -50,5 +55,20 @@ public enum ShardType {
             }
         }
         return null;
+    }
+
+    public enum SubType {
+        BOSS("Boss"),
+        MINIGAME("Minigame");
+
+        private String properName;
+
+        private SubType(String properName) {
+            this.properName = properName;
+        }
+
+        public String getProperName() {
+            return properName;
+        }
     }
 }

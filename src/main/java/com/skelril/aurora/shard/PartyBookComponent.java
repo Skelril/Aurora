@@ -149,7 +149,10 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
             new PaginatedResult<ShardType>(ChatColor.GOLD + "Party Books") {
                 @Override
                 public String format(ShardType shardType) {
-                    return ChatColor.BLUE + shardType.getName().toUpperCase();
+                    return ChatColor.BLUE + shardType.getName().toUpperCase()
+                            + ChatColor.YELLOW + " (Type: "
+                            + ChatColor.WHITE + shardType.getSubType().getProperName()
+                            + ChatColor.YELLOW + ")";
                 }
             }.display(sender, shardTypes, args.getFlagInteger('p', 1));
         }
