@@ -107,6 +107,7 @@ public class GoldRushInstance extends BukkitShardInstance<GoldRushShard> impleme
     @Override
     public void cleanUp() {
         resetChestAndKeys();
+        super.cleanUp();
     }
 
     public void start() {
