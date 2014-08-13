@@ -174,14 +174,15 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
                 flags = "p:", min = 0)
         public void listCmd(CommandContext args, CommandSender sender) throws CommandException {
             List<ShardType> shardTypes = Lists.newArrayList(ShardType.values());
+            String prefix = null;
             if (args.argsLength() > 0) {
-                String prefix = args.getJoinedStrings(0);
-                Iterator<ShardType> it = shardTypes.iterator();
-                while (it.hasNext()) {
-                    ShardType next = it.next();
-                    if (!next.getName().startsWith(prefix) || !hasPartyPermission(sender, next)) {
-                        it.remove();
-                    }
+                prefix = args.getJoinedStrings(0);
+            }
+            Iterator<ShardType> it = shardTypes.iterator();
+            while (it.hasNext()) {
+                ShardType next = it.next();
+                if ((prefix != null && !next.getName().startsWith(prefix)) || !hasPartyPermission(sender, next)) {
+                    it.remove();
                 }
             }
             new PaginatedResult<ShardType>(ChatColor.GOLD + "Party Books") {
