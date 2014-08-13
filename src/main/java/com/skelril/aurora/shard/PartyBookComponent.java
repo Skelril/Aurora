@@ -176,12 +176,12 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
             List<ShardType> shardTypes = Lists.newArrayList(ShardType.values());
             String prefix = null;
             if (args.argsLength() > 0) {
-                prefix = args.getJoinedStrings(0);
+                prefix = args.getJoinedStrings(0).toLowerCase();
             }
             Iterator<ShardType> it = shardTypes.iterator();
             while (it.hasNext()) {
                 ShardType next = it.next();
-                if ((prefix != null && !next.getName().startsWith(prefix)) || !hasPartyPermission(sender, next)) {
+                if ((prefix != null && !next.getName().toLowerCase().startsWith(prefix)) || !hasPartyPermission(sender, next)) {
                     it.remove();
                 }
             }
