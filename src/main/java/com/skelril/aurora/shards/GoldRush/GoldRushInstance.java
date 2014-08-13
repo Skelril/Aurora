@@ -84,7 +84,7 @@ public class GoldRushInstance extends BukkitShardInstance<GoldRushShard> impleme
 
         rewardChest = new Location(getBukkitWorld(), offset.getX() + 15, offset.getY() + 2, offset.getZ() + 6);
 
-        roomOne = new CuboidRegion(offset.add(4, 1, 36), offset.add(29, 7, 74));
+        roomOne = new CuboidRegion(offset.add(1, 1, 36), offset.add(29, 7, 74));
         roomTwo = new CuboidRegion(offset.add(11, 1, 17), offset.add(19, 7, 35));
 
         doorOne = new CuboidRegion(offset.add(14, 1, 36), offset.add(16, 3, 36));
@@ -326,21 +326,23 @@ public class GoldRushInstance extends BukkitShardInstance<GoldRushShard> impleme
                 // Teleport
                 Location location;
                 do {
-                    location = BukkitUtil.toLocation(
-                            getBukkitWorld(),
-                            LocationUtil.pickLocation(
-                                    roomOne.getMinimumPoint(),
-                                    roomOne.getMaximumPoint()
-                            )
-                    );
-                    location.setY(roomOne.getMinimumPoint().getBlockY() + 1);
-                } while (location.getBlock().getTypeId() != BlockID.AIR);
-                aPlayer.teleport(location);
+                    do {
+                        location = BukkitUtil.toLocation(
+                                getBukkitWorld(),
+                                LocationUtil.pickLocation(
+                                        roomOne.getMinimumPoint(),
+                                        roomOne.getMaximumPoint()
+                                )
+                        );
+                        location.setY(roomOne.getMinimumPoint().getBlockY());
+                    } while (location.getBlock().getTypeId() != BlockID.AIR);
+                    aPlayer.teleport(location);
+                } while (!contains(aPlayer));
 
                 // Reset vitals
-                aPlayer.setHealth(20);
+                aPlayer.setHealth(aPlayer.getMaxHealth());
                 aPlayer.setFoodLevel(20);
-                aPlayer.setSaturation(5F);
+                aPlayer.setSaturation(20F);
                 aPlayer.setExhaustion(0F);
 
                 getMaster().getManager().setRespawnProfile(
