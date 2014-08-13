@@ -50,7 +50,7 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
     }
 
     public static boolean hasPartyPermission(CommandSender sender, ShardType shard) {
-        return inst().hasPermission(sender, "aurora.partybook." + shard.name());
+        return inst().hasPermission(sender, "aurora.partybook." + shard.name().replace("_", ""));
     }
 
     @EventHandler
