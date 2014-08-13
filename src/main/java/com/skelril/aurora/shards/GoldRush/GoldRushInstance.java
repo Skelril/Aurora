@@ -104,6 +104,11 @@ public class GoldRushInstance extends BukkitShardInstance<GoldRushShard> impleme
         setDoor(doorTwo, BlockID.IRON_BLOCK);
     }
 
+    @Override
+    public void cleanUp() {
+        resetChestAndKeys();
+    }
+
     public void start() {
         startTime = System.currentTimeMillis(); // Reset start clock
         populateChest();                        // Add content
@@ -356,6 +361,7 @@ public class GoldRushInstance extends BukkitShardInstance<GoldRushShard> impleme
                         )
                 );
 
+                aPlayer.getInventory().setArmorContents(null);
                 aPlayer.getInventory().clear();
 
                 // Partner talk

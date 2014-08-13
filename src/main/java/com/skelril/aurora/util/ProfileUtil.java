@@ -20,6 +20,7 @@ public class ProfileUtil {
      */
     public static void restore(Player player, PlayerRespawnProfile_1_7_10 identity) {
         if (identity == null) {
+            player.getInventory().setArmorContents(null);
             player.getInventory().clear();
             player.setLevel(0);
             player.setExp(0);
