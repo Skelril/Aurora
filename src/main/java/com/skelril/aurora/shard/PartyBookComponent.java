@@ -10,10 +10,7 @@ import com.google.common.collect.Lists;
 import com.sk89q.commandbook.commands.PaginatedResult;
 import com.sk89q.commandbook.session.SessionComponent;
 import com.sk89q.commandbook.util.entity.player.PlayerUtil;
-import com.sk89q.minecraft.util.commands.Command;
-import com.sk89q.minecraft.util.commands.CommandContext;
-import com.sk89q.minecraft.util.commands.CommandException;
-import com.sk89q.minecraft.util.commands.NestedCommand;
+import com.sk89q.minecraft.util.commands.*;
 import com.skelril.aurora.admin.AdminComponent;
 import com.skelril.aurora.events.PlayerVsPlayerEvent;
 import com.skelril.aurora.items.custom.CustomItems;
@@ -50,6 +47,10 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
     public void enable() {
         registerEvents(this);
         registerCommands(Commands.class);
+    }
+
+    public static boolean hasPartyPermission(CommandSender sender, ShardType shard) {
+        return inst().hasPermission(sender, "aurora.partybook." + shard.name());
     }
 
     @EventHandler
@@ -177,7 +178,8 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
                 String prefix = args.getJoinedStrings(0);
                 Iterator<ShardType> it = shardTypes.iterator();
                 while (it.hasNext()) {
-                    if (!it.next().getName().startsWith(prefix)) {
+                    ShardType next = it.next();
+                    if (!next.getName().startsWith(prefix) || !hasPartyPermission(sender, next)) {
                         it.remove();
                     }
                 }
@@ -203,6 +205,9 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
             Player player = PlayerUtil.checkPlayer(sender);
             try {
                 ShardType type = ShardType.valueOf(args.getJoinedStrings(0).toUpperCase().replaceAll(" ", "_"));
+                if (!hasPartyPermission(player, type)) {
+                    throw new CommandPermissionsException();
+                }
                 player.getInventory().addItem(new PartyBookReader(type, player.getName()).build());
             } catch (IllegalArgumentException ex) {
                 throw new CommandException("There's no instance by that name!");
