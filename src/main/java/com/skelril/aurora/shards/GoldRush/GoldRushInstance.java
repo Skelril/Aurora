@@ -77,6 +77,7 @@ public class GoldRushInstance extends BukkitShardInstance<GoldRushShard> impleme
     public GoldRushInstance(GoldRushShard shard, World world, ProtectedRegion region) {
         super(shard, world, region);
         setup();
+        remove();
     }
 
     private void setup() {
