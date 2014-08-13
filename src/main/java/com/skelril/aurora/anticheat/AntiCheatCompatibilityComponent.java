@@ -11,6 +11,7 @@ import com.skelril.aurora.events.PrayerApplicationEvent;
 import com.skelril.aurora.events.anticheat.FallBlockerEvent;
 import com.skelril.aurora.events.anticheat.RapidHitEvent;
 import com.skelril.aurora.events.anticheat.ThrowPlayerEvent;
+import com.skelril.aurora.events.guild.RogueGrenadeEvent;
 import com.zachsthings.libcomponents.ComponentInformation;
 import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
@@ -129,6 +130,9 @@ public class AntiCheatCompatibilityComponent extends BukkitComponent implements 
             CheckType.FIGHT_ANGLE, CheckType.FIGHT_DIRECTION, CheckType.FIGHT_NOSWING,
             CheckType.FIGHT_REACH, CheckType.FIGHT_SPEED
     };
+    private static final CheckType[] multiProjectileTypes = new CheckType[]{
+            CheckType.BLOCKPLACE_SPEED
+    };
 
     @EventHandler
     public void onPlayerThrow(ThrowPlayerEvent event) {
@@ -146,6 +150,11 @@ public class AntiCheatCompatibilityComponent extends BukkitComponent implements 
     public void onRapidHit(RapidHitEvent event) {
 
         bypass(event.getPlayer(), rapidHitCheckTypes);
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onRogueSnowball(RogueGrenadeEvent event) {
+        bypass(event.getPlayer(), multiProjectileTypes);
     }
 
     @EventHandler(ignoreCancelled = true)
