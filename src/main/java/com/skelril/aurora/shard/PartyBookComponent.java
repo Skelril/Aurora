@@ -89,6 +89,8 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
         defender.getInventory().addItem(scroll);
         ChatUtil.sendNotice(defender, attacker.getName() + " has given you a party scroll!");
         ChatUtil.sendNotice(defender, "Right click to accept, drop to decline.");
+
+        ChatUtil.sendNotice(attacker, "You've invited " + defender.getName() + " to your party!");
     }
 
     @EventHandler
@@ -210,6 +212,11 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
                     throw new CommandPermissionsException();
                 }
                 player.getInventory().addItem(new PartyBookReader(type, player.getName()).build());
+                ChatUtil.sendNotice(player, "You've been given a Party Book to: " + type.getName() + ".");
+                if (type.getMaxPlayers() > 1) {
+                    ChatUtil.sendNotice(player, "To invite other players to your party,");
+                    ChatUtil.sendNotice(player, "punch them while holding the book.");
+                }
             } catch (IllegalArgumentException ex) {
                 throw new CommandException("There's no instance by that name!");
             }
