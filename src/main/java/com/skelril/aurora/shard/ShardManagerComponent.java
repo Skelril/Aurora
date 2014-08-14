@@ -15,6 +15,9 @@ import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.bukkit.selections.Selection;
 import com.sk89q.worldguard.bukkit.WGBukkit;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import com.skelril.aurora.admin.AdminComponent;
+import com.skelril.aurora.admin.AdminState;
 import com.skelril.aurora.events.PlayerInstanceDeathEvent;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.KeepAction;
@@ -22,6 +25,7 @@ import com.skelril.aurora.util.ProfileUtil;
 import com.skelril.aurora.util.database.IOUtil;
 import com.skelril.aurora.util.player.PlayerRespawnProfile_1_7_10;
 import com.zachsthings.libcomponents.ComponentInformation;
+import com.zachsthings.libcomponents.InjectComponent;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
@@ -31,9 +35,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 import java.io.File;
 import java.util.Collections;
@@ -46,6 +53,9 @@ import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
 
 @ComponentInformation(friendlyName = "Shard Instance Manager", desc = "Shard Instancing")
 public class ShardManagerComponent extends BukkitComponent implements Listener {
+
+    @InjectComponent
+    private AdminComponent admin;
 
     private HashMap<UUID, PlayerRespawnProfile_1_7_10> playerState = new HashMap<>();
 
@@ -94,6 +104,45 @@ public class ShardManagerComponent extends BukkitComponent implements Listener {
 
     public PlayerRespawnProfile_1_7_10 remRespawnProfile(UUID owner) {
         return playerState.remove(owner);
+    }
+
+    public boolean isUnallocatedInstanceArea(Location location) {
+        if (location.getWorld().equals(shardWorld.getWorld())) {
+            for (ProtectedRegion region : WG.getRegionManager(location.getWorld()).getApplicableRegions(location)) {
+                if (manager.isActiveRegion(region.getId())) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @EventHandler
+    public void onPlayerTeleport(PlayerTeleportEvent event) {
+        Player player = event.getPlayer();
+        if (!admin.isAdmin(player, AdminState.ADMIN) && isUnallocatedInstanceArea(event.getTo())) {
+            event.setCancelled(true);
+            leaveInstance(player);
+        }
+    }
+
+    @EventHandler
+    public void onBlockBreak(BlockBreakEvent event) {
+        Player player = event.getPlayer();
+        if (!admin.isAdmin(player, AdminState.ADMIN) && isUnallocatedInstanceArea(event.getBlock().getLocation())) {
+            event.setCancelled(true);
+            leaveInstance(player);
+        }
+    }
+
+    @EventHandler
+    public void onBlockPlace(BlockPlaceEvent event) {
+        Player player = event.getPlayer();
+        if (!admin.isAdmin(player, AdminState.ADMIN) && isUnallocatedInstanceArea(event.getBlock().getLocation())) {
+            event.setCancelled(true);
+            leaveInstance(player);
+        }
     }
 
     @EventHandler
@@ -218,12 +267,12 @@ public class ShardManagerComponent extends BukkitComponent implements Listener {
         return Bukkit.getWorlds().get(0).getSpawnLocation();
     }
 
-    public void leaveInstance(Player player) {
+    public boolean leaveInstance(Player player) {
         PlayerRespawnProfile_1_7_10 profile = playerState.remove(player.getUniqueId());
         if (profile != null) {
             ProfileUtil.restore(player, profile);
         }
-        player.teleport(getPrimusSpawn());
+        return player.teleport(getPrimusSpawn());
     }
 
     public class Commands {
@@ -236,8 +285,9 @@ public class ShardManagerComponent extends BukkitComponent implements Listener {
             if (!player.getWorld().equals(getShardWorld())) {
                 throw new CommandException("You must be in an instance to use this command.");
             }
-            leaveInstance(player);
-            ChatUtil.sendNotice(player, "You've left the instance.");
+            if (leaveInstance(player)) {
+                ChatUtil.sendNotice(player, "You've left the instance.");
+            }
         }
 
         private WorldEditPlugin getWE() {

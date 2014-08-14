@@ -458,7 +458,7 @@ public class AdminComponent extends BukkitComponent implements Listener {
         }
     }
     */
-    
+
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
 

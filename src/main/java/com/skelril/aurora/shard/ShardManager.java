@@ -30,6 +30,10 @@ public class ShardManager {
         this.rgManager = rgManager;
     }
 
+    public boolean isActiveRegion(String name) {
+        return activeShards.contains(name);
+    }
+
     public <T extends ShardInstance> T findOrCreateInstance(Shard<T> shard) {
         T instance = searchFor(shard);
         if (instance == null) {

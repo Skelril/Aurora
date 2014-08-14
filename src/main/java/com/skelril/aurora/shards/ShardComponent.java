@@ -18,6 +18,7 @@ import com.skelril.aurora.util.LocationUtil;
 import com.zachsthings.libcomponents.TemplateComponent;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.plugin.Plugin;
 
@@ -75,6 +76,10 @@ public abstract class ShardComponent<A extends Shard<T>, T extends ShardInstance
         T instance = getManager().getManager().findOrCreateInstance(shard);
         instances.add(instance);
         return instance;
+    }
+
+    public T getInstance(Block block) {
+        return getInstance(block.getLocation());
     }
 
     public T getInstance(Entity entity) {
