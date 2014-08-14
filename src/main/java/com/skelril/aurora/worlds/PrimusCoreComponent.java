@@ -167,7 +167,7 @@ public class PrimusCoreComponent extends BukkitComponent implements Listener {
             return;
         }
 
-        if (!waterB) return;
+        if (!worldB || !waterB) return;
 
         event.setResult(PlayerAttemptItemWishEvent.Result.ALLOW);
         if (isPartyBook) {
