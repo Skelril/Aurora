@@ -16,7 +16,6 @@ import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldedit.bukkit.BukkitUtil;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.skelril.aurora.admin.AdminComponent;
 import com.skelril.aurora.economic.store.mysql.MySQLItemStoreDatabase;
 import com.skelril.aurora.economic.store.mysql.MySQLMarketTransactionDatabase;
@@ -32,7 +31,6 @@ import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.InjectComponent;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
 import net.milkbowl.vault.economy.Economy;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Server;
@@ -63,7 +61,6 @@ public class AdminStoreComponent extends BukkitComponent {
     private static ItemStoreDatabase itemDatabase;
     private static MarketTransactionDatabase transactionDatabase;
 
-    private ProtectedRegion region = null;
     private Economy econ;
 
     @Override
@@ -78,15 +75,6 @@ public class AdminStoreComponent extends BukkitComponent {
         setupEconomy();
         // Register commands
         registerCommands(Commands.class);
-
-        // Get the region
-        server.getScheduler().runTaskLater(inst, () -> {
-            try {
-                region = getWorldGuard().getGlobalRegionManager().get(Bukkit.getWorld("Primus")).getRegion("market");
-            } catch (UnknownPluginException e) {
-                e.printStackTrace();
-            }
-        }, 1);
     }
 
     @Override
@@ -845,7 +833,7 @@ public class AdminStoreComponent extends BukkitComponent {
 
     public boolean isInArea(Location location) {
         Vector v = BukkitUtil.toVector(location);
-        return location.getWorld().getName().equals("City") && region != null && region.contains(v);
+        return location.getWorld().getName().equals("Primus");
     }
 
     private WorldGuardPlugin getWorldGuard() throws UnknownPluginException {
