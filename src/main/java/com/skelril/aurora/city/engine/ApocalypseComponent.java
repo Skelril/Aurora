@@ -25,8 +25,6 @@ import com.skelril.aurora.util.extractor.entity.CombatantPair;
 import com.skelril.aurora.util.extractor.entity.EDBEExtractor;
 import com.skelril.aurora.util.item.EffectUtil;
 import com.skelril.aurora.util.item.ItemUtil;
-import com.zachsthings.libcomponents.ComponentInformation;
-import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.InjectComponent;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
 import com.zachsthings.libcomponents.config.ConfigurationBase;
@@ -59,8 +57,8 @@ import java.util.stream.Collectors;
 /**
  * @author Turtle9598
  */
-@ComponentInformation(friendlyName = "Apocalypse", desc = "Sends an invasion force after the residents of the server.")
-@Depend(components = {AdminComponent.class, EnderPearlHomesComponent.class})
+//@ComponentInformation(friendlyName = "Apocalypse", desc = "Sends an invasion force after the residents of the server.")
+//@Depend(components = {AdminComponent.class, EnderPearlHomesComponent.class})
 public class ApocalypseComponent extends BukkitComponent implements Listener {
 
     private final CommandBook inst = CommandBook.inst();
