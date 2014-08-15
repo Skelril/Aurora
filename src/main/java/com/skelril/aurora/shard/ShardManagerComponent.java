@@ -263,7 +263,7 @@ public class ShardManagerComponent extends BukkitComponent implements Listener {
         }
     }
 
-    private Location getPrimusSpawn() {
+    public Location getPrimusSpawn() {
         return Bukkit.getWorlds().get(0).getSpawnLocation();
     }
 

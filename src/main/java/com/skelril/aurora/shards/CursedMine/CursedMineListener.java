@@ -22,8 +22,11 @@ import com.skelril.aurora.util.item.ItemUtil;
 import com.skelril.aurora.util.player.PlayerRespawnProfile_1_7_10;
 import com.skelril.aurora.util.restoration.BlockRecord;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.TravelAgent;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -31,6 +34,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityPortalEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
@@ -215,6 +219,46 @@ public class CursedMineListener extends ShardListener<CursedMine> {
                 ChatUtil.sendWarning(player, "You have been tele-blocked!");
             }
         }
+    }
+
+    private Player getPassenger(Entity entity) {
+        Entity passenger = entity.getPassenger();
+        if (passenger instanceof Player) {
+            return (Player) passenger;
+        }
+        return null;
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    public void onEntityPortal(EntityPortalEvent event) {
+        TravelAgent agent = event.getPortalTravelAgent();
+        Player passenger = getPassenger(event.getEntity());
+        if (passenger == null) return;
+        Location to = commonPortal(event.getFrom());
+
+        if (to != null) {
+            agent.setCanCreatePortal(false);
+            event.setPortalTravelAgent(agent);
+            event.setTo(to);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    public void onPlayerPortal(PlayerPortalEvent event) {
+        TravelAgent agent = event.getPortalTravelAgent();
+        Location to = commonPortal(event.getFrom());
+
+        if (!event.getCause().equals(PlayerTeleportEvent.TeleportCause.NETHER_PORTAL)) return;
+        if (to != null) {
+            agent.setCanCreatePortal(false);
+            event.setPortalTravelAgent(agent);
+            event.setTo(to);
+        }
+    }
+
+    private Location commonPortal(Location from) {
+        CursedMineInstance inst = shard.getInstance(from);
+        return inst == null ? null : shard.getManager().getPrimusSpawn();
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
