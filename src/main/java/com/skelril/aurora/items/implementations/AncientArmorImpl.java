@@ -43,7 +43,7 @@ public class AncientArmorImpl extends AbstractXPArmor {
 
         Player defender = result.getDefender();
         LivingEntity attacker = result.getAttacker();
-        if (!(attacker instanceof Player)) {
+        if (!(attacker instanceof Player) && ItemUtil.hasAncientArmour(defender)) {
             ChanceActivationEvent activationEvent = new ChanceActivationEvent(
                     defender,
                     defender.getLocation(),
