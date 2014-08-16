@@ -22,10 +22,10 @@ public abstract class GenericWealthStore implements Serializable {
 
     private String ownerName;
     // For Serialization
-    private SerializableItemStack[] armorContents = null;
+    private SerializableItemStack[] armourContents = null;
     private SerializableItemStack[] inventoryContents = null;
     // For Usage
-    private transient ItemStack[] cacheArmorContents = null;
+    private transient ItemStack[] cacheArmourContents = null;
     private transient ItemStack[] cacheInventoryContents = null;
     private transient List<ItemStack> itemStacks = new ArrayList<>();
     private int value = 0;
@@ -38,14 +38,14 @@ public abstract class GenericWealthStore implements Serializable {
         this.inventoryContents = ItemUtil.serialize(inventoryContents);
     }
 
-    public GenericWealthStore(String ownerName, ItemStack[] inventoryContents, ItemStack[] armorContents) {
+    public GenericWealthStore(String ownerName, ItemStack[] inventoryContents, ItemStack[] armourContents) {
 
         Validate.notNull(inventoryContents);
-        Validate.notNull(armorContents);
+        Validate.notNull(armourContents);
 
         this.ownerName = ownerName;
         this.inventoryContents = ItemUtil.serialize(inventoryContents);
-        this.armorContents = ItemUtil.serialize(armorContents);
+        this.armourContents = ItemUtil.serialize(armourContents);
     }
 
     public GenericWealthStore(String ownerName, List<ItemStack> itemStacks) {
@@ -77,19 +77,19 @@ public abstract class GenericWealthStore implements Serializable {
         this.ownerName = ownerName;
     }
 
-    public ItemStack[] getArmorContents() {
+    public ItemStack[] getArmourContents() {
 
-        if (cacheArmorContents == null) {
-            cacheArmorContents = ItemUtil.unSerialize(armorContents);
+        if (cacheArmourContents == null) {
+            cacheArmourContents = ItemUtil.unSerialize(armourContents);
         }
-        return ItemUtil.clone(cacheArmorContents);
+        return ItemUtil.clone(cacheArmourContents);
     }
 
-    public void setArmorContents(ItemStack[] armorContents) {
+    public void setArmourContents(ItemStack[] armourContents) {
 
-        Validate.notNull(armorContents);
+        Validate.notNull(armourContents);
 
-        this.armorContents = ItemUtil.serialize(armorContents);
+        this.armourContents = ItemUtil.serialize(armourContents);
     }
 
     public ItemStack[] getInventoryContents() {
