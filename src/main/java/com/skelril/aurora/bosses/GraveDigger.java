@@ -30,13 +30,11 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Server;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Skeleton;
-import org.bukkit.entity.TNTPrimed;
+import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.projectiles.ProjectileSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,13 +110,16 @@ public class GraveDigger {
             EntityDamageEvent event = condition.getEvent();
             if (event instanceof EntityDamageByEntityEvent) {
                 Entity toHit = ((EntityDamageByEntityEvent) event).getDamager();
-                if (event.getCause().equals(EntityDamageEvent.DamageCause.PROJECTILE)) {
-                    Location target = toHit.getLocation();
-                    makeSphere(target, 3, 3, 3);
-                    for (int i = 0; i < 4 * WBossDetail.getLevel(boss.getDetail()); ++i) {
-                        target.getWorld().spawn(target, TNTPrimed.class);
+                if (toHit instanceof Projectile) {
+                    ProjectileSource shooter = ((Projectile) toHit).getShooter();
+                    if (shooter instanceof LivingEntity) {
+                        Location target = ((LivingEntity) shooter).getLocation();
+                        makeSphere(target, 3, 3, 3);
+                        for (int i = 0; i < 4 * WBossDetail.getLevel(boss.getDetail()); ++i) {
+                            target.getWorld().spawn(target, TNTPrimed.class);
+                        }
+                        // target.getWorld().spawn(target, Pig.class).setCustomName("Help Me!");
                     }
-                    // target.getWorld().spawn(target, Pig.class).setCustomName("Help Me!");
                 }
             }
             return null;
