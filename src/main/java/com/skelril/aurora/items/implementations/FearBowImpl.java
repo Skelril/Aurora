@@ -30,7 +30,7 @@ import org.bukkit.projectiles.ProjectileSource;
 
 public class FearBowImpl extends AbstractItemFeatureImpl implements SpecWeaponImpl {
     @Override
-    public boolean activate() {
+    public boolean activate(LivingEntity owner, LivingEntity target) {
         return true;
     }
 

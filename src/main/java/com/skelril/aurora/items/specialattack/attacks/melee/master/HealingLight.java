@@ -4,7 +4,7 @@
  * All Rights Reserved
  */
 
-package com.skelril.aurora.items.specialattack.attacks.melee.unleashed;
+package com.skelril.aurora.items.specialattack.attacks.melee.master;
 
 import com.skelril.aurora.events.anticheat.RapidHitEvent;
 import com.skelril.aurora.items.specialattack.EntityAttack;
@@ -23,7 +23,6 @@ public class HealingLight extends EntityAttack implements MeleeSpecial {
 
     @Override
     public void activate() {
-
         if (owner instanceof Player) {
             server.getPluginManager().callEvent(new RapidHitEvent((Player) owner));
         }

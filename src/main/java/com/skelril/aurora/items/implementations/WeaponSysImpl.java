@@ -102,7 +102,7 @@ public class WeaponSysImpl extends AbstractItemFeatureImpl {
             for (Map.Entry<CustomItems, SpecWeaponImpl> entry : weaponMap.entrySet()) {
                 if (ItemUtil.isItem(weapon, entry.getKey())) {
                     SpecWeaponImpl impl = entry.getValue();
-                    if (impl.activate()) {
+                    if (impl.activate(owner, target)) {
                         spec = entry.getValue().getSpecial(owner, target);
                     }
                     break;

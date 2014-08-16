@@ -10,6 +10,6 @@ import com.skelril.aurora.items.specialattack.SpecialAttack;
 import org.bukkit.entity.LivingEntity;
 
 public interface SpecWeaponImpl {
-    public boolean activate();
+    public boolean activate(LivingEntity owner, LivingEntity target);
     public SpecialAttack getSpecial(LivingEntity owner, LivingEntity target);
 }

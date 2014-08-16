@@ -20,7 +20,7 @@ import org.bukkit.entity.LivingEntity;
 
 public class UnleashedSwordImpl extends AbstractItemFeatureImpl implements SpecWeaponImpl {
     @Override
-    public boolean activate() {
+    public boolean activate(LivingEntity owner, LivingEntity target) {
         return true;
     }
 
