@@ -145,10 +145,18 @@ public class ShnugglesPrimeShard extends Shard<ShnugglesPrimeInstance> {
                 drops.add(BookUtil.Lore.Monsters.skelril());
             }
             if (ChanceUtil.getChance(138) || m > 1 && ChanceUtil.getChance(84 / m)) {
-                drops.add(CustomItemCenter.build(MASTER_SWORD));
+                if (ChanceUtil.getChance(4)) {
+                    drops.add(CustomItemCenter.build(MASTER_SWORD));
+                } else {
+                    drops.add(CustomItemCenter.build(CORRUPT_MASTER_SWORD));
+                }
             }
             if (ChanceUtil.getChance(138) || m > 1 && ChanceUtil.getChance(84 / m)) {
-                drops.add(CustomItemCenter.build(MASTER_BOW));
+                if (ChanceUtil.getChance(4)) {
+                    drops.add(CustomItemCenter.build(MASTER_BOW));
+                } else {
+                    drops.add(CustomItemCenter.build(CORRUPT_MASTER_BOW));
+                }
             }
             if (ChanceUtil.getChance(200) || m > 1 && ChanceUtil.getChance(108 / m)) {
                 drops.add(CustomItemCenter.build(MAGIC_BUCKET));
