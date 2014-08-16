@@ -119,6 +119,7 @@ public class GlobalItemsComponent extends BukkitComponent implements Listener {
         wepSys.addRanged(CustomItems.UNLEASHED_BOW, handle(new UnleashedBowImpl()));
 
         wepSys.addMelee(CustomItems.MASTER_SWORD, handle(new MasterSwordImpl()));
+        wepSys.addMelee(CustomItems.CORRUPT_MASTER_SWORD, handle(new CorruptMasterSwordImpl()));
         wepSys.addMelee(CustomItems.FEAR_SWORD, handle(new FearSwordImpl()));
         wepSys.addMelee(CustomItems.UNLEASHED_SWORD, handle(new UnleashedSwordImpl()));
     }
@@ -139,6 +140,7 @@ public class GlobalItemsComponent extends BukkitComponent implements Listener {
         handle(new ElderCrownImpl(goldCondenser));
         handle(new BatBowImpl());
         handle(new ChickenBowImpl());
+        handle(new CorruptMasterBowImpl());
         handle(new GodFishImpl());
         handle(new ImbuedCrystalImpl(goldCondenser));
         handle(new MadMilkImpl());

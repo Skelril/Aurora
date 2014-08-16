@@ -37,6 +37,8 @@ public enum CustomItems {
     // Master Weapons
     MASTER_SWORD(ChatColor.DARK_PURPLE, "Master Sword"),
     MASTER_BOW(ChatColor.DARK_PURPLE, "Master Bow"),
+    CORRUPT_MASTER_SWORD(ChatColor.LIGHT_PURPLE, "Corrupt Master Sword"),
+    CORRUPT_MASTER_BOW(ChatColor.LIGHT_PURPLE, "Corrupt Master Bow"),
 
     // Unleashed Weapons
     UNLEASHED_SWORD(ChatColor.DARK_PURPLE, "Unleashed Sword"),
