@@ -582,7 +582,7 @@ public class GraveYardListener extends AreaListener<GraveYardArea> {
             try {
                 PlayerState identity = playerState.get(player.getName());
                 // Restore the contents
-                player.getInventory().setArmorContents(identity.getArmorContents());
+                player.getInventory().setArmorContents(identity.getArmourContents());
                 player.getInventory().setContents(identity.getInventoryContents());
                 // Count then remove the Gems of Life
                 int c = ItemUtil.countItemsOfName(player.getInventory().getContents(), GEM_OF_LIFE) - 1;

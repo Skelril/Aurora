@@ -545,7 +545,7 @@ public class GiantBossListener extends AreaListener<GiantBossArea> {
             try {
                 PlayerState identity = playerState.get(player.getName());
                 // Restore the contents
-                player.getInventory().setArmorContents(identity.getArmorContents());
+                player.getInventory().setArmorContents(identity.getArmourContents());
                 player.getInventory().setContents(identity.getInventoryContents());
             } catch (Exception e) {
                 e.printStackTrace();

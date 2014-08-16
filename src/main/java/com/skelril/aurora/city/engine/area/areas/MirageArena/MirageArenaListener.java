@@ -217,7 +217,7 @@ public class MirageArenaListener extends AreaListener<MirageArena> {
                 PlayerState identity = playerState.get(player.getName());
 
                 // Restore the contents
-                player.getInventory().setArmorContents(identity.getArmorContents());
+                player.getInventory().setArmorContents(identity.getArmourContents());
                 player.getInventory().setContents(identity.getInventoryContents());
                 player.setLevel(identity.getLevel());
                 player.setExp(identity.getExperience());

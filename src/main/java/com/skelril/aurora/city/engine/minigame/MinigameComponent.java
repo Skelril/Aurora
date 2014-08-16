@@ -219,7 +219,7 @@ public abstract class MinigameComponent extends BukkitComponent implements Runna
         player.teleport(state.getLocation());
 
         // Restore the contents
-        player.getInventory().setArmorContents(state.getArmorContents());
+        player.getInventory().setArmorContents(state.getArmourContents());
         player.getInventory().setContents(state.getInventoryContents());
         player.setHealth(Math.min(player.getMaxHealth(), state.getHealth()));
         player.setFoodLevel(state.getHunger());

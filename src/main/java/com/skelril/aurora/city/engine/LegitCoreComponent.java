@@ -330,7 +330,7 @@ public class LegitCoreComponent extends BukkitComponent implements Listener {
             if (target.exists()) {
                 PlayerState identity = (PlayerState) IOUtil.readBinaryFile(target);
 
-                player.getInventory().setArmorContents(identity.getArmorContents());
+                player.getInventory().setArmorContents(identity.getArmourContents());
                 player.getInventory().setContents(identity.getInventoryContents());
                 player.setHealth(Math.min(player.getMaxHealth(), identity.getHealth()));
                 player.setFoodLevel(identity.getHunger());

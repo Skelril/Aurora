@@ -25,7 +25,7 @@ public class PlayerGameState extends PlayerState implements Serializable {
     private float yaw, pitch;
 
     public PlayerGameState(PlayerState state, int teamNumber) {
-        super(state.getOwnerName(), state.getInventoryContents(), state.getArmorContents(), state.getHealth(),
+        super(state.getOwnerName(), state.getInventoryContents(), state.getArmourContents(), state.getHealth(),
                 state.getHunger(), state.getSaturation(), state.getExhaustion(), state.getLevel(),
                 state.getExperience());
         this.teamNumber = teamNumber;
