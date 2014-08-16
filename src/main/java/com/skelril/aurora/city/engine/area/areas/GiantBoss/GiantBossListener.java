@@ -414,7 +414,7 @@ public class GiantBossListener extends AreaListener<GiantBossArea> {
                 }
                 // Uber rare drops
                 if (ChanceUtil.getChance(15000 / m)) {
-                    event.getDrops().add(CustomItemCenter.build(CustomItems.ANCIENT_CROWN));
+                    event.getDrops().add(CustomItemCenter.build(CustomItems.ELDER_CROWN));
                 }
                 // Add a few Barbarian Bones to the drop list
                 event.getDrops().add(CustomItemCenter.build(CustomItems.BARBARIAN_BONE, ChanceUtil.getRandom(Math.max(1, amt * 2))));

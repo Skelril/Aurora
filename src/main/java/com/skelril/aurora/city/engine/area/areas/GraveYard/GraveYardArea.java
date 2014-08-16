@@ -727,7 +727,7 @@ public class GraveYardArea extends AreaComponent<GraveYardConfig> {
     }
 
     private void fogPlayer(Player player) {
-        if (ItemUtil.isItem(player.getInventory().getHelmet(), CustomItems.ANCIENT_CROWN)
+        if (ItemUtil.isItem(player.getInventory().getHelmet(), CustomItems.ELDER_CROWN)
                 || ItemUtil.hasItem(player, CustomItems.GEM_OF_DARKNESS)) {
             return;
         }

@@ -321,6 +321,7 @@ public class ItemUtil {
         }
         return false;
     }
+
     public static boolean hasAncientArmour(LivingEntity entity) {
 
         if (!entity.isValid()) return false;
@@ -334,6 +335,23 @@ public class ItemUtil {
 
         for (int i = 0; i < 4; i++) {
             b[i] = matchesFilter(armour[i], ChatColor.GOLD + "Ancient");
+        }
+        return b[0] && b[1] && b[2] && b[3];
+    }
+
+    public static boolean hasElderArmour(LivingEntity entity) {
+
+        if (!entity.isValid()) return false;
+
+        ItemStack[] armour;
+        EntityEquipment equipment = entity.getEquipment();
+        if (equipment != null) armour = equipment.getArmorContents();
+        else return false;
+
+        boolean[] b = new boolean[]{false, false, false, false};
+
+        for (int i = 0; i < 4; i++) {
+            b[i] = matchesFilter(armour[i], ChatColor.GOLD + "Elder");
         }
         return b[0] && b[1] && b[2] && b[3];
     }

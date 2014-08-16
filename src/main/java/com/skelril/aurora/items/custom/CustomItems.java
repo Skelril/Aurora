@@ -11,12 +11,16 @@ import org.bukkit.ChatColor;
 public enum CustomItems {
 
     // Ancient Armor
-    ANCIENT_CROWN(ChatColor.GOLD, "Ancient Crown"),
     ANCIENT_HELMET(ChatColor.GOLD, "Ancient Helmet"),
     ANCIENT_CHESTPLATE(ChatColor.GOLD, "Ancient Chestplate"),
     ANCIENT_LEGGINGS(ChatColor.GOLD, "Ancient Leggings"),
     ANCIENT_BOOTS(ChatColor.GOLD, "Ancient Boots"),
 
+    ELDER_CROWN(ChatColor.GOLD, "Elder Crown"),
+    ELDER_HELMET(ChatColor.GOLD, "Elder Helmet"),
+    ELDER_CHESTPLATE(ChatColor.GOLD, "Elder Chestplate"),
+    ELDER_LEGGINGS(ChatColor.GOLD, "Elder Leggings"),
+    ELDER_BOOTS(ChatColor.GOLD, "Elder Boots"),
 
     // Nectric Armor
     NECTRIC_HELMET(ChatColor.DARK_RED, "Nectric Helmet"),

@@ -19,9 +19,9 @@ import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class AncientCrownImpl extends AbstractCondenserImpl {
+public class ElderCrownImpl extends AbstractCondenserImpl {
 
-    public AncientCrownImpl(ItemCondenser condenser) {
+    public ElderCrownImpl(ItemCondenser condenser) {
         super(condenser);
     }
 
@@ -34,7 +34,7 @@ public class AncientCrownImpl extends AbstractCondenserImpl {
 
             Player player = (Player) healed;
 
-            if (ItemUtil.isItem(player.getInventory().getHelmet(), CustomItems.ANCIENT_CROWN)) {
+            if (ItemUtil.isItem(player.getInventory().getHelmet(), CustomItems.ELDER_CROWN)) {
                 event.setAmount(event.getAmount() * 2.5);
             }
         }
@@ -45,7 +45,7 @@ public class AncientCrownImpl extends AbstractCondenserImpl {
 
         Player player = event.getPlayer();
 
-        if (ItemUtil.isItem(player.getInventory().getHelmet(), CustomItems.ANCIENT_CROWN)) {
+        if (ItemUtil.isItem(player.getInventory().getHelmet(), CustomItems.ELDER_CROWN)) {
             event.setAmount(event.getAmount() * 2);
         }
     }
@@ -58,7 +58,7 @@ public class AncientCrownImpl extends AbstractCondenserImpl {
 
         if (condenser.supports(itemStack)) {
 
-            if (!ItemUtil.isItem(player.getInventory().getHelmet(), CustomItems.ANCIENT_CROWN)) {
+            if (!ItemUtil.isItem(player.getInventory().getHelmet(), CustomItems.ELDER_CROWN)) {
                 return;
             }
 

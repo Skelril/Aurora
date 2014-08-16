@@ -135,7 +135,8 @@ public class GlobalItemsComponent extends BukkitComponent implements Listener {
 
     private void registerGeneral() {
         handle(new AncientArmorImpl());
-        handle(new AncientCrownImpl(goldCondenser));
+        handle(new ElderArmorImpl());
+        handle(new ElderCrownImpl(goldCondenser));
         handle(new BatBowImpl());
         handle(new ChickenBowImpl());
         handle(new GodFishImpl());

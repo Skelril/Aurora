@@ -22,15 +22,15 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import static com.zachsthings.libcomponents.bukkit.BasePlugin.callEvent;
 
-public class AncientArmorImpl extends AbstractXPArmor {
+public class ElderArmorImpl extends AbstractXPArmor {
     @Override
     public boolean hasArmor(Player player) {
-        return ItemUtil.hasAncientArmour(player);
+        return ItemUtil.hasElderArmour(player);
     }
 
     @Override
     public int modifyXP(int startingAmt) {
-        return ChanceUtil.getRandom(startingAmt * 3);
+        return startingAmt;
     }
 
     private static EDBEExtractor<LivingEntity, Player, Projectile> ancientExtractor = new EDBEExtractor<>(

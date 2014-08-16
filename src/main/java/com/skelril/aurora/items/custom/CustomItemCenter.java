@@ -27,25 +27,6 @@ public class CustomItemCenter {
 
     static {
         // Ancient Armor
-        CustomEquipment ancientCrown = new CustomEquipment(ANCIENT_CROWN, Material.GOLD_HELMET);
-        ancientCrown.addEnchant(Enchantment.DURABILITY, 3);
-        ancientCrown.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
-        ancientCrown.addEnchant(Enchantment.PROTECTION_PROJECTILE, 4);
-        ancientCrown.addEnchant(Enchantment.PROTECTION_FIRE, 4);
-        ancientCrown.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 4);
-        ancientCrown.addEnchant(Enchantment.OXYGEN, 3);
-        ancientCrown.addEnchant(Enchantment.WATER_WORKER, 1);
-        ancientCrown.addSource(ItemSource.MARKET);
-        ancientCrown.addSource(ItemSource.GIANT_BOSS);
-        ancientCrown.addUse("Set Effect: Ancient Armor");
-        ancientCrown.addUse("Double Health Regen");
-        ancientCrown.addUse("Double XP Gain");
-        ancientCrown.addUse("Acts as an Imbued Crystal");
-        ancientCrown.addUse("Acts as a Gem of Darkness");
-        ancientCrown.addUse("Acts as an Ancient Helmet");
-        ancientCrown.addUse("Repaired with XP");
-        addItem(ancientCrown);
-
         CustomEquipment ancientHelmet = new CustomEquipment(ANCIENT_HELMET, Material.CHAINMAIL_HELMET);
         ancientHelmet.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
         ancientHelmet.addEnchant(Enchantment.PROTECTION_PROJECTILE, 4);
@@ -56,7 +37,7 @@ public class CustomItemCenter {
         ancientHelmet.addSource(ItemSource.SACRIFICIAL_PIT);
         ancientHelmet.addSource(ItemSource.GRAVE_YARD);
         ancientHelmet.addSource(ItemSource.MARKET);
-        ancientHelmet.addUse("Set Effect: Ancient Armor");
+        ancientHelmet.addUse("Set Effect: Ancient Power");
         ancientHelmet.addUse("Repaired with XP");
         addItem(ancientHelmet);
 
@@ -68,7 +49,7 @@ public class CustomItemCenter {
         ancientChestplate.addSource(ItemSource.SACRIFICIAL_PIT);
         ancientChestplate.addSource(ItemSource.GRAVE_YARD);
         ancientChestplate.addSource(ItemSource.MARKET);
-        ancientChestplate.addUse("Set Effect: Ancient Armor");
+        ancientChestplate.addUse("Set Effect: Ancient Power");
         ancientChestplate.addUse("Repaired with XP");
         addItem(ancientChestplate);
 
@@ -80,7 +61,7 @@ public class CustomItemCenter {
         ancientLeggings.addSource(ItemSource.SACRIFICIAL_PIT);
         ancientLeggings.addSource(ItemSource.GRAVE_YARD);
         ancientLeggings.addSource(ItemSource.MARKET);
-        ancientLeggings.addUse("Set Effect: Ancient Armor");
+        ancientLeggings.addUse("Set Effect: Ancient Power");
         ancientLeggings.addUse("Repaired with XP");
         addItem(ancientLeggings);
 
@@ -93,9 +74,80 @@ public class CustomItemCenter {
         ancientBoots.addSource(ItemSource.SACRIFICIAL_PIT);
         ancientBoots.addSource(ItemSource.GRAVE_YARD);
         ancientBoots.addSource(ItemSource.MARKET);
-        ancientBoots.addUse("Set Effect: Ancient Armor");
+        ancientBoots.addUse("Set Effect: Ancient Power");
         ancientBoots.addUse("Repaired with XP");
         addItem(ancientBoots);
+
+        // Elder Armor
+        CustomEquipment elderCrown = new CustomEquipment(ELDER_CROWN, Material.GOLD_HELMET);
+        elderCrown.addEnchant(Enchantment.DURABILITY, 3);
+        elderCrown.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+        elderCrown.addEnchant(Enchantment.PROTECTION_PROJECTILE, 4);
+        elderCrown.addEnchant(Enchantment.PROTECTION_FIRE, 4);
+        elderCrown.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 4);
+        elderCrown.addEnchant(Enchantment.OXYGEN, 3);
+        elderCrown.addEnchant(Enchantment.WATER_WORKER, 1);
+        elderCrown.addSource(ItemSource.MARKET);
+        elderCrown.addSource(ItemSource.GIANT_BOSS);
+        elderCrown.addUse("Set Effect: Ancient Armor");
+        elderCrown.addUse("Double Health Regen");
+        elderCrown.addUse("Double XP Gain");
+        elderCrown.addUse("Acts as an Imbued Crystal");
+        elderCrown.addUse("Acts as a Gem of Darkness");
+        elderCrown.addUse("Acts as an Ancient Helmet");
+        elderCrown.addUse("Repaired with XP");
+        addItem(elderCrown);
+
+        CustomEquipment elderHelmet = new CustomEquipment(ANCIENT_HELMET, Material.CHAINMAIL_HELMET);
+        elderHelmet.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+        elderHelmet.addEnchant(Enchantment.PROTECTION_PROJECTILE, 4);
+        elderHelmet.addEnchant(Enchantment.PROTECTION_FIRE, 4);
+        elderHelmet.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 4);
+        elderHelmet.addEnchant(Enchantment.OXYGEN, 3);
+        elderHelmet.addEnchant(Enchantment.WATER_WORKER, 1);
+        elderHelmet.addSource(ItemSource.SACRIFICIAL_PIT);
+        elderHelmet.addSource(ItemSource.GRAVE_YARD);
+        elderHelmet.addSource(ItemSource.MARKET);
+        elderHelmet.addUse("Set Effect: Ancient Power");
+        elderHelmet.addUse("Repaired with XP");
+        addItem(elderHelmet);
+
+        CustomEquipment elderChestplate = new CustomEquipment(ANCIENT_CHESTPLATE, Material.CHAINMAIL_CHESTPLATE);
+        elderChestplate.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+        elderChestplate.addEnchant(Enchantment.PROTECTION_PROJECTILE, 4);
+        elderChestplate.addEnchant(Enchantment.PROTECTION_FIRE, 4);
+        elderChestplate.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 4);
+        elderChestplate.addSource(ItemSource.SACRIFICIAL_PIT);
+        elderChestplate.addSource(ItemSource.GRAVE_YARD);
+        elderChestplate.addSource(ItemSource.MARKET);
+        elderChestplate.addUse("Set Effect: Ancient Power");
+        elderChestplate.addUse("Repaired with XP");
+        addItem(elderChestplate);
+
+        CustomEquipment elderLeggings = new CustomEquipment(ANCIENT_LEGGINGS, Material.CHAINMAIL_LEGGINGS);
+        elderLeggings.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+        elderLeggings.addEnchant(Enchantment.PROTECTION_PROJECTILE, 4);
+        elderLeggings.addEnchant(Enchantment.PROTECTION_FIRE, 4);
+        elderLeggings.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 4);
+        elderLeggings.addSource(ItemSource.SACRIFICIAL_PIT);
+        elderLeggings.addSource(ItemSource.GRAVE_YARD);
+        elderLeggings.addSource(ItemSource.MARKET);
+        elderLeggings.addUse("Set Effect: Ancient Power");
+        elderLeggings.addUse("Repaired with XP");
+        addItem(elderLeggings);
+
+        CustomEquipment elderBoots = new CustomEquipment(ANCIENT_BOOTS, Material.CHAINMAIL_BOOTS);
+        elderBoots.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+        elderBoots.addEnchant(Enchantment.PROTECTION_PROJECTILE, 4);
+        elderBoots.addEnchant(Enchantment.PROTECTION_FIRE, 4);
+        elderBoots.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 4);
+        elderBoots.addEnchant(Enchantment.PROTECTION_FALL, 4);
+        elderBoots.addSource(ItemSource.SACRIFICIAL_PIT);
+        elderBoots.addSource(ItemSource.GRAVE_YARD);
+        elderBoots.addSource(ItemSource.MARKET);
+        elderBoots.addUse("Set Effect: Ancient Power");
+        elderBoots.addUse("Repaired with XP");
+        addItem(elderBoots);
 
         // Nectric Armor
         CustomEquipment nectricHelmet = new CustomEquipment(NECTRIC_HELMET, Material.DIAMOND_HELMET);

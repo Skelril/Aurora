@@ -155,7 +155,7 @@ public class ShnugglesPrimeShard extends Shard<ShnugglesPrimeInstance> {
             }
             // Uber rare drops
             if (ChanceUtil.getChance(15000 / m)) {
-                drops.add(CustomItemCenter.build(ANCIENT_CROWN));
+                drops.add(CustomItemCenter.build(ELDER_CROWN));
             }
             // Add a few Barbarian Bones to the drop list
             drops.add(CustomItemCenter.build(BARBARIAN_BONE, ChanceUtil.getRandom(Math.max(1, amt * 2))));

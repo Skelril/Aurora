@@ -17,12 +17,15 @@ public abstract class AbstractXPArmor extends AbstractItemFeatureImpl {
 
     public abstract boolean hasArmor(Player player);
 
+    public abstract int modifyXP(int startingAmt);
+
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onXPPickUp(PlayerExpChangeEvent event) {
 
         Player player = event.getPlayer();
 
-        int exp = event.getAmount();
+        int origin = event.getAmount();
+        int exp = modifyXP(origin);
 
         if (hasArmor(player)) {
             ItemStack[] armour = player.getInventory().getArmorContents();
@@ -35,7 +38,7 @@ public abstract class AbstractXPArmor extends AbstractItemFeatureImpl {
                 exp = 0;
             }
             player.getInventory().setArmorContents(armour);
-            event.setAmount(exp);
+            event.setAmount(Math.min(exp, origin));
         }
     }
 }

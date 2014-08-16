@@ -28,6 +28,11 @@ public class NecrosArmorImpl extends AbstractXPArmor {
         return ItemUtil.hasNecrosArmour(player);
     }
 
+    @Override
+    public int modifyXP(int startingAmt) {
+        return startingAmt;
+    }
+
     private static EDBEExtractor<LivingEntity, Player, Projectile> necrosisExtractor = new EDBEExtractor<>(
             LivingEntity.class,
             Player.class,

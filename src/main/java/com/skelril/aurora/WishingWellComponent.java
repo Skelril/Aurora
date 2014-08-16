@@ -218,22 +218,30 @@ public class WishingWellComponent extends BukkitComponent implements Listener {
                 itemStack = new ItemStack(ItemID.GHAST_TEAR, ChanceUtil.getRangedRandom(20, 32));
                 break;
             case 13:
-                if (Util.getChance(sender, modifier, 2.75)) {
+                if (Util.getChance(sender, modifier, 13.5)) {
+                    itemStack = CustomItemCenter.build(CustomItems.ELDER_BOOTS);
+                } else if (Util.getChance(sender, modifier, 2.75)) {
                     itemStack = CustomItemCenter.build(CustomItems.ANCIENT_BOOTS);
                 }
                 break;
             case 14:
-                if (Util.getChance(sender, modifier, 2.75)) {
+                if (Util.getChance(sender, modifier, 13.5)) {
+                    itemStack = CustomItemCenter.build(CustomItems.ELDER_LEGGINGS);
+                } else if (Util.getChance(sender, modifier, 2.75)) {
                     itemStack = CustomItemCenter.build(CustomItems.ANCIENT_LEGGINGS);
                 }
                 break;
             case 15:
-                if (Util.getChance(sender, modifier, 2.75)) {
+                if (Util.getChance(sender, modifier, 13.5)) {
+                    itemStack = CustomItemCenter.build(CustomItems.ELDER_CHESTPLATE);
+                } else if (Util.getChance(sender, modifier, 2.75)) {
                     itemStack = CustomItemCenter.build(CustomItems.ANCIENT_CHESTPLATE);
                 }
                 break;
             case 16:
-                if (Util.getChance(sender, modifier, 2.75)) {
+                if (Util.getChance(sender, modifier, 13.5)) {
+                    itemStack = CustomItemCenter.build(CustomItems.ELDER_HELMET);
+                } else if (Util.getChance(sender, modifier, 2.75)) {
                     itemStack = CustomItemCenter.build(CustomItems.ANCIENT_HELMET);
                 }
                 break;
