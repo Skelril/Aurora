@@ -263,7 +263,7 @@ public class PatientXListener extends AreaListener<PatientXArea> {
                 event.setDamage(DamageModifier.BASE, parent.difficulty * parent.getConfig().baseBossHit);
                 return;
             }
-            if (ItemUtil.hasAncientArmour(player)) {
+            if (ItemUtil.hasAncientArmor(player)) {
                 double diff = player.getMaxHealth() - player.getHealth();
                 if (ChanceUtil.getChance(Math.max(Math.round(parent.difficulty), Math.round(player.getMaxHealth() - diff)))) {
                     EffectUtil.Ancient.powerBurst(player, event.getDamage());
@@ -469,7 +469,7 @@ public class PatientXListener extends AreaListener<PatientXArea> {
                 PlayerState identity = playerState.get(player.getName());
 
                 // Restore the contents
-                player.getInventory().setArmorContents(identity.getArmourContents());
+                player.getInventory().setArmorContents(identity.getArmorContents());
                 player.getInventory().setContents(identity.getInventoryContents());
             } catch (Exception e) {
                 e.printStackTrace();

@@ -472,8 +472,8 @@ public class CursedMine extends AbstractRegionedArena implements MonitoredArena,
                     }
                 } else {
 
-                    if (ItemUtil.hasAncientArmour(player) && ChanceUtil.getChance(2)) {
-                        ChatUtil.sendNotice(player, ChatColor.AQUA, "Your armour blocks an incoming ghost attack.");
+                    if (ItemUtil.hasAncientArmor(player) && ChanceUtil.getChance(2)) {
+                        ChatUtil.sendNotice(player, ChatColor.AQUA, "Your armor blocks an incoming ghost attack.");
                         return;
                     }
 
@@ -799,7 +799,7 @@ public class CursedMine extends AbstractRegionedArena implements MonitoredArena,
         Player player = result.getDefender();
 
         if (!contains(player)) return;
-        if (ChanceUtil.getChance(5) && ItemUtil.isHoldingItem(player, CustomItems.MASTER_SWORD) && ItemUtil.hasAncientArmour(player)) {
+        if (ChanceUtil.getChance(5) && ItemUtil.isHoldingItem(player, CustomItems.MASTER_SWORD) && ItemUtil.hasAncientArmor(player)) {
             EffectUtil.Master.ultimateStrength(player);
         }
     }

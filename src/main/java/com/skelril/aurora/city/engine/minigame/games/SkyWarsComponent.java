@@ -142,7 +142,7 @@ public class SkyWarsComponent extends MinigameComponent {
 
         player.getInventory().addItem(gear.toArray(new ItemStack[gear.size()]));
 
-        ItemStack[] leatherArmour = ItemUtil.leatherArmour;
+        ItemStack[] leatherArmor = ItemUtil.leatherArmor;
         Color color = Color.WHITE;
         switch (teamNumber) {
             case 1:
@@ -174,27 +174,27 @@ public class SkyWarsComponent extends MinigameComponent {
                 break;
         }
 
-        LeatherArmorMeta helmMeta = (LeatherArmorMeta) leatherArmour[3].getItemMeta();
+        LeatherArmorMeta helmMeta = (LeatherArmorMeta) leatherArmor[3].getItemMeta();
         helmMeta.setDisplayName(ChatColor.WHITE + "Sky Hood");
         helmMeta.setColor(color);
-        leatherArmour[3].setItemMeta(helmMeta);
+        leatherArmor[3].setItemMeta(helmMeta);
 
-        LeatherArmorMeta chestMeta = (LeatherArmorMeta) leatherArmour[2].getItemMeta();
+        LeatherArmorMeta chestMeta = (LeatherArmorMeta) leatherArmor[2].getItemMeta();
         chestMeta.setDisplayName(ChatColor.WHITE + "Sky Plate");
         chestMeta.setColor(color);
-        leatherArmour[2].setItemMeta(chestMeta);
+        leatherArmor[2].setItemMeta(chestMeta);
 
-        LeatherArmorMeta legMeta = (LeatherArmorMeta) leatherArmour[1].getItemMeta();
+        LeatherArmorMeta legMeta = (LeatherArmorMeta) leatherArmor[1].getItemMeta();
         legMeta.setDisplayName(ChatColor.WHITE + "Sky Leggings");
         legMeta.setColor(color);
-        leatherArmour[1].setItemMeta(legMeta);
+        leatherArmor[1].setItemMeta(legMeta);
 
-        LeatherArmorMeta bootMeta = (LeatherArmorMeta) leatherArmour[0].getItemMeta();
+        LeatherArmorMeta bootMeta = (LeatherArmorMeta) leatherArmor[0].getItemMeta();
         bootMeta.setDisplayName(ChatColor.WHITE + "Sky Boots");
         bootMeta.setColor(color);
-        leatherArmour[0].setItemMeta(bootMeta);
+        leatherArmor[0].setItemMeta(bootMeta);
 
-        playerInventory.setArmorContents(leatherArmour);
+        playerInventory.setArmorContents(leatherArmor);
 
         Location battleLoc = new Location(Bukkit.getWorld(config.worldName), config.x, config.y, config.z);
 

@@ -21,10 +21,10 @@ public class PlayerRespawnProfile_1_7_10 implements Serializable {
     private UUID owner;
 
     // For Serialization
-    private SerializableItemStack[] armourContents = null;
+    private SerializableItemStack[] armorContents = null;
     private SerializableItemStack[] inventoryContents = null;
     // For Usage
-    private transient ItemStack[] cacheArmourContents = null;
+    private transient ItemStack[] cacheArmorContents = null;
     private transient ItemStack[] cacheInventoryContents = null;
 
     private int level = 0;
@@ -53,12 +53,12 @@ public class PlayerRespawnProfile_1_7_10 implements Serializable {
         );
     }
 
-    public PlayerRespawnProfile_1_7_10(UUID owner, ItemStack[] armour,
+    public PlayerRespawnProfile_1_7_10(UUID owner, ItemStack[] armor,
                                        ItemStack[] inv, int level, float exp, float droppedExp,
                                        KeepAction armorAction, KeepAction invAction,
                                        KeepAction levelAction, KeepAction experienceAction) {
         this.owner = owner;
-        setArmourContents(armour);
+        setArmorContents(armor);
         setInventoryContents(inv);
         setLevel(level);
         setExperience(exp);
@@ -73,17 +73,17 @@ public class PlayerRespawnProfile_1_7_10 implements Serializable {
         return owner;
     }
 
-    public ItemStack[] getArmourContents() {
-        if (cacheArmourContents == null) {
-            cacheArmourContents = ItemUtil.unSerialize(armourContents);
+    public ItemStack[] getArmorContents() {
+        if (cacheArmorContents == null) {
+            cacheArmorContents = ItemUtil.unSerialize(armorContents);
         }
-        return ItemUtil.clone(cacheArmourContents);
+        return ItemUtil.clone(cacheArmorContents);
     }
 
-    public void setArmourContents(ItemStack[] armourContents) {
-        Validate.notNull(armourContents);
-        this.cacheArmourContents = null;
-        this.armourContents = ItemUtil.serialize(armourContents);
+    public void setArmorContents(ItemStack[] armorContents) {
+        Validate.notNull(armorContents);
+        this.cacheArmorContents = null;
+        this.armorContents = ItemUtil.serialize(armorContents);
     }
 
     public ItemStack[] getInventoryContents() {

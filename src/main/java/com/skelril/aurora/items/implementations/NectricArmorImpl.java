@@ -38,7 +38,7 @@ public class NectricArmorImpl extends AbstractItemFeatureImpl {
         if (result == null) return;
 
         Player defender = result.getDefender();
-        if (ItemUtil.hasNectricArmour(defender) && ChanceUtil.getChance(4)) {
+        if (ItemUtil.hasNectricArmor(defender) && ChanceUtil.getChance(4)) {
             LivingEntity attacker = result.getAttacker();
             if (attacker instanceof Player) {
                 NecrosisFX necrosis = new NecrosisFX();

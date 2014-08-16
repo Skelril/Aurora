@@ -24,18 +24,18 @@ public class PlayerState extends GenericWealthStore implements Serializable {
     private float experience = 0;
     private transient Location location = null;
 
-    public PlayerState(String ownerName, ItemStack[] inventoryContents, ItemStack[] armourContents, int level,
+    public PlayerState(String ownerName, ItemStack[] inventoryContents, ItemStack[] armorContents, int level,
                        float experience) {
 
-        super(ownerName, inventoryContents, armourContents);
+        super(ownerName, inventoryContents, armorContents);
         this.level = level;
         this.experience = experience;
     }
 
-    public PlayerState(String ownerName, ItemStack[] inventoryContents, ItemStack[] armourContents, double health,
+    public PlayerState(String ownerName, ItemStack[] inventoryContents, ItemStack[] armorContents, double health,
                        int hunger, float saturation, float exhaustion, int level, float experience) {
 
-        super(ownerName, inventoryContents, armourContents);
+        super(ownerName, inventoryContents, armorContents);
         this.health = health;
         this.hunger = hunger;
         this.saturation = saturation;
@@ -44,10 +44,10 @@ public class PlayerState extends GenericWealthStore implements Serializable {
         this.experience = experience;
     }
 
-    public PlayerState(String ownerName, ItemStack[] inventoryContents, ItemStack[] armourContents, double health,
+    public PlayerState(String ownerName, ItemStack[] inventoryContents, ItemStack[] armorContents, double health,
                        int hunger, float saturation, float exhaustion, Location location) {
 
-        super(ownerName, inventoryContents, armourContents);
+        super(ownerName, inventoryContents, armorContents);
         this.health = health;
         this.hunger = hunger;
         this.saturation = saturation;
@@ -55,10 +55,10 @@ public class PlayerState extends GenericWealthStore implements Serializable {
         this.location = location == null ? null : location.clone();
     }
 
-    public PlayerState(String ownerName, ItemStack[] inventoryContents, ItemStack[] armourContents, double health,
+    public PlayerState(String ownerName, ItemStack[] inventoryContents, ItemStack[] armorContents, double health,
                        int hunger, float saturation, float exhaustion, int level, float experience, Location location) {
 
-        super(ownerName, inventoryContents, armourContents);
+        super(ownerName, inventoryContents, armorContents);
         this.health = health;
         this.hunger = hunger;
         this.saturation = saturation;

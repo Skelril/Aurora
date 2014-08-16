@@ -25,7 +25,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 public class NecrosArmorImpl extends AbstractXPArmor {
     @Override
     public boolean hasArmor(Player player) {
-        return ItemUtil.hasNecrosArmour(player);
+        return ItemUtil.hasNecrosArmor(player);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class NecrosArmorImpl extends AbstractXPArmor {
         if (result == null) return;
 
         Player defender = result.getDefender();
-        if (ItemUtil.hasNecrosArmour(defender) && ChanceUtil.getChance(4)) {
+        if (ItemUtil.hasNecrosArmor(defender) && ChanceUtil.getChance(4)) {
             LivingEntity attacker = result.getAttacker();
             if (attacker instanceof Player) {
                 NecrosisFX necrosis = new NecrosisFX();

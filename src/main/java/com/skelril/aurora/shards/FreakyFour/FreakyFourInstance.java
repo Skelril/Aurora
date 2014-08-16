@@ -114,7 +114,7 @@ public class FreakyFourInstance extends BukkitShardInstance<FreakyFourShard> imp
 
     public void fakeXPGain() {
         for (Player player : getContained(Player.class)) {
-            if (!ItemUtil.hasNecrosArmour(player)) continue;
+            if (!ItemUtil.hasNecrosArmor(player)) continue;
             for (int i = ChanceUtil.getRandom(5); i > 0; --i) {
                 callEvent(
                         new PlayerExpChangeEvent(

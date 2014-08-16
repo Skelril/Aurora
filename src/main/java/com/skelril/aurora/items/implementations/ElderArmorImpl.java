@@ -25,7 +25,7 @@ import static com.zachsthings.libcomponents.bukkit.BasePlugin.callEvent;
 public class ElderArmorImpl extends AbstractXPArmor {
     @Override
     public boolean hasArmor(Player player) {
-        return ItemUtil.hasElderArmour(player);
+        return ItemUtil.hasElderArmor(player);
     }
 
     @Override

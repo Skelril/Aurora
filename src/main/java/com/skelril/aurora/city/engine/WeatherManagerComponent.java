@@ -91,7 +91,7 @@ public class WeatherManagerComponent extends BukkitComponent implements Listener
         String state = event.toThunderState() ? "starting" : "ending";
         Collections.synchronizedList(enabledFor).stream().filter(player -> player.getWorld().equals(event.getWorld())).forEach(player -> {
             if (!event.toThunderState()) {
-                if (ItemUtil.hasAncientArmour(player) || ItemUtil.isHoldingItem(player, CustomItems.MASTER_BOW)
+                if (ItemUtil.hasAncientArmor(player) || ItemUtil.isHoldingItem(player, CustomItems.MASTER_BOW)
                         || ItemUtil.isHoldingItem(player, CustomItems.MASTER_SWORD)) {
                     ChatUtil.sendWarning(player, ChatColor.DARK_RED + "===============[WARNING]===============");
                 }

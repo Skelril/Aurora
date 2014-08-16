@@ -138,7 +138,7 @@ public class GraveYardListener extends AreaListener<GraveYardArea> {
         LivingEntity attacker = result.getAttacker();
         if (parent.isHostileTempleArea(event.getEntity().getLocation())) {
             double damage = event.getDamage();
-            if (ItemUtil.hasAncientArmour(defender) && (parent.getWorld().isThundering() || !(defender instanceof Player))) {
+            if (ItemUtil.hasAncientArmor(defender) && (parent.getWorld().isThundering() || !(defender instanceof Player))) {
                 double diff = defender.getMaxHealth() - defender.getHealth();
                 if (ChanceUtil.getChance((int) Math.max(3, Math.round(defender.getMaxHealth() - diff)))) {
                     EffectUtil.Ancient.powerBurst(defender, damage);
@@ -582,7 +582,7 @@ public class GraveYardListener extends AreaListener<GraveYardArea> {
             try {
                 PlayerState identity = playerState.get(player.getName());
                 // Restore the contents
-                player.getInventory().setArmorContents(identity.getArmourContents());
+                player.getInventory().setArmorContents(identity.getArmorContents());
                 player.getInventory().setContents(identity.getInventoryContents());
                 // Count then remove the Gems of Life
                 int c = ItemUtil.countItemsOfName(player.getInventory().getContents(), GEM_OF_LIFE) - 1;

@@ -20,9 +20,9 @@ public class WealthStore extends GenericWealthStore {
         super(ownerName, inventoryContents);
     }
 
-    public WealthStore(String ownerName, ItemStack[] inventoryContents, ItemStack[] armourContents) {
+    public WealthStore(String ownerName, ItemStack[] inventoryContents, ItemStack[] armorContents) {
 
-        super(ownerName, inventoryContents, armourContents);
+        super(ownerName, inventoryContents, armorContents);
     }
 
     public WealthStore(String ownerName, List<ItemStack> itemStacks) {

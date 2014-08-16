@@ -341,7 +341,7 @@ public class AdminComponent extends BukkitComponent implements Listener {
                     PlayerState identity = playerState.get(player.getUniqueId());
 
                     // Restore the contents
-                    player.getInventory().setArmorContents(identity.getArmourContents());
+                    player.getInventory().setArmorContents(identity.getArmorContents());
                     player.getInventory().setContents(identity.getInventoryContents());
                     player.setHealth(Math.min(player.getMaxHealth(), identity.getHealth()));
                     player.setFoodLevel(identity.getHunger());
@@ -840,7 +840,7 @@ public class AdminComponent extends BukkitComponent implements Listener {
                 PlayerState identity = (PlayerState) o;
 
                 // Restore the contents
-                player.getInventory().setArmorContents(identity.getArmourContents());
+                player.getInventory().setArmorContents(identity.getArmorContents());
                 player.getInventory().setContents(identity.getInventoryContents());
                 player.setHealth(Math.min(player.getMaxHealth(), identity.getHealth()));
                 player.setFoodLevel(identity.getHunger());

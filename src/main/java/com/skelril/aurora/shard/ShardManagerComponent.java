@@ -182,7 +182,7 @@ public class ShardManagerComponent extends BukkitComponent implements Listener {
         PlayerRespawnProfile_1_7_10 profile = deathEvent.getProfile();
         switch (profile.getArmorAction()) {
             case DROP:
-                Collections.addAll(event.getDrops(), profile.getArmourContents());
+                Collections.addAll(event.getDrops(), profile.getArmorContents());
                 break;
         }
 

@@ -85,7 +85,7 @@ public class EffectUtil {
         public static void powerBurst(LivingEntity entity, double attackDamage) {
 
             if (entity instanceof Player) {
-                ChatUtil.sendNotice((Player) entity, "Your armour releases a burst of energy.");
+                ChatUtil.sendNotice((Player) entity, "Your armor releases a burst of energy.");
                 ChatUtil.sendNotice((Player) entity, "You are healed by an ancient force.");
             }
 

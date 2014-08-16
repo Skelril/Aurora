@@ -218,32 +218,32 @@ public class JungleRaidComponent extends MinigameComponent {
 
         player.getInventory().addItem(gear.toArray(new ItemStack[gear.size()]));
 
-        ItemStack[] leatherArmour = ItemUtil.leatherArmour;
+        ItemStack[] leatherArmor = ItemUtil.leatherArmor;
         Color color = Color.WHITE;
         if (teamNumber == 2) color = Color.RED;
         else if (teamNumber == 1) color = Color.BLUE;
 
-        LeatherArmorMeta helmMeta = (LeatherArmorMeta) leatherArmour[3].getItemMeta();
+        LeatherArmorMeta helmMeta = (LeatherArmorMeta) leatherArmor[3].getItemMeta();
         helmMeta.setDisplayName(ChatColor.WHITE + "Team Hood");
         helmMeta.setColor(color);
-        leatherArmour[3].setItemMeta(helmMeta);
+        leatherArmor[3].setItemMeta(helmMeta);
 
-        LeatherArmorMeta chestMeta = (LeatherArmorMeta) leatherArmour[2].getItemMeta();
+        LeatherArmorMeta chestMeta = (LeatherArmorMeta) leatherArmor[2].getItemMeta();
         chestMeta.setDisplayName(ChatColor.WHITE + "Team Chestplate");
         chestMeta.setColor(color);
-        leatherArmour[2].setItemMeta(chestMeta);
+        leatherArmor[2].setItemMeta(chestMeta);
 
-        LeatherArmorMeta legMeta = (LeatherArmorMeta) leatherArmour[1].getItemMeta();
+        LeatherArmorMeta legMeta = (LeatherArmorMeta) leatherArmor[1].getItemMeta();
         legMeta.setDisplayName(ChatColor.WHITE + "Team Leggings");
         legMeta.setColor(color);
-        leatherArmour[1].setItemMeta(legMeta);
+        leatherArmor[1].setItemMeta(legMeta);
 
-        LeatherArmorMeta bootMeta = (LeatherArmorMeta) leatherArmour[0].getItemMeta();
+        LeatherArmorMeta bootMeta = (LeatherArmorMeta) leatherArmor[0].getItemMeta();
         bootMeta.setDisplayName(ChatColor.WHITE + "Team Boots");
         bootMeta.setColor(color);
-        leatherArmour[0].setItemMeta(bootMeta);
+        leatherArmor[0].setItemMeta(bootMeta);
 
-        playerInventory.setArmorContents(leatherArmour);
+        playerInventory.setArmorContents(leatherArmor);
 
         // Gets a player a nice random location of entry
         Location battleLoc = null;

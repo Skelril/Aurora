@@ -338,12 +338,12 @@ public class GiantBossListener extends AreaListener<GiantBossArea> {
             }
         } else if (defender instanceof Player) {
             Player player = (Player) defender;
-            if (ItemUtil.hasAncientArmour(player) && parent.difficulty >= Difficulty.HARD.getValue()) {
+            if (ItemUtil.hasAncientArmor(player) && parent.difficulty >= Difficulty.HARD.getValue()) {
                 if (attacker != null) {
                     if (attacker instanceof Zombie) {
                         Zombie zombie = (Zombie) attacker;
                         if (zombie.isBaby() && ChanceUtil.getChance(parent.difficulty * 4)) {
-                            ChatUtil.sendNotice(player, "Your armour weakens the zombies.");
+                            ChatUtil.sendNotice(player, "Your armor weakens the zombies.");
                             player.getNearbyEntities(8, 8, 8).stream().filter(e -> e.isValid() && e instanceof Zombie && ((Zombie) e).isBaby()).forEach(e -> ((Zombie) e).damage(18));
                         }
                     }
@@ -353,7 +353,7 @@ public class GiantBossListener extends AreaListener<GiantBossArea> {
                     }
                 }
                 if (ChanceUtil.getChance(parent.difficulty * 9) && defender.getFireTicks() > 0) {
-                    ChatUtil.sendNotice((Player) defender, "Your armour extinguishes the fire.");
+                    ChatUtil.sendNotice((Player) defender, "Your armor extinguishes the fire.");
                     defender.setFireTicks(0);
                 }
                 if (parent.damageHeals && ChanceUtil.getChance(parent.difficulty * 3 + 1)) {
@@ -545,7 +545,7 @@ public class GiantBossListener extends AreaListener<GiantBossArea> {
             try {
                 PlayerState identity = playerState.get(player.getName());
                 // Restore the contents
-                player.getInventory().setArmorContents(identity.getArmourContents());
+                player.getInventory().setArmorContents(identity.getArmorContents());
                 player.getInventory().setContents(identity.getInventoryContents());
             } catch (Exception e) {
                 e.printStackTrace();

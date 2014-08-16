@@ -29,19 +29,19 @@ import java.util.Map;
  */
 public class ItemUtil {
 
-    public static final ItemStack[] leatherArmour = new ItemStack[]{
+    public static final ItemStack[] leatherArmor = new ItemStack[]{
             new ItemStack(ItemID.LEATHER_BOOTS), new ItemStack(ItemID.LEATHER_PANTS),
             new ItemStack(ItemID.LEATHER_CHEST), new ItemStack(ItemID.LEATHER_HELMET)
     };
-    public static final ItemStack[] ironArmour = new ItemStack[]{
+    public static final ItemStack[] ironArmor = new ItemStack[]{
             new ItemStack(ItemID.IRON_BOOTS), new ItemStack(ItemID.IRON_PANTS),
             new ItemStack(ItemID.IRON_CHEST), new ItemStack(ItemID.IRON_HELMET)
     };
-    public static final ItemStack[] goldArmour = new ItemStack[]{
+    public static final ItemStack[] goldArmor = new ItemStack[]{
             new ItemStack(ItemID.GOLD_BOOTS), new ItemStack(ItemID.GOLD_PANTS),
             new ItemStack(ItemID.GOLD_CHEST), new ItemStack(ItemID.GOLD_HELMET)
     };
-    public static final ItemStack[] diamondArmour = new ItemStack[]{
+    public static final ItemStack[] diamondArmor = new ItemStack[]{
             new ItemStack(ItemID.DIAMOND_BOOTS), new ItemStack(ItemID.DIAMOND_PANTS),
             new ItemStack(ItemID.DIAMOND_CHEST), new ItemStack(ItemID.DIAMOND_HELMET)
     };
@@ -322,70 +322,70 @@ public class ItemUtil {
         return false;
     }
 
-    public static boolean hasAncientArmour(LivingEntity entity) {
+    public static boolean hasAncientArmor(LivingEntity entity) {
 
         if (!entity.isValid()) return false;
 
-        ItemStack[] armour;
+        ItemStack[] armor;
         EntityEquipment equipment = entity.getEquipment();
-        if (equipment != null) armour = equipment.getArmorContents();
+        if (equipment != null) armor = equipment.getArmorContents();
         else return false;
 
         boolean[] b = new boolean[]{false, false, false, false};
 
         for (int i = 0; i < 4; i++) {
-            b[i] = matchesFilter(armour[i], ChatColor.GOLD + "Ancient");
+            b[i] = matchesFilter(armor[i], ChatColor.GOLD + "Ancient");
         }
         return b[0] && b[1] && b[2] && b[3];
     }
 
-    public static boolean hasElderArmour(LivingEntity entity) {
+    public static boolean hasElderArmor(LivingEntity entity) {
 
         if (!entity.isValid()) return false;
 
-        ItemStack[] armour;
+        ItemStack[] armor;
         EntityEquipment equipment = entity.getEquipment();
-        if (equipment != null) armour = equipment.getArmorContents();
+        if (equipment != null) armor = equipment.getArmorContents();
         else return false;
 
         boolean[] b = new boolean[]{false, false, false, false};
 
         for (int i = 0; i < 4; i++) {
-            b[i] = matchesFilter(armour[i], ChatColor.GOLD + "Elder");
+            b[i] = matchesFilter(armor[i], ChatColor.GOLD + "Elder");
         }
         return b[0] && b[1] && b[2] && b[3];
     }
 
-    public static boolean hasNecrosArmour(LivingEntity entity) {
+    public static boolean hasNecrosArmor(LivingEntity entity) {
 
         if (!entity.isValid()) return false;
 
-        ItemStack[] armour;
+        ItemStack[] armor;
         EntityEquipment equipment = entity.getEquipment();
-        if (equipment != null) armour = equipment.getArmorContents();
+        if (equipment != null) armor = equipment.getArmorContents();
         else return false;
 
         boolean[] b = new boolean[]{false, false, false, false};
 
         for (int i = 0; i < 4; i++) {
-            b[i] = matchesFilter(armour[i], ChatColor.DARK_RED + "Necros");
+            b[i] = matchesFilter(armor[i], ChatColor.DARK_RED + "Necros");
         }
         return b[0] && b[1] && b[2] && b[3];
     }
 
-    public static boolean hasNectricArmour(LivingEntity entity) {
+    public static boolean hasNectricArmor(LivingEntity entity) {
 
         if (!entity.isValid()) return false;
 
-        ItemStack[] armour;
+        ItemStack[] armor;
         EntityEquipment equipment = entity.getEquipment();
-        if (equipment != null) armour = equipment.getArmorContents();
+        if (equipment != null) armor = equipment.getArmorContents();
         else return false;
 
         boolean[] b = new boolean[]{false, false, false, false};
 
         for (int i = 0; i < 4; i++) {
-            b[i] = matchesFilter(armour[i], ChatColor.DARK_RED + "Nectric");
+            b[i] = matchesFilter(armor[i], ChatColor.DARK_RED + "Nectric");
         }
         return b[0] && b[1] && b[2] && b[3];
     }

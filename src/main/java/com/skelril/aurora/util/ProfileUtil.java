@@ -31,7 +31,7 @@ public class ProfileUtil {
             player.getInventory().setContents(identity.getInventoryContents());
         }
         if (identity.getArmorAction() == KeepAction.KEEP) {
-            player.getInventory().setArmorContents(identity.getArmourContents());
+            player.getInventory().setArmorContents(identity.getArmorContents());
         }
         if (identity.getLevelAction() == KeepAction.KEEP) {
             player.setLevel(identity.getLevel());

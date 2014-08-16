@@ -28,8 +28,8 @@ public abstract class AbstractXPArmor extends AbstractItemFeatureImpl {
         int exp = modifyXP(origin);
 
         if (hasArmor(player)) {
-            ItemStack[] armour = player.getInventory().getArmorContents();
-            ItemStack is = CollectionUtil.getElement(armour);
+            ItemStack[] armor = player.getInventory().getArmorContents();
+            ItemStack is = CollectionUtil.getElement(armor);
             if (exp > is.getDurability()) {
                 exp -= is.getDurability();
                 is.setDurability((short) 0);
@@ -37,7 +37,7 @@ public abstract class AbstractXPArmor extends AbstractItemFeatureImpl {
                 is.setDurability((short) (is.getDurability() - exp));
                 exp = 0;
             }
-            player.getInventory().setArmorContents(armour);
+            player.getInventory().setArmorContents(armor);
             event.setAmount(Math.min(exp, origin));
         }
     }

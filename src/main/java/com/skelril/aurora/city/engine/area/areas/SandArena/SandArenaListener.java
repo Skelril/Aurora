@@ -89,7 +89,7 @@ public class SandArenaListener extends AreaListener<SandArena> {
                 PlayerState identity = playerState.get(player.getName());
 
                 // Restore the contents
-                player.getInventory().setArmorContents(identity.getArmourContents());
+                player.getInventory().setArmorContents(identity.getArmorContents());
                 player.getInventory().setContents(identity.getInventoryContents());
                 player.setLevel(identity.getLevel());
                 player.setExp(identity.getExperience());

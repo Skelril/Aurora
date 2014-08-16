@@ -384,9 +384,9 @@ public class GraveYardArea extends AreaComponent<GraveYardConfig> {
         ((LivingEntity) e).setCanPickupItems(allowItemPickup);
         if (ChanceUtil.getChance(50)) {
             if (ChanceUtil.getChance(15)) {
-                equipment.setArmorContents(ItemUtil.diamondArmour);
+                equipment.setArmorContents(ItemUtil.diamondArmor);
             } else {
-                equipment.setArmorContents(ItemUtil.ironArmour);
+                equipment.setArmorContents(ItemUtil.ironArmor);
             }
             if (ChanceUtil.getChance(4)) equipment.setHelmet(null);
             if (ChanceUtil.getChance(4)) equipment.setChestplate(null);

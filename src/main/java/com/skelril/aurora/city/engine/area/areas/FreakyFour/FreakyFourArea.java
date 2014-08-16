@@ -150,7 +150,7 @@ public class FreakyFourArea extends AreaComponent<FreakyFourConfig> implements P
 
     public void fakeXPGain() {
         for (Player player : getContained(Player.class)) {
-            if (!ItemUtil.hasNecrosArmour(player)) continue;
+            if (!ItemUtil.hasNecrosArmor(player)) continue;
             for (int i = ChanceUtil.getRandom(5); i > 0; --i) {
                 server.getPluginManager().callEvent(new PlayerExpChangeEvent(player,
                         ChanceUtil.getRandom(config.fakeXP)));

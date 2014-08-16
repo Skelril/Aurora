@@ -101,8 +101,8 @@ public class ApocalypseComponent extends BukkitComponent implements Listener {
         public int deMultiplier = 4;
         @Setting("max-mobs")
         public int maxMobs = 1000;
-        @Setting("armour-chance")
-        public int armourChance = 100;
+        @Setting("armor-chance")
+        public int armorChance = 100;
         @Setting("weapon-chance")
         public int weaponChance = 100;
         @Setting("effect-lightning-chance")
@@ -124,7 +124,7 @@ public class ApocalypseComponent extends BukkitComponent implements Listener {
         if (!(target instanceof Player) || !targeter.isValid() || !attackMob.isInstance(targeter)) return;
 
         Player player = (Player) target;
-        if (checkEntity((LivingEntity) targeter) && ItemUtil.hasAncientArmour(player) && ChanceUtil.getChance(8)) {
+        if (checkEntity((LivingEntity) targeter) && ItemUtil.hasAncientArmor(player) && ChanceUtil.getChance(8)) {
             targeter.setFireTicks(ChanceUtil.getRandom(20 * 60));
         }
     }
@@ -149,7 +149,7 @@ public class ApocalypseComponent extends BukkitComponent implements Listener {
         switch (target.getType()) {
             case PLAYER:
                 player = (Player) target;
-                if (ItemUtil.hasAncientArmour(player) && checkEntity(attacker)) {
+                if (ItemUtil.hasAncientArmor(player) && checkEntity(attacker)) {
                     double diff = player.getMaxHealth() - player.getHealth();
                     if (ChanceUtil.getChance((int) Math.max(3, Math.round(player.getMaxHealth() - diff)))) {
                         EffectUtil.Ancient.powerBurst(player, event.getDamage());
@@ -385,11 +385,11 @@ public class ApocalypseComponent extends BukkitComponent implements Listener {
         EntityEquipment equipment = ((LivingEntity) e).getEquipment();
         ((LivingEntity) e).setCanPickupItems(allowItemPickup);
 
-        if (ChanceUtil.getChance(config.armourChance)) {
+        if (ChanceUtil.getChance(config.armorChance)) {
             if (ChanceUtil.getChance(35)) {
-                equipment.setArmorContents(ItemUtil.diamondArmour);
+                equipment.setArmorContents(ItemUtil.diamondArmor);
             } else {
-                equipment.setArmorContents(ItemUtil.ironArmour);
+                equipment.setArmorContents(ItemUtil.ironArmor);
             }
 
             if (ChanceUtil.getChance(4)) equipment.setHelmet(null);
