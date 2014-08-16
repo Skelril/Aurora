@@ -143,7 +143,7 @@ public class CreepSpeakComponent extends BukkitComponent implements Listener {
                 }
             } else if (entity instanceof Zombie && !(entity instanceof PigZombie)) {
                 try {
-                    if (apocalypse.checkEntity((LivingEntity) entity)) return;
+                    // if (apocalypse.checkEntity((LivingEntity) entity)) return;
                     color = ChatColor.RED;
                     if (EnvironmentUtil.isServerTimeOdd(time)) {
                         message = "Brainz!!!";
