@@ -52,9 +52,11 @@ public class PatientXListener extends ShardListener<PatientX> {
 
     @EventHandler
     public void onPartyActivate(PartyActivateEvent event) {
-        if (shard.matchesShard(event.getShard())) {
+        if (!event.hasInstance() && shard.matchesShard(event.getShard())) {
             PatientXInstance instance = shard.makeInstance();
             instance.teleportTo(shard.wrapPlayers(event.getPlayers()));
+            event.setInstance(instance);
+
             List<Player> players = event.getPlayers();
             ChatUtil.sendWarning(players, "It's been a long time since I had a worthy opponent...");
             ChatUtil.sendWarning(players, "Let's see if you have what it takes...");

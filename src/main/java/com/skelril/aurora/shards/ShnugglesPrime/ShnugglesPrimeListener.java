@@ -50,9 +50,10 @@ public class ShnugglesPrimeListener extends ShardListener<ShnugglesPrime> {
 
     @EventHandler
     public void onPartyActivate(PartyActivateEvent event) {
-        if (shard.matchesShard(event.getShard())) {
+        if (!event.hasInstance() && shard.matchesShard(event.getShard())) {
             ShnugglesPrimeInstance instance = shard.makeInstance();
             instance.teleportTo(shard.wrapPlayers(event.getPlayers()));
+            event.setInstance(instance);
         }
     }
 

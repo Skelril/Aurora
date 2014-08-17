@@ -6,6 +6,7 @@
 
 package com.skelril.aurora.events.shard;
 
+import com.skelril.aurora.shard.ShardInstance;
 import com.skelril.aurora.shard.ShardType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -20,9 +21,26 @@ public class PartyActivateEvent extends Event {
     private final ShardType shard;
     private final List<Player> players;
 
+    private ShardInstance<?> instance;
+
     public PartyActivateEvent(ShardType shard, List<Player> players) {
         this.shard = shard;
         this.players = players;
+    }
+
+    public boolean hasInstance() {
+        return instance != null;
+    }
+
+    public ShardInstance<?> getInstance() {
+        return instance;
+    }
+
+    public void setInstance(ShardInstance instance) {
+        if (this.instance != null) {
+            throw new IllegalStateException("The instance has already been set!");
+        }
+        this.instance = instance;
     }
 
     public ShardType getShard() {

@@ -57,7 +57,7 @@ public class CursedMineListener extends ShardListener<CursedMine> {
 
     @EventHandler
     public void onPartyActivate(PartyActivateEvent event) {
-        if (shard.matchesShard(event.getShard())) {
+        if (!event.hasInstance() && shard.matchesShard(event.getShard())) {
             CursedMineInstance instance;
             if (shard.getInstances().isEmpty()) {
                 instance = shard.makeInstance();
@@ -65,6 +65,7 @@ public class CursedMineListener extends ShardListener<CursedMine> {
                 instance = CollectionUtil.getElement(shard.getInstances());
             }
             instance.teleportTo(shard.wrapPlayers(event.getPlayers()));
+            event.setInstance(instance);
         }
     }
 
