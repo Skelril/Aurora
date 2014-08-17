@@ -236,7 +236,7 @@ public class CursedMineInstance extends BukkitShardInstance<CursedMineShard> imp
                     }
                 } else {
 
-                    if (ItemUtil.hasAncientArmor(player) && ChanceUtil.getChance(2)) {
+                    if (ChanceUtil.getChance(2) && (ItemUtil.hasAncientArmor(player) || ItemUtil.hasElderArmor(player))) {
                         ChatUtil.sendNotice(player, ChatColor.AQUA, "Your armor blocks an incoming ghost attack.");
                         return;
                     }
