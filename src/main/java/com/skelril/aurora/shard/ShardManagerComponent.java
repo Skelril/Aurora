@@ -6,6 +6,7 @@
 
 package com.skelril.aurora.shard;
 
+import com.sk89q.commandbook.session.SessionComponent;
 import com.sk89q.commandbook.util.entity.player.PlayerUtil;
 import com.sk89q.minecraft.util.commands.Command;
 import com.sk89q.minecraft.util.commands.CommandContext;
@@ -19,6 +20,8 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.skelril.aurora.admin.AdminComponent;
 import com.skelril.aurora.admin.AdminState;
 import com.skelril.aurora.events.PlayerInstanceDeathEvent;
+import com.skelril.aurora.events.shard.PartyActivateEvent;
+import com.skelril.aurora.exceptions.UnknownPluginException;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.KeepAction;
 import com.skelril.aurora.util.ProfileUtil;
@@ -34,6 +37,7 @@ import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -41,6 +45,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.util.Collections;
@@ -56,15 +61,23 @@ public class ShardManagerComponent extends BukkitComponent implements Listener {
 
     @InjectComponent
     private AdminComponent admin;
+    @InjectComponent
+    private SessionComponent sessions;
 
     private HashMap<UUID, PlayerRespawnProfile_1_7_10> playerState = new HashMap<>();
 
+    private WorldEditPlugin WE;
     private WorldGuardPlugin WG = WGBukkit.getPlugin();
     private ShardManager manager;
     private BukkitWorld shardWorld;
 
     @Override
     public void enable() {
+        try {
+            setUpWorldEdit();
+        } catch (UnknownPluginException e) {
+            e.printStackTrace();
+        }
         server().getScheduler().runTaskLater(inst(), () -> {
             shardWorld = new BukkitWorld(Bukkit.getWorld("Exemplar"));
             manager = new ShardManager(shardWorld, WG.getRegionManager(shardWorld.getWorld()));
@@ -73,6 +86,17 @@ public class ShardManagerComponent extends BukkitComponent implements Listener {
         server().getScheduler().runTaskTimer(inst(), this::writeData, 5, 5 * 20);
         registerCommands(Commands.class);
         registerEvents(this);
+    }
+
+    private void setUpWorldEdit() throws UnknownPluginException {
+        Plugin plugin = server().getPluginManager().getPlugin("WorldEdit");
+
+        // WorldEdit may not be loaded
+        if (plugin == null || !(plugin instanceof WorldEditPlugin)) {
+            throw new UnknownPluginException("WorldEdit");
+        }
+
+        WE = (WorldEditPlugin) plugin;
     }
 
     @Override
@@ -221,6 +245,16 @@ public class ShardManagerComponent extends BukkitComponent implements Listener {
         }
     }
 
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onInstanceActivate(PartyActivateEvent event) {
+        if (event.hasInstance()) {
+            ShardInstance<?> inst = event.getInstance();
+            for (Player player : event.getPlayers()) {
+                sessions.getSession(ShardSession.class, player).setLastInstance(inst);
+            }
+        }
+    }
+
     private File getWorkingDir() {
         return new File(inst().getDataFolder().getPath() + "/shards/");
     }
@@ -288,6 +322,19 @@ public class ShardManagerComponent extends BukkitComponent implements Listener {
             if (leaveInstance(player)) {
                 ChatUtil.sendNotice(player, "You've left the instance.");
             }
+        }
+
+        @Command(aliases = {"rejoin"},
+                usage = "", desc = "Rejoin an instance",
+                flags = "", min = 0, max = 0)
+        public void rejoinCmd(CommandContext args, CommandSender sender) throws CommandException {
+            Player player = PlayerUtil.checkPlayer(sender);
+            ShardInstance<?> inst = sessions.getSession(ShardSession.class, player).getLastInstance();
+            if (inst == null || !inst.isActive()) {
+                throw new CommandException("You do not have a previous instance available.");
+            }
+
+            inst.teleportTo(WE.wrapPlayer(player));
         }
 
         private WorldEditPlugin getWE() {
