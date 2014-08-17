@@ -115,7 +115,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 Player bPlayer = ((BukkitPlayer) player).getPlayer();
                 do {
                     target = CollectionUtil.getElement(spawnPts);
-                } while (boss != null && target.distanceSquared(getBoss().getLocation()) < 7 * 7);
+                } while (getBoss() != null && (target.distanceSquared(getBoss().getLocation()) < 7 * 7));
                 bPlayer.teleport(target);
             }
         }
@@ -170,7 +170,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
     }
 
     public LivingEntity getBoss() {
-        return boss.getEntity();
+        return boss == null ? null : boss.getEntity();
     }
 
     public void healBoss(float percentHealth) {

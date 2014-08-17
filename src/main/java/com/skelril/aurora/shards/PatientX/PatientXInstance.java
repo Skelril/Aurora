@@ -120,7 +120,7 @@ public class PatientXInstance extends BukkitShardInstance<PatientXShard> impleme
                 Player bPlayer = ((BukkitPlayer) player).getPlayer();
                 do {
                     bPlayer.teleport(getRandomDest());
-                } while (boss != null && boss.getEntity().hasLineOfSight(bPlayer));
+                } while (getBoss() != null && getBoss().hasLineOfSight(bPlayer));
             }
         }
     }
