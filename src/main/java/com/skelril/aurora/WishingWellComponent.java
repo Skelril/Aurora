@@ -262,10 +262,14 @@ public class WishingWellComponent extends BukkitComponent implements Listener {
             case 19:
                 if (Util.getChance(sender, modifier, 5)) {
                     itemStack = CustomItemCenter.build(CustomItems.DIVINE_COMBAT_POTION);
-                } else if (Util.getChance(sender, modifier, 2)) {
+                } else if (Util.getChance(sender, modifier, 3)) {
                     itemStack = CustomItemCenter.build(CustomItems.HOLY_COMBAT_POTION);
-                } else {
+                } else if (Util.getChance(sender, modifier, 2)) {
                     itemStack = CustomItemCenter.build(CustomItems.EXTREME_COMBAT_POTION);
+                } else if (Util.getChance(sender, modifier, 1)) {
+                    itemStack = CustomItemCenter.build(CustomItems.COMBAT_POTION);
+                } else {
+                    itemStack = CustomItemCenter.build(CustomItems.LESSER_COMBAT_POTION);
                 }
                 break;
             case 20:

@@ -75,6 +75,8 @@ public enum CustomItems {
     DIVINE_COMBAT_POTION(ChatColor.WHITE, "Divine Combat Potion"),
     HOLY_COMBAT_POTION(ChatColor.WHITE, "Holy Combat Potion"),
     EXTREME_COMBAT_POTION(ChatColor.WHITE, "Extreme Combat Potion"),
+    COMBAT_POTION(ChatColor.WHITE, "Combat Potion"),
+    LESSER_COMBAT_POTION(ChatColor.WHITE, "Lesser Combat Potion"),
 
     // Grave Yard Gems
     GEM_OF_LIFE(ChatColor.DARK_AQUA, "Gem of Life"),
@@ -111,7 +113,7 @@ public enum CustomItems {
     // Miscellaneous
     MAD_MILK(ChatColor.DARK_AQUA, "Mad Milk"),
     GOD_FISH(ChatColor.BLUE, "God Fish"),
-    OVERSEER_BOW(ChatColor.RED, "Overseer's Bow"),
+    OVERSEER_BOW(ChatColor.RED, "Overseer Bow"),
     BARBARIAN_BONE(ChatColor.DARK_RED, "Barbarian Bone"),
     POTION_OF_RESTITUTION(ChatColor.DARK_RED, "Potion of Restitution"),
 

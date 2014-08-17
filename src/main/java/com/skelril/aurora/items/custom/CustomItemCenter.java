@@ -447,6 +447,28 @@ public class CustomItemCenter {
         extremeCombatPotion.addSource(ItemSource.MARKET);
         addItem(extremeCombatPotion);
 
+        CustomPotion combatPotion = new CustomPotion(COMBAT_POTION, instantDmgPot);
+        combatPotion.addEffect(PotionEffectType.INCREASE_DAMAGE, 20 * 600, 1);
+        combatPotion.addEffect(PotionEffectType.REGENERATION, 20 * 600, 1);
+        combatPotion.addEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 600, 1);
+        combatPotion.addEffect(PotionEffectType.WATER_BREATHING, 20 * 600, 1);
+        combatPotion.addEffect(PotionEffectType.FIRE_RESISTANCE, 20 * 600, 1);
+        combatPotion.addSource(ItemSource.SACRIFICIAL_PIT);
+        combatPotion.addSource(ItemSource.GRAVE_YARD);
+        combatPotion.addSource(ItemSource.MARKET);
+        addItem(combatPotion);
+
+        CustomPotion lesserCombatPotion = new CustomPotion(LESSER_COMBAT_POTION, instantDmgPot);
+        lesserCombatPotion.addEffect(PotionEffectType.INCREASE_DAMAGE, 20 * 600, 0);
+        lesserCombatPotion.addEffect(PotionEffectType.REGENERATION, 20 * 600, 0);
+        lesserCombatPotion.addEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 600, 0);
+        lesserCombatPotion.addEffect(PotionEffectType.WATER_BREATHING, 20 * 600, 0);
+        lesserCombatPotion.addEffect(PotionEffectType.FIRE_RESISTANCE, 20 * 600, 0);
+        lesserCombatPotion.addSource(ItemSource.SACRIFICIAL_PIT);
+        lesserCombatPotion.addSource(ItemSource.GRAVE_YARD);
+        lesserCombatPotion.addSource(ItemSource.MARKET);
+        addItem(lesserCombatPotion);
+
         // Grave Yard Gems
         CustomItem gemOfLife = new CustomItem(GEM_OF_LIFE, Material.DIAMOND);
         gemOfLife.addSource(ItemSource.GRAVE_YARD);
