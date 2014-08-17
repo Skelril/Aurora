@@ -447,11 +447,10 @@ public class WishingWellComponent extends BukkitComponent implements Listener {
 
         final double value = AdminStoreComponent.priceCheck(item);
 
-        if (ItemUtil.isItem(item, CustomItems.MASTER_SWORD)) {
-            pInventory.addItem(CustomItemCenter.build(CustomItems.MASTER_SWORD));
-            return;
-        } else if (ItemUtil.isItem(item, CustomItems.MASTER_BOW)) {
-            pInventory.addItem(CustomItemCenter.build(CustomItems.MASTER_BOW));
+        if (ItemUtil.isItem(item, CustomItems.MASTER_SWORD) || ItemUtil.isItem(item, CustomItems.MASTER_BOW)) {
+            item = item.clone();
+            item.setDurability((short) 0);
+            pInventory.addItem(item);
             return;
         } else if (value < 0) {
             pInventory.addItem(item);
