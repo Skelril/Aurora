@@ -6,7 +6,6 @@
 
 package com.skelril.aurora.items.generic;
 
-import com.skelril.aurora.util.CollectionUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -29,14 +28,25 @@ public abstract class AbstractXPArmor extends AbstractItemFeatureImpl {
 
         if (hasArmor(player)) {
             ItemStack[] armor = player.getInventory().getArmorContents();
-            ItemStack is = CollectionUtil.getElement(armor);
-            if (exp > is.getDurability()) {
-                exp -= is.getDurability();
-                is.setDurability((short) 0);
-            } else {
-                is.setDurability((short) (is.getDurability() - exp));
-                exp = 0;
-            }
+            do {
+                double ratio = 0;
+                ItemStack is = null;
+                for (ItemStack armorPiece : armor) {
+                    double cRatio = (double) armorPiece.getDurability() / armorPiece.getType().getMaxDurability();
+                    if (cRatio > ratio) {
+                        ratio = cRatio;
+                        is = armorPiece;
+                    }
+                }
+                if (is == null) break;
+                if (exp > is.getDurability()) {
+                    exp -= is.getDurability();
+                    is.setDurability((short) 0);
+                } else {
+                    is.setDurability((short) (is.getDurability() - exp));
+                    exp = 0;
+                }
+            } while (exp > 0);
             player.getInventory().setArmorContents(armor);
             event.setAmount(Math.min(exp, origin));
         }
