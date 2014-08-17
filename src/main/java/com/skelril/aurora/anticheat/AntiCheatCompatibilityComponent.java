@@ -7,6 +7,7 @@
 package com.skelril.aurora.anticheat;
 
 import com.sk89q.commandbook.CommandBook;
+import com.skelril.Pitfall.bukkit.event.PitfallTriggerEvent;
 import com.skelril.aurora.events.PrayerApplicationEvent;
 import com.skelril.aurora.events.anticheat.FallBlockerEvent;
 import com.skelril.aurora.events.anticheat.RapidHitEvent;
@@ -21,6 +22,7 @@ import fr.neatmonster.nocheatplus.checks.CheckType;
 import fr.neatmonster.nocheatplus.hooks.NCPExemptionManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -96,7 +98,7 @@ public class AntiCheatCompatibilityComponent extends BukkitComponent implements 
         NCPExemptionManager.unexempt(player, checkType);
     }
 
-    public void bypass(Player player, CheckType[] checkTypes) {
+    public void bypass(Player player, CheckType... checkTypes) {
 
         ConcurrentHashMap<CheckType, Long> hashMap;
         if (playerList.containsKey(player.getName())) hashMap = playerList.get(player.getName());
@@ -133,6 +135,14 @@ public class AntiCheatCompatibilityComponent extends BukkitComponent implements 
     private static final CheckType[] multiProjectileTypes = new CheckType[]{
             CheckType.BLOCKPLACE_SPEED
     };
+
+    @EventHandler
+    public void onPitfallTrigger(PitfallTriggerEvent event) {
+        Entity entity = event.getEntity();
+        if (entity instanceof Player) {
+            bypass((Player) entity, CheckType.MOVING_SURVIVALFLY);
+        }
+    }
 
     @EventHandler
     public void onPlayerThrow(ThrowPlayerEvent event) {
