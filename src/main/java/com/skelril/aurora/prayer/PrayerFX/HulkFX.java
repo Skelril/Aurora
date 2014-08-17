@@ -19,14 +19,17 @@ public class HulkFX extends AbstractEffect {
     private static final AbstractEffect[] subFX = new AbstractEffect[]{
             new InfiniteHungerFX()
     };
-    private static PotionEffect[] effects = new PotionEffect[]{
-            new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20 * 30, 4),
-            new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 30, 4)
-    };
 
     public HulkFX() {
+        this(4);
+    }
 
-        super(subFX, effects);
+    public HulkFX(int tier) {
+        super(
+                subFX,
+                new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20 * 30, tier),
+                new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 30, tier)
+        );
     }
 
     @Override

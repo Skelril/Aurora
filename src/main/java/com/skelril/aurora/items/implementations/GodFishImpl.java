@@ -24,7 +24,7 @@ public class GodFishImpl extends AbstractItemFeatureImpl {
 
         if (ItemUtil.isItem(stack, CustomItems.GOD_FISH)) {
             player.chat("The fish flow within me!");
-            new HulkFX().add(player);
+            new HulkFX(0).add(player);
         }
     }
 }
