@@ -35,7 +35,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.*;
-import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -244,8 +243,6 @@ public class CursedMineInstance extends BukkitShardInstance<CursedMineShard> imp
 
                     adminComponent.depowerPlayer(player);
 
-                    Location modifiedLoc = null;
-
                     switch (ChanceUtil.getRandom(11)) {
                         case 1:
                             if (ChanceUtil.getChance(4)) {
@@ -293,12 +290,16 @@ public class CursedMineInstance extends BukkitShardInstance<CursedMineShard> imp
                                 break;
                             }
                         case 2:
-                            /*
-                            ChatUtil.sendWarning(player, "You find yourself falling from the sky...");
-                            getMaster().getHitList().addPlayer(player, this);
-                            modifiedLoc = new Location(player.getWorld(), player.getLocation().getX(), 350, player.getLocation().getZ());
+                            ChatUtil.sendWarning(player, "Dave attaches to your soul...");
+                            for (int i = 20; i > 0; --i) {
+                                server().getScheduler().runTaskLater(inst(), () -> {
+
+                                    if (!contains(player)) return;
+
+                                    player.setHealth(ChanceUtil.getRandom(ChanceUtil.getRandom(player.getMaxHealth())) - 1);
+                                }, 12 * i);
+                            }
                             break;
-                            */
                         case 3:
                             ChatUtil.sendWarning(player, "George plays with fire, sadly too close to you.");
                             prayerComponent.influencePlayer(player, PrayerComponent.constructPrayer(player,
@@ -367,8 +368,6 @@ public class CursedMineInstance extends BukkitShardInstance<CursedMineShard> imp
                         default:
                             break;
                     }
-
-                    if (modifiedLoc != null) player.teleport(modifiedLoc, PlayerTeleportEvent.TeleportCause.UNKNOWN);
                 }
             }
         } catch (UnsupportedPrayerException ex) {
