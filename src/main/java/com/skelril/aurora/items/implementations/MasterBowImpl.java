@@ -6,6 +6,7 @@
 
 package com.skelril.aurora.items.implementations;
 
+import com.skelril.aurora.events.wishingwell.PlayerItemWishEvent;
 import com.skelril.aurora.items.custom.CustomItems;
 import com.skelril.aurora.items.generic.AbstractItemFeatureImpl;
 import com.skelril.aurora.util.EnvironmentUtil;
@@ -16,12 +17,25 @@ import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.projectiles.ProjectileSource;
 
 public class MasterBowImpl extends AbstractItemFeatureImpl {
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onSacrifice(PlayerItemWishEvent event) {
+        Player player = event.getPlayer();
+        ItemStack item = event.getItemStack();
+        if (ItemUtil.isItem(item, CustomItems.MASTER_BOW)) {
+            item.setDurability((short) 0);
+            player.getInventory().addItem(item);
+            event.setItemStack(null);
+        }
+    }
+
     @EventHandler
     public void onArrowLand(ProjectileHitEvent event) {
 

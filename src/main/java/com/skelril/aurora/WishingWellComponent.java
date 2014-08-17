@@ -447,12 +447,7 @@ public class WishingWellComponent extends BukkitComponent implements Listener {
 
         final double value = AdminStoreComponent.priceCheck(item);
 
-        if (ItemUtil.isItem(item, CustomItems.MASTER_SWORD) || ItemUtil.isItem(item, CustomItems.MASTER_BOW)) {
-            item = item.clone();
-            item.setDurability((short) 0);
-            pInventory.addItem(item);
-            return;
-        } else if (value < 0) {
+        if (value < 0) {
             pInventory.addItem(item);
             ChatUtil.sendError(player, "The well rejects your offer.");
             return;

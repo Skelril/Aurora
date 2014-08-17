@@ -6,6 +6,9 @@
 
 package com.skelril.aurora.items.implementations;
 
+import com.skelril.aurora.events.wishingwell.PlayerItemWishEvent;
+import com.skelril.aurora.items.custom.CustomItemCenter;
+import com.skelril.aurora.items.custom.CustomItems;
 import com.skelril.aurora.items.generic.AbstractItemFeatureImpl;
 import com.skelril.aurora.items.generic.weapons.SpecWeaponImpl;
 import com.skelril.aurora.items.specialattack.SpecialAttack;
@@ -16,7 +19,12 @@ import com.skelril.aurora.items.specialattack.attacks.melee.unleashed.DoomBlade;
 import com.skelril.aurora.items.specialattack.attacks.melee.unleashed.HealingLight;
 import com.skelril.aurora.items.specialattack.attacks.melee.unleashed.Regen;
 import com.skelril.aurora.util.ChanceUtil;
+import com.skelril.aurora.util.item.ItemUtil;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.inventory.ItemStack;
 
 public class UnleashedSwordImpl extends AbstractItemFeatureImpl implements SpecWeaponImpl {
     @Override
@@ -41,5 +49,35 @@ public class UnleashedSwordImpl extends AbstractItemFeatureImpl implements SpecW
                 return new LifeLeech(owner, target);
         }
         return null;
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onSacrifice(PlayerItemWishEvent event) {
+        Player player = event.getPlayer();
+        ItemStack item = event.getItemStack();
+        int c;
+        int o = 1;
+        int m = item.getType().getMaxDurability();
+        ItemStack[] i;
+        if (ItemUtil.isItem(item, CustomItems.UNLEASHED_SWORD)) {
+            //if (!isInRewardsRoom) {
+            //    o = 2;
+            //}
+            c = ItemUtil.countItemsOfName(player.getInventory().getContents(), CustomItems.IMBUED_CRYSTAL.toString());
+            i = ItemUtil.removeItemOfName(player.getInventory().getContents(), CustomItems.IMBUED_CRYSTAL.toString());
+            player.getInventory().setContents(i);
+            while (item.getDurability() > 0 && c >= o) {
+                item.setDurability((short) Math.max(0, item.getDurability() - (m / 9)));
+                c -= o;
+            }
+            player.getInventory().addItem(item);
+            int amount = Math.min(c, 64);
+            while (amount > 0) {
+                player.getInventory().addItem(CustomItemCenter.build(CustomItems.IMBUED_CRYSTAL, amount));
+                c -= amount;
+                amount = Math.min(c, 64);
+            }
+            event.setItemStack(null);
+        }
     }
 }
