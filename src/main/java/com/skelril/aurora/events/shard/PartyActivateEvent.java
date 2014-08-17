@@ -8,6 +8,7 @@ package com.skelril.aurora.events.shard;
 
 import com.skelril.aurora.shard.ShardInstance;
 import com.skelril.aurora.shard.ShardType;
+import org.apache.commons.lang.Validate;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -37,6 +38,11 @@ public class PartyActivateEvent extends Event {
     }
 
     public void setInstance(ShardInstance instance) {
+        Validate.notNull(instance);
+        Validate.isTrue(
+                shard.equals(instance.getMaster().getType()),
+                "The instance must be the same type as the shard."
+        );
         if (this.instance != null) {
             throw new IllegalStateException("The instance has already been set!");
         }
