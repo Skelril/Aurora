@@ -98,7 +98,7 @@ public class CustomItemCenter {
         elderCrown.addUse("Repaired with XP");
         addItem(elderCrown);
 
-        CustomEquipment elderHelmet = new CustomEquipment(ANCIENT_HELMET, Material.CHAINMAIL_HELMET);
+        CustomEquipment elderHelmet = new CustomEquipment(ELDER_HELMET, Material.CHAINMAIL_HELMET);
         elderHelmet.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
         elderHelmet.addEnchant(Enchantment.PROTECTION_PROJECTILE, 4);
         elderHelmet.addEnchant(Enchantment.PROTECTION_FIRE, 4);
@@ -112,7 +112,7 @@ public class CustomItemCenter {
         elderHelmet.addUse("Repaired with XP");
         addItem(elderHelmet);
 
-        CustomEquipment elderChestplate = new CustomEquipment(ANCIENT_CHESTPLATE, Material.CHAINMAIL_CHESTPLATE);
+        CustomEquipment elderChestplate = new CustomEquipment(ELDER_CHESTPLATE, Material.CHAINMAIL_CHESTPLATE);
         elderChestplate.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
         elderChestplate.addEnchant(Enchantment.PROTECTION_PROJECTILE, 4);
         elderChestplate.addEnchant(Enchantment.PROTECTION_FIRE, 4);
@@ -124,7 +124,7 @@ public class CustomItemCenter {
         elderChestplate.addUse("Repaired with XP");
         addItem(elderChestplate);
 
-        CustomEquipment elderLeggings = new CustomEquipment(ANCIENT_LEGGINGS, Material.CHAINMAIL_LEGGINGS);
+        CustomEquipment elderLeggings = new CustomEquipment(ELDER_LEGGINGS, Material.CHAINMAIL_LEGGINGS);
         elderLeggings.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
         elderLeggings.addEnchant(Enchantment.PROTECTION_PROJECTILE, 4);
         elderLeggings.addEnchant(Enchantment.PROTECTION_FIRE, 4);
@@ -136,7 +136,7 @@ public class CustomItemCenter {
         elderLeggings.addUse("Repaired with XP");
         addItem(elderLeggings);
 
-        CustomEquipment elderBoots = new CustomEquipment(ANCIENT_BOOTS, Material.CHAINMAIL_BOOTS);
+        CustomEquipment elderBoots = new CustomEquipment(ELDER_BOOTS, Material.CHAINMAIL_BOOTS);
         elderBoots.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
         elderBoots.addEnchant(Enchantment.PROTECTION_PROJECTILE, 4);
         elderBoots.addEnchant(Enchantment.PROTECTION_FIRE, 4);
