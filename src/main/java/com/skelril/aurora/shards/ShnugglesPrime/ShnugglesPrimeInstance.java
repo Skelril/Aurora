@@ -38,10 +38,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static com.sk89q.commandbook.CommandBook.inst;
 import static com.sk89q.commandbook.CommandBook.logger;
@@ -54,6 +51,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
     private int lastAttackNumber = -1;
     private long lastDeath = 0;
     private boolean damageHeals = false;
+    private Set<Integer> activeAttacks = new HashSet<>();
     private Random random = new Random();
 
     private long lastUltimateAttack = -1;
@@ -224,8 +222,13 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
         return lastAttack <= 13000 ? lastAttackNumber : -1;
     }
 
+    public boolean isActiveAttack(Integer attack) {
+        return activeAttacks.contains(attack);
+    }
+
     public void printBossHealth() {
         LivingEntity boss = getBoss();
+        if (boss == null) return;
         int current = (int) Math.ceil(boss.getHealth());
         int max = (int) Math.ceil(boss.getMaxHealth());
         String message = "Boss Health: " + current + " / " + max;
@@ -263,7 +266,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
 
     public void runAttack(int attackCase) {
         LivingEntity boss = getBoss();
-        int delay = ChanceUtil.getRangedRandom(13000, 17000);
+        double delay = Math.max(5000, ChanceUtil.getRangedRandom(15 * boss.getHealth(), 25 * boss.getHealth()));
         if (lastAttack != 0 && System.currentTimeMillis() - lastAttack <= delay) return;
         Collection<Player> contained = getContained(Player.class);
         if (contained == null || contained.size() <= 0) return;
@@ -281,11 +284,16 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 break;
             }
         }
-        if (boss.getHealth() < boss.getMaxHealth() * .3 && ChanceUtil.getChance(2)) {
-            attackCase = 9;
-        }
-        if (getContained(Zombie.class).size() > 200) {
+        Collection<Zombie> zombies = getContained(Zombie.class);
+        if (zombies.size() > 200) {
             attackCase = 7;
+        }
+        if (boss.getHealth() < boss.getMaxHealth() * .5 && ChanceUtil.getChance(2)) {
+            if (zombies.size() < 100 && boss.getHealth() > 200) {
+                attackCase = 5;
+            } else {
+                attackCase = 9;
+            }
         }
         if ((attackCase == 3 || attackCase == 6) && boss.getHealth() < boss.getMaxHealth() * .6) {
             runAttack(ChanceUtil.getRandom(OPTION_COUNT));
@@ -319,7 +327,9 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 break;
             case 4:
                 ChatUtil.sendWarning(contained, ChatColor.DARK_RED + "Tango time!");
+                activeAttacks.add(4);
                 server().getScheduler().runTaskLater(inst(), () -> {
+                    activeAttacks.remove(4);
                     if (!isBossSpawned()) return;
                     for (Player player : getContained(Player.class)) {
                         if (boss.hasLineOfSight(player)) {
@@ -342,9 +352,11 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 break;
             case 5:
                 if (!damageHeals) {
+                    activeAttacks.add(5);
                     ChatUtil.sendWarning(contained, "I am everlasting!");
                     damageHeals = true;
                     server().getScheduler().runTaskLater(inst(), () -> {
+                        activeAttacks.remove(5);
                         if (damageHeals) {
                             damageHeals = false;
                             if (!isBossSpawned()) return;
@@ -362,44 +374,55 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 }
                 break;
             case 7:
-                ChatUtil.sendWarning(contained, ChatColor.DARK_RED + "Bask in my glory!");
-                server().getScheduler().runTaskLater(inst(), () -> {
-                    if (!isBossSpawned()) return;
-                    // Set defaults
-                    boolean baskInGlory = getContained(Player.class).size() == 0;
-                    // Check Players
-                    for (Player player : getContained(Player.class)) {
-                        if (inst().hasPermission(player, "aurora.prayer.intervention") && ChanceUtil.getChance(3)) {
-                            ChatUtil.sendNotice(player, "A divine wind hides you from the boss.");
-                            continue;
+                if (!damageHeals) {
+                    ChatUtil.sendWarning(contained, ChatColor.DARK_RED + "Bask in my glory!");
+                    activeAttacks.add(7);
+                    server().getScheduler().runTaskLater(inst(), () -> {
+                        activeAttacks.remove(7);
+                        if (!isBossSpawned()) return;
+                        // Set defaults
+                        boolean baskInGlory = getContained(Player.class).size() == 0;
+                        // Check Players
+                        for (Player player : getContained(Player.class)) {
+                            if (inst().hasPermission(player, "aurora.prayer.intervention") && ChanceUtil.getChance(3)) {
+                                ChatUtil.sendNotice(player, "A divine wind hides you from the boss.");
+                                continue;
+                            }
+                            if (boss.hasLineOfSight(player)) {
+                                ChatUtil.sendWarning(player, ChatColor.DARK_RED + "You!");
+                                baskInGlory = true;
+                            }
                         }
-                        if (boss.hasLineOfSight(player)) {
-                            ChatUtil.sendWarning(player, ChatColor.DARK_RED + "You!");
-                            baskInGlory = true;
+                        //Attack
+                        if (baskInGlory) {
+                            damageHeals = true;
+                            spawnPts.stream().filter(pt -> ChanceUtil.getChance(12)).forEach(pt -> {
+                                getBukkitWorld().createExplosion(pt.getX(), pt.getY(), pt.getZ(), 10, false, false);
+                            });
+                            //Schedule Reset
+                            server().getScheduler().runTaskLater(inst(), () -> {
+                                damageHeals = false;
+                            }, 10);
+                            return;
                         }
-                    }
-                    //Attack
-                    if (baskInGlory) {
-                        damageHeals = true;
-                        spawnPts.stream().filter(pt -> ChanceUtil.getChance(12)).forEach(pt -> {
-                            getBukkitWorld().createExplosion(pt.getX(), pt.getY(), pt.getZ(), 10, false, false);
-                        });
-                        //Schedule Reset
-                        server().getScheduler().runTaskLater(inst(), () -> damageHeals = false, 10);
-                        return;
-                    }
-                    // Notify if avoided
-                    ChatUtil.sendNotice(getContained(Player.class), "Gah... Afraid are you friends?");
-                }, 20 * 7);
+                        // Notify if avoided
+                        ChatUtil.sendNotice(getContained(Player.class), "Gah... Afraid are you friends?");
+                    }, 20 * 7);
+                    break;
+                }
+                runAttack(ChanceUtil.getRandom(OPTION_COUNT));
                 break;
             case 8:
                 ChatUtil.sendWarning(contained, ChatColor.DARK_RED + "I ask thy lord for aid in this all mighty battle...");
                 ChatUtil.sendWarning(contained, ChatColor.DARK_RED + "Heed thy warning, or perish!");
+                activeAttacks.add(8);
                 server().getScheduler().runTaskLater(inst(), () -> {
+                    activeAttacks.remove(8);
                     if (!isBossSpawned()) return;
-                    ChatUtil.sendWarning(getContained(Player.class), "May those who appose me die a death like no other...");
-                    getContained(Player.class).stream().filter(boss::hasLineOfSight).forEach(player -> {
-                        ChatUtil.sendWarning(getContained(Player.class), "Perish " + player.getName() + "!");
+                    Collection<Player> cContained = getContained(Player.class);
+                    ChatUtil.sendWarning(cContained, "May those who appose me die a death like no other...");
+                    cContained.stream().filter(boss::hasLineOfSight).forEach(player -> {
+                        ChatUtil.sendWarning(cContained, "Perish " + player.getName() + "!");
                         try {
                             getMaster().getPrayers().influencePlayer(
                                     player,
@@ -413,6 +436,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 break;
             case 9:
                 ChatUtil.sendNotice(contained, ChatColor.DARK_RED, "My minions our time is now!");
+                activeAttacks.add(9);
                 IntegratedRunnable minionEater = new IntegratedRunnable() {
                     @Override
                     public boolean run(int times) {
@@ -435,10 +459,11 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
 
                     @Override
                     public void end() {
+                        activeAttacks.remove(9);
                         if (!isBossSpawned()) return;
-                        boss.setHealth(Math.min(toHeal + boss.getHealth(), boss.getMaxHealth()));
+                        EntityUtil.heal(boss, toHeal);
                         toHeal = 0;
-                        ChatUtil.sendNotice(getContained(1, Player.class), "Thank you my minions!");
+                        ChatUtil.sendNotice(getContained(Player.class), "Thank you my minions!");
                         printBossHealth();
                     }
                 };

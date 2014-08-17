@@ -214,9 +214,14 @@ public class ShnugglesPrimeShard extends Shard<ShnugglesPrimeInstance> {
                 attacker = ((EntityDamageByEntityEvent) event).getDamager();
             }
             if (inst.damageHeals()) {
-                EntityUtil.heal(boss, event.getDamage() * 2);
+                double healedDamage = event.getDamage() * 2;
+                double attemptedHP = inst.isActiveAttack(7) ? boss.getMaxHealth() : boss.getHealth() + healedDamage;
+                if (attemptedHP > boss.getMaxHealth()) {
+                    boss.setMaxHealth(attemptedHP);
+                }
+                EntityUtil.heal(boss, healedDamage);
                 event.setCancelled(true);
-                if (ChanceUtil.getChance(4) && acceptedReasons.contains(event.getCause())) {
+                if (ChanceUtil.getChance(3) && acceptedReasons.contains(event.getCause())) {
                     int affected = 0;
                     for (Entity e : boss.getNearbyEntities(8, 8, 8)) {
                         if (e.isValid() && e instanceof Player && inst.contains(e)) {
