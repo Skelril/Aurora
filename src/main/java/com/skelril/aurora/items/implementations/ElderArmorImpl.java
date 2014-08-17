@@ -52,7 +52,7 @@ public class ElderArmorImpl extends AbstractXPArmor {
             ChanceActivationEvent activationEvent = new ChanceActivationEvent(
                     defender,
                     defender.getLocation(),
-                    17,
+                    15,
                     ChanceActivationEvent.ChanceType.ARMOR
             );
             callEvent(activationEvent);
