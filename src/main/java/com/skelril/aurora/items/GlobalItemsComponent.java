@@ -26,6 +26,7 @@ import com.zachsthings.libcomponents.ComponentInformation;
 import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.InjectComponent;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -36,6 +37,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.RegisteredServiceProvider;
+
+import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
 
 /**
  * Author: Turtle9598
@@ -101,6 +105,15 @@ public class GlobalItemsComponent extends BukkitComponent implements Listener {
         registerGeneral();
     }
 
+    private Economy getEconomy() {
+        RegisteredServiceProvider<Economy> economyProvider = server().getServicesManager().getRegistration(net.milkbowl
+                .vault.economy.Economy.class);
+        if (economyProvider != null) {
+            return economyProvider.getProvider();
+        }
+        return null;
+    }
+
     private <T extends Listener> T handle(T component) {
         //noinspection AccessStaticViaInstance
         inst.registerEvents(component);
@@ -148,6 +161,7 @@ public class GlobalItemsComponent extends BukkitComponent implements Listener {
         handle(new MasterBowImpl());
         handle(new NecrosArmorImpl());
         handle(new NectricArmorImpl());
+        handle(new PhantomGoldImpl(getEconomy()));
         handle(new PixieDustImpl());
         handle(new PotionOfRestitutionImpl());
         handle(new RedFeatherImpl());
