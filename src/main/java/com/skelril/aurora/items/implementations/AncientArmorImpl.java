@@ -30,7 +30,7 @@ public class AncientArmorImpl extends AbstractXPArmor {
 
     @Override
     public int modifyXP(int startingAmt) {
-        return ChanceUtil.getRandom(startingAmt * 3);
+        return ChanceUtil.getRandom(ChanceUtil.getRandom(startingAmt * 2));
     }
 
     private static EDBEExtractor<LivingEntity, Player, Projectile> ancientExtractor = new EDBEExtractor<>(
