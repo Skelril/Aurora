@@ -256,6 +256,18 @@ public class CustomItemCenter {
         masterBow.addUse("Conditional Effects");
         addItem(masterBow);
 
+        CustomWeapon corruptMasterSword = new CustomWeapon(CORRUPT_MASTER_SWORD, Material.DIAMOND_SWORD, 2);
+        corruptMasterSword.addSource(ItemSource.GIANT_BOSS);
+        corruptMasterSword.addSource(ItemSource.MARKET);
+        corruptMasterSword.addUse("Conditional Effects");
+        addItem(corruptMasterSword);
+
+        CustomWeapon corruptMasterBow = new CustomWeapon(CORRUPT_MASTER_BOW, Material.BOW, 2);
+        corruptMasterBow.addSource(ItemSource.GIANT_BOSS);
+        corruptMasterBow.addSource(ItemSource.MARKET);
+        corruptMasterBow.addUse("Conditional Effects");
+        addItem(corruptMasterBow);
+
         // Unleashed Weapons
         CustomWeapon unleashedSword = new CustomWeapon(UNLEASHED_SWORD, Material.DIAMOND_SWORD, 2.25);
         unleashedSword.addSource(ItemSource.GRAVE_YARD);
