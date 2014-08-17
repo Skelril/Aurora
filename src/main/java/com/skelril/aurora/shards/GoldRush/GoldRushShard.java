@@ -36,6 +36,8 @@ public class GoldRushShard extends Shard<GoldRushInstance> {
         flagProfile.setFlag(DefaultFlag.PVP, StateFlag.State.DENY);
         flagProfile.setFlag(DefaultFlag.TNT, StateFlag.State.DENY);
         flagProfile.setFlag(DefaultFlag.OTHER_EXPLOSION, StateFlag.State.DENY);
+
+        flagProfile.setFlag(DefaultFlag.CHEST_ACCESS, StateFlag.State.ALLOW);
     }
 
     public AdminComponent getAdmin() {
