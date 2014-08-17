@@ -20,8 +20,8 @@ public class UltimateStrength extends EntityAttack implements MeleeSpecial {
 
     @Override
     public void activate() {
-        owner.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20 * 30, 4));
-        owner.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 30, 4));
+        owner.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20 * 30, 2));
+        owner.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 30, 2));
         inform("You gain a new sense of true power.");
     }
 }
