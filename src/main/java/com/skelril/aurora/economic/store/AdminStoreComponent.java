@@ -6,6 +6,7 @@
 
 package com.skelril.aurora.economic.store;
 
+import com.google.common.collect.Lists;
 import com.sk89q.commandbook.CommandBook;
 import com.sk89q.commandbook.commands.PaginatedResult;
 import com.sk89q.commandbook.session.SessionComponent;
@@ -104,55 +105,75 @@ public class AdminStoreComponent extends BukkitComponent {
             Player player = (Player) sender;
 
             String itemName = args.getJoinedStrings(0).toLowerCase();
+            List<String> targetItems;
+            if (itemName.endsWith("#armor")) {
+                String armorType = itemName.replace("#armor", " ");
+                targetItems = Lists.newArrayList(
+                        armorType + "helmet",
+                        armorType + "chestplate",
+                        armorType + "leggings",
+                        armorType + "boots"
+                );
+            } else {
+                targetItems = Lists.newArrayList(itemName);
+            }
 
-            if (!hasItemOfName(itemName)) {
-                ItemType type = ItemType.lookup(itemName);
-                if (type == null) {
+            double price = 0;
+            double rebate = 0;
+
+
+            List<ItemPricePair> pricePairs = new ArrayList<>();
+            for (String anItem : targetItems) {
+                if (!hasItemOfName(anItem)) {
+                    ItemType type = ItemType.lookup(anItem);
+                    if (type == null) {
+                        throw new CommandException(NOT_AVAILIBLE);
+                    }
+                    anItem = type.getName();
+                }
+
+                ItemPricePair itemPricePair = itemDatabase.getItem(anItem);
+
+                if (itemPricePair == null || !itemPricePair.isBuyable()) {
                     throw new CommandException(NOT_AVAILIBLE);
                 }
-                itemName = type.getName();
-            }
-            ItemPricePair itemPricePair = itemDatabase.getItem(itemName);
 
-            if (itemPricePair == null || !itemPricePair.isBuyable()) {
-                throw new CommandException(NOT_AVAILIBLE);
+                price += itemPricePair.getPrice();
+                pricePairs.add(itemPricePair);
             }
 
-            itemName = itemPricePair.getName();
-
-            int amt = 1;
-            if (args.hasFlag('a')) {
-                amt = Math.max(1, args.getFlagInteger('a'));
-            }
-            double price = itemPricePair.getPrice() * amt;
-            double rebate = 0;
-            double lottery = price * .03;
+            int amt = Math.max(1, args.getFlagInteger('a', 1));
+            price *= amt;
 
             if (inst.hasPermission(sender, "aurora.market.rebate.onepointseven")) {
                 rebate = price * .017;
             }
+            double lottery = price * .03;
 
             if (!econ.has(player, price)) {
                 throw new CommandException("You do not have enough money to purchase that item(s).");
             }
 
             // Get the items and add them to the inventory
-            ItemStack[] itemStacks = getItem(itemPricePair.getName(), amt);
-            for (ItemStack itemStack : itemStacks) {
-                if (player.getInventory().firstEmpty() == -1) {
-                    player.getWorld().dropItem(player.getLocation(), itemStack);
-                    continue;
+            for (ItemPricePair itemPricePair : pricePairs) {
+                String anItem = itemPricePair.getName();
+                ItemStack[] itemStacks = getItem(anItem, amt);
+                for (ItemStack itemStack : itemStacks) {
+                    if (player.getInventory().firstEmpty() == -1) {
+                        player.getWorld().dropItem(player.getLocation(), itemStack);
+                        continue;
+                    }
+                    player.getInventory().addItem(itemStack);
                 }
-                player.getInventory().addItem(itemStack);
+                transactionDatabase.logTransaction(playerName, anItem, amt);
             }
+            transactionDatabase.save();
 
             // Deposit into the lottery account
             econ.bankDeposit("Lottery", lottery);
 
             // Charge the money and send the sender some feedback
             econ.withdrawPlayer(player, price - rebate);
-            transactionDatabase.logTransaction(playerName, itemName, amt);
-            transactionDatabase.save();
             String priceString = ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(price), "");
             ChatUtil.sendNotice(sender, "Item(s) purchased for " + priceString + "!");
             if (rebate >= 0.01) {
