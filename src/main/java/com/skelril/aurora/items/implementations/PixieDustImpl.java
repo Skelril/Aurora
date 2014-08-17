@@ -25,6 +25,8 @@ import org.bukkit.scheduler.BukkitTask;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.skelril.aurora.anticheat.AntiCheatCompatibilityComponent.*;
+
 public class PixieDustImpl extends AbstractItemFeatureImpl {
 
     private List<String> players = new ArrayList<>();
@@ -44,7 +46,7 @@ public class PixieDustImpl extends AbstractItemFeatureImpl {
 
         player.setAllowFlight(true);
         player.setFlySpeed(.6F);
-        // antiCheat.exempt(player, CheckType.FLY);
+        exempt(player, PLAYER_FLY);
 
         ChatUtil.sendNotice(player, "You use the Pixie Dust to gain flight.");
 
@@ -89,7 +91,7 @@ public class PixieDustImpl extends AbstractItemFeatureImpl {
                 if (player.isValid()) {
                     if (player.getAllowFlight()) {
                         ChatUtil.sendNotice(player, "You are no longer influenced by the Pixie Dust.");
-                        // antiCheat.unexempt(player, CheckType.FLY);
+                        unexempt(player, PLAYER_FLY);
                     }
                     player.setFallDistance(0);
                     player.setAllowFlight(false);
@@ -141,7 +143,7 @@ public class PixieDustImpl extends AbstractItemFeatureImpl {
             if (player.getFlySpeed() != .6F || !ItemUtil.hasItem(player, CustomItems.PIXIE_DUST)) return;
 
             player.setAllowFlight(false);
-            // antiCheat.unexempt(player, CheckType.FLY);
+            unexempt(player, PLAYER_FLY);
             ChatUtil.sendNotice(player, "You are no longer influenced by the Pixie Dust.");
 
             final String playerName = player.getName();

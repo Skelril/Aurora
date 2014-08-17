@@ -46,7 +46,7 @@ public class AntiCheatCompatibilityComponent extends BukkitComponent implements 
     private final Server server = CommandBook.server();
 
     private LocalConfiguration config;
-    private ConcurrentHashMap<String, ConcurrentHashMap<CheckType, Long>> playerList = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<String, ConcurrentHashMap<CheckType, Long>> playerList = new ConcurrentHashMap<>();
 
     @Override
     public void enable() {
@@ -88,17 +88,19 @@ public class AntiCheatCompatibilityComponent extends BukkitComponent implements 
         }
     }
 
-    public void exempt(Player player, CheckType checkType) {
-
-        NCPExemptionManager.exemptPermanently(player, checkType);
+    public static void exempt(Player player, CheckType... checkTypes) {
+        for (CheckType checkType : checkTypes) {
+            NCPExemptionManager.exemptPermanently(player, checkType);
+        }
     }
 
-    public void unexempt(Player player, CheckType checkType) {
-
-        NCPExemptionManager.unexempt(player, checkType);
+    public static void unexempt(Player player, CheckType... checkTypes) {
+        for (CheckType checkType : checkTypes) {
+            NCPExemptionManager.unexempt(player, checkType);
+        }
     }
 
-    public void bypass(Player player, CheckType... checkTypes) {
+    public static void bypass(Player player, CheckType... checkTypes) {
 
         ConcurrentHashMap<CheckType, Long> hashMap;
         if (playerList.containsKey(player.getName())) hashMap = playerList.get(player.getName());
@@ -124,15 +126,16 @@ public class AntiCheatCompatibilityComponent extends BukkitComponent implements 
         }
     }
 
-    private static final CheckType[] playerThrowCheckTypes = new CheckType[]{
+    public static final CheckType[] PLAYER_FLY = new CheckType[]{
             CheckType.MOVING_SURVIVALFLY, CheckType.MOVING_CREATIVEFLY,
     };
-    private static final CheckType[] fallBlockerCheckTypes = new CheckType[]{CheckType.MOVING_NOFALL};
-    private static final CheckType[] rapidHitCheckTypes = new CheckType[]{
+    public static final CheckType[] PLAYER_THROW = PLAYER_FLY;
+    public static final CheckType[] FALL_BLOCKER = new CheckType[]{CheckType.MOVING_NOFALL};
+    public static final CheckType[] RAPID_HIT = new CheckType[]{
             CheckType.FIGHT_ANGLE, CheckType.FIGHT_DIRECTION, CheckType.FIGHT_NOSWING,
             CheckType.FIGHT_REACH, CheckType.FIGHT_SPEED
     };
-    private static final CheckType[] multiProjectileTypes = new CheckType[]{
+    public static final CheckType[] MULTI_PROJECTILE = new CheckType[]{
             CheckType.BLOCKPLACE_SPEED
     };
 
@@ -147,24 +150,24 @@ public class AntiCheatCompatibilityComponent extends BukkitComponent implements 
     @EventHandler
     public void onPlayerThrow(ThrowPlayerEvent event) {
 
-        bypass(event.getPlayer(), playerThrowCheckTypes);
+        bypass(event.getPlayer(), PLAYER_THROW);
     }
 
     @EventHandler
     public void onFallBlocker(FallBlockerEvent event) {
 
-        bypass(event.getPlayer(), fallBlockerCheckTypes);
+        bypass(event.getPlayer(), FALL_BLOCKER);
     }
 
     @EventHandler
     public void onRapidHit(RapidHitEvent event) {
 
-        bypass(event.getPlayer(), rapidHitCheckTypes);
+        bypass(event.getPlayer(), RAPID_HIT);
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onRogueSnowball(RogueGrenadeEvent event) {
-        bypass(event.getPlayer(), multiProjectileTypes);
+        bypass(event.getPlayer(), MULTI_PROJECTILE);
     }
 
     @EventHandler(ignoreCancelled = true)

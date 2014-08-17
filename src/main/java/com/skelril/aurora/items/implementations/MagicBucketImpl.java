@@ -23,6 +23,8 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import static com.skelril.aurora.anticheat.AntiCheatCompatibilityComponent.*;
+
 public class MagicBucketImpl extends AbstractItemFeatureImpl {
 
     public boolean handleRightClick(final Player player) {
@@ -32,11 +34,11 @@ public class MagicBucketImpl extends AbstractItemFeatureImpl {
         player.setAllowFlight(!player.getAllowFlight());
         if (player.getAllowFlight()) {
             player.setFlySpeed(.4F);
-            // antiCheat.exempt(player, CheckType.FLY);
+            exempt(player, PLAYER_FLY);
             ChatUtil.sendNotice(player, "The bucket glows brightly.");
         } else {
             player.setFlySpeed(.1F);
-            // antiCheat.unexempt(player, CheckType.FLY);
+            unexempt(player, PLAYER_FLY);
             ChatUtil.sendNotice(player, "The power of the bucket fades.");
         }
         return true;
@@ -111,7 +113,7 @@ public class MagicBucketImpl extends AbstractItemFeatureImpl {
                         ChatUtil.sendNotice(player, "The power of the bucket fades.");
                     }
                     player.setAllowFlight(false);
-                    // antiCheat.unexempt(player, CheckType.FLY);
+                    unexempt(player, PLAYER_FLY);
                 }
             }, 1);
         }
@@ -132,7 +134,7 @@ public class MagicBucketImpl extends AbstractItemFeatureImpl {
                 ChatUtil.sendNotice(player, "The power of the bucket fades.");
             }
             player.setAllowFlight(false);
-            // antiCheat.unexempt(player, CheckType.FLY);
+            unexempt(player, PLAYER_FLY);
         }
     }
 
@@ -147,7 +149,7 @@ public class MagicBucketImpl extends AbstractItemFeatureImpl {
                 ChatUtil.sendNotice(player, "The power of the bucket fades.");
             }
             player.setAllowFlight(false);
-            // antiCheat.unexempt(player, CheckType.FLY);
+            unexempt(player, PLAYER_FLY);
         }
     }
 }
