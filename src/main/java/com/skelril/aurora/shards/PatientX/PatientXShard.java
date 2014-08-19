@@ -25,7 +25,7 @@ import com.skelril.aurora.admin.AdminComponent;
 import com.skelril.aurora.bosses.instruction.DropInstruction;
 import com.skelril.aurora.bosses.instruction.PersistenceInstruction;
 import com.skelril.aurora.bosses.instruction.SHBindInstruction;
-import com.skelril.aurora.city.engine.area.areas.DropParty.DropPartyTask;
+import com.skelril.aurora.dropparty.DropPartyTask;
 import com.skelril.aurora.items.custom.CustomItemCenter;
 import com.skelril.aurora.items.custom.CustomItems;
 import com.skelril.aurora.shard.FlagProfile;

@@ -21,7 +21,6 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.skelril.aurora.events.PlayerVsPlayerEvent;
 import com.skelril.aurora.exceptions.UnknownPluginException;
 import com.skelril.aurora.exceptions.UnsupportedPrayerException;
-import com.skelril.aurora.homes.HomeManagerComponent;
 import com.skelril.aurora.prayer.Prayer;
 import com.skelril.aurora.prayer.PrayerComponent;
 import com.skelril.aurora.prayer.PrayerType;
@@ -246,9 +245,8 @@ public class PvPComponent extends BukkitComponent implements Listener {
 
     private static boolean checkSafeZone(ApplicableRegionSet regions, Player attacker, Player defender) {
         for (ProtectedRegion region : regions) {
-            if (HomeManagerComponent.isPlayerHouse(region, attacker) || HomeManagerComponent.isPlayerHouse(region, defender)) {
-                return false;
-            }
+            // TODO Implement safe zones for new plot system
+            return false;
         }
         return true;
     }

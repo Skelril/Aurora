@@ -4,7 +4,7 @@
  * All Rights Reserved
  */
 
-package com.skelril.aurora.city.engine.area.areas.DropParty;
+package com.skelril.aurora.dropparty;
 
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.skelril.aurora.util.ChanceUtil;

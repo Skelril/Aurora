@@ -8,7 +8,6 @@ package com.skelril.aurora;
 
 import com.sk89q.commandbook.CommandBook;
 import com.sk89q.commandbook.session.SessionComponent;
-import com.skelril.aurora.city.engine.ApocalypseComponent;
 import com.skelril.aurora.events.entity.HallowCreeperEvent;
 import com.skelril.aurora.events.environment.CreepSpeakEvent;
 import com.skelril.aurora.util.ChanceUtil;
@@ -39,15 +38,13 @@ import java.util.logging.Logger;
  * @author Turtle9598
  */
 @ComponentInformation(friendlyName = "Creep Speak", desc = "Make mobs talk.")
-@Depend(components = {ApocalypseComponent.class, SessionComponent.class})
+@Depend(components = {SessionComponent.class})
 public class CreepSpeakComponent extends BukkitComponent implements Listener {
 
     private final CommandBook inst = CommandBook.inst();
     private final Logger log = inst.getLogger();
     private final Server server = CommandBook.server();
 
-    @InjectComponent
-    private ApocalypseComponent apocalypse;
     @InjectComponent
     private SessionComponent sessions;
 
