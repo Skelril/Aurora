@@ -38,7 +38,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 import static com.sk89q.commandbook.CommandBook.inst;
-import static com.skelril.aurora.modifier.ModifierComponent.getModifierCenter;
+import static com.skelril.aurora.modifier.ModifierComponent.getModifierManager;
 import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
 
 public class GoldRushInstance extends BukkitShardInstance<GoldRushShard> implements Runnable {
@@ -391,7 +391,7 @@ public class GoldRushInstance extends BukkitShardInstance<GoldRushShard> impleme
         playerMod = Math.max(1, cPlayers.size() / 2);
         if (ChanceUtil.getChance(35)) lootSplit *= 10;
         if (ChanceUtil.getChance(15)) lootSplit *= 2;
-        if (getModifierCenter().isActive(ModifierType.QUAD_GOLD_RUSH)) lootSplit *= 4;
+        if (getModifierManager().isActive(ModifierType.QUAD_GOLD_RUSH)) lootSplit *= 4;
         start();
     }
 

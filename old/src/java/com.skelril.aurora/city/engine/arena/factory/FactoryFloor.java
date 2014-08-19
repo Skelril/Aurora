@@ -25,7 +25,6 @@ import com.skelril.aurora.util.item.itemstack.StackSerializer;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
-import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -33,11 +32,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionType;
 
-import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-import static com.skelril.aurora.modifier.ModifierComponent.getModifierCenter;
+import static com.skelril.aurora.modifier.ModifierComponent.getModifierManager;
 
 public class FactoryFloor extends AbstractFactoryArea implements GenericArena, Listener, PersistentArena {
 
@@ -132,7 +130,7 @@ public class FactoryFloor extends AbstractFactoryArea implements GenericArena, L
         }
 
         if (que.isEmpty()) return;
-        boolean hexa = getModifierCenter().isActive(ModifierType.HEXA_FACTORY_SPEED);
+        boolean hexa = getModifierManager().isActive(ModifierType.HEXA_FACTORY_SPEED);
         int max = getContained(Player.class).size() * (hexa ? 54 : 9);
         for (int i = ChanceUtil.getRangedRandom(max / 3, max); i > 0; --i) {
             if (que.isEmpty()) break;

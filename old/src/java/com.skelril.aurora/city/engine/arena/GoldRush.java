@@ -57,7 +57,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-import static com.skelril.aurora.modifier.ModifierComponent.getModifierCenter;
+import static com.skelril.aurora.modifier.ModifierComponent.getModifierManager;
 
 public class GoldRush extends AbstractRegionedArena implements MonitoredArena, Listener {
 
@@ -558,7 +558,7 @@ public class GoldRush extends AbstractRegionedArena implements MonitoredArena, L
             lootSplit /= players.size();
             if (ChanceUtil.getChance(35)) lootSplit *= 10;
             if (ChanceUtil.getChance(15)) lootSplit *= 2;
-            if (getModifierCenter().isActive(ModifierType.QUAD_GOLD_RUSH)) lootSplit *= 4;
+            if (getModifierManager().isActive(ModifierType.QUAD_GOLD_RUSH)) lootSplit *= 4;
             start(); // Start if someone was teleported
         }
         return 0;

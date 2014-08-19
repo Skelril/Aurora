@@ -48,7 +48,7 @@ import java.util.List;
 import java.util.Set;
 
 import static com.sk89q.commandbook.CommandBook.inst;
-import static com.skelril.aurora.modifier.ModifierComponent.getModifierCenter;
+import static com.skelril.aurora.modifier.ModifierComponent.getModifierManager;
 
 public class CursedMineListener extends ShardListener<CursedMine> {
     public CursedMineListener(CursedMine shard) {
@@ -165,7 +165,7 @@ public class CursedMineListener extends ShardListener<CursedMine> {
                         rawDrop.setAmount(rawDrop.getAmount() * ChanceUtil.getRangedRandom(4, 8));
 
                         player.getInventory().addItem(rawDrop);
-                        if (getModifierCenter().isActive(ModifierType.DOUBLE_CURSED_ORES)) {
+                        if (getModifierManager().isActive(ModifierType.DOUBLE_CURSED_ORES)) {
                             player.getInventory().addItem(rawDrop.clone());
                         }
                     }

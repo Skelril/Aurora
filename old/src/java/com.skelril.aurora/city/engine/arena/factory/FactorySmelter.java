@@ -25,7 +25,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static com.skelril.aurora.modifier.ModifierComponent.getModifierCenter;
+import static com.skelril.aurora.modifier.ModifierComponent.getModifierManager;
 
 public class FactorySmelter extends FactoryMech {
 
@@ -131,7 +131,7 @@ public class FactorySmelter extends FactoryMech {
         maxIron *= 8;
         maxGold *= 8;
 
-        if (getModifierCenter().isActive(ModifierType.TRIPLE_FACTORY_PRODUCTION)) {
+        if (getModifierManager().isActive(ModifierType.TRIPLE_FACTORY_PRODUCTION)) {
             maxIron *= 3;
             maxGold *= 3;
         }

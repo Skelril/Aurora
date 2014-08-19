@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import static com.skelril.aurora.modifier.ModifierComponent.getModifierCenter;
+import static com.skelril.aurora.modifier.ModifierComponent.getModifierManager;
 
 public class FactoryBrewer extends FactoryMech {
 
@@ -229,7 +229,7 @@ public class FactoryBrewer extends FactoryMech {
 
         // Inflate potion quantity
         max *= (increased ? 6 : 5);
-        if (getModifierCenter().isActive(ModifierType.TRIPLE_FACTORY_PRODUCTION)) {
+        if (getModifierManager().isActive(ModifierType.TRIPLE_FACTORY_PRODUCTION)) {
             max *= 3;
         }
 

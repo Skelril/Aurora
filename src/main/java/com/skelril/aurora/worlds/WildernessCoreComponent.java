@@ -72,7 +72,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static com.skelril.aurora.economic.store.AdminStoreComponent.priceCheck;
-import static com.skelril.aurora.modifier.ModifierComponent.getModifierCenter;
+import static com.skelril.aurora.modifier.ModifierComponent.getModifierManager;
 import static org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 
 /**
@@ -477,7 +477,7 @@ public class WildernessCoreComponent extends BukkitComponent implements Listener
             drops.addAll(
                     WishingWellComponent.getCalculatedLoot(server.getConsoleSender(), 1, Math.pow(level, 2) * 64)
             );
-            if (getModifierCenter().isActive(ModifierType.DOUBLE_WILD_DROPS)) {
+            if (getModifierManager().isActive(ModifierType.DOUBLE_WILD_DROPS)) {
                 drops.addAll(drops.stream().map(ItemStack::clone).collect(Collectors.toList()));
             }
             event.getDrops().addAll(drops);
@@ -840,7 +840,7 @@ public class WildernessCoreComponent extends BukkitComponent implements Listener
 
     private int getOreMod(int level) {
         double modifier = Math.max(1, (level * 1.5));
-        if (getModifierCenter().isActive(ModifierType.DOUBLE_WILD_ORES)) {
+        if (getModifierManager().isActive(ModifierType.DOUBLE_WILD_ORES)) {
             modifier *= 2;
         }
         return (int) modifier;

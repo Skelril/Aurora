@@ -6,25 +6,32 @@
 
 package com.skelril.aurora.modifier;
 
-import java.io.Serializable;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
-public class Modifier implements Serializable {
+public class ModifierManager {
 
-    // Integer key is the DurationType.id() and long is the end time
-    private Map<Integer, Long> times = new HashMap<>();
+    // The long represents the end time
+    private Map<ModifierType, Long> times = new EnumMap<>(ModifierType.class);
 
     public void extend(ModifierType type, long amount) {
-        Long time = times.get(type.id());
+        Long time = times.get(type);
         long curTime = System.currentTimeMillis();
         if (time != null && time > curTime) {
             time += amount;
         } else {
             time = curTime + amount;
         }
+        set(type, time);
+    }
 
-        times.put(type.id(), time);
+    public void set(ModifierType type, long expiry) {
+        times.put(type, expiry);
+    }
+
+    public long get(ModifierType type) {
+        Long time = times.get(type);
+        return time == null ? 0 : time;
     }
 
     public boolean isActive(ModifierType type) {
@@ -32,7 +39,6 @@ public class Modifier implements Serializable {
     }
 
     public long status(ModifierType type) {
-        Long time = times.get(type.id());
-        return time != null ? Math.max(time - System.currentTimeMillis(), 0) : 0;
+        return Math.max(get(type) - System.currentTimeMillis(), 0);
     }
 }

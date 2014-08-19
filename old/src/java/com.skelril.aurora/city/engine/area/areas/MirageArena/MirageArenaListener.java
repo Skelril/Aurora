@@ -40,7 +40,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import static com.skelril.aurora.modifier.ModifierComponent.getModifierCenter;
+import static com.skelril.aurora.modifier.ModifierComponent.getModifierManager;
 
 public class MirageArenaListener extends AreaListener<MirageArena> {
 
@@ -169,7 +169,7 @@ public class MirageArenaListener extends AreaListener<MirageArena> {
 
             int lowEnd, highEnd;
 
-            if (getModifierCenter().isActive(ModifierType.NONUPLE_MIRAGE_GOLD)) {
+            if (getModifierManager().isActive(ModifierType.NONUPLE_MIRAGE_GOLD)) {
                 lowEnd = ItemID.GOLD_BAR;
                 highEnd = BlockID.GOLD_BLOCK;
             } else {

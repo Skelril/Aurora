@@ -6,17 +6,17 @@
 
 package com.skelril.aurora.modifier;
 
-import com.sk89q.commandbook.CommandBook;
 import com.sk89q.commandbook.util.ChatUtil;
 import com.sk89q.commandbook.util.InputUtil;
 import com.sk89q.minecraft.util.commands.*;
+import com.sk89q.util.yaml.YAMLFormat;
+import com.sk89q.util.yaml.YAMLNode;
+import com.sk89q.util.yaml.YAMLProcessor;
 import com.skelril.aurora.util.CollectionUtil;
-import com.skelril.aurora.util.database.IOUtil;
 import com.zachsthings.libcomponents.ComponentInformation;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,28 +24,51 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
+
+import static com.sk89q.commandbook.CommandBook.*;
+import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
 
 @ComponentInformation(friendlyName = "Modifiers", desc = "Commands and saving for the Modifier system.")
 public class ModifierComponent extends BukkitComponent implements Listener {
 
-    private final CommandBook inst = CommandBook.inst();
-    private final Logger log = CommandBook.logger();
-    private final Server server = CommandBook.server();
+    private static ModifierManager modifierManager = new ModifierManager();
 
-    private final static int interval = 20 * 60 * 5;
-    private static Modifier modifierCenter;
+    private YAMLProcessor processor;
+
+    public ModifierComponent() {
+        this(new File(inst().getDataFolder() + "/modifiers.yml"));
+    }
+
+    public ModifierComponent(File file) {
+        try {
+            if (!file.getParentFile().exists()) {
+                file.mkdirs();
+            }
+            if (!file.exists()) {
+                    file.createNewFile();
+
+            }
+        } catch (IOException e) {
+            logger().warning("Failed to create the modifiers file!");
+            e.printStackTrace();
+        }
+        processor = new YAMLProcessor(
+                file,
+                false,
+                YAMLFormat.EXTENDED
+        );
+    }
 
     @Override
     public void enable() {
         load();
         registerCommands(Commands.class);
 
-        //noinspection AccessStaticViaInstance
-        inst.registerEvents(this);
+        registerEvents(this);
     }
 
     @Override
@@ -53,8 +76,8 @@ public class ModifierComponent extends BukkitComponent implements Listener {
         save();
     }
 
-    public static Modifier getModifierCenter() {
-        return modifierCenter;
+    public static ModifierManager getModifierManager() {
+        return modifierManager;
     }
 
     public class Commands {
@@ -84,11 +107,11 @@ public class ModifierComponent extends BukkitComponent implements Listener {
             }
             long amount = InputUtil.TimeParser.matchDate(args.getString(1));
 
-            boolean wasOn = modifierCenter.isActive(modifierType);
-            modifierCenter.extend(modifierType, amount);
+            boolean wasOn = modifierManager.isActive(modifierType);
+            modifierManager.extend(modifierType, amount);
             save();
 
-            String friendlyTime = ChatUtil.getFriendlyTime(System.currentTimeMillis() + modifierCenter.status(modifierType));
+            String friendlyTime = ChatUtil.getFriendlyTime(System.currentTimeMillis() + modifierManager.status(modifierType));
             String change = wasOn ? " extended" : " enabled";
             String by = args.argsLength() > 2 ? " by " + args.getString(2) : "";
             Bukkit.broadcastMessage(ChatColor.GOLD + modifierType.fname() + change + by + " till " + friendlyTime + "!");
@@ -99,7 +122,7 @@ public class ModifierComponent extends BukkitComponent implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         List<String> messages = new ArrayList<>();
         for (ModifierType type : ModifierType.values()) {
-            long dur = modifierCenter.status(type);
+            long dur = modifierManager.status(type);
             if (dur == 0) continue;
             String friendlyTime = ChatUtil.getFriendlyTime(System.currentTimeMillis() + dur);
             messages.add(" - " + type.fname() + " till " + friendlyTime);
@@ -110,7 +133,7 @@ public class ModifierComponent extends BukkitComponent implements Listener {
         messages.add(0, "\n\nThe following donation perks are enabled:");
 
         Player player = event.getPlayer();
-        server.getScheduler().runTaskLater(inst, () -> {
+        server().getScheduler().runTaskLater(inst(), () -> {
             for (String message : messages) {
                 com.skelril.aurora.util.ChatUtil.sendNotice(player, ChatColor.GOLD, message);
             }
@@ -118,15 +141,27 @@ public class ModifierComponent extends BukkitComponent implements Listener {
     }
 
     public void load() {
-        Object obj = IOUtil.readBinaryFile(new File(inst.getDataFolder(), "modifiers.dat"));
-        if (obj instanceof Modifier) {
-            modifierCenter = (Modifier) obj;
-        } else {
-            modifierCenter = new Modifier();
+        try {
+            processor.load();
+            YAMLNode node = processor.getNode("modifiers");
+            if (node != null) {
+                for (ModifierType type : ModifierType.values()) {
+                    modifierManager.set(type, Long.parseLong(node.getString(type.name())));
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
     public void save() {
-        IOUtil.toBinaryFile(inst.getDataFolder(), "modifiers", modifierCenter);
+        YAMLNode node = processor.getNode("modifiers");
+        if (node == null) {
+            node = processor.addNode("modifiers");
+        }
+        for (ModifierType type : ModifierType.values()) {
+            node.setProperty(type.name(), modifierManager.get(type));
+        }
+        processor.save();
     }
 }

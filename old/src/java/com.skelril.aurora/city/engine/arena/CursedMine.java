@@ -68,7 +68,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-import static com.skelril.aurora.modifier.ModifierComponent.getModifierCenter;
+import static com.skelril.aurora.modifier.ModifierComponent.getModifierManager;
 
 /**
  * Author: Turtle9598
@@ -700,7 +700,7 @@ public class CursedMine extends AbstractRegionedArena implements MonitoredArena,
                 rawDrop.setAmount(rawDrop.getAmount() * ChanceUtil.getRangedRandom(4, 8));
 
                 player.getInventory().addItem(rawDrop);
-                if (getModifierCenter().isActive(ModifierType.DOUBLE_CURSED_ORES)) {
+                if (getModifierManager().isActive(ModifierType.DOUBLE_CURSED_ORES)) {
                     player.getInventory().addItem(rawDrop.clone());
                 }
             }
