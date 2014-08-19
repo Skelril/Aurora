@@ -352,7 +352,7 @@ public enum ItemType {
     GREY_DYE(ItemID.INK_SACK, 8, "Grey dye", "greydye"),
     PINK_DYE(ItemID.INK_SACK, 9, "Pink dye", "pinkdye"),
     LIME_DYE(ItemID.INK_SACK, 10, "Lime dye", "limedye"),
-    DANDELION_YELLOW(ItemID.INK_SACK, 11, "Dandelion dye", "dandeliondye"),
+    DANDELION_YELLOW(ItemID.INK_SACK, 11, "Dandelion yellow", "dandelionyellow", "yellowdye"),
     LIGHT_BLUE_DYE(ItemID.INK_SACK, 12, "Light blue dye", "lightbluedye"),
     MAGENTA_DYE(ItemID.INK_SACK, 13, "Magenta dye", "magentadye"),
     ORANGE_DYE(ItemID.INK_SACK, 14, "Orange dye", "orangedye"),
