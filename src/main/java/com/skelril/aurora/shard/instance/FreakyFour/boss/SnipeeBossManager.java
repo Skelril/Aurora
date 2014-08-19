@@ -65,7 +65,6 @@ public class SnipeeBossManager extends BossManager {
                 loot = Math.max(loot, config.minLoot);
                 economy.depositPlayer(player, loot);
                 ChatUtil.sendNotice(player, "The boss drops " + ChatColor.WHITE + economy.format(loot));
-                inst.getMaster().getManager().leaveInstance(player);
             }
             return null;
         });

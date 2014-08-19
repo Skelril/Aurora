@@ -10,6 +10,7 @@ import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.skelril.OpenBoss.Boss;
 import com.skelril.aurora.events.PlayerInstanceDeathEvent;
+import com.skelril.aurora.events.custom.item.HymnSingEvent;
 import com.skelril.aurora.events.shard.PartyActivateEvent;
 import com.skelril.aurora.shard.instance.ShardListener;
 import com.skelril.aurora.util.ChanceUtil;
@@ -24,8 +25,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
 
-import java.util.List;
-
 public class FreakyFourListener extends ShardListener<FreakyFour> {
     public FreakyFourListener(FreakyFour shard) {
         super(shard);
@@ -37,9 +36,40 @@ public class FreakyFourListener extends ShardListener<FreakyFour> {
             FreakyFourInstance instance = shard.makeInstance();
             instance.teleportTo(shard.wrapPlayers(event.getPlayers()));
             event.setInstance(instance);
+        }
+    }
 
-            List<Player> players = event.getPlayers();
-            ChatUtil.sendWarning(players, "You think you can beat us? Ha! we'll see about that...");
+    @EventHandler(ignoreCancelled = true)
+    public void onHymnSing(HymnSingEvent event) {
+        if (event.getHymn().equals(HymnSingEvent.Hymn.PHANTOM)) {
+            Player player = event.getPlayer();
+            FreakyFourInstance inst = shard.getInstance(player);
+            if (inst == null) return;
+            FreakyFourBoss boss = inst.getCurrentboss();
+            if (boss == null) {
+                inst.setCurrentboss(FreakyFourBoss.CHARLOTTE);
+                ChatUtil.sendWarning(player, "You think you can beat us? Ha! we'll see about that...");
+            } else if (inst.getBoss(boss) == null) {
+                switch (inst.getCurrentboss()) {
+                    case CHARLOTTE:
+                        inst.setCurrentboss(FreakyFourBoss.FRIMUS);
+                        break;
+                    case FRIMUS:
+                        inst.setCurrentboss(FreakyFourBoss.DA_BOMB);
+                        break;
+                    case DA_BOMB:
+                        inst.setCurrentboss(FreakyFourBoss.SNIPEE);
+                        break;
+                    case SNIPEE:
+                        inst.setCurrentboss(null);
+                        inst.getMaster().getManager().leaveInstance(player);
+                        return;
+                }
+                player.teleport(inst.getCenter(inst.getCurrentboss()));
+            } else {
+                return;
+            }
+            inst.spawnBoss(inst.getCurrentboss());
         }
     }
 

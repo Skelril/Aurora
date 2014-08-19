@@ -51,12 +51,6 @@ public class FrimusBossManager extends BossManager {
             FreakyFourInstance inst = getInst(condition.getBoss().getDetail());
             if (inst == null) return null;
             inst.bossDied(inst.getCurrentboss());
-            inst.setCurrentboss(FreakyFourBoss.DA_BOMB);
-            Player player = condition.getBoss().getEntity().getKiller();
-            if (player != null) {
-                player.teleport(inst.getCenter(inst.getCurrentboss()));
-            }
-            inst.spawnBoss(inst.getCurrentboss());
             return null;
         });
     }

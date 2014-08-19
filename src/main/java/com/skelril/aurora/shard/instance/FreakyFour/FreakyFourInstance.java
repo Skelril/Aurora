@@ -45,7 +45,7 @@ import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
 
 public class FreakyFourInstance extends BukkitShardInstance<FreakyFourShard> implements Runnable {
 
-    private FreakyFourBoss currentboss = FreakyFourBoss.CHARLOTTE;
+    private FreakyFourBoss currentboss = null;
 
     private EnumMap<FreakyFourBoss, Boss> bosses = new EnumMap<>(FreakyFourBoss.class);
     private EnumMap<FreakyFourBoss, CuboidRegion> regions = new EnumMap<>(FreakyFourBoss.class);
@@ -57,7 +57,6 @@ public class FreakyFourInstance extends BukkitShardInstance<FreakyFourShard> imp
         super(shard, world, region);
         setUp();
         remove();
-        spawnBoss(currentboss);
     }
 
     private void setUp() {
@@ -80,7 +79,7 @@ public class FreakyFourInstance extends BukkitShardInstance<FreakyFourShard> imp
 
     @Override
     public void teleportTo(com.sk89q.worldedit.entity.Player... players) {
-        Location target = getCenter(currentboss);
+        Location target = getCenter(FreakyFourBoss.CHARLOTTE);
         for (com.sk89q.worldedit.entity.Player player : players) {
             if (player instanceof BukkitPlayer) {
                 Player bPlayer = ((BukkitPlayer) player).getPlayer();
