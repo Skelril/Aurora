@@ -11,27 +11,29 @@ import org.bukkit.ChatColor;
 public enum ShardType {
 
     // Bosses
-    SHNUGGLES_PRIME(ChatColor.BLUE, "Shnuggles Prime", SubType.BOSS),
-    PATIENT_X(ChatColor.DARK_RED, "Patient X", SubType.BOSS),
-    FREAKY_FOUR(ChatColor.DARK_RED, "Freaky Four", SubType.BOSS, 1),
+    SHNUGGLES_PRIME(ChatColor.BLUE, "Shnuggles Prime", SubType.BOSS, true),
+    PATIENT_X(ChatColor.DARK_RED, "Patient X", SubType.BOSS, true),
+    FREAKY_FOUR(ChatColor.DARK_RED, "Freaky Four", SubType.BOSS, false, 1),
 
     // Minigames
-    GOLD_RUSH(ChatColor.GOLD, "Gold Rush", SubType.MINIGAME),
-    CURSED_MINE(ChatColor.GOLD, "Cursed Mine", SubType.MINIGAME);
+    GOLD_RUSH(ChatColor.GOLD, "Gold Rush", SubType.MINIGAME, false),
+    CURSED_MINE(ChatColor.GOLD, "Cursed Mine", SubType.MINIGAME, true);
 
     private ChatColor color;
     private String name;
     private SubType subType;
+    private boolean rejoin;
     private int maxPlayers;
 
-    private ShardType(ChatColor color, String name, SubType subType) {
-        this(color, name, subType, -1);
+    private ShardType(ChatColor color, String name, SubType subType, boolean rejoin) {
+        this(color, name, subType, rejoin, -1);
     }
 
-    private ShardType(ChatColor color, String name, SubType subType, int maxPlayers) {
+    private ShardType(ChatColor color, String name, SubType subType, boolean rejoin, int maxPlayers) {
         this.color = color;
         this.name = name;
         this.subType = subType;
+        this.rejoin = rejoin;
         this.maxPlayers = maxPlayers;
     }
 
@@ -49,6 +51,10 @@ public enum ShardType {
 
     public SubType getSubType() {
         return subType;
+    }
+
+    public boolean allowsRejoin() {
+        return rejoin;
     }
 
     public int getMaxPlayers() {

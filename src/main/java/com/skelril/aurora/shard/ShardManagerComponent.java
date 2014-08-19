@@ -333,6 +333,9 @@ public class ShardManagerComponent extends BukkitComponent implements Listener {
             if (inst == null || !inst.isActive()) {
                 throw new CommandException("You do not have a previous instance available.");
             }
+            if (!inst.getMaster().getType().allowsRejoin()) {
+                throw new CommandException("That instance does not permit rejoin, please make a new one.");
+            }
 
             inst.teleportTo(WE.wrapPlayer(player));
         }
