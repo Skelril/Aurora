@@ -23,6 +23,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.projectiles.ProjectileSource;
 
+import static com.sk89q.commandbook.CommandBook.inst;
+import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
+
 public class MasterBowImpl extends AbstractItemFeatureImpl {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -60,7 +63,7 @@ public class MasterBowImpl extends AbstractItemFeatureImpl {
 
             if (ItemUtil.isItem(launcher, CustomItems.MASTER_BOW) && !projectile.hasMetadata("splashed")) {
 
-                projectile.setMetadata("splashed", new FixedMetadataValue(inst, true));
+                projectile.setMetadata("splashed", new FixedMetadataValue(inst(), true));
 
                 IntegratedRunnable vacuum = new IntegratedRunnable() {
                     @Override
@@ -96,7 +99,7 @@ public class MasterBowImpl extends AbstractItemFeatureImpl {
                     }
                 };
                 TimedRunnable runnable = new TimedRunnable(vacuum, 3);
-                runnable.setTask(server.getScheduler().runTaskTimer(inst, runnable, 1, 10));
+                runnable.setTask(server().getScheduler().runTaskTimer(inst(), runnable, 1, 10));
             }
         }
     }

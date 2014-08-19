@@ -19,6 +19,9 @@ import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 
+import static com.sk89q.commandbook.CommandBook.inst;
+import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
+
 public class ElderCrownImpl extends AbstractCondenserImpl {
 
     public ElderCrownImpl(ItemCondenser condenser) {
@@ -62,7 +65,7 @@ public class ElderCrownImpl extends AbstractCondenserImpl {
                 return;
             }
 
-            server.getScheduler().runTaskLater(inst, () -> {
+            server().getScheduler().runTaskLater(inst(), () -> {
                 ItemStack[] result = condenser.operate(player.getInventory().getContents());
                 if (result != null) {
                     player.getInventory().setContents(result);

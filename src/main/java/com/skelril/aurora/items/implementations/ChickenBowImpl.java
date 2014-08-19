@@ -23,6 +23,9 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
 
+import static com.sk89q.commandbook.CommandBook.inst;
+import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
+
 public class ChickenBowImpl extends AbstractItemFeatureImpl {
     @EventHandler
     public void onArrowLand(ProjectileHitEvent event) {
@@ -88,10 +91,10 @@ public class ChickenBowImpl extends AbstractItemFeatureImpl {
             if (ItemUtil.isItem(launcher, CustomItems.CHICKEN_BOW)) {
 
                 if (!ChanceUtil.getChance(5)) return;
-                server.getScheduler().runTaskLater(inst, () -> {
+                server().getScheduler().runTaskLater(inst(), () -> {
                     final Chicken chicken = location.getWorld().spawn(location, Chicken.class);
                     chicken.setRemoveWhenFarAway(true);
-                    server.getScheduler().runTaskLater(inst, () -> {
+                    server().getScheduler().runTaskLater(inst(), () -> {
                         if (chicken.isValid()) {
                             chicken.remove();
                             for (int i = 0; i < 20; i++) {

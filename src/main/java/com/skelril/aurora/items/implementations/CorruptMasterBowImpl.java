@@ -21,6 +21,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.projectiles.ProjectileSource;
 
+import static com.sk89q.commandbook.CommandBook.inst;
+import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
+
 public class CorruptMasterBowImpl extends AbstractItemFeatureImpl {
     @EventHandler
     public void onArrowLand(ProjectileHitEvent event) {
@@ -46,7 +49,7 @@ public class CorruptMasterBowImpl extends AbstractItemFeatureImpl {
 
             if (ItemUtil.isItem(launcher, CustomItems.CORRUPT_MASTER_BOW) && !projectile.hasMetadata("splashed")) {
 
-                projectile.setMetadata("splashed", new FixedMetadataValue(inst, true));
+                projectile.setMetadata("splashed", new FixedMetadataValue(inst(), true));
 
                 IntegratedRunnable vacuum = new IntegratedRunnable() {
                     @Override
@@ -82,7 +85,7 @@ public class CorruptMasterBowImpl extends AbstractItemFeatureImpl {
                     }
                 };
                 TimedRunnable runnable = new TimedRunnable(vacuum, 3);
-                runnable.setTask(server.getScheduler().runTaskTimer(inst, runnable, 1, 10));
+                runnable.setTask(server().getScheduler().runTaskTimer(inst(), runnable, 1, 10));
             }
         }
     }

@@ -25,7 +25,9 @@ import org.bukkit.scheduler.BukkitTask;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.sk89q.commandbook.CommandBook.inst;
 import static com.skelril.aurora.anticheat.AntiCheatCompatibilityComponent.*;
+import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
 
 public class PixieDustImpl extends AbstractItemFeatureImpl {
 
@@ -101,7 +103,7 @@ public class PixieDustImpl extends AbstractItemFeatureImpl {
         };
 
         TimedRunnable runnable = new TimedRunnable(integratedRunnable, 1);
-        BukkitTask task = server.getScheduler().runTaskTimer(inst, runnable, 0, 20 * 15);
+        BukkitTask task = server().getScheduler().runTaskTimer(inst(), runnable, 0, 20 * 15);
         runnable.setTask(task);
         return true;
     }
@@ -130,7 +132,7 @@ public class PixieDustImpl extends AbstractItemFeatureImpl {
             event.setCancelled(true);
         }
         //noinspection deprecation
-        server.getScheduler().runTaskLater(inst, player::updateInventory, 1);
+        server().getScheduler().runTaskLater(inst(), player::updateInventory, 1);
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -150,7 +152,7 @@ public class PixieDustImpl extends AbstractItemFeatureImpl {
 
             players.add(playerName);
 
-            server.getScheduler().runTaskLater(inst, () -> players.remove(playerName), 20 * 30);
+            server().getScheduler().runTaskLater(inst(), () -> players.remove(playerName), 20 * 30);
         }
     }
 }

@@ -15,6 +15,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 
+import static com.sk89q.commandbook.CommandBook.inst;
+import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
+
 public class MadMilkImpl extends AbstractItemFeatureImpl {
     @EventHandler(ignoreCancelled = true)
     public void onConsume(PlayerItemConsumeEvent event) {
@@ -23,7 +26,7 @@ public class MadMilkImpl extends AbstractItemFeatureImpl {
         ItemStack stack = event.getItem();
 
         if (ItemUtil.isItem(stack, CustomItems.MAD_MILK)) {
-            server.getScheduler().runTaskLater(inst, () -> player.getInventory().setItemInHand(CustomItemCenter.build(CustomItems.MAGIC_BUCKET)), 1);
+            server().getScheduler().runTaskLater(inst(), () -> player.getInventory().setItemInHand(CustomItemCenter.build(CustomItems.MAGIC_BUCKET)), 1);
             event.setCancelled(true);
         }
     }

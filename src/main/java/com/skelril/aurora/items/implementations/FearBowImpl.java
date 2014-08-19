@@ -31,6 +31,8 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
 
+import static com.zachsthings.libcomponents.bukkit.BasePlugin.callEvent;
+
 public class FearBowImpl extends AbstractItemFeatureImpl implements SpecWeaponImpl {
     @Override
     public boolean activate(LivingEntity owner, LivingEntity target) {
@@ -117,7 +119,7 @@ public class FearBowImpl extends AbstractItemFeatureImpl implements SpecWeaponIm
                 if (ItemUtil.isItem(launcher, CustomItems.FEAR_BOW)) {
                     if (!targetLoc.getWorld().isThundering() && targetLoc.getBlock().getLightFromSky() > 0) {
 
-                        server.getPluginManager().callEvent(new RapidHitEvent(owner));
+                        callEvent(new RapidHitEvent(owner));
 
                         // Simulate a lightning strike
                         targetLoc.getWorld().strikeLightningEffect(targetLoc);

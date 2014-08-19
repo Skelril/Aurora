@@ -23,6 +23,9 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
 
+import static com.sk89q.commandbook.CommandBook.inst;
+import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
+
 public class BatBowImpl extends AbstractItemFeatureImpl {
     @EventHandler
     public void onArrowLand(ProjectileHitEvent event) {
@@ -88,10 +91,10 @@ public class BatBowImpl extends AbstractItemFeatureImpl {
             if (ItemUtil.isItem(launcher, CustomItems.BAT_BOW)) {
 
                 if (!ChanceUtil.getChance(5)) return;
-                server.getScheduler().runTaskLater(inst, () -> {
+                server().getScheduler().runTaskLater(inst(), () -> {
                     final Bat bat = location.getWorld().spawn(location, Bat.class);
                     bat.setRemoveWhenFarAway(true);
-                    server.getScheduler().runTaskLater(inst, () -> {
+                    server().getScheduler().runTaskLater(inst(), () -> {
                         if (bat.isValid()) {
                             bat.remove();
                             for (int i = 0; i < 20; i++) {

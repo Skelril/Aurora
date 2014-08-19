@@ -16,6 +16,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 
+import static com.sk89q.commandbook.CommandBook.inst;
+import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
+
 public class ImbuedCrystalImpl extends AbstractCondenserImpl {
 
     public ImbuedCrystalImpl(ItemCondenser condenser) {
@@ -34,7 +37,7 @@ public class ImbuedCrystalImpl extends AbstractCondenserImpl {
                 return;
             }
 
-            server.getScheduler().runTaskLater(inst, () -> {
+            server().getScheduler().runTaskLater(inst(), () -> {
                 ItemStack[] result = condenser.operate(player.getInventory().getContents());
                 if (result != null) {
                     player.getInventory().setContents(result);

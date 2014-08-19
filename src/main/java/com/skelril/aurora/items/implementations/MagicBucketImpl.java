@@ -23,7 +23,9 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import static com.sk89q.commandbook.CommandBook.inst;
 import static com.skelril.aurora.anticheat.AntiCheatCompatibilityComponent.*;
+import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
 
 public class MagicBucketImpl extends AbstractItemFeatureImpl {
 
@@ -64,7 +66,7 @@ public class MagicBucketImpl extends AbstractItemFeatureImpl {
         ItemStack itemStack = player.getItemInHand();
 
         if (event.getRightClicked() instanceof Cow && ItemUtil.isItem(itemStack, CustomItems.MAGIC_BUCKET)) {
-            server.getScheduler().runTaskLater(inst, () -> {
+            server().getScheduler().runTaskLater(inst(), () -> {
                 if (!ItemUtil.swapItem(player.getInventory(), CustomItems.MAGIC_BUCKET, CustomItems.MAD_MILK)) {
                     ChatUtil.sendError(player, "Your inventory is too full!");
                     return;
@@ -84,7 +86,7 @@ public class MagicBucketImpl extends AbstractItemFeatureImpl {
             event.setCancelled(true);
         }
         //noinspection deprecation
-        server.getScheduler().runTaskLater(inst, player::updateInventory, 1);
+        server().getScheduler().runTaskLater(inst(), player::updateInventory, 1);
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -97,7 +99,7 @@ public class MagicBucketImpl extends AbstractItemFeatureImpl {
             event.setCancelled(true);
         }
         //noinspection deprecation
-        server.getScheduler().runTaskLater(inst, player::updateInventory, 1);
+        server().getScheduler().runTaskLater(inst(), player::updateInventory, 1);
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -107,7 +109,7 @@ public class MagicBucketImpl extends AbstractItemFeatureImpl {
         ItemStack itemStack = event.getItemDrop().getItemStack();
 
         if (ItemUtil.isItem(itemStack, CustomItems.MAGIC_BUCKET)) {
-            server.getScheduler().runTaskLater(inst, () -> {
+            server().getScheduler().runTaskLater(inst(), () -> {
                 if (!ItemUtil.hasItem(player, CustomItems.MAGIC_BUCKET)) {
                     if (player.getAllowFlight()) {
                         ChatUtil.sendNotice(player, "The power of the bucket fades.");
