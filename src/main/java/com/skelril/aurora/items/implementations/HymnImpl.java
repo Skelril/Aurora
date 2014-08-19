@@ -9,6 +9,7 @@ package com.skelril.aurora.items.implementations;
 import com.skelril.aurora.events.custom.item.HymnSingEvent;
 import com.skelril.aurora.items.custom.CustomItems;
 import com.skelril.aurora.items.generic.AbstractItemFeatureImpl;
+import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.item.ItemUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,6 +19,8 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.zachsthings.libcomponents.bukkit.BasePlugin.callEvent;
 
 public class HymnImpl extends AbstractItemFeatureImpl {
 
@@ -36,8 +39,8 @@ public class HymnImpl extends AbstractItemFeatureImpl {
         if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             for (Map.Entry<CustomItems, HymnSingEvent.Hymn> entry : hymns.entrySet()) {
                 if (ItemUtil.isItem(itemStack, entry.getKey())) {
-                    //noinspection AccessStaticViaInstance
-                    inst.callEvent(new HymnSingEvent(player, entry.getValue()));
+                    ChatUtil.sendNotice(player, "You sing the hymn...");
+                    callEvent(new HymnSingEvent(player, entry.getValue()));
                     break;
                 }
             }
