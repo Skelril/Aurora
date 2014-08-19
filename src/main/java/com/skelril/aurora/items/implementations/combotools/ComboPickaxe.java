@@ -35,5 +35,6 @@ public class ComboPickaxe extends AbstractItemFeatureImpl {
         acceptedTypes.add(BlockID.NETHER_BRICK_FENCE);
         acceptedTypes.add(BlockID.STEP);
         acceptedTypes.add(BlockID.DOUBLE_STEP);
+        acceptedTypes.add(BlockID.OBSIDIAN);
     }
 }

@@ -66,6 +66,9 @@ public abstract class RadialExecutor {
     }
 
     private void handleRightClick(Player player, ItemStack item) {
+
+        if (!player.isSneaking()) return;
+
         final int radius = getRadius(item);
         final int maxRadius = getMaxRadius(item);
         final short dur = item.getDurability();

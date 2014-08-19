@@ -62,6 +62,9 @@ public abstract class LinearExecutor {
     }
 
     private void handleRightClick(Player player, ItemStack item) {
+
+        if (!player.isSneaking()) return;
+
         final int dist = getDist(item);
         final int maxDist = getMaxDist(item);
         final short dur = item.getDurability();
@@ -72,7 +75,7 @@ public abstract class LinearExecutor {
             if (tag.getKey().equals("Distance")) {
                 int newDist = dist + 1;
                 if (newDist > maxDist) {
-                    newDist = 0;
+                    newDist = 1;
                 }
                 tag.setProp(String.valueOf(newDist));
                 ChatUtil.sendNotice(player, "Distance set to: " + newDist);
