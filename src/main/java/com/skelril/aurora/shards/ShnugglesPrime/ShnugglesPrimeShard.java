@@ -130,7 +130,7 @@ public class ShnugglesPrimeShard extends Shard<ShnugglesPrimeInstance> {
             List<ItemStack> drops = new ArrayList<>();
 
             // Sacrificial drops
-            int m = inst.getBukkitWorld().isThundering() ? 3 : 1;
+            int m = players.size();
             m *= player != null ? 3 : 1;
 
             drops.addAll(WishingWellComponent.getCalculatedLoot(server().getConsoleSender(), m, 400000));
