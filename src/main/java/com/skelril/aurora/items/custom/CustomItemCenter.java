@@ -610,6 +610,39 @@ public class CustomItemCenter {
         partyScroll.addUse("Right click to accept a party invitation.");
         addItem(partyScroll);
 
+        // Linear Tools
+        CustomItem linearAxe = new CustomItem(LINEAR_AXE, Material.DIAMOND_AXE);
+        linearAxe.addTag(ChatColor.RED, "Distance", "3");
+        linearAxe.addTag(ChatColor.RED, "Max Distance", "9");
+        addItem(linearAxe);
+
+        CustomItem linearPickaxe = new CustomItem(LINEAR_PICKAXE, Material.DIAMOND_PICKAXE);
+        linearPickaxe.addTag(ChatColor.RED, "Distance", "3");
+        linearPickaxe.addTag(ChatColor.RED, "Max Distance", "9");
+        addItem(linearPickaxe);
+
+        CustomItem linearShovel = new CustomItem(LINEAR_SHOVEL, Material.DIAMOND_SPADE);
+        linearShovel.addTag(ChatColor.RED, "Distance", "3");
+        linearShovel.addTag(ChatColor.RED, "Max Distance", "9");
+        addItem(linearShovel);
+
+        // Radial Tools
+        CustomItem radialAxe = new CustomItem(RADIAL_AXE, Material.DIAMOND_AXE);
+        radialAxe.addTag(ChatColor.RED, "Radius", "1");
+        radialAxe.addTag(ChatColor.RED, "Max Radius", "1");
+        addItem(radialAxe);
+
+        CustomItem radialPickaxe = new CustomItem(RADIAL_PICKAXE, Material.DIAMOND_PICKAXE);
+        radialPickaxe.addTag(ChatColor.RED, "Radius", "1");
+        radialPickaxe.addTag(ChatColor.RED, "Max Radius", "1");
+        addItem(radialPickaxe);
+
+        CustomItem radialShovel = new CustomItem(RADIAL_SHOVEL, Material.DIAMOND_SPADE);
+        radialShovel.addTag(ChatColor.RED, "Radius", "1");
+        radialShovel.addTag(ChatColor.RED, "Max Radius", "1");
+        addItem(radialShovel);
+
+        // Pwng Weapons
         CustomItem pwngBow = new CustomItem(PWNG_BOW, Material.BOW);
         pwngBow.addEnchant(Enchantment.ARROW_DAMAGE, 1000);
         addItem(pwngBow);

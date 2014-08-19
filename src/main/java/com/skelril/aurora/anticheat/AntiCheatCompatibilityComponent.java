@@ -10,6 +10,7 @@ import com.sk89q.commandbook.CommandBook;
 import com.skelril.Pitfall.bukkit.event.PitfallTriggerEvent;
 import com.skelril.aurora.events.PrayerApplicationEvent;
 import com.skelril.aurora.events.anticheat.FallBlockerEvent;
+import com.skelril.aurora.events.anticheat.RapidBlockBreakEvent;
 import com.skelril.aurora.events.anticheat.RapidHitEvent;
 import com.skelril.aurora.events.anticheat.ThrowPlayerEvent;
 import com.skelril.aurora.events.guild.RogueGrenadeEvent;
@@ -50,7 +51,6 @@ public class AntiCheatCompatibilityComponent extends BukkitComponent implements 
 
     @Override
     public void enable() {
-
         config = configure(new LocalConfiguration());
         //noinspection AccessStaticViaInstance
         inst.registerEvents(this);
@@ -59,22 +59,18 @@ public class AntiCheatCompatibilityComponent extends BukkitComponent implements 
 
     @Override
     public void reload() {
-
         super.reload();
         configure(config);
     }
 
     private static class LocalConfiguration extends ConfigurationBase {
-
         @Setting("removal-delay")
         public int removalDelay = 3;
     }
 
     @Override
     public void run() {
-
         for (Map.Entry<String, ConcurrentHashMap<CheckType, Long>> e : playerList.entrySet()) {
-
             Player player = Bukkit.getPlayerExact(e.getKey());
             if (player == null) {
                 playerList.remove(e.getKey());
@@ -135,6 +131,9 @@ public class AntiCheatCompatibilityComponent extends BukkitComponent implements 
             CheckType.FIGHT_ANGLE, CheckType.FIGHT_DIRECTION, CheckType.FIGHT_NOSWING,
             CheckType.FIGHT_REACH, CheckType.FIGHT_SPEED
     };
+    public static final CheckType[] RAPID_BLOCK_BREAK = new CheckType[]{
+            CheckType.BLOCKBREAK
+    };
     public static final CheckType[] MULTI_PROJECTILE = new CheckType[]{
             CheckType.BLOCKPLACE_SPEED
     };
@@ -149,19 +148,21 @@ public class AntiCheatCompatibilityComponent extends BukkitComponent implements 
 
     @EventHandler
     public void onPlayerThrow(ThrowPlayerEvent event) {
-
         bypass(event.getPlayer(), PLAYER_THROW);
     }
 
     @EventHandler
     public void onFallBlocker(FallBlockerEvent event) {
-
         bypass(event.getPlayer(), FALL_BLOCKER);
     }
 
     @EventHandler
-    public void onRapidHit(RapidHitEvent event) {
+    public void onRapidBlockBreak(RapidBlockBreakEvent event) {
+        bypass(event.getPlayer(), RAPID_BLOCK_BREAK);
+    }
 
+    @EventHandler
+    public void onRapidHit(RapidHitEvent event) {
         bypass(event.getPlayer(), RAPID_HIT);
     }
 
@@ -172,7 +173,6 @@ public class AntiCheatCompatibilityComponent extends BukkitComponent implements 
 
     @EventHandler(ignoreCancelled = true)
     public void onPrayerApplication(PrayerApplicationEvent event) {
-
         List<CheckType> checkTypes = new ArrayList<>();
         switch (event.getCause().getEffect().getType()) {
             case TNT:

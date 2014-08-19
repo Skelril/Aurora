@@ -110,6 +110,16 @@ public enum CustomItems {
     PARTY_BOOK(ChatColor.DARK_GREEN, "Party Book"),
     PARTY_SCROLL(ChatColor.DARK_GREEN, "Party Scroll"),
 
+    // Linear Tools
+    LINEAR_PICKAXE(ChatColor.DARK_GREEN, "Linear Pickaxe"),
+    LINEAR_SHOVEL(ChatColor.DARK_GREEN, "Linear Shovel"),
+    LINEAR_AXE(ChatColor.DARK_GREEN, "Linear Axe"),
+
+    // Radial Tools
+    RADIAL_PICKAXE(ChatColor.DARK_GREEN, "Radial Pickaxe"),
+    RADIAL_SHOVEL(ChatColor.DARK_GREEN, "Radial Shovel"),
+    RADIAL_AXE(ChatColor.DARK_GREEN, "Radial Axe"),
+
     // Miscellaneous
     MAD_MILK(ChatColor.DARK_AQUA, "Mad Milk"),
     GOD_FISH(ChatColor.BLUE, "God Fish"),

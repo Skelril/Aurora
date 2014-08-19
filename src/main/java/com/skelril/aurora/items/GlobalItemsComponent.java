@@ -17,6 +17,7 @@ import com.skelril.aurora.events.custom.item.HymnSingEvent;
 import com.skelril.aurora.items.custom.CustomItems;
 import com.skelril.aurora.items.generic.AbstractItemFeatureImpl;
 import com.skelril.aurora.items.implementations.*;
+import com.skelril.aurora.items.implementations.combotools.*;
 import com.skelril.aurora.prayer.PrayerComponent;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.ItemCondenser;
@@ -102,6 +103,7 @@ public class GlobalItemsComponent extends BukkitComponent implements Listener {
         loadResources();
         registerSpecWeapons();
         registerHymns();
+        registerTools();
         registerGeneral();
     }
 
@@ -145,6 +147,15 @@ public class GlobalItemsComponent extends BukkitComponent implements Listener {
 
         handle(new ChickenHymnImpl());
         handle(new SummationHymnImpl(summationCondenser));
+    }
+
+    private void registerTools() {
+        handle(new LinearAxe());
+        handle(new LinearPickaxe());
+        handle(new LinearShovel());
+        handle(new RadialAxe());
+        handle(new RadialPickaxe());
+        handle(new RadialShovel());
     }
 
     private void registerGeneral() {
