@@ -80,7 +80,7 @@ public class FrimusBossManager extends BossManager {
             if (event.getCause().equals(EntityDamageEvent.DamageCause.PROJECTILE)) {
                 FreakyFourInstance inst = getInst(condition.getBoss().getDetail());
                 Collection<Player> players = inst.getContained(inst.getRegion(FreakyFourBoss.FRIMUS), Player.class);
-                ChatUtil.sendNotice(players, "Projectiles can't harm me... Mwahahaha!");
+                ChatUtil.sendWarning(players, "Projectiles can't harm me... Mwahahaha!");
                 event.setCancelled(true);
             }
             return null;
