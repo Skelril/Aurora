@@ -213,7 +213,7 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
                 }
                 player.getInventory().addItem(new PartyBookReader(type, player.getName()).build());
                 ChatUtil.sendNotice(player, "You've been given a Party Book to: " + type.getName() + ".");
-                if (type.getMaxPlayers() > 1) {
+                if (type.getMaxPlayers() == -1 || type.getMaxPlayers() > 1) {
                     ChatUtil.sendNotice(player, "To invite other players to your party,");
                     ChatUtil.sendNotice(player, "punch them while holding the book.");
                 }
