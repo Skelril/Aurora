@@ -19,10 +19,14 @@ import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.Map;
 
 import static com.zachsthings.libcomponents.bukkit.BasePlugin.callEvent;
 
@@ -65,6 +69,7 @@ public abstract class RadialExecutor {
         final int radius = getRadius(item);
         final int maxRadius = getMaxRadius(item);
         final short dur = item.getDurability();
+        Map<Enchantment, Integer> enchants = item.getItemMeta().getEnchants();
 
         CustomItem cItem = CustomItemCenter.get(itemType);
         for (Tag tag : cItem.getTags()) {
@@ -79,6 +84,11 @@ public abstract class RadialExecutor {
         }
         ItemStack result = cItem.build();
         result.setDurability(dur);
+        ItemMeta meta = result.getItemMeta();
+        for (Map.Entry<Enchantment, Integer> entry : enchants.entrySet()) {
+            meta.addEnchant(entry.getKey(), entry.getValue(), true);
+        }
+        result.setItemMeta(meta);
         player.setItemInHand(result);
     }
 
