@@ -160,7 +160,7 @@ public class ModifierComponent extends BukkitComponent implements Listener {
             node = processor.addNode("modifiers");
         }
         for (ModifierType type : ModifierType.values()) {
-            node.setProperty(type.name(), modifierManager.get(type));
+            node.setProperty(type.name(), String.valueOf(modifierManager.get(type)));
         }
         processor.save();
     }
