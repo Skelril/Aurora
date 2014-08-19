@@ -26,6 +26,8 @@ public class FreakyFourConfig extends ConfigurationBase {
     public int charlotteWebSpider = 15;
     @Setting("frimus.hp")
     public double frimusHP = 180;
+    @Setting("frimus.wall-density")
+    public int frimusWallDensity = 50;
     @Setting("da-bomb.hp")
     public double daBombHP = 180;
     @Setting("da-bomb.tnt-chance")

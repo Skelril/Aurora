@@ -21,6 +21,7 @@ import com.skelril.aurora.shard.instance.FreakyFour.boss.CharlotteBossManager;
 import com.skelril.aurora.util.ChanceUtil;
 import com.skelril.aurora.util.EnvironmentUtil;
 import com.skelril.aurora.util.LocationUtil;
+import com.skelril.aurora.util.checker.Expression;
 import com.skelril.aurora.util.item.ItemUtil;
 import com.skelril.aurora.util.timer.IntegratedRunnable;
 import com.skelril.aurora.util.timer.TimedRunnable;
@@ -187,7 +188,7 @@ public class FreakyFourInstance extends BukkitShardInstance<FreakyFourShard> imp
             for (int x = minX; x <= maxX; ++x) {
                 for (int z = minZ; z <= maxZ; ++z) {
                     Block block = getBukkitWorld().getBlockAt(x, y, z);
-                    if (block.getType() == Material.FIRE) {
+                    if (block.getType() == Material.FIRE || EnvironmentUtil.isLava(block.getTypeId())) {
                         block.setType(Material.AIR);
                     }
                 }
@@ -272,10 +273,70 @@ public class FreakyFourInstance extends BukkitShardInstance<FreakyFourShard> imp
             case CHARLOTTE:
                 runCharlotte();
                 break;
+            case FRIMUS:
+                runFrimus();
+                break;
             case SNIPEE:
                 runSnipee();
                 break;
         }
+    }
+
+    private void createWall(CuboidRegion region,
+                            Expression<Block, Boolean> oldExpr,
+                            Expression<Block, Boolean> newExpr,
+                            Material oldType, Material newType,
+                            int density, int floodFloor) {
+
+        final Vector min = region.getMinimumPoint();
+        final Vector max = region.getMaximumPoint();
+        int minX = min.getBlockX();
+        int minY = min.getBlockY();
+        int minZ = min.getBlockZ();
+        int maxX = max.getBlockX();
+        int maxY = max.getBlockY();
+        int maxZ = max.getBlockZ();
+
+        int initialTimes = maxZ - minZ + 1;
+        IntegratedRunnable integratedRunnable = new IntegratedRunnable() {
+            @Override
+            public boolean run(int times) {
+                int startZ = minZ + (initialTimes - times) - 1;
+
+                for (int x = minX; x <= maxX; ++x) {
+                    for (int z = startZ; z < Math.min(maxZ, startZ + 4); ++z) {
+                        boolean flood = ChanceUtil.getChance(density);
+                        for (int y = minY; y <= maxY; ++y) {
+                            Block block = getBukkitWorld().getBlockAt(x, y, z);
+                            if (z == startZ && newExpr.evaluate(block)) {
+                                block.setType(oldType);
+                            } else if (flood && oldExpr.evaluate(block)) {
+                                block.setType(newType);
+                            }
+                        }
+                    }
+                }
+                return true;
+            }
+
+            @Override
+            public void end() {
+                if (floodFloor != -1) {
+                    for (int x = minX; x <= maxX; ++x) {
+                        for (int z = minZ; z <= maxZ; ++z) {
+                            if (!ChanceUtil.getChance(floodFloor)) continue;
+                            Block block = getBukkitWorld().getBlockAt(x, minY, z);
+                            if (oldExpr.evaluate(block)) {
+                                block.setType(newType);
+                            }
+                        }
+                    }
+                }
+            }
+        };
+        TimedRunnable timedRunnable = new TimedRunnable(integratedRunnable, initialTimes);
+        BukkitTask task = server().getScheduler().runTaskTimer(inst(), timedRunnable, 0, 5);
+        timedRunnable.setTask(task);
     }
 
     private void runCharlotte() {
@@ -296,42 +357,15 @@ public class FreakyFourInstance extends BukkitShardInstance<FreakyFourShard> imp
 
         switch (ChanceUtil.getRandom(3)) {
             case 1:
-                int initialTimes = maxZ - minZ + 1;
-                IntegratedRunnable integratedRunnable = new IntegratedRunnable() {
-                    @Override
-                    public boolean run(int times) {
-                        int startZ = minZ + (initialTimes - times) - 1;
-                        for (int y = minY; y <= maxY; ++y) {
-                            for (int x = minX; x <= maxX; ++x) {
-                                for (int z = startZ; z < startZ + 4; ++z) {
-                                    Block block = getBukkitWorld().getBlockAt(x, y, z);
-                                    if (z == startZ && block.getType() == Material.WEB) {
-                                        block.setType(Material.AIR);
-                                    } else if (block.getType() == Material.AIR) {
-                                        block.setType(Material.WEB);
-                                    }
-                                }
-                            }
-                        }
-                        return true;
-                    }
-
-                    @Override
-                    public void end() {
-                        for (int x = minX; x <= maxX; ++x) {
-                            for (int z = minZ; z <= maxZ; ++z) {
-                                if (!ChanceUtil.getChance(getMaster().getConfig().charlotteFloorWeb)) continue;
-                                Block block = getBukkitWorld().getBlockAt(x, minY, z);
-                                if (block.getType() == Material.AIR) {
-                                    block.setType(Material.WEB);
-                                }
-                            }
-                        }
-                    }
-                };
-                TimedRunnable timedRunnable = new TimedRunnable(integratedRunnable, initialTimes);
-                BukkitTask task = server().getScheduler().runTaskTimer(inst(), timedRunnable, 0, 5);
-                timedRunnable.setTask(task);
+                createWall(
+                        charlotte_RG,
+                        input -> input.getType() == Material.AIR,
+                        input -> input.getType() == Material.WEB,
+                        Material.AIR,
+                        Material.WEB,
+                        1,
+                        getMaster().getConfig().charlotteFloorWeb
+                );
                 break;
             case 2:
                 if (charlotte instanceof Monster) {
@@ -369,7 +403,7 @@ public class FreakyFourInstance extends BukkitShardInstance<FreakyFourShard> imp
         }
     }
 
-    public void spawnCharlotteMinion(Location location) {
+    private void spawnCharlotteMinion(Location location) {
         LivingEntity entity = location.getWorld().spawn(location, CaveSpider.class);
         BossManager manager = getMaster().getManager(FreakyFourBoss.CHARLOTTE);
         if (manager instanceof CharlotteBossManager) {
@@ -379,7 +413,19 @@ public class FreakyFourInstance extends BukkitShardInstance<FreakyFourShard> imp
         }
     }
 
-    public void runSnipee() {
+    private void runFrimus() {
+        createWall(
+                getRegion(FreakyFourBoss.FRIMUS),
+                input -> input.getType() == Material.AIR,
+                EnvironmentUtil::isLava,
+                Material.AIR,
+                Material.LAVA,
+                getMaster().getConfig().frimusWallDensity,
+                -1
+        );
+    }
+
+    private void runSnipee() {
         sendProjectilesFromEntity(getBoss(FreakyFourBoss.SNIPEE), 20, 1.6F, Arrow.class);
     }
 }
