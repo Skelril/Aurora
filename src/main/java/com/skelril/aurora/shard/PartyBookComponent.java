@@ -195,7 +195,7 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
                             + ChatColor.YELLOW + " (Type: "
                             + ChatColor.WHITE + shardType.getSubType().getProperName()
                             + ChatColor.YELLOW + ", Max players: "
-                            + ChatColor.WHITE + (maxPlayers == -1 ? "Unlimted" : maxPlayers)
+                            + ChatColor.WHITE + (maxPlayers == -1 ? "Unlimited" : maxPlayers)
                             + ChatColor.YELLOW + ")";
                 }
             }.display(sender, shardTypes, args.getFlagInteger('p', 1));
