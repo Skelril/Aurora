@@ -6,7 +6,7 @@
 
 package com.skelril.aurora.items.implementations;
 
-import com.skelril.aurora.city.engine.combat.PvPComponent;
+import com.skelril.aurora.combat.PvPComponent;
 import com.skelril.aurora.events.anticheat.RapidHitEvent;
 import com.skelril.aurora.events.wishingwell.PlayerItemWishEvent;
 import com.skelril.aurora.items.CustomItemSession;

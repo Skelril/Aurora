@@ -11,7 +11,7 @@ import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.skelril.aurora.admin.AdminState;
 import com.skelril.aurora.city.engine.area.AreaListener;
-import com.skelril.aurora.city.engine.combat.PvMComponent;
+import com.skelril.aurora.combat.PvMComponent;
 import com.skelril.aurora.events.custom.item.HymnSingEvent;
 import com.skelril.aurora.events.entity.HallowCreeperEvent;
 import com.skelril.aurora.events.guild.NinjaSmokeBombEvent;

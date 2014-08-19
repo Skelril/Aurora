@@ -18,17 +18,17 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.skelril.aurora.WishingWellComponent;
 import com.skelril.aurora.admin.AdminComponent;
 import com.skelril.aurora.admin.AdminState;
-import com.skelril.aurora.bosses.*;
-import com.skelril.aurora.bosses.detail.WBossDetail;
-import com.skelril.aurora.city.engine.combat.PvMComponent;
-import com.skelril.aurora.city.engine.combat.PvPComponent;
-import com.skelril.aurora.city.engine.combat.PvPScope;
+import com.skelril.aurora.combat.PvMComponent;
+import com.skelril.aurora.combat.PvPComponent;
+import com.skelril.aurora.combat.PvPScope;
+import com.skelril.aurora.combat.bosses.*;
+import com.skelril.aurora.combat.bosses.detail.WBossDetail;
 import com.skelril.aurora.events.PlayerAdminModeChangeEvent;
 import com.skelril.aurora.events.apocalypse.ApocalypseLocalSpawnEvent;
 import com.skelril.aurora.events.entity.item.DropClearPulseEvent;
 import com.skelril.aurora.items.custom.CustomItemCenter;
 import com.skelril.aurora.items.custom.CustomItems;
-import com.skelril.aurora.modifiers.ModifierType;
+import com.skelril.aurora.modifier.ModifierType;
 import com.skelril.aurora.util.*;
 import com.skelril.aurora.util.extractor.entity.CombatantPair;
 import com.skelril.aurora.util.extractor.entity.EDBEExtractor;
@@ -72,7 +72,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static com.skelril.aurora.economic.store.AdminStoreComponent.priceCheck;
-import static com.skelril.aurora.modifiers.ModifierComponent.getModifierCenter;
+import static com.skelril.aurora.modifier.ModifierComponent.getModifierCenter;
 import static org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 
 /**

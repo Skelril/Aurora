@@ -24,7 +24,7 @@ import com.skelril.aurora.admin.AdminComponent;
 import com.skelril.aurora.events.PrayerApplicationEvent;
 import com.skelril.aurora.exceptions.UnsupportedPrayerException;
 import com.skelril.aurora.items.custom.CustomItems;
-import com.skelril.aurora.modifiers.ModifierType;
+import com.skelril.aurora.modifier.ModifierType;
 import com.skelril.aurora.prayer.PrayerComponent;
 import com.skelril.aurora.prayer.PrayerFX.InventoryFX;
 import com.skelril.aurora.prayer.PrayerType;
@@ -68,7 +68,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-import static com.skelril.aurora.modifiers.ModifierComponent.getModifierCenter;
+import static com.skelril.aurora.modifier.ModifierComponent.getModifierCenter;
 
 /**
  * Author: Turtle9598

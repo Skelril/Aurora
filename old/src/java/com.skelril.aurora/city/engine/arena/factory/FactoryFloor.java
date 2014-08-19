@@ -18,7 +18,7 @@ import com.skelril.aurora.admin.AdminComponent;
 import com.skelril.aurora.city.engine.arena.ArenaType;
 import com.skelril.aurora.city.engine.arena.GenericArena;
 import com.skelril.aurora.city.engine.arena.PersistentArena;
-import com.skelril.aurora.modifiers.ModifierType;
+import com.skelril.aurora.modifier.ModifierType;
 import com.skelril.aurora.util.ChanceUtil;
 import com.skelril.aurora.util.DamageUtil;
 import com.skelril.aurora.util.item.itemstack.StackSerializer;
@@ -37,7 +37,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-import static com.skelril.aurora.modifiers.ModifierComponent.getModifierCenter;
+import static com.skelril.aurora.modifier.ModifierComponent.getModifierCenter;
 
 public class FactoryFloor extends AbstractFactoryArea implements GenericArena, Listener, PersistentArena {
 

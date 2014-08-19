@@ -13,7 +13,7 @@ import com.sk89q.worldedit.blocks.BlockType;
 import com.sk89q.worldedit.blocks.ItemID;
 import com.skelril.aurora.admin.AdminComponent;
 import com.skelril.aurora.admin.AdminState;
-import com.skelril.aurora.bosses.ThunderZombie;
+import com.skelril.aurora.combat.bosses.ThunderZombie;
 import com.skelril.aurora.events.PlayerAdminModeChangeEvent;
 import com.skelril.aurora.events.apocalypse.ApocalypseBedSpawnEvent;
 import com.skelril.aurora.events.apocalypse.ApocalypseLocalSpawnEvent;

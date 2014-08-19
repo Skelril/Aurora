@@ -478,6 +478,21 @@ public class AdminComponent extends BukkitComponent implements Listener {
         }
     }
 
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onPlayerGameModeChange(final PlayerGameModeChangeEvent event) {
+
+        Player player = event.getPlayer();
+        GameMode gameMode = event.getNewGameMode();
+
+        // Check for the gamemode changing from GameMode.SURVIVAL to GameMode.CREATIVE
+        if (gameMode.equals(GameMode.CREATIVE)) {
+            if (!isAdmin(player)) {
+                event.setCancelled(true);
+                ChatUtil.sendError(player, "Your gamemode change has been denied.");
+            }
+        }
+    }
+
     @EventHandler
     public void onPlayerPickupItem(PlayerPickupItemEvent event) {
 

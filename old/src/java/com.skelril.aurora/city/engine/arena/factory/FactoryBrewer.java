@@ -11,7 +11,7 @@ import com.sk89q.util.yaml.YAMLProcessor;
 import com.sk89q.worldedit.blocks.ItemID;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.skelril.aurora.items.custom.CustomItems;
-import com.skelril.aurora.modifiers.ModifierType;
+import com.skelril.aurora.modifier.ModifierType;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.item.BaseItem;
 import com.skelril.aurora.util.item.ItemUtil;
@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import static com.skelril.aurora.modifiers.ModifierComponent.getModifierCenter;
+import static com.skelril.aurora.modifier.ModifierComponent.getModifierCenter;
 
 public class FactoryBrewer extends FactoryMech {
 
