@@ -23,6 +23,7 @@ public class ComboAxe extends AbstractItemFeatureImpl {
         acceptedTypes.add(BlockID.WOODEN_STEP);
         acceptedTypes.add(BlockID.DOUBLE_WOODEN_STEP);
         acceptedTypes.add(BlockID.OAK_WOOD_STAIRS);
+        acceptedTypes.add(BlockID.DARK_OAK_STAIRS);
         acceptedTypes.add(BlockID.BIRCH_WOOD_STAIRS);
         acceptedTypes.add(BlockID.SPRUCE_WOOD_STAIRS);
         acceptedTypes.add(BlockID.JUNGLE_WOOD_STAIRS);
