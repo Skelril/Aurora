@@ -156,7 +156,7 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
                 }
                 target.getInventory().setContents(itemStacks);
                 ChatUtil.sendNotice(player, "Invitation accepted!");
-                ChatUtil.sendNotice(target, player.getName() + " accepted your invitation!");
+                ChatUtil.sendNotice(target, ChatColor.BLUE, player.getName() + " accepted your invitation!");
                 break;
         }
     }
