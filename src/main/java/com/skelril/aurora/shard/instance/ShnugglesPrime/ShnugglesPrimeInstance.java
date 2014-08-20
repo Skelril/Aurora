@@ -179,6 +179,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
     }
 
     public void bossDied() {
+        activeAttacks.clear();
         lastDeath = System.currentTimeMillis();
         boss = null;
     }
@@ -330,7 +331,6 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 ChatUtil.sendWarning(spectator, ChatColor.DARK_RED + "Tango time!");
                 activeAttacks.add(4);
                 server().getScheduler().runTaskLater(inst(), () -> {
-                    activeAttacks.remove(4);
                     if (!isBossSpawned()) return;
                     Collection<Player> newContained = getContained(Player.class);
                     for (Player player : getMaster().getToolKit().removeAdmin(newContained)) {
@@ -350,6 +350,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                         }
                     }
                     ChatUtil.sendNotice(newContained, "Now wasn't that fun?");
+                    activeAttacks.remove(4);
                 }, 20 * 7);
                 break;
             case 5:
@@ -358,12 +359,12 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                     ChatUtil.sendWarning(spectator, "I am everlasting!");
                     damageHeals = true;
                     server().getScheduler().runTaskLater(inst(), () -> {
-                        activeAttacks.remove(5);
                         if (damageHeals) {
                             damageHeals = false;
                             if (!isBossSpawned()) return;
                             ChatUtil.sendNotice(getContained(Player.class), "Thank you for your assistance.");
                         }
+                        activeAttacks.remove(5);
                     }, 20 * 12);
                     break;
                 }
@@ -380,7 +381,6 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                     ChatUtil.sendWarning(spectator, ChatColor.DARK_RED + "Bask in my glory!");
                     activeAttacks.add(7);
                     server().getScheduler().runTaskLater(inst(), () -> {
-                        activeAttacks.remove(7);
                         if (!isBossSpawned()) return;
                         // Set defaults
                         boolean baskInGlory = getContained(Player.class).size() == 0;
@@ -410,6 +410,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                         }
                         // Notify if avoided
                         ChatUtil.sendNotice(newContained, "Gah... Afraid are you friends?");
+                        activeAttacks.remove(7);
                     }, 20 * 7);
                     break;
                 }
@@ -420,7 +421,6 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 ChatUtil.sendWarning(spectator, ChatColor.DARK_RED + "Heed thy warning, or perish!");
                 activeAttacks.add(8);
                 server().getScheduler().runTaskLater(inst(), () -> {
-                    activeAttacks.remove(8);
                     if (!isBossSpawned()) return;
                     Collection<Player> newContained = getContained(Player.class);
                     ChatUtil.sendWarning(newContained, "May those who appose me die a death like no other...");
@@ -436,6 +436,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                             e.printStackTrace();
                         }
                     });
+                    activeAttacks.remove(8);
                 }, 20 * 7);
                 break;
             case 9:
@@ -466,12 +467,12 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
 
                     @Override
                     public void end() {
-                        activeAttacks.remove(9);
                         if (!isBossSpawned()) return;
                         EntityUtil.heal(boss, toHeal);
                         toHeal = 0;
                         ChatUtil.sendNotice(getContained(Player.class), "Thank you my minions!");
                         printBossHealth();
+                        activeAttacks.remove(9);
                     }
                 };
                 TimedRunnable minonEatingTask = new TimedRunnable(minionEater, 20);
