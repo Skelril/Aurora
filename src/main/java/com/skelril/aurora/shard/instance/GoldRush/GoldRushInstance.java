@@ -602,8 +602,10 @@ public class GoldRushInstance extends BukkitShardInstance<GoldRushShard> impleme
     private void checkFloodType() {
         for (org.bukkit.entity.Player player : getContained(org.bukkit.entity.Player.class)) {
             if (ItemUtil.findItemOfName(player.getInventory().getContents(), CustomItems.PHANTOM_HYMN.toString())) {
-                drainAll(); // Force away all water
-                floodBlockType = BlockID.LAVA;
+                if (floodBlockType != BlockID.LAVA) {
+                    drainAll(); // Force away all water
+                    floodBlockType = BlockID.LAVA;
+                }
                 break;
             }
         }
