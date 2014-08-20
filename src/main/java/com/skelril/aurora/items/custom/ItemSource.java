@@ -7,7 +7,7 @@
 package com.skelril.aurora.items.custom;
 
 public enum ItemSource {
-    SHNUGGLES_PRIME("Giant Boss"),
+    SHNUGGLES_PRIME("Shnuggles Prime"),
     WILDERNESS_MOBS("Wilderness Mobs"),
     PATIENT_X("Patient X"),
     WISHING_WELL("Wishing Well",
