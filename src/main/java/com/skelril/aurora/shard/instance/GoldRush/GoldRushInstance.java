@@ -446,25 +446,29 @@ public class GoldRushInstance extends BukkitShardInstance<GoldRushShard> impleme
         for (ItemStack is : itemStacks) {
             if (is == null) continue;
             // Static values
+            int goldTypeVal;
             switch (is.getTypeId()) {
                 case ItemID.GOLD_NUGGET:
-                    ++goldValue;
+                    goldTypeVal = 1;
+                    break;
                 case ItemID.GOLD_BAR:
                     if (ItemUtil.isItem(is, CustomItems.PHANTOM_GOLD)) {
-                        goldValue += 100;
+                        goldTypeVal = 100;
                     } else {
-                        goldValue += 9;
+                        goldTypeVal = 9;
                     }
-                    continue;
+                    break;
                 case BlockID.GOLD_BLOCK:
-                    goldValue += 81;
-                    continue;
+                    goldTypeVal = 81;
+                    break;
                 default:
                     double mkVal = AdminStoreComponent.priceCheck(is, true);
                     if (mkVal > 0) {
                         itemValue += mkVal;
                     }
+                    continue;
             }
+            goldValue += goldTypeVal * is.getAmount();
         }
 
         ChatUtil.sendNotice(player, "You obtain: ");
