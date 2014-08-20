@@ -35,6 +35,7 @@ import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.EntityUtil;
 import com.skelril.aurora.util.item.BookUtil;
 import com.skelril.aurora.util.item.ItemUtil;
+import com.skelril.aurora.util.player.AdminToolkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Entity;
@@ -59,17 +60,19 @@ public class ShnugglesPrimeShard extends Shard<ShnugglesPrimeInstance> {
 
     private static final double scalOffst = 3;
 
-    private static AdminComponent admin;
-    private static PrayerComponent prayers;
+    private AdminComponent admin;
+    private PrayerComponent prayers;
 
+    private AdminToolkit admintlkt;
     private FlagProfile flagProfile = new FlagProfile();
     private BossManager manager = new BossManager();
 
     public ShnugglesPrimeShard(ShardEditor editor, AdminComponent admin, PrayerComponent prayers) {
         super(ShardType.SHNUGGLES_PRIME, editor);
         setUpManager();
-        ShnugglesPrimeShard.admin = admin;
-        ShnugglesPrimeShard.prayers = prayers;
+        this.admin = admin;
+        this.prayers = prayers;
+        this.admintlkt = new AdminToolkit(admin);
     }
 
     public AdminComponent getAdmin() {
@@ -78,6 +81,10 @@ public class ShnugglesPrimeShard extends Shard<ShnugglesPrimeInstance> {
 
     public PrayerComponent getPrayers() {
         return prayers;
+    }
+
+    public AdminToolkit getToolKit() {
+        return admintlkt;
     }
 
     public BossManager getBossManager() {
@@ -112,14 +119,14 @@ public class ShnugglesPrimeShard extends Shard<ShnugglesPrimeInstance> {
         UnbindProcessor unbindProcessor = manager.getUnbindProcessor();
         unbindProcessor.addInstruction(condition -> {
             ShnugglesPrimeInstance inst = getInst(condition.getBoss().getDetail());
-            Collection<Player> players = inst.getContained(Player.class);
+            Collection<Player> spectators = inst.getContained(Player.class);
+            Collection<Player> fighters = getToolKit().removeAdmin(spectators);
             Player player = null;
-            int amt = players.size();
+            int amt = fighters.size();
             int required = ChanceUtil.getRandom(13) + 3;
             // Figure out if someone has Barbarian Bones
             if (amt != 0) {
-                for (Player aPlayer : players) {
-                    if (admin.isAdmin(aPlayer)) continue;
+                for (Player aPlayer : fighters) {
                     if (ItemUtil.countItemsOfName(aPlayer.getInventory().getContents(), BARBARIAN_BONE) >= required) {
                         player = aPlayer;
                         break;
@@ -130,8 +137,7 @@ public class ShnugglesPrimeShard extends Shard<ShnugglesPrimeInstance> {
             List<ItemStack> drops = new ArrayList<>();
 
             // Sacrificial drops
-            int m = players.size();
-            m *= player != null ? 3 : 1;
+            int m = amt * (player != null ? 3 : 1);
 
             drops.addAll(WishingWellComponent.getCalculatedLoot(server().getConsoleSender(), m, 400000));
             drops.addAll(WishingWellComponent.getCalculatedLoot(server().getConsoleSender(), m * 10, 15000));
@@ -183,7 +189,7 @@ public class ShnugglesPrimeShard extends Shard<ShnugglesPrimeInstance> {
             }
             LocalDate date = LocalDate.now().with(Month.APRIL).withDayOfMonth(6);
             if (date.equals(LocalDate.now())) {
-                ChatUtil.sendNotice(players, ChatColor.GOLD, "DROPS DOUBLED!");
+                ChatUtil.sendNotice(spectators, ChatColor.GOLD, "DROPS DOUBLED!");
                 drops.addAll(drops.stream().map(ItemStack::clone).collect(Collectors.toList()));
             }
             // Reset respawn mechanics

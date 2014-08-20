@@ -244,7 +244,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
     }
 
     public void spawnMinions(LivingEntity target) {
-        int spawnCount = Math.max(3, getContained(Player.class).size());
+        int spawnCount = Math.max(3, getMaster().getToolKit().removeAdmin(getContained(Player.class)).size());
         for (Location spawnPt : spawnPts) {
             if (ChanceUtil.getChance(11)) {
                 for (int i = spawnCount; i > 0; --i) {
@@ -268,7 +268,8 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
         LivingEntity boss = getBoss();
         double delay = Math.max(5000, ChanceUtil.getRangedRandom(15 * boss.getHealth(), 25 * boss.getHealth()));
         if (lastAttack != 0 && System.currentTimeMillis() - lastAttack <= delay) return;
-        Collection<Player> contained = getContained(Player.class);
+        Collection<Player> spectator = getContained(Player.class);
+        Collection<Player> contained = getMaster().getToolKit().removeAdmin(spectator);
         if (contained == null || contained.size() <= 0) return;
         if (attackCase < 1 || attackCase > OPTION_COUNT) attackCase = ChanceUtil.getRandom(OPTION_COUNT);
         // AI system
@@ -301,7 +302,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
         }
         switch (attackCase) {
             case 1:
-                ChatUtil.sendWarning(contained, "Taste my wrath!");
+                ChatUtil.sendWarning(spectator, "Taste my wrath!");
                 for (Player player : contained) {
                     // Call this event to notify AntiCheat
                     server().getPluginManager().callEvent(new ThrowPlayerEvent(player));
@@ -314,24 +315,25 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 }
                 break;
             case 2:
-                ChatUtil.sendWarning(contained, "Embrace my corruption!");
+                ChatUtil.sendWarning(spectator, "Embrace my corruption!");
                 for (Player player : contained) {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20 * 12, 1));
                 }
                 break;
             case 3:
-                ChatUtil.sendWarning(contained, "Are you BLIND? Mwhahahaha!");
+                ChatUtil.sendWarning(spectator, "Are you BLIND? Mwhahahaha!");
                 for (Player player : contained) {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20 * 4, 0));
                 }
                 break;
             case 4:
-                ChatUtil.sendWarning(contained, ChatColor.DARK_RED + "Tango time!");
+                ChatUtil.sendWarning(spectator, ChatColor.DARK_RED + "Tango time!");
                 activeAttacks.add(4);
                 server().getScheduler().runTaskLater(inst(), () -> {
                     activeAttacks.remove(4);
                     if (!isBossSpawned()) return;
-                    for (Player player : getContained(Player.class)) {
+                    Collection<Player> newContained = getContained(Player.class);
+                    for (Player player : getMaster().getToolKit().removeAdmin(newContained)) {
                         if (boss.hasLineOfSight(player)) {
                             ChatUtil.sendNotice(player, "Come closer...");
                             player.teleport(boss.getLocation());
@@ -347,13 +349,13 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                             ChatUtil.sendNotice(player, "Fine... No tango this time...");
                         }
                     }
-                    ChatUtil.sendNotice(getContained(Player.class), "Now wasn't that fun?");
+                    ChatUtil.sendNotice(newContained, "Now wasn't that fun?");
                 }, 20 * 7);
                 break;
             case 5:
                 if (!damageHeals) {
                     activeAttacks.add(5);
-                    ChatUtil.sendWarning(contained, "I am everlasting!");
+                    ChatUtil.sendWarning(spectator, "I am everlasting!");
                     damageHeals = true;
                     server().getScheduler().runTaskLater(inst(), () -> {
                         activeAttacks.remove(5);
@@ -368,14 +370,14 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 runAttack(ChanceUtil.getRandom(OPTION_COUNT));
                 return;
             case 6:
-                ChatUtil.sendWarning(contained, "Fire is your friend...");
+                ChatUtil.sendWarning(spectator, "Fire is your friend...");
                 for (Player player : contained) {
                     player.setFireTicks(20 * 30);
                 }
                 break;
             case 7:
                 if (!damageHeals) {
-                    ChatUtil.sendWarning(contained, ChatColor.DARK_RED + "Bask in my glory!");
+                    ChatUtil.sendWarning(spectator, ChatColor.DARK_RED + "Bask in my glory!");
                     activeAttacks.add(7);
                     server().getScheduler().runTaskLater(inst(), () -> {
                         activeAttacks.remove(7);
@@ -383,7 +385,8 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                         // Set defaults
                         boolean baskInGlory = getContained(Player.class).size() == 0;
                         // Check Players
-                        for (Player player : getContained(Player.class)) {
+                        Collection<Player> newContained = getContained(Player.class);
+                        for (Player player : getMaster().getToolKit().removeAdmin(newContained)) {
                             if (inst().hasPermission(player, "aurora.prayer.intervention") && ChanceUtil.getChance(3)) {
                                 ChatUtil.sendNotice(player, "A divine wind hides you from the boss.");
                                 continue;
@@ -406,23 +409,24 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                             return;
                         }
                         // Notify if avoided
-                        ChatUtil.sendNotice(getContained(Player.class), "Gah... Afraid are you friends?");
+                        ChatUtil.sendNotice(newContained, "Gah... Afraid are you friends?");
                     }, 20 * 7);
                     break;
                 }
                 runAttack(ChanceUtil.getRandom(OPTION_COUNT));
                 break;
             case 8:
-                ChatUtil.sendWarning(contained, ChatColor.DARK_RED + "I ask thy lord for aid in this all mighty battle...");
-                ChatUtil.sendWarning(contained, ChatColor.DARK_RED + "Heed thy warning, or perish!");
+                ChatUtil.sendWarning(spectator, ChatColor.DARK_RED + "I ask thy lord for aid in this all mighty battle...");
+                ChatUtil.sendWarning(spectator, ChatColor.DARK_RED + "Heed thy warning, or perish!");
                 activeAttacks.add(8);
                 server().getScheduler().runTaskLater(inst(), () -> {
                     activeAttacks.remove(8);
                     if (!isBossSpawned()) return;
-                    Collection<Player> cContained = getContained(Player.class);
-                    ChatUtil.sendWarning(cContained, "May those who appose me die a death like no other...");
-                    cContained.stream().filter(boss::hasLineOfSight).forEach(player -> {
-                        ChatUtil.sendWarning(cContained, "Perish " + player.getName() + "!");
+                    Collection<Player> newContained = getContained(Player.class);
+                    ChatUtil.sendWarning(newContained, "May those who appose me die a death like no other...");
+                    getMaster().getToolKit().removeAdmin(newContained).stream()
+                            .filter(boss::hasLineOfSight).forEach(player -> {
+                        ChatUtil.sendWarning(newContained, "Perish " + player.getName() + "!");
                         try {
                             getMaster().getPrayers().influencePlayer(
                                     player,
@@ -435,14 +439,17 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 }, 20 * 7);
                 break;
             case 9:
-                ChatUtil.sendNotice(contained, ChatColor.DARK_RED, "My minions our time is now!");
+                ChatUtil.sendNotice(spectator, ChatColor.DARK_RED, "My minions our time is now!");
                 activeAttacks.add(9);
                 IntegratedRunnable minionEater = new IntegratedRunnable() {
                     @Override
                     public boolean run(int times) {
                         if (!isBossSpawned()) return true;
-                        for (LivingEntity entity : getContained(LivingEntity.class)) {
-                            if (entity instanceof Giant || !ChanceUtil.getChance(5)) continue;
+                        for (LivingEntity entity : getMaster().getToolKit().removeAdmin(getContained(LivingEntity.class))) {
+                            if (entity instanceof Giant || !ChanceUtil.getChance(5) || !boss.hasLineOfSight(entity)) {
+                                continue;
+                            }
+
                             double realDamage = entity.getHealth();
                             if (entity instanceof Zombie && ((Zombie) entity).isBaby()) {
                                 entity.setHealth(0);
