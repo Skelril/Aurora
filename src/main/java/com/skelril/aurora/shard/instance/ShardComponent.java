@@ -11,7 +11,6 @@ import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.entity.Player;
 import com.skelril.aurora.exceptions.UnknownPluginException;
 import com.skelril.aurora.shard.Shard;
-import com.skelril.aurora.shard.ShardInstance;
 import com.skelril.aurora.shard.ShardManagerComponent;
 import com.skelril.aurora.shard.ShardType;
 import com.skelril.aurora.util.LocationUtil;
@@ -29,7 +28,7 @@ import java.util.Set;
 import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
 
 @TemplateComponent
-public abstract class ShardComponent<A extends Shard<T>, T extends ShardInstance> extends BukkitComponent {
+public abstract class ShardComponent<A extends Shard<T>, T extends BukkitShardInstance> extends BukkitComponent {
 
     protected WorldEditPlugin WE;
 
@@ -88,7 +87,7 @@ public abstract class ShardComponent<A extends Shard<T>, T extends ShardInstance
 
     public T getInstance(Location location) {
         for (T instance : instances) {
-            if (LocationUtil.isInRegion(instance.getRegion(), location)) {
+            if (LocationUtil.isInRegion(instance.getBukkitWorld(), instance.getRegion(), location)) {
                 return instance;
             }
         }
