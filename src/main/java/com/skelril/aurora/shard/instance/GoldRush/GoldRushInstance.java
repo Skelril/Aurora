@@ -471,10 +471,10 @@ public class GoldRushInstance extends BukkitShardInstance<GoldRushShard> impleme
         ChatUtil.sendNotice(player, " - Bail: " + ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(fee), "."));
         ChatUtil.sendNotice(player, " - Split: " + ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(lootSplit), "."));
         if (goldValue > 0) {
-            ChatUtil.sendNotice(player, " - Gold: " + ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(lootSplit), "."));
+            ChatUtil.sendNotice(player, " - Gold: " + ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(goldValue), "."));
         }
         if (itemValue > 0) {
-            ChatUtil.sendNotice(player, " - Items: " + ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(lootSplit), "."));
+            ChatUtil.sendNotice(player, " - Items: " + ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(itemValue), "."));
         }
 
         getMaster().getEcon().depositPlayer(player, fee + lootSplit + goldValue + itemValue);
