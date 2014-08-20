@@ -172,7 +172,7 @@ public enum ItemType {
     NETHER_BRICK_FENCE(BlockID.NETHER_BRICK_FENCE, "Nether brick fence", "netherbrickfence", "netherfence"),
     NETHER_BRICK_STAIRS(BlockID.NETHER_BRICK_STAIRS, "Nether brick stairs", "netherbrickstairs", "netherbricksteps", "netherstairs", "nethersteps"),
     NETHER_WART(BlockID.NETHER_WART, "Nether wart", "netherwart", "netherstalk"),
-    ENCHANTMENT_TABLE(BlockID.ENCHANTMENT_TABLE, "Enchantment table", "enchantmenttable", "enchanttable"),
+    ENCHANTMENT_TABLE(BlockID.ENCHANTMENT_TABLE, "Enchantment table", "enchantmenttable", "enchanttable", "echantingtable"),
     BREWING_STAND(BlockID.BREWING_STAND, "Brewing Stand", "brewingstand"),
     CAULDRON(BlockID.CAULDRON, "Cauldron", "cauldron"),
     END_PORTAL(BlockID.END_PORTAL, "End Portal", "endportal", "blackstuff", "airportal", "weirdblackstuff"),
