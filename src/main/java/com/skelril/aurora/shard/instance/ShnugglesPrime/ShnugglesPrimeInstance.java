@@ -219,7 +219,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
     }
 
     public int getLastAttack() {
-        return lastAttack <= 13000 ? lastAttackNumber : -1;
+        return lastAttack + 13000 > System.currentTimeMillis() ? lastAttackNumber : -1;
     }
 
     public boolean isActiveAttack(Integer attack) {
