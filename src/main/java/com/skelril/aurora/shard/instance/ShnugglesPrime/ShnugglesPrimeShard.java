@@ -147,28 +147,28 @@ public class ShnugglesPrimeShard extends Shard<ShnugglesPrimeInstance> {
                 drops.add(new ItemStack(ItemID.GOLD_BAR, ChanceUtil.getRangedRandom(32, 64)));
             }
             // Unique drops
-            if (ChanceUtil.getChance(25) || m > 1 && ChanceUtil.getChance(27 / m)) {
+            if (ChanceUtil.getChance(25) || (m > amt && ChanceUtil.getChance(27 / m))) {
                 drops.add(BookUtil.Lore.Monsters.skelril());
             }
-            if (ChanceUtil.getChance(138) || m > 1 && ChanceUtil.getChance(84 / m)) {
-                if (ChanceUtil.getChance(4)) {
+            if (ChanceUtil.getChance(138) || (m > amt && ChanceUtil.getChance(84 / m))) {
+                if (ChanceUtil.getChance(4) || (m > amt && ChanceUtil.getChance(2))) {
                     drops.add(CustomItemCenter.build(MASTER_SWORD));
                 } else {
                     drops.add(CustomItemCenter.build(CORRUPT_MASTER_SWORD));
                 }
             }
-            if (ChanceUtil.getChance(138) || m > 1 && ChanceUtil.getChance(84 / m)) {
-                if (ChanceUtil.getChance(4)) {
+            if (ChanceUtil.getChance(138) || (m > amt && ChanceUtil.getChance(84 / m))) {
+                if (ChanceUtil.getChance(4) || (m > amt && ChanceUtil.getChance(2))) {
                     drops.add(CustomItemCenter.build(MASTER_BOW));
                 } else {
                     drops.add(CustomItemCenter.build(CORRUPT_MASTER_BOW));
                 }
             }
-            if (ChanceUtil.getChance(200) || m > 1 && ChanceUtil.getChance(108 / m)) {
+            if (ChanceUtil.getChance(200) || (m > amt && ChanceUtil.getChance(108 / m))) {
                 drops.add(CustomItemCenter.build(MAGIC_BUCKET));
             }
             // Uber rare drops
-            if (ChanceUtil.getChance(15000 / m)) {
+            if (ChanceUtil.getChance(15000 / (m > amt ? m : 1))) {
                 drops.add(CustomItemCenter.build(ELDER_CROWN));
             }
             // Add a few Barbarian Bones to the drop list
