@@ -239,6 +239,8 @@ public class ShnugglesPrimeShard extends Shard<ShnugglesPrimeInstance> {
                         ChatUtil.sendNotice(inst.getContained(Player.class), "Feel my power!");
                     }
                 }
+            } else {
+                event.setDamage(Math.min(event.getDamage(), 50));
             }
             if (ChanceUtil.getChance(3) && acceptedReasons.contains(event.getCause())) {
                 inst.spawnMinions(attacker instanceof LivingEntity ? (LivingEntity) attacker : null);
