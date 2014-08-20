@@ -30,8 +30,6 @@ public class PatientX extends ShardComponent<PatientXShard, PatientXInstance> im
     @InjectComponent
     private AdminComponent admin;
     @InjectComponent
-    private PrayerComponent prayers;
-    @InjectComponent
     private ShardManagerComponent manager;
 
     private PatientXConfig config;
