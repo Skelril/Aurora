@@ -34,8 +34,7 @@ public class CustomItemCenter {
         ancientHelmet.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 4);
         ancientHelmet.addEnchant(Enchantment.OXYGEN, 3);
         ancientHelmet.addEnchant(Enchantment.WATER_WORKER, 1);
-        ancientHelmet.addSource(ItemSource.SACRIFICIAL_PIT);
-        ancientHelmet.addSource(ItemSource.GRAVE_YARD);
+        ancientHelmet.addSource(ItemSource.WISHING_WELL);
         ancientHelmet.addSource(ItemSource.MARKET);
         ancientHelmet.addUse("Set Effect: Ancient Power");
         ancientHelmet.addUse("Repaired with XP");
@@ -46,8 +45,7 @@ public class CustomItemCenter {
         ancientChestplate.addEnchant(Enchantment.PROTECTION_PROJECTILE, 4);
         ancientChestplate.addEnchant(Enchantment.PROTECTION_FIRE, 4);
         ancientChestplate.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 4);
-        ancientChestplate.addSource(ItemSource.SACRIFICIAL_PIT);
-        ancientChestplate.addSource(ItemSource.GRAVE_YARD);
+        ancientChestplate.addSource(ItemSource.WISHING_WELL);
         ancientChestplate.addSource(ItemSource.MARKET);
         ancientChestplate.addUse("Set Effect: Ancient Power");
         ancientChestplate.addUse("Repaired with XP");
@@ -58,8 +56,7 @@ public class CustomItemCenter {
         ancientLeggings.addEnchant(Enchantment.PROTECTION_PROJECTILE, 4);
         ancientLeggings.addEnchant(Enchantment.PROTECTION_FIRE, 4);
         ancientLeggings.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 4);
-        ancientLeggings.addSource(ItemSource.SACRIFICIAL_PIT);
-        ancientLeggings.addSource(ItemSource.GRAVE_YARD);
+        ancientLeggings.addSource(ItemSource.WISHING_WELL);
         ancientLeggings.addSource(ItemSource.MARKET);
         ancientLeggings.addUse("Set Effect: Ancient Power");
         ancientLeggings.addUse("Repaired with XP");
@@ -71,8 +68,7 @@ public class CustomItemCenter {
         ancientBoots.addEnchant(Enchantment.PROTECTION_FIRE, 4);
         ancientBoots.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 4);
         ancientBoots.addEnchant(Enchantment.PROTECTION_FALL, 4);
-        ancientBoots.addSource(ItemSource.SACRIFICIAL_PIT);
-        ancientBoots.addSource(ItemSource.GRAVE_YARD);
+        ancientBoots.addSource(ItemSource.WISHING_WELL);
         ancientBoots.addSource(ItemSource.MARKET);
         ancientBoots.addUse("Set Effect: Ancient Power");
         ancientBoots.addUse("Repaired with XP");
@@ -88,7 +84,7 @@ public class CustomItemCenter {
         elderCrown.addEnchant(Enchantment.OXYGEN, 3);
         elderCrown.addEnchant(Enchantment.WATER_WORKER, 1);
         elderCrown.addSource(ItemSource.MARKET);
-        elderCrown.addSource(ItemSource.GIANT_BOSS);
+        elderCrown.addSource(ItemSource.SHNUGGLES_PRIME);
         elderCrown.addUse("Set Effect: Ancient Armor");
         elderCrown.addUse("Double Health Regen");
         elderCrown.addUse("Double XP Gain");
@@ -105,8 +101,7 @@ public class CustomItemCenter {
         elderHelmet.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 4);
         elderHelmet.addEnchant(Enchantment.OXYGEN, 3);
         elderHelmet.addEnchant(Enchantment.WATER_WORKER, 1);
-        elderHelmet.addSource(ItemSource.SACRIFICIAL_PIT);
-        elderHelmet.addSource(ItemSource.GRAVE_YARD);
+        elderHelmet.addSource(ItemSource.WISHING_WELL);
         elderHelmet.addSource(ItemSource.MARKET);
         elderHelmet.addUse("Set Effect: Ancient Power");
         elderHelmet.addUse("Repaired with XP");
@@ -117,8 +112,7 @@ public class CustomItemCenter {
         elderChestplate.addEnchant(Enchantment.PROTECTION_PROJECTILE, 4);
         elderChestplate.addEnchant(Enchantment.PROTECTION_FIRE, 4);
         elderChestplate.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 4);
-        elderChestplate.addSource(ItemSource.SACRIFICIAL_PIT);
-        elderChestplate.addSource(ItemSource.GRAVE_YARD);
+        elderChestplate.addSource(ItemSource.WISHING_WELL);
         elderChestplate.addSource(ItemSource.MARKET);
         elderChestplate.addUse("Set Effect: Ancient Power");
         elderChestplate.addUse("Repaired with XP");
@@ -129,8 +123,7 @@ public class CustomItemCenter {
         elderLeggings.addEnchant(Enchantment.PROTECTION_PROJECTILE, 4);
         elderLeggings.addEnchant(Enchantment.PROTECTION_FIRE, 4);
         elderLeggings.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 4);
-        elderLeggings.addSource(ItemSource.SACRIFICIAL_PIT);
-        elderLeggings.addSource(ItemSource.GRAVE_YARD);
+        elderLeggings.addSource(ItemSource.WISHING_WELL);
         elderLeggings.addSource(ItemSource.MARKET);
         elderLeggings.addUse("Set Effect: Ancient Power");
         elderLeggings.addUse("Repaired with XP");
@@ -142,8 +135,7 @@ public class CustomItemCenter {
         elderBoots.addEnchant(Enchantment.PROTECTION_FIRE, 4);
         elderBoots.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 4);
         elderBoots.addEnchant(Enchantment.PROTECTION_FALL, 4);
-        elderBoots.addSource(ItemSource.SACRIFICIAL_PIT);
-        elderBoots.addSource(ItemSource.GRAVE_YARD);
+        elderBoots.addSource(ItemSource.WISHING_WELL);
         elderBoots.addSource(ItemSource.MARKET);
         elderBoots.addUse("Set Effect: Ancient Power");
         elderBoots.addUse("Repaired with XP");
@@ -243,34 +235,33 @@ public class CustomItemCenter {
 
         // Master Weapons
         CustomWeapon masterSword = new CustomWeapon(MASTER_SWORD, Material.DIAMOND_SWORD, 2);
-        masterSword.addSource(ItemSource.GIANT_BOSS);
+        masterSword.addSource(ItemSource.SHNUGGLES_PRIME);
         masterSword.addSource(ItemSource.MARKET);
         masterSword.addUse("Repairable at any Sacrificial Pit");
         masterSword.addUse("Conditional Effects");
         addItem(masterSword);
 
         CustomWeapon masterBow = new CustomWeapon(MASTER_BOW, Material.BOW, 2);
-        masterBow.addSource(ItemSource.GIANT_BOSS);
+        masterBow.addSource(ItemSource.SHNUGGLES_PRIME);
         masterBow.addSource(ItemSource.MARKET);
         masterBow.addUse("Repairable at any Sacrificial Pit");
         masterBow.addUse("Conditional Effects");
         addItem(masterBow);
 
         CustomWeapon corruptMasterSword = new CustomWeapon(CORRUPT_MASTER_SWORD, Material.DIAMOND_SWORD, 2);
-        corruptMasterSword.addSource(ItemSource.GIANT_BOSS);
+        corruptMasterSword.addSource(ItemSource.SHNUGGLES_PRIME);
         corruptMasterSword.addSource(ItemSource.MARKET);
         corruptMasterSword.addUse("Conditional Effects");
         addItem(corruptMasterSword);
 
         CustomWeapon corruptMasterBow = new CustomWeapon(CORRUPT_MASTER_BOW, Material.BOW, 2);
-        corruptMasterBow.addSource(ItemSource.GIANT_BOSS);
+        corruptMasterBow.addSource(ItemSource.SHNUGGLES_PRIME);
         corruptMasterBow.addSource(ItemSource.MARKET);
         corruptMasterBow.addUse("Conditional Effects");
         addItem(corruptMasterBow);
 
         // Unleashed Weapons
         CustomWeapon unleashedSword = new CustomWeapon(UNLEASHED_SWORD, Material.DIAMOND_SWORD, 2.25);
-        unleashedSword.addSource(ItemSource.GRAVE_YARD);
         unleashedSword.addSource(ItemSource.MARKET);
         unleashedSword.addUse("Repairable at any Sacrificial Pit, but requires 2 Imbued Crystals " +
                 "for every 11% damage, or 1 Imbued Crystal if repaired inside of the Grave Yard rewards room.");
@@ -278,7 +269,6 @@ public class CustomItemCenter {
         addItem(unleashedSword);
 
         CustomWeapon unleashedBow = new CustomWeapon(UNLEASHED_BOW, Material.BOW, 2.25);
-        unleashedBow.addSource(ItemSource.GRAVE_YARD);
         unleashedBow.addSource(ItemSource.MARKET);
         unleashedBow.addUse("Repairable at any Sacrificial Pit, but requires 2 Imbued Crystals " +
                 "for every 11% damage, or 1 Imbued Crystal if repaired inside of the Grave Yard rewards room.");
@@ -287,7 +277,6 @@ public class CustomItemCenter {
 
         // Fear Weapons
         CustomWeapon fearSword = new CustomWeapon(FEAR_SWORD, Material.DIAMOND_SWORD, 2.25);
-        fearSword.addSource(ItemSource.GRAVE_YARD);
         fearSword.addSource(ItemSource.MARKET);
         fearSword.addUse("Repairable at any Sacrificial Pit, but requires 2 Gems of Darkness " +
                 "for every 11% damage, or 1 Gem of Darkness if repaired inside of the Grave Yard rewards room.");
@@ -295,7 +284,6 @@ public class CustomItemCenter {
         addItem(fearSword);
 
         CustomWeapon fearBow = new CustomWeapon(FEAR_BOW, Material.BOW, 2.25);
-        fearBow.addSource(ItemSource.GRAVE_YARD);
         fearBow.addSource(ItemSource.MARKET);
         fearBow.addUse("Repairable at any Sacrificial Pit, but requires 2 Gems of Darkness " +
                 "for every 11% damage, or 1 Gem of Darkness if repaired inside of the Grave Yard rewards room.");
@@ -327,8 +315,7 @@ public class CustomItemCenter {
         godHelmet.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 4);
         godHelmet.addEnchant(Enchantment.OXYGEN, 3);
         godHelmet.addEnchant(Enchantment.WATER_WORKER, 1);
-        godHelmet.addSource(ItemSource.SACRIFICIAL_PIT);
-        godHelmet.addSource(ItemSource.GRAVE_YARD);
+        godHelmet.addSource(ItemSource.WISHING_WELL);
         godHelmet.addSource(ItemSource.MARKET);
         addItem(godHelmet);
 
@@ -337,8 +324,7 @@ public class CustomItemCenter {
         godChestplate.addEnchant(Enchantment.PROTECTION_PROJECTILE, 4);
         godChestplate.addEnchant(Enchantment.PROTECTION_FIRE, 4);
         godChestplate.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 4);
-        godChestplate.addSource(ItemSource.SACRIFICIAL_PIT);
-        godChestplate.addSource(ItemSource.GRAVE_YARD);
+        godChestplate.addSource(ItemSource.WISHING_WELL);
         godChestplate.addSource(ItemSource.MARKET);
         addItem(godChestplate);
 
@@ -347,8 +333,7 @@ public class CustomItemCenter {
         godLeggings.addEnchant(Enchantment.PROTECTION_PROJECTILE, 4);
         godLeggings.addEnchant(Enchantment.PROTECTION_FIRE, 4);
         godLeggings.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 4);
-        godLeggings.addSource(ItemSource.SACRIFICIAL_PIT);
-        godLeggings.addSource(ItemSource.GRAVE_YARD);
+        godLeggings.addSource(ItemSource.WISHING_WELL);
         godLeggings.addSource(ItemSource.MARKET);
         addItem(godLeggings);
 
@@ -358,29 +343,25 @@ public class CustomItemCenter {
         godBoots.addEnchant(Enchantment.PROTECTION_FIRE, 4);
         godBoots.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 4);
         godBoots.addEnchant(Enchantment.PROTECTION_FALL, 4);
-        godBoots.addSource(ItemSource.SACRIFICIAL_PIT);
-        godBoots.addSource(ItemSource.GRAVE_YARD);
+        godBoots.addSource(ItemSource.WISHING_WELL);
         godBoots.addSource(ItemSource.MARKET);
         addItem(godBoots);
 
         // God Weapons
         CustomWeapon godSword = new CustomWeapon(GOD_SWORD, Material.DIAMOND_SWORD, 1.5);
-        godSword.addSource(ItemSource.SACRIFICIAL_PIT);
-        godSword.addSource(ItemSource.GRAVE_YARD);
+        godSword.addSource(ItemSource.WISHING_WELL);
         godSword.addSource(ItemSource.MARKET);
         addItem(godSword);
 
         CustomWeapon godBow = new CustomWeapon(GOD_BOW, Material.BOW, 1.5);
-        godBow.addSource(ItemSource.SACRIFICIAL_PIT);
-        godBow.addSource(ItemSource.GRAVE_YARD);
+        godBow.addSource(ItemSource.WISHING_WELL);
         godBow.addSource(ItemSource.MARKET);
         addItem(godBow);
 
         // God Tools
         CustomEquipment godAxe = new CustomEquipment(GOD_AXE, Material.DIAMOND_AXE);
         godAxe.addEnchant(Enchantment.DIG_SPEED, 4);
-        godAxe.addSource(ItemSource.SACRIFICIAL_PIT);
-        godAxe.addSource(ItemSource.GRAVE_YARD);
+        godAxe.addSource(ItemSource.WISHING_WELL);
         godAxe.addSource(ItemSource.MARKET);
         addItem(godAxe);
 
@@ -390,16 +371,14 @@ public class CustomItemCenter {
         legendaryGodAxe.addEnchant(Enchantment.DAMAGE_UNDEAD, 5);
         legendaryGodAxe.addEnchant(Enchantment.DIG_SPEED, 5);
         legendaryGodAxe.addEnchant(Enchantment.DURABILITY, 3);
-        legendaryGodAxe.addSource(ItemSource.SACRIFICIAL_PIT);
-        legendaryGodAxe.addSource(ItemSource.GRAVE_YARD);
+        legendaryGodAxe.addSource(ItemSource.WISHING_WELL);
         legendaryGodAxe.addSource(ItemSource.MARKET);
         addItem(legendaryGodAxe);
 
         CustomEquipment godPickaxe = new CustomEquipment(GOD_PICKAXE, Material.DIAMOND_PICKAXE);
         godPickaxe.addEnchant(Enchantment.DIG_SPEED, 4);
         godPickaxe.addEnchant(Enchantment.SILK_TOUCH, 1);
-        godPickaxe.addSource(ItemSource.SACRIFICIAL_PIT);
-        godPickaxe.addSource(ItemSource.GRAVE_YARD);
+        godPickaxe.addSource(ItemSource.WISHING_WELL);
         godPickaxe.addSource(ItemSource.MARKET);
         addItem(godPickaxe);
 
@@ -407,8 +386,7 @@ public class CustomItemCenter {
         legendaryGodPickaxe.addEnchant(Enchantment.DIG_SPEED, 5);
         legendaryGodPickaxe.addEnchant(Enchantment.DURABILITY, 3);
         legendaryGodPickaxe.addEnchant(Enchantment.LOOT_BONUS_BLOCKS, 3);
-        legendaryGodPickaxe.addSource(ItemSource.SACRIFICIAL_PIT);
-        legendaryGodPickaxe.addSource(ItemSource.GRAVE_YARD);
+        legendaryGodPickaxe.addSource(ItemSource.WISHING_WELL);
         legendaryGodPickaxe.addSource(ItemSource.MARKET);
         addItem(legendaryGodPickaxe);
 
@@ -420,8 +398,7 @@ public class CustomItemCenter {
         divineCombatPotion.addEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 600, 3);
         divineCombatPotion.addEffect(PotionEffectType.WATER_BREATHING, 20 * 600, 3);
         divineCombatPotion.addEffect(PotionEffectType.FIRE_RESISTANCE, 20 * 600, 3);
-        divineCombatPotion.addSource(ItemSource.SACRIFICIAL_PIT);
-        divineCombatPotion.addSource(ItemSource.GRAVE_YARD);
+        divineCombatPotion.addSource(ItemSource.WISHING_WELL);
         divineCombatPotion.addSource(ItemSource.MARKET);
         addItem(divineCombatPotion);
 
@@ -431,8 +408,7 @@ public class CustomItemCenter {
         holyCombatPotion.addEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 45, 3);
         holyCombatPotion.addEffect(PotionEffectType.WATER_BREATHING, 20 * 45, 3);
         holyCombatPotion.addEffect(PotionEffectType.FIRE_RESISTANCE, 20 * 45, 3);
-        holyCombatPotion.addSource(ItemSource.SACRIFICIAL_PIT);
-        holyCombatPotion.addSource(ItemSource.GRAVE_YARD);
+        holyCombatPotion.addSource(ItemSource.WISHING_WELL);
         holyCombatPotion.addSource(ItemSource.MARKET);
         addItem(holyCombatPotion);
 
@@ -442,8 +418,7 @@ public class CustomItemCenter {
         extremeCombatPotion.addEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 600, 2);
         extremeCombatPotion.addEffect(PotionEffectType.WATER_BREATHING, 20 * 600, 2);
         extremeCombatPotion.addEffect(PotionEffectType.FIRE_RESISTANCE, 20 * 600, 2);
-        extremeCombatPotion.addSource(ItemSource.SACRIFICIAL_PIT);
-        extremeCombatPotion.addSource(ItemSource.GRAVE_YARD);
+        extremeCombatPotion.addSource(ItemSource.WISHING_WELL);
         extremeCombatPotion.addSource(ItemSource.MARKET);
         addItem(extremeCombatPotion);
 
@@ -453,8 +428,7 @@ public class CustomItemCenter {
         combatPotion.addEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 600, 1);
         combatPotion.addEffect(PotionEffectType.WATER_BREATHING, 20 * 600, 1);
         combatPotion.addEffect(PotionEffectType.FIRE_RESISTANCE, 20 * 600, 1);
-        combatPotion.addSource(ItemSource.SACRIFICIAL_PIT);
-        combatPotion.addSource(ItemSource.GRAVE_YARD);
+        combatPotion.addSource(ItemSource.WISHING_WELL);
         combatPotion.addSource(ItemSource.MARKET);
         addItem(combatPotion);
 
@@ -464,28 +438,24 @@ public class CustomItemCenter {
         lesserCombatPotion.addEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 600, 0);
         lesserCombatPotion.addEffect(PotionEffectType.WATER_BREATHING, 20 * 600, 0);
         lesserCombatPotion.addEffect(PotionEffectType.FIRE_RESISTANCE, 20 * 600, 0);
-        lesserCombatPotion.addSource(ItemSource.SACRIFICIAL_PIT);
-        lesserCombatPotion.addSource(ItemSource.GRAVE_YARD);
+        lesserCombatPotion.addSource(ItemSource.WISHING_WELL);
         lesserCombatPotion.addSource(ItemSource.MARKET);
         addItem(lesserCombatPotion);
 
         // Grave Yard Gems
         CustomItem gemOfLife = new CustomItem(GEM_OF_LIFE, Material.DIAMOND);
-        gemOfLife.addSource(ItemSource.GRAVE_YARD);
         gemOfLife.addSource(ItemSource.MARKET);
-        gemOfLife.addUse("Preserves your inventory when you die in the Grave Yard, " +
-                "or when you die during a thunderstorm.");
+        // gemOfLife.addUse("Preserves your inventory when you die in the Grave Yard, " +
+        //        "or when you die during a thunderstorm.");
         addItem(gemOfLife);
 
         CustomItem gemOfDarkness = new CustomItem(GEM_OF_DARKNESS, Material.EMERALD);
-        gemOfDarkness.addSource(ItemSource.GRAVE_YARD);
         gemOfDarkness.addSource(ItemSource.MARKET);
         gemOfDarkness.addUse("Protects you from the Grave Yard's blindness effect.");
         gemOfDarkness.addUse("Used to repair Fear weapons.");
         addItem(gemOfDarkness);
 
         CustomItem imbuedCrystal = new CustomItem(IMBUED_CRYSTAL, Material.DIAMOND);
-        imbuedCrystal.addSource(ItemSource.GRAVE_YARD);
         imbuedCrystal.addSource(ItemSource.MARKET);
         imbuedCrystal.addUse("Compacts gold nuggets into bars.");
         imbuedCrystal.addUse("Compacts gold bars into blocks.");
@@ -495,13 +465,11 @@ public class CustomItemCenter {
         // Phantom Items
         CustomItem phantomGold = new CustomItem(PHANTOM_GOLD, Material.GOLD_INGOT);
         phantomGold.addSource(ItemSource.GOLD_RUSH);
-        phantomGold.addSource(ItemSource.GRAVE_YARD);
         phantomGold.addUse("When sacrificed gives 50 Skrin, or 100 Skrin " +
                 "if sacrificed in the Grave Yard rewards room.");
         addItem(phantomGold);
 
         CustomItem phantomClock = new CustomItem(PHANTOM_CLOCK, Material.WATCH);
-        phantomClock.addSource(ItemSource.GRAVE_YARD);
         phantomClock.addUse("Teleports the player strait to the rewards room of the Grave Yard.");
         addItem(phantomClock);
 
@@ -516,13 +484,12 @@ public class CustomItemCenter {
 
         // Ninja Guild
         CustomItem ninjaStar = new CustomItem(NINJA_STAR, Material.NETHER_STAR);
-        ninjaStar.addSource(ItemSource.NINJA_GUILD);
         ninjaStar.addUse("Teleports the player to the Ninja Guild.");
         addItem(ninjaStar);
 
         // Flight Items
         CustomItem pixieDust = new CustomItem(PIXIE_DUST, Material.SUGAR);
-        pixieDust.addSource(ItemSource.SACRIFICIAL_PIT);
+        pixieDust.addSource(ItemSource.WISHING_WELL);
         pixieDust.addSource(ItemSource.GOLD_RUSH);
         pixieDust.addSource(ItemSource.MARKET);
         pixieDust.addUse("Allows the player to fly in permitted areas until " +
@@ -530,7 +497,7 @@ public class CustomItemCenter {
         addItem(pixieDust);
 
         CustomItem magicbucket = new CustomItem(MAGIC_BUCKET, Material.BUCKET);
-        magicbucket.addSource(ItemSource.GIANT_BOSS);
+        magicbucket.addSource(ItemSource.SHNUGGLES_PRIME);
         magicbucket.addSource(ItemSource.MARKET);
         magicbucket.addUse("Allows the player to fly indefinitely in permitted areas.");
         magicbucket.addUse("When used on a cow, it will turn into Mad Milk.");
@@ -538,7 +505,6 @@ public class CustomItemCenter {
 
         // Animal Bows
         CustomEquipment batBow = new CustomEquipment(BAT_BOW, Material.BOW);
-        batBow.addSource(ItemSource.GRAVE_YARD);
         batBow.addSource(ItemSource.MARKET);
         batBow.addUse("Creates bats at the point where a fired arrow lands.");
         batBow.addUse("Creates a trail of bats following any fired arrow.");
@@ -563,13 +529,12 @@ public class CustomItemCenter {
         CustomItem overSeerBow = new CustomItem(OVERSEER_BOW, Material.BOW);
         overSeerBow.addEnchant(Enchantment.ARROW_DAMAGE, 2);
         overSeerBow.addEnchant(Enchantment.ARROW_FIRE, 1);
-        overSeerBow.addSource(ItemSource.SACRIFICIAL_PIT);
+        overSeerBow.addSource(ItemSource.WISHING_WELL);
         overSeerBow.addSource(ItemSource.MARKET);
         addItem(overSeerBow);
 
         CustomItem barbarianBones = new CustomItem(BARBARIAN_BONE, Material.BONE);
-        barbarianBones.addSource(ItemSource.GIANT_BOSS);
-        barbarianBones.addSource(ItemSource.GRAVE_YARD);
+        barbarianBones.addSource(ItemSource.SHNUGGLES_PRIME);
         barbarianBones.addUse("Improves the drops of the Giant Boss if in a suitable quantity.");
         addItem(barbarianBones);
 
@@ -583,7 +548,6 @@ public class CustomItemCenter {
 
         CustomItem scrollOfSummation = new CustomItem(SCROLL_OF_SUMMATION, Material.PAPER);
         scrollOfSummation.addSource(ItemSource.WILDERNESS_MOBS);
-        scrollOfSummation.addSource(ItemSource.DROP_PARTY);
         scrollOfSummation.addSource(ItemSource.PATIENT_X);
         scrollOfSummation.addSource(ItemSource.MARKET);
         scrollOfSummation.addUse("At the cost of the item, will compact coal, iron, gold, redstone, lapis, diamonds, and emerald.");

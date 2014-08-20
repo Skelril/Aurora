@@ -7,25 +7,17 @@
 package com.skelril.aurora.items.custom;
 
 public enum ItemSource {
-    ENCHANTED_FOREST("Enchanted Forest"),
-    DROP_PARTY("Drop Party"),
-    VINEAM_PRISON("Vineam Prison"),
-    GIANT_BOSS("Giant Boss"),
+    SHNUGGLES_PRIME("Giant Boss"),
     WILDERNESS_MOBS("Wilderness Mobs"),
     PATIENT_X("Patient X"),
-    SACRIFICIAL_PIT("Sacrificial Pit",
-            ENCHANTED_FOREST,
-            DROP_PARTY,
-            VINEAM_PRISON,
-            GIANT_BOSS,
+    WISHING_WELL("Wishing Well",
+            SHNUGGLES_PRIME,
             WILDERNESS_MOBS,
             PATIENT_X
     ),
     MARKET("Market"),
-    NINJA_GUILD("Ninja Guild"),
     ARROW_FISHING("Arrow Fishing"),
-    GOLD_RUSH("Gold Rush"),
-    GRAVE_YARD("Grave Yard");
+    GOLD_RUSH("Gold Rush");
 
     private String friendlyName;
     private ItemSource[] subSources;
