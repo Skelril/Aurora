@@ -289,14 +289,14 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
         if (zombies.size() > 200) {
             attackCase = 7;
         }
-        if (boss.getHealth() < boss.getMaxHealth() * .5 && ChanceUtil.getChance(2)) {
+        if (boss.getHealth() < boss.getMaxHealth() * .4 && ChanceUtil.getChance(5)) {
             if (zombies.size() < 100 && boss.getHealth() > 200) {
                 attackCase = 5;
             } else {
                 attackCase = 9;
             }
         }
-        if ((attackCase == 3 || attackCase == 6) && boss.getHealth() < boss.getMaxHealth() * .6) {
+        if ((attackCase == 3 || attackCase == 6) && boss.getHealth() < boss.getMaxHealth() * .15) {
             runAttack(ChanceUtil.getRandom(OPTION_COUNT));
             return;
         }
