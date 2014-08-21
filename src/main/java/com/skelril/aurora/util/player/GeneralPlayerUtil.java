@@ -7,6 +7,8 @@
 package com.skelril.aurora.util.player;
 
 import com.google.common.collect.Lists;
+import com.sk89q.commandbook.util.InputUtil;
+import com.sk89q.minecraft.util.commands.CommandException;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.EnvironmentUtil;
 import com.skelril.aurora.util.LocationUtil;
@@ -14,6 +16,8 @@ import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -36,6 +40,17 @@ public class GeneralPlayerUtil {
                 player.getExhaustion(),
                 player.getLevel(),
                 player.getExp());
+    }
+
+    public static List<Player> matchPlayers(Collection<String> players) {
+        List<Player> foundPlayers = new ArrayList<>();
+        for (String playerName : players) {
+            try {
+                foundPlayers.add(InputUtil.PlayerParser.matchPlayerExactly(null, playerName));
+            } catch (CommandException ignored) {
+            }
+        }
+        return foundPlayers;
     }
 
     public static void findSafeSpot(Player player) {
