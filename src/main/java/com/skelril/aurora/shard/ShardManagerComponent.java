@@ -252,7 +252,11 @@ public class ShardManagerComponent extends BukkitComponent implements Listener {
             ShardInstance<?> inst = event.getInstance();
             for (Player player : event.getPlayers()) {
                 // Make sure player's can't teleport other players via "/call" & "/bring"
-                sessions.getSession(TeleportSession.class, player).clearBringable();
+                TeleportSession tpSession = sessions.getSession(TeleportSession.class, player);
+                if (tpSession.totalBringRequest() > 0) {
+                    tpSession.clearBringable();
+                    ChatUtil.sendWarning(player, "All request to teleport to you have been terminated.");
+                }
                 sessions.getSession(ShardSession.class, player).setLastInstance(inst);
             }
         }
