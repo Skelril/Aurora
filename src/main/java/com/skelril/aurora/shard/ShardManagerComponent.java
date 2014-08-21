@@ -6,6 +6,7 @@
 
 package com.skelril.aurora.shard;
 
+import com.sk89q.commandbook.locations.TeleportSession;
 import com.sk89q.commandbook.session.SessionComponent;
 import com.sk89q.commandbook.util.entity.player.PlayerUtil;
 import com.sk89q.minecraft.util.commands.Command;
@@ -250,6 +251,8 @@ public class ShardManagerComponent extends BukkitComponent implements Listener {
         if (event.hasInstance()) {
             ShardInstance<?> inst = event.getInstance();
             for (Player player : event.getPlayers()) {
+                // Make sure player's can't teleport other players via "/call" & "/bring"
+                sessions.getSession(TeleportSession.class, player).clearBringable();
                 sessions.getSession(ShardSession.class, player).setLastInstance(inst);
             }
         }
