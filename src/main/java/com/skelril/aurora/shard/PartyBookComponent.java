@@ -18,6 +18,7 @@ import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.item.ItemUtil;
 import com.skelril.aurora.util.item.PartyBookReader;
 import com.skelril.aurora.util.item.PartyScrollReader;
+import com.skelril.aurora.util.player.GeneralPlayerUtil;
 import com.zachsthings.libcomponents.ComponentInformation;
 import com.zachsthings.libcomponents.Depend;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
@@ -133,10 +134,11 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
                 }
                 boolean foundBook = false;
                 ItemStack[] itemStacks = target.getInventory().getContents();
+                PartyBookReader book = null;
                 for (int i = 0; i < itemStacks.length; ++i) {
                     if (!ItemUtil.isItem(itemStacks[i], CustomItems.PARTY_BOOK)) continue;
                     if (!foundBook) {
-                        PartyBookReader book = PartyBookReader.getFrom(itemStacks[i]);
+                        book = PartyBookReader.getFrom(itemStacks[i]);
                         if (book != null && book.getShard() == scroll.getShard()) {
                             book.addPlayer(player.getName());
                             itemStacks[i] = book.build();
@@ -157,6 +159,13 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
                 target.getInventory().setContents(itemStacks);
                 ChatUtil.sendNotice(player, "Invitation accepted!");
                 ChatUtil.sendNotice(target, ChatColor.BLUE, player.getName() + " accepted your invitation!");
+                if (book != null) {
+                    ChatUtil.sendNotice(
+                            GeneralPlayerUtil.matchPlayers(book.getPlayers()),
+                            ChatColor.BLUE,
+                            player.getName() + " has joined the party."
+                    );
+                }
                 break;
         }
     }
