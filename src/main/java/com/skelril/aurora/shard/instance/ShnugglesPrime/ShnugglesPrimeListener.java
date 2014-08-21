@@ -132,10 +132,14 @@ public class ShnugglesPrimeListener extends ShardListener<ShnugglesPrime> {
     public void onChanceActivation(ChanceActivationEvent event) {
         ShnugglesPrimeInstance inst = shard.getInstance(event.getWhere());
         if (inst == null) return;
+        Player player = event.getPlayer();
         switch (event.getType()) {
             case WEAPON:
-            case ARMOR:
                 event.increaseChance(10);
+                break;
+            case ARMOR:
+                double diff = player.getMaxHealth() - player.getHealth();
+                event.increaseChance((int) ((diff / 2) + 5));
                 break;
         }
     }
