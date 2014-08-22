@@ -43,6 +43,7 @@ public class CursedMineShard extends Shard<CursedMineInstance> {
         flagProfile.setFlag(DefaultFlag.PASSTHROUGH, StateFlag.State.ALLOW);
         flagProfile.setFlag(DefaultFlag.FIRE_SPREAD, StateFlag.State.DENY);
         flagProfile.setFlag(DefaultFlag.LAVA_FIRE, StateFlag.State.DENY);
+        flagProfile.setFlag(DefaultFlag.OTHER_EXPLOSION, StateFlag.State.DENY);
     }
 
     public AdminComponent getAdmin() {
