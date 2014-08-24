@@ -12,12 +12,17 @@ import com.sk89q.minecraft.util.commands.Command;
 import com.sk89q.minecraft.util.commands.CommandContext;
 import com.sk89q.minecraft.util.commands.CommandException;
 import com.sk89q.minecraft.util.commands.CommandPermissions;
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import com.sk89q.worldedit.bukkit.selections.Polygonal2DSelection;
+import com.sk89q.worldedit.bukkit.selections.Selection;
+import com.sk89q.worldguard.protection.regions.ProtectedPolygonalRegion;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.item.ItemUtil;
 import com.skelril.hackbook.ChunkBook;
 import com.skelril.hackbook.exceptions.UnsupportedFeatureException;
 import com.zachsthings.libcomponents.ComponentInformation;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Server;
@@ -58,6 +63,7 @@ public class DebugComponent extends BukkitComponent {
         //registerCommands(FoodInfo.class);
         //registerCommands(ChunkLighter.class);
         //registerCommands(LocationDebug.class);
+        //registerCommands(RegionVolumeTest.class);
 
         // Bug fixes
 
@@ -125,6 +131,32 @@ public class DebugComponent extends BukkitComponent {
             Location l = PlayerUtil.checkPlayer(sender).getLocation();
             ChatUtil.sendNotice(sender, "X: " + l.getX() + ", Y:" + l.getY() + ", Z: " + l.getZ());
             ChatUtil.sendNotice(sender, "Pitch: " + l.getPitch() + ", Yaw: " + l.getYaw());
+        }
+    }
+
+    public class RegionVolumeTest {
+
+        @Command(aliases = {"rgvol"}, desc = "Calculate the volume of the currently selected region",
+                flags = "", min = 0, max = 0)
+        public void myLocCmd(CommandContext args, CommandSender sender) throws CommandException {
+
+            WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
+            Selection selection = worldEdit.getSelection(PlayerUtil.checkPlayer(sender));
+
+            if (selection != null) {
+                if (selection instanceof Polygonal2DSelection) {
+                    ProtectedPolygonalRegion region = new ProtectedPolygonalRegion(
+                            "test",
+                            ((Polygonal2DSelection) selection).getNativePoints(),
+                            selection.getMinimumPoint().getBlockY(),
+                            selection.getMaximumPoint().getBlockY()
+                    );
+                    ChatUtil.sendNotice(sender, "Region Volume: " + region.volume());
+                }
+                // Do something with min/max
+            } else {
+                throw new CommandException("No selection found!");
+            }
         }
     }
 
