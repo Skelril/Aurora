@@ -9,8 +9,8 @@ package com.skelril.aurora.shard;
 import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.world.World;
-import com.sk89q.worldguard.protection.databases.ProtectionDatabaseException;
 import com.sk89q.worldguard.protection.managers.RegionManager;
+import com.sk89q.worldguard.protection.managers.storage.StorageException;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
@@ -94,7 +94,7 @@ public class ShardManager {
         try {
             rgManager.save();
             shard.modifyQuantity(1);
-        } catch (ProtectionDatabaseException e) {
+        } catch (StorageException e) {
             e.printStackTrace();
         }
         return region;

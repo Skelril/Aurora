@@ -27,7 +27,7 @@
         </repository>
         <repository>
             <id>md_5-rep</id>
-            <url>http://repo.md-5.net/content/repositories/public</url>
+            <url>http://repo.md-5.net/content/repositories/snapshots/</url>
         </repository>
         <repository>
             <id>comphenix-rep</id>
@@ -61,17 +61,11 @@
             <groupId>com.sk89q</groupId>
             <artifactId>worldedit</artifactId>
             <version>6.0.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.spout</groupId>
-                    <artifactId>spoutapi</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.sk89q</groupId>
             <artifactId>worldguard</artifactId>
-            <version>5.8.1-SNAPSHOT</version>
+            <version>6.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.sk89q</groupId>
