@@ -31,6 +31,9 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
 
+import static com.sk89q.commandbook.CommandBook.inst;
+import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
+
 public class CatacombsInstance extends BukkitShardInstance<CatacombsShard> implements Runnable {
 
     private int wave = 0;
@@ -77,7 +80,7 @@ public class CatacombsInstance extends BukkitShardInstance<CatacombsShard> imple
                 bPlayer.teleport(entryPoint);
             }
         }
-        checkedSpawnWave();
+        server().getScheduler().runTaskLater(inst(), this::checkedSpawnWave, 1);
     }
 
     @Override
@@ -95,6 +98,7 @@ public class CatacombsInstance extends BukkitShardInstance<CatacombsShard> imple
 
     public void checkedSpawnWave() {
         if (!hasActiveMobs()) {
+            remove();
             spawnWave();
         }
     }
