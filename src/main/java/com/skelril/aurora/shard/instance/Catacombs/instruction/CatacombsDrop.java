@@ -48,13 +48,13 @@ public class CatacombsDrop extends DropInstruction {
             if (ChanceUtil.getChance(3000 * mod)) {
                 drops.add(CustomItemCenter.build(CustomItems.PHANTOM_CLOCK));
             }
-            if (ChanceUtil.getChance(100 * mod)) {
+            if (ChanceUtil.getChance(50 * mod)) {
                 drops.add(CustomItemCenter.build(CustomItems.IMBUED_CRYSTAL));
             }
-            if (ChanceUtil.getChance(100 * mod)) {
+            if (ChanceUtil.getChance(50 * mod)) {
                 drops.add(CustomItemCenter.build(CustomItems.GEM_OF_DARKNESS));
             }
-            if (ChanceUtil.getChance(75 * mod)) {
+            if (ChanceUtil.getChance(35 * mod)) {
                 drops.add(CustomItemCenter.build(CustomItems.GEM_OF_LIFE));
             }
             if (ChanceUtil.getChance(20 * mod)) {
