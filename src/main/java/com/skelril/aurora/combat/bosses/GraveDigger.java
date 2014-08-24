@@ -21,8 +21,8 @@ import com.skelril.OpenBoss.instruction.processor.DamageProcessor;
 import com.skelril.OpenBoss.instruction.processor.DamagedProcessor;
 import com.skelril.OpenBoss.instruction.processor.UnbindProcessor;
 import com.skelril.aurora.combat.bosses.detail.WBossDetail;
+import com.skelril.aurora.combat.bosses.instruction.DynamicHPInstruction;
 import com.skelril.aurora.combat.bosses.instruction.HealthPrint;
-import com.skelril.aurora.combat.bosses.instruction.WBindInstruction;
 import com.skelril.aurora.combat.bosses.instruction.WDamageModifier;
 import com.skelril.aurora.combat.bosses.instruction.WDropInstruction;
 import com.skelril.aurora.util.ChanceUtil;
@@ -59,7 +59,7 @@ public class GraveDigger {
 
     private void setupFangz() {
         BindProcessor bindProcessor = graveDigger.getBindProcessor();
-        bindProcessor.addInstruction(new WBindInstruction("Grave Digger") {
+        bindProcessor.addInstruction(new DynamicHPInstruction("Grave Digger") {
             @Override
             public double getHealth(EntityDetail detail) {
                 return 20 * 43 * WBossDetail.getLevel(detail);

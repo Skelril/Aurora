@@ -13,13 +13,13 @@ import com.skelril.OpenBoss.condition.BindCondition;
 import com.skelril.OpenBoss.instruction.BindInstruction;
 import org.bukkit.entity.LivingEntity;
 
-public abstract class WBindInstruction extends NamedBindInstruction {
+public abstract class DynamicHPInstruction extends NamedBindInstruction {
 
-    public WBindInstruction(String name) {
+    public DynamicHPInstruction(String name) {
         this(null, name);
     }
 
-    public WBindInstruction(InstructionResult<BindInstruction> next, String name) {
+    public DynamicHPInstruction(InstructionResult<BindInstruction> next, String name) {
         super(next, name);
     }
 

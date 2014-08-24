@@ -16,8 +16,8 @@ import com.skelril.OpenBoss.instruction.processor.DamageProcessor;
 import com.skelril.OpenBoss.instruction.processor.DamagedProcessor;
 import com.skelril.OpenBoss.instruction.processor.UnbindProcessor;
 import com.skelril.aurora.combat.bosses.detail.WBossDetail;
+import com.skelril.aurora.combat.bosses.instruction.DynamicHPInstruction;
 import com.skelril.aurora.combat.bosses.instruction.HealthPrint;
-import com.skelril.aurora.combat.bosses.instruction.WBindInstruction;
 import com.skelril.aurora.combat.bosses.instruction.WDamageModifier;
 import com.skelril.aurora.combat.bosses.instruction.WDropInstruction;
 import com.skelril.aurora.items.custom.CustomItemCenter;
@@ -53,7 +53,7 @@ public class StormBringer {
 
     private void setupFangz() {
         BindProcessor bindProcessor = stormBringer.getBindProcessor();
-        bindProcessor.addInstruction(new WBindInstruction("Storm Bringer") {
+        bindProcessor.addInstruction(new DynamicHPInstruction("Storm Bringer") {
             @Override
             public double getHealth(EntityDetail detail) {
                 return 20 * 30 * WBossDetail.getLevel(detail);

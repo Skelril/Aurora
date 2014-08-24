@@ -16,6 +16,7 @@ public enum ShardType {
     FREAKY_FOUR(ChatColor.DARK_RED, "Freaky Four", SubType.BOSS, false, 1),
 
     // Minigames
+    CATACOMBS(ChatColor.DARK_RED, "Catacombs", SubType.MINIGAME, false),
     GOLD_RUSH(ChatColor.GOLD, "Gold Rush", SubType.MINIGAME, false),
     CURSED_MINE(ChatColor.GOLD, "Cursed Mine", SubType.MINIGAME, true);
 

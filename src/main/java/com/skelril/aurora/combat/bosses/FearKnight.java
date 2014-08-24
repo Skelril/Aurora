@@ -16,8 +16,8 @@ import com.skelril.OpenBoss.instruction.processor.DamageProcessor;
 import com.skelril.OpenBoss.instruction.processor.DamagedProcessor;
 import com.skelril.OpenBoss.instruction.processor.UnbindProcessor;
 import com.skelril.aurora.combat.bosses.detail.WBossDetail;
+import com.skelril.aurora.combat.bosses.instruction.DynamicHPInstruction;
 import com.skelril.aurora.combat.bosses.instruction.HealthPrint;
-import com.skelril.aurora.combat.bosses.instruction.WBindInstruction;
 import com.skelril.aurora.combat.bosses.instruction.WDamageModifier;
 import com.skelril.aurora.combat.bosses.instruction.WDropInstruction;
 import com.skelril.aurora.items.custom.CustomItemCenter;
@@ -55,7 +55,7 @@ public class FearKnight {
 
     private void setupFearKnight() {
         BindProcessor bindProcessor = fearKnight.getBindProcessor();
-        bindProcessor.addInstruction(new WBindInstruction("Fear Knight") {
+        bindProcessor.addInstruction(new DynamicHPInstruction("Fear Knight") {
             @Override
             public double getHealth(EntityDetail detail) {
                 return 20 * 30 * WBossDetail.getLevel(detail);

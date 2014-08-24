@@ -52,7 +52,7 @@ public class LostRogue {
 
     private void setupLostRogue() {
         BindProcessor bindProcessor = lostRogue.getBindProcessor();
-        bindProcessor.addInstruction(new WBindInstruction("Lost Rogue") {
+        bindProcessor.addInstruction(new DynamicHPInstruction("Lost Rogue") {
             @Override
             public double getHealth(EntityDetail detail) {
                 return 20 * 75 * WBossDetail.getLevel(detail);
