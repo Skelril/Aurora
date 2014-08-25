@@ -166,7 +166,7 @@ public class CatacombsInstance extends BukkitShardInstance<CatacombsShard> imple
         Boss boss = new Boss(z, new CatacombEntityDetail(this, wave));
 
         DamageProcessor damageProcessor = boss.getDamageProcessor();
-        if (ChanceUtil.getChance(5)) {
+        if (ChanceUtil.getChance(3)) {
             SpecWeaponImpl weapon;
             switch (ChanceUtil.getRandom(3)) {
                 case 1:
@@ -182,7 +182,7 @@ public class CatacombsInstance extends BukkitShardInstance<CatacombsShard> imple
                     // This should never happen
                     throw new RuntimeException("Improper number given!");
             }
-            int activationChance = ChanceUtil.getRangedRandom(3, 12);
+            int activationChance = ChanceUtil.getRangedRandom(1, 6);
             damageProcessor.addInstruction(new SpecialWeaponAttack(weapon) {
                 @Override
                 public void activateSpecial(SpecialAttack attack) {
@@ -192,18 +192,18 @@ public class CatacombsInstance extends BukkitShardInstance<CatacombsShard> imple
                 }
             });
         }
-        if (ChanceUtil.getChance(4)) {
+        if (ChanceUtil.getChance(2)) {
             damageProcessor.addInstruction(new ThorAttack());
         }
-        if (ChanceUtil.getChance(3)) {
+        if (ChanceUtil.getChance(2)) {
             damageProcessor.addInstruction(new SoulReaper());
         }
 
         DamagedProcessor damagedProcessor = boss.getDamagedProcessor();
-        if (ChanceUtil.getChance(7)) {
+        if (ChanceUtil.getChance(4)) {
             damagedProcessor.addInstruction(new BlipDefense());
         }
-        if (ChanceUtil.getChance(6)) {
+        if (ChanceUtil.getChance(3)) {
             damagedProcessor.addInstruction(new ExplosiveArrowBarrage() {
                 @Override
                 public boolean activate(EntityDetail detail) {
@@ -211,13 +211,13 @@ public class CatacombsInstance extends BukkitShardInstance<CatacombsShard> imple
                 }
             });
         }
-        if (ChanceUtil.getChance(5)) {
+        if (ChanceUtil.getChance(2)) {
             damagedProcessor.addInstruction(new DeathMark());
         }
-        if (ChanceUtil.getChance(4)) {
+        if (ChanceUtil.getChance(2)) {
             damagedProcessor.addInstruction(new CatacombsDamageNearby());
         }
-        if (ChanceUtil.getChance(3)) {
+        if (ChanceUtil.getChance(2)) {
             damagedProcessor.addInstruction(new UndeadMinionRetaliation(ChanceUtil.getRangedRandom(12, 25)));
         }
 
