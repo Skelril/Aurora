@@ -23,7 +23,7 @@ public class UndeadMinionRetaliation implements DamagedInstruction {
     private final int baseActivation;
 
     public UndeadMinionRetaliation() {
-        this(100);
+        this(25);
     }
 
     public UndeadMinionRetaliation(int baseActivation) {

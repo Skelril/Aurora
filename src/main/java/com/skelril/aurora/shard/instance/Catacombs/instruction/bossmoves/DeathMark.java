@@ -34,7 +34,7 @@ public class DeathMark implements DamagedInstruction {
     private final int baseActivation;
 
     public DeathMark() {
-        this(100);
+        this(10);
     }
 
     public DeathMark(int baseActivation) {

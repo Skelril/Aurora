@@ -132,7 +132,7 @@ public class MirageArena extends AreaComponent<MirageArenaConfig> implements Per
             ticks = 0;
             Collection<Player> players = getContained(Player.class);
             try {
-                ChatUtil.sendNotice(players, ChatColor.DARK_AQUA, "Attempting to change the current mirage to " + next + "...");
+                ChatUtil.send(players, ChatColor.DARK_AQUA, "Attempting to change the current mirage to " + next + "...");
                 changeMirage(next);
             } catch (CommandException e) {
                 ChatUtil.sendError(players, "The arena was already changing, the vote has been cancelled!");
@@ -144,8 +144,8 @@ public class MirageArena extends AreaComponent<MirageArenaConfig> implements Per
             String next = getNextMirage(false);
             if (next == null) return;
             Collection<Player> players = getContained(Player.class);
-            ChatUtil.sendNotice(players, ChatColor.DARK_AQUA, "The currently winning mirage is " + next + '.');
-            ChatUtil.sendNotice(players, ChatColor.DARK_AQUA, ((60 - ticks) * 5) + " seconds til arena change.");
+            ChatUtil.send(players, ChatColor.DARK_AQUA, "The currently winning mirage is " + next + '.');
+            ChatUtil.send(players, ChatColor.DARK_AQUA, ((60 - ticks) * 5) + " seconds til arena change.");
         }
     }
 
@@ -203,13 +203,13 @@ public class MirageArena extends AreaComponent<MirageArenaConfig> implements Per
                          int cx, int cy, int maxX, int maxY, int maxZ) {
 
         if (cy >= maxY) {
-            ChatUtil.sendNotice(getContained(Player.class), "Editing Completed.");
+            ChatUtil.send(getContained(Player.class), "Editing Completed.");
             editing = false;
             resendChunks();
             freePlayers();
             return;
         } else if (cx == 0 && cy % 10 == 0) {
-            ChatUtil.sendNotice(getContained(Player.class), "Editing Layer: " + cy + '/' + maxY);
+            ChatUtil.send(getContained(Player.class), "Editing Layer: " + cy + '/' + maxY);
         }
 
         long start = System.currentTimeMillis();
@@ -313,7 +313,7 @@ public class MirageArena extends AreaComponent<MirageArenaConfig> implements Per
             MirageSession session = sessions.getSession(MirageSession.class, PlayerUtil.checkPlayer(sender));
             session.vote(initFile);
 
-            ChatUtil.sendNotice(sender, "Your vote has been set to " + initFile + '.');
+            ChatUtil.send(sender, "Your vote has been set to " + initFile + '.');
         }
 
         @Command(aliases = {"ignore"},
@@ -325,7 +325,7 @@ public class MirageArena extends AreaComponent<MirageArenaConfig> implements Per
             String[] targets = args.getString(0).split(",");
             for (String target : targets) {
                 session.ignore(target);
-                ChatUtil.sendNotice(sender, "You will no longer be able to damage " + target + ".");
+                ChatUtil.send(sender, "You will no longer be able to damage " + target + ".");
             }
         }
 
@@ -338,7 +338,7 @@ public class MirageArena extends AreaComponent<MirageArenaConfig> implements Per
             String[] targets = args.getString(0).split(",");
             for (String target : targets) {
                 session.unignore(target);
-                ChatUtil.sendNotice(sender, "You will now be able to damage " + target + ".");
+                ChatUtil.send(sender, "You will now be able to damage " + target + ".");
             }
         }
 
@@ -394,7 +394,7 @@ public class MirageArena extends AreaComponent<MirageArenaConfig> implements Per
                 e.printStackTrace();
                 throw new CommandException("That arena state could not be saved!");
             }
-            ChatUtil.sendNotice(sender, "Successfully saved.");
+            ChatUtil.send(sender, "Successfully saved.");
         }
 
         @Command(aliases = {"cleardrops", "dc"},
@@ -413,7 +413,7 @@ public class MirageArena extends AreaComponent<MirageArenaConfig> implements Per
 
             String initFile = args.getString(0);
 
-            ChatUtil.sendNotice(sender, "Loading...");
+            ChatUtil.send(sender, "Loading...");
 
             try {
                 try {

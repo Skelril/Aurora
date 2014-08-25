@@ -563,7 +563,7 @@ public class GraveYardArea extends AreaComponent<GraveYardConfig> {
             Lever aLever = (Lever) lever.getKey().getBlock().getState().getData();
             if (aLever.isPowered() != lever.getValue()) return false;
         }
-        ChatUtil.sendNotice(getTempleContained(Player.class), "You hear a clicking sound.");
+        ChatUtil.send(getTempleContained(Player.class), "You hear a clicking sound.");
         return true;
     }
 

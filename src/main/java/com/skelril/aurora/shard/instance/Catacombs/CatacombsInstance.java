@@ -194,7 +194,12 @@ public class CatacombsInstance extends BukkitShardInstance<CatacombsShard> imple
             damagedProcessor.addInstruction(new BlipDefense());
         }
         if (ChanceUtil.getChance(6)) {
-            damagedProcessor.addInstruction(new ExplosiveArrowBarrage());
+            damagedProcessor.addInstruction(new ExplosiveArrowBarrage() {
+                @Override
+                public boolean activate(EntityDetail detail) {
+                    return ChanceUtil.getChance(12);
+                }
+            });
         }
         if (ChanceUtil.getChance(5)) {
             damagedProcessor.addInstruction(new DeathMark());
@@ -203,7 +208,7 @@ public class CatacombsInstance extends BukkitShardInstance<CatacombsShard> imple
             damagedProcessor.addInstruction(new CatacombsDamageNearby());
         }
         if (ChanceUtil.getChance(3)) {
-            damagedProcessor.addInstruction(new UndeadMinionRetaliation(ChanceUtil.getRangedRandom(75, 100)));
+            damagedProcessor.addInstruction(new UndeadMinionRetaliation(ChanceUtil.getRangedRandom(12, 25)));
         }
 
         getMaster().getBossManager().bind(boss, bosses);

@@ -83,14 +83,14 @@ public class GraveYardListener extends AreaListener<GraveYardArea> {
                 if (player.isValid() && LocationUtil.isInRegion(parent.getWorld(), parent.rewards, player)) returnedList.add(player);
             }
             for (Player player : returnedList) {
-                ChatUtil.sendNotice(player, ChatColor.DARK_RED + "You dare disturb our graves!");
-                ChatUtil.sendNotice(player, ChatColor.DARK_RED + "Taste the wrath of thousands!");
+                ChatUtil.send(player, ChatColor.DARK_RED + "You dare disturb our graves!");
+                ChatUtil.send(player, ChatColor.DARK_RED + "Taste the wrath of thousands!");
                 for (int i = 0; i < 15; i++) {
                     parent.localSpawn(player, true);
                 }
             }
         } else {
-            ChatUtil.sendNotice(parent.getContained(Player.class), ChatColor.DARK_RED, "Rawwwgggggghhhhhhhhhh......");
+            ChatUtil.send(parent.getContained(Player.class), ChatColor.DARK_RED, "Rawwwgggggghhhhhhhhhh......");
             for (Entity entity : parent.getContained(Zombie.class)) {
                 if (!ChanceUtil.getChance(5)) ((Zombie) entity).setHealth(0);
             }
@@ -178,7 +178,7 @@ public class GraveYardListener extends AreaListener<GraveYardArea> {
         Player player = event.getPlayer();
         if (event.isFlying() && parent.contains(player) && !parent.admin.isAdmin(player)) {
             event.setCancelled(true);
-            ChatUtil.sendNotice(player, "You cannot fly here!");
+            ChatUtil.send(player, "You cannot fly here!");
         }
     }
 
@@ -521,11 +521,11 @@ public class GraveYardListener extends AreaListener<GraveYardArea> {
         Player player = event.getPlayer();
         if (event.getHymn().equals(HymnSingEvent.Hymn.PHANTOM)) {
             if (LocationUtil.isInRegion(parent.getWorld(), parent.creepers, player)) {
-                ChatUtil.sendNotice(player, "A spirit carries you through the maze!");
+                ChatUtil.send(player, "A spirit carries you through the maze!");
                 player.teleport(new Location(parent.getWorld(), -162.5, 52, -704), PlayerTeleportEvent.TeleportCause.UNKNOWN);
             } else if (LocationUtil.isInRegion(parent.getWorld(), parent.rewards, player) && !parent.getWorld().isThundering()) {
                 if (parent.nextTStorm < System.currentTimeMillis()) {
-                    ChatUtil.sendNotice(player, "A monstrous thunderstorm begins!");
+                    ChatUtil.send(player, "A monstrous thunderstorm begins!");
                     parent.getWorld().setThundering(true);
                     parent.nextTStorm = System.currentTimeMillis() + parent.getConfig().tStormCoolDown;
                 } else {

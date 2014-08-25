@@ -25,7 +25,7 @@ public class SoulReaper implements DamageInstruction {
     private final int baseActivation;
 
     public SoulReaper() {
-        this(100);
+        this(15);
     }
 
     public SoulReaper(int baseActivation) {

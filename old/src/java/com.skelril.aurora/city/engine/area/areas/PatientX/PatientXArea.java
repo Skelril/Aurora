@@ -178,7 +178,7 @@ public class PatientXArea extends AreaComponent<PatientXConfig> implements Persi
         double maxDiff = config.maxDifficulty - config.minDifficulty;
         double curDiff = difficulty - config.minDifficulty;
         message += " Enragement: " + (int) Math.round((curDiff / maxDiff) * 100) + "%";
-        ChatUtil.sendNotice(getContained(Player.class), ChatColor.DARK_AQUA, message);
+        ChatUtil.send(getContained(Player.class), ChatColor.DARK_AQUA, message);
     }
 
     private void runAttack() {
@@ -451,7 +451,7 @@ public class PatientXArea extends AreaComponent<PatientXConfig> implements Persi
         lastTelep = System.currentTimeMillis();
 
         boss.teleport(getRandomDest());
-        ChatUtil.sendNotice(getContained(Player.class), "Pause for a second chap, I need to answer the teleport!");
+        ChatUtil.send(getContained(Player.class), "Pause for a second chap, I need to answer the teleport!");
     }
 
     @Override

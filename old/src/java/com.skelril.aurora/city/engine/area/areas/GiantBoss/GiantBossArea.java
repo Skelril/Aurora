@@ -191,7 +191,7 @@ public class GiantBossArea extends AreaComponent<GiantBossConfig> implements Per
         int current = (int) Math.ceil(boss.getHealth());
         int max = (int) Math.ceil(boss.getMaxHealth());
         String message = "Boss Health: " + current + " / " + max;
-        ChatUtil.sendNotice(getContained(1, Player.class), ChatColor.DARK_AQUA, message);
+        ChatUtil.send(getContained(1, Player.class), ChatColor.DARK_AQUA, message);
     }
 
     public void probeArea() {
@@ -379,7 +379,7 @@ public class GiantBossArea extends AreaComponent<GiantBossConfig> implements Per
                     if (!isBossSpawned()) return;
                     for (Player player : getContained(Player.class)) {
                         if (boss.hasLineOfSight(player)) {
-                            ChatUtil.sendNotice(player, "Come closer...");
+                            ChatUtil.send(player, "Come closer...");
                             player.teleport(boss.getLocation());
                             player.damage(difficulty * 32, boss);
                             // Call this event to notify AntiCheat
@@ -390,10 +390,10 @@ public class GiantBossArea extends AreaComponent<GiantBossConfig> implements Per
                                     random.nextDouble() * 1.7 - 1.5
                             ));
                         } else {
-                            ChatUtil.sendNotice(player, "Fine... No tango this time...");
+                            ChatUtil.send(player, "Fine... No tango this time...");
                         }
                     }
-                    ChatUtil.sendNotice(getContained(1, Player.class), "Now wasn't that fun?");
+                    ChatUtil.send(getContained(1, Player.class), "Now wasn't that fun?");
                 }, 20 * (difficulty == 1 ? 14 : 7));
                 break;
             case 5:
@@ -404,7 +404,7 @@ public class GiantBossArea extends AreaComponent<GiantBossConfig> implements Per
                         if (damageHeals) {
                             damageHeals = false;
                             if (!isBossSpawned()) return;
-                            ChatUtil.sendNotice(getContained(1, Player.class), "Thank you for your assistance.");
+                            ChatUtil.send(getContained(1, Player.class), "Thank you for your assistance.");
                         }
                     }, 20 * (difficulty * 5));
                     break;
@@ -427,7 +427,7 @@ public class GiantBossArea extends AreaComponent<GiantBossConfig> implements Per
                     // Check Players
                     for (Player player : getContained(Player.class)) {
                         if (inst.hasPermission(player, "aurora.prayer.intervention") && ChanceUtil.getChance(3)) {
-                            ChatUtil.sendNotice(player, "A divine wind hides you from the boss.");
+                            ChatUtil.send(player, "A divine wind hides you from the boss.");
                             continue;
                         }
                         if (boss.hasLineOfSight(player)) {
@@ -446,7 +446,7 @@ public class GiantBossArea extends AreaComponent<GiantBossConfig> implements Per
                         return;
                     }
                     // Notify if avoided
-                    ChatUtil.sendNotice(getContained(1, Player.class), "Gah... Afraid are you friends?");
+                    ChatUtil.send(getContained(1, Player.class), "Gah... Afraid are you friends?");
                 }, 20 * (difficulty == 1 ? 14 : 7));
                 break;
             case 8:
@@ -466,7 +466,7 @@ public class GiantBossArea extends AreaComponent<GiantBossConfig> implements Per
                 }, 20 * (difficulty == 1 ? 14 : 7));
                 break;
             case 9:
-                ChatUtil.sendNotice(containedP, ChatColor.DARK_RED, "My minions our time is now!");
+                ChatUtil.send(containedP, ChatColor.DARK_RED, "My minions our time is now!");
                 IntegratedRunnable minionEater = new IntegratedRunnable() {
                     @Override
                     public boolean run(int times) {
@@ -482,7 +482,7 @@ public class GiantBossArea extends AreaComponent<GiantBossConfig> implements Per
                             toHeal += realDamage * difficulty * .09;
                         }
                         if (TimerUtil.matchesFilter(times + 1, -1, 2)) {
-                            ChatUtil.sendNotice(getContained(1, Player.class), ChatColor.DARK_AQUA, "The boss has drawn in: " + (int) toHeal + " health.");
+                            ChatUtil.send(getContained(1, Player.class), ChatColor.DARK_AQUA, "The boss has drawn in: " + (int) toHeal + " health.");
                         }
                         return true;
                     }
@@ -492,7 +492,7 @@ public class GiantBossArea extends AreaComponent<GiantBossConfig> implements Per
                         if (!isBossSpawned()) return;
                         boss.setHealth(Math.min(toHeal + boss.getHealth(), boss.getMaxHealth()));
                         toHeal = 0;
-                        ChatUtil.sendNotice(getContained(1, Player.class), "Thank you my minions!");
+                        ChatUtil.send(getContained(1, Player.class), "Thank you my minions!");
                         printBossHealth();
                     }
                 };

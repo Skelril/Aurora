@@ -288,7 +288,7 @@ public class CursedMine extends AbstractRegionedArena implements MonitoredArena,
 
                     if (e instanceof Player) {
                         if (ChanceUtil.getChance(15) && checkInventory((Player) e, eInventory.getContents())) {
-                            ChatUtil.sendNotice((Player) e, "Divine intervention protects some of your items.");
+                            ChatUtil.send((Player) e, "Divine intervention protects some of your items.");
                             continue;
                         }
                     }
@@ -413,16 +413,16 @@ public class CursedMine extends AbstractRegionedArena implements MonitoredArena,
                 if (ChanceUtil.getChance(2)) {
                     switch (ChanceUtil.getRandom(6)) {
                         case 1:
-                            ChatUtil.sendNotice(player, "Caspher the friendly ghost drops some bread.");
+                            ChatUtil.send(player, "Caspher the friendly ghost drops some bread.");
                             player.getWorld().dropItemNaturally(player.getLocation(),
                                     new ItemStack(ItemID.BREAD, ChanceUtil.getRandom(16)));
                             break;
                         case 2:
-                            ChatUtil.sendNotice(player, "COOKIE gives you a cookie.");
+                            ChatUtil.send(player, "COOKIE gives you a cookie.");
                             player.getWorld().dropItemNaturally(player.getLocation(), new ItemStack(ItemID.COOKIE));
                             break;
                         case 3:
-                            ChatUtil.sendNotice(player, "Caspher the friendly ghost appears.");
+                            ChatUtil.send(player, "Caspher the friendly ghost appears.");
                             for (int i = 0; i < 8; i++) {
                                 player.getWorld().dropItemNaturally(player.getLocation(),
                                         new ItemStack(ItemID.IRON_BAR, ChanceUtil.getRandom(64)));
@@ -433,11 +433,11 @@ public class CursedMine extends AbstractRegionedArena implements MonitoredArena,
                             }
                             break;
                         case 4:
-                            ChatUtil.sendNotice(player, "John gives you a new jacket.");
+                            ChatUtil.send(player, "John gives you a new jacket.");
                             player.getWorld().dropItemNaturally(player.getLocation(), new ItemStack(ItemID.LEATHER_CHEST));
                             break;
                         case 5:
-                            ChatUtil.sendNotice(player, "Tim teleports items to you.");
+                            ChatUtil.send(player, "Tim teleports items to you.");
                             getContained(Item.class).forEach(i -> i.teleport(player));
 
                             // Add in some extra drops just in case the loot wasn't very juicy
@@ -446,7 +446,7 @@ public class CursedMine extends AbstractRegionedArena implements MonitoredArena,
                             player.getWorld().dropItem(player.getLocation(), new ItemStack(ItemID.DIAMOND, ChanceUtil.getRandom(64)));
                             break;
                         case 6:
-                            ChatUtil.sendNotice(player, "Dan gives you a sparkling touch.");
+                            ChatUtil.send(player, "Dan gives you a sparkling touch.");
 
                             int id;
                             switch (ChanceUtil.getRandom(3)) {
@@ -473,7 +473,7 @@ public class CursedMine extends AbstractRegionedArena implements MonitoredArena,
                 } else {
 
                     if (ItemUtil.hasAncientArmor(player) && ChanceUtil.getChance(2)) {
-                        ChatUtil.sendNotice(player, ChatColor.AQUA, "Your armor blocks an incoming ghost attack.");
+                        ChatUtil.send(player, ChatColor.AQUA, "Your armor blocks an incoming ghost attack.");
                         return;
                     }
 
@@ -583,7 +583,7 @@ public class CursedMine extends AbstractRegionedArena implements MonitoredArena,
                             break;
                         case 11:
                             if (blockid == BlockID.EMERALD_ORE) {
-                                ChatUtil.sendNotice(player, "Dave got a chemistry set!");
+                                ChatUtil.send(player, "Dave got a chemistry set!");
                                 addToHitList(player.getName());
                                 prayerComponent.influencePlayer(player, PrayerComponent.constructPrayer(player,
                                         PrayerType.DEADLYPOTION, TimeUnit.MINUTES.toMillis(30)));
@@ -707,7 +707,7 @@ public class CursedMine extends AbstractRegionedArena implements MonitoredArena,
             event.setExpToDrop((70 - player.getLocation().getBlockY()) / 2);
 
             if (ChanceUtil.getChance(3000)) {
-                ChatUtil.sendNotice(player, "You feel as though a spirit is trying to tell you something...");
+                ChatUtil.send(player, "You feel as though a spirit is trying to tell you something...");
                 player.getInventory().addItem(BookUtil.Lore.Areas.theGreatMine());
             }
 
@@ -730,7 +730,7 @@ public class CursedMine extends AbstractRegionedArena implements MonitoredArena,
 
         if (!adminComponent.isAdmin(player) && contains(event.getBlock())) {
             event.setCancelled(true);
-            ChatUtil.sendNotice(player, ChatColor.DARK_RED, "You don't have permission for this area.");
+            ChatUtil.send(player, ChatColor.DARK_RED, "You don't have permission for this area.");
         }
     }
 
@@ -769,7 +769,7 @@ public class CursedMine extends AbstractRegionedArena implements MonitoredArena,
         Player player = event.getPlayer();
         if (!adminComponent.isAdmin(player) && contains(event.getBlockClicked())) {
             event.setCancelled(true);
-            ChatUtil.sendNotice(player, ChatColor.DARK_RED, "You don't have permission for this area.");
+            ChatUtil.send(player, ChatColor.DARK_RED, "You don't have permission for this area.");
         }
     }
 
@@ -820,7 +820,7 @@ public class CursedMine extends AbstractRegionedArena implements MonitoredArena,
         if (daveHitList.containsKey(playerName) || contains(player)) {
 
             if (contains(player) && ChanceUtil.getChance(500)) {
-                ChatUtil.sendNotice(player, "You feel as though a spirit is trying to tell you something...");
+                ChatUtil.send(player, "You feel as though a spirit is trying to tell you something...");
                 event.getDrops().add(BookUtil.Lore.Areas.theGreatMine());
             }
 

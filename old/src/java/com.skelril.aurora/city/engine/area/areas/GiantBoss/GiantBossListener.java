@@ -99,7 +99,7 @@ public class GiantBossListener extends AreaListener<GiantBossArea> {
         Player player = event.getPlayer();
         if (event.isFlying() && parent.contains(player) && !parent.admin.isAdmin(player)) {
             event.setCancelled(true);
-            ChatUtil.sendNotice(player, "You cannot fly here!");
+            ChatUtil.send(player, "You cannot fly here!");
         }
     }
 
@@ -246,7 +246,7 @@ public class GiantBossListener extends AreaListener<GiantBossArea> {
                 // Heal boss
                 EntityUtil.heal(parent.boss, event.getDamage());
                 // Evil code of doom
-                ChatUtil.sendNotice((Player) attacker, "Come closer...");
+                ChatUtil.send((Player) attacker, "Come closer...");
                 attacker.teleport(parent.boss.getLocation());
                 ((Player) attacker).damage(parent.difficulty * 32, parent.boss);
                 server.getPluginManager().callEvent(new ThrowPlayerEvent((Player) attacker));
@@ -297,7 +297,7 @@ public class GiantBossListener extends AreaListener<GiantBossArea> {
                         }
                     }
                     if (affected > 0) {
-                        ChatUtil.sendNotice(parent.getContained(1, Player.class), "Feel my power!");
+                        ChatUtil.send(parent.getContained(1, Player.class), "Feel my power!");
                     }
                 }
             }
@@ -343,7 +343,7 @@ public class GiantBossListener extends AreaListener<GiantBossArea> {
                     if (attacker instanceof Zombie) {
                         Zombie zombie = (Zombie) attacker;
                         if (zombie.isBaby() && ChanceUtil.getChance(parent.difficulty * 4)) {
-                            ChatUtil.sendNotice(player, "Your armor weakens the zombies.");
+                            ChatUtil.send(player, "Your armor weakens the zombies.");
                             player.getNearbyEntities(8, 8, 8).stream().filter(e -> e.isValid() && e instanceof Zombie && ((Zombie) e).isBaby()).forEach(e -> ((Zombie) e).damage(18));
                         }
                     }
@@ -353,11 +353,11 @@ public class GiantBossListener extends AreaListener<GiantBossArea> {
                     }
                 }
                 if (ChanceUtil.getChance(parent.difficulty * 9) && defender.getFireTicks() > 0) {
-                    ChatUtil.sendNotice((Player) defender, "Your armor extinguishes the fire.");
+                    ChatUtil.send((Player) defender, "Your armor extinguishes the fire.");
                     defender.setFireTicks(0);
                 }
                 if (parent.damageHeals && ChanceUtil.getChance(parent.difficulty * 3 + 1)) {
-                    ChatUtil.sendNotice(parent.getContained(Player.class), ChatColor.AQUA, player.getDisplayName() + " has broken the giant's spell.");
+                    ChatUtil.send(parent.getContained(Player.class), ChatColor.AQUA, player.getDisplayName() + " has broken the giant's spell.");
                     parent.damageHeals = false;
                 }
             }
@@ -434,7 +434,7 @@ public class GiantBossListener extends AreaListener<GiantBossArea> {
                 }
                 LocalDate date = LocalDate.now().with(Month.APRIL).withDayOfMonth(6);
                 if (date.equals(LocalDate.now())) {
-                    ChatUtil.sendNotice(parent.getContained(1, Player.class), ChatColor.GOLD, "DROPS DOUBLED!");
+                    ChatUtil.send(parent.getContained(1, Player.class), ChatColor.GOLD, "DROPS DOUBLED!");
                     event.getDrops().addAll(event.getDrops().stream().map(ItemStack::clone).collect(Collectors.toList()));
                 }
                 // Reset respawn mechanics

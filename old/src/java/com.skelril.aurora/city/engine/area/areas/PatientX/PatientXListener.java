@@ -126,7 +126,7 @@ public class PatientXListener extends AreaListener<PatientXArea> {
         Player player = event.getPlayer();
         if (event.isFlying() && parent.contains(player) && !parent.admin.isAdmin(player)) {
             event.setCancelled(true);
-            ChatUtil.sendNotice(player, "You cannot fly here!");
+            ChatUtil.send(player, "You cannot fly here!");
         }
     }
 
@@ -252,7 +252,7 @@ public class PatientXListener extends AreaListener<PatientXArea> {
             Player player = (Player) defender;
             if (attacker.equals(parent.boss)) {
                 if (inst.hasPermission(player, "aurora.prayer.intervention") && ChanceUtil.getChance(parent.difficulty)) {
-                    ChatUtil.sendNotice(player, "A divine force protects you.");
+                    ChatUtil.send(player, "A divine force protects you.");
                     return;
                 }
                 for (DamageModifier modifier : DamageModifier.values()) {
@@ -358,7 +358,7 @@ public class PatientXListener extends AreaListener<PatientXArea> {
 
                 LocalDate date = LocalDate.now().with(Month.APRIL).withDayOfMonth(6);
                 if (date.equals(LocalDate.now())) {
-                    ChatUtil.sendNotice(parent.getContained(Player.class), ChatColor.GOLD, "DROPS DOUBLED!");
+                    ChatUtil.send(parent.getContained(Player.class), ChatColor.GOLD, "DROPS DOUBLED!");
                     event.getDrops().addAll(event.getDrops().stream().map(ItemStack::clone).collect(Collectors.toList()));
                 }
 

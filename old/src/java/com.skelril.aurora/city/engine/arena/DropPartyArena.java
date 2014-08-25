@@ -176,7 +176,7 @@ public class DropPartyArena extends AbstractRegionedArena implements CommandTrig
 
         if (task != null) {
             lastDropPulse = System.currentTimeMillis();
-            ChatUtil.sendNotice(getContained(1, Player.class), "Drop Party temporarily suspended for: Drop Clear.");
+            ChatUtil.send(getContained(1, Player.class), "Drop Party temporarily suspended for: Drop Clear.");
             for (Entity entity : getContained(1, Item.class, ExperienceOrb.class)) {
                 if (entity instanceof Item) {
                     drops.add(((Item) entity).getItemStack());
