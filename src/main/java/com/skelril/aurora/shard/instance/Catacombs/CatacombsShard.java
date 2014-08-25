@@ -20,6 +20,7 @@ import com.skelril.OpenBoss.instruction.processor.UnbindProcessor;
 import com.skelril.aurora.admin.AdminComponent;
 import com.skelril.aurora.combat.bosses.instruction.DynamicHPInstruction;
 import com.skelril.aurora.combat.bosses.instruction.HealthPrint;
+import com.skelril.aurora.combat.bosses.instruction.PersistenceInstruction;
 import com.skelril.aurora.shard.FlagProfile;
 import com.skelril.aurora.shard.Shard;
 import com.skelril.aurora.shard.ShardEditor;
@@ -84,6 +85,7 @@ public class CatacombsShard extends Shard<CatacombsInstance> {
                 return getFrom(detail).getWave() * 250;
             }
         });
+        bindProcessor.addInstruction(new PersistenceInstruction());
 
         UnbindProcessor unbindProcessor = bossManager.getUnbindProcessor();
         unbindProcessor.addInstruction(new CheckedSpawnWave());
@@ -99,6 +101,9 @@ public class CatacombsShard extends Shard<CatacombsInstance> {
     private void setUpWave() {
 
         registerEvents(new DistributedBossListener(waveMobManager));
+
+        BindProcessor bindProcessor = waveMobManager.getBindProcessor();
+        bindProcessor.addInstruction(new PersistenceInstruction());
 
         UnbindProcessor unbindProcessor = waveMobManager.getUnbindProcessor();
         unbindProcessor.addInstruction(new CheckedSpawnWave());
