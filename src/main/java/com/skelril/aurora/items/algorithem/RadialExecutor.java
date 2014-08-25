@@ -13,6 +13,7 @@ import com.skelril.aurora.items.custom.CustomItem;
 import com.skelril.aurora.items.custom.CustomItemCenter;
 import com.skelril.aurora.items.custom.CustomItems;
 import com.skelril.aurora.items.custom.Tag;
+import com.skelril.aurora.util.ChanceUtil;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.item.ItemUtil;
 import org.bukkit.ChatColor;
@@ -158,7 +159,8 @@ public abstract class RadialExecutor {
         max = region.getMaximumPoint();
 
         callEvent(new RapidBlockBreakEvent(player));
-        short breaks = 0;
+        short degradation = 0;
+        int unbreakingLevel = item.getEnchantmentLevel(Enchantment.DURABILITY);
         short curDur = item.getDurability();
         short maxDur = item.getType().getMaxDurability();
         blockBreaker:
@@ -169,22 +171,24 @@ public abstract class RadialExecutor {
                         Block block = world.getBlockAt(x, y, z);
                         if (block.getTypeId() != initialType || block.getData() != initialData) continue;
 
-                        if (curDur + breaks > maxDur) {
+                        if (curDur + degradation > maxDur) {
                             break blockBreaker;
                         }
 
                         if (breakBlock(block, player, item)) {
-                            ++breaks;
+                            if (ChanceUtil.getChance(unbreakingLevel + 1)) {
+                                ++degradation;
+                            }
                         }
                     }
                 }
             }
         }
 
-        if (curDur + breaks >= maxDur) {
+        if (curDur + degradation >= maxDur) {
             player.setItemInHand(null);
         } else {
-            item.setDurability((short) (curDur + breaks));
+            item.setDurability((short) (curDur + degradation));
         }
     }
 

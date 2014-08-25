@@ -11,6 +11,7 @@ import com.skelril.aurora.items.custom.CustomItem;
 import com.skelril.aurora.items.custom.CustomItemCenter;
 import com.skelril.aurora.items.custom.CustomItems;
 import com.skelril.aurora.items.custom.Tag;
+import com.skelril.aurora.util.ChanceUtil;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.item.ItemUtil;
 import org.bukkit.ChatColor;
@@ -101,30 +102,33 @@ public abstract class LinearExecutor {
 
         event.setCancelled(true);
         callEvent(new RapidBlockBreakEvent(player));
-        final int dist = getDist(item);
-        short breaks = 0;
+        short degradation = 0;
+        int unbreakingLevel = item.getEnchantmentLevel(Enchantment.DURABILITY);
         short curDur = item.getDurability();
         short maxDur = item.getType().getMaxDurability();
-        for (int i = 0; i < dist; ++i) {
+        for (int dist = getDist(item); dist > 0;) {
             if (curTarget.getTypeId() != initialType || curTarget.getData() != initialData) {
                 break;
             }
 
-            if (curDur + breaks > maxDur) {
+            if (curDur + degradation > maxDur) {
                 break;
             }
             if (breakBlock(curTarget, player, item)) {
-                ++breaks;
+                if (ChanceUtil.getChance(unbreakingLevel + 1)) {
+                    ++degradation;
+                }
+                --dist;
             } else {
                 break;
             }
             curTarget = curTarget.getRelative(event.getBlockFace().getOppositeFace());
         }
 
-        if (curDur + breaks >= maxDur) {
+        if (curDur + degradation >= maxDur) {
             player.setItemInHand(null);
         } else {
-            item.setDurability((short) (curDur + breaks));
+            item.setDurability((short) (curDur + degradation));
         }
     }
 
