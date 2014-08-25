@@ -44,6 +44,7 @@ import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
 
 public class CatacombsInstance extends BukkitShardInstance<CatacombsShard> implements Runnable {
 
+    private int ticks = 0;
     private int wave = 0;
 
     private Location entryPoint;
@@ -101,6 +102,15 @@ public class CatacombsInstance extends BukkitShardInstance<CatacombsShard> imple
     public void run() {
         if (isEmpty()) {
             expire();
+            return;
+        }
+
+        // This shouldn't be necessary, however, there seems to be an
+        // edge case where it is, so it's preferable to cover it rather
+        // than ignore the issue
+        ++ticks;
+        if (ticks % 60 == 0) {
+            checkedSpawnWave();
         }
     }
 
