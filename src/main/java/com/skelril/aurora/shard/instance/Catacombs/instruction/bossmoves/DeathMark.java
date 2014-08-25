@@ -68,7 +68,7 @@ public class DeathMark implements DamagedInstruction {
                 if (detail.getMarked() != null) {
                     if (result.getAttacker().equals(detail.getMarked())) {
                         detail.setMarked(null);
-                        ChatUtil.send(players, result.getAttacker() + " has been freed!");
+                        ChatUtil.send(players, result.getAttacker().getName() + " has been freed!");
                     } else {
                         detail.getMarked().setHealth(0);
                     }
