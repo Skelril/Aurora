@@ -31,6 +31,9 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
+import static com.sk89q.commandbook.CommandBook.inst;
+import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
+
 public class WeaponSysImpl extends AbstractItemFeatureImpl {
 
     private static Queue<EntityDamageByEntityEvent> attackQueue = new LinkedList<>();
@@ -110,13 +113,17 @@ public class WeaponSysImpl extends AbstractItemFeatureImpl {
             }
 
             if (spec != null && session.canSpec(specType)) {
+                final SpecialAttack finalSpec = spec;
+                server().getScheduler().runTaskLater(inst(), () -> {
+                    if (!target.isDead()) {
+                        SpecialAttackEvent specEvent = callSpec(owner, weapon, specType, finalSpec);
 
-                SpecialAttackEvent specEvent = callSpec(owner, weapon, specType, spec);
-
-                if (!specEvent.isCancelled()) {
-                    session.updateSpec(specType, specEvent.getSpec().getCoolDown());
-                    specEvent.getSpec().activate();
-                }
+                        if (!specEvent.isCancelled()) {
+                            session.updateSpec(specType, specEvent.getSpec().getCoolDown());
+                            specEvent.getSpec().activate();
+                        }
+                    }
+                }, 1);
             }
         }
     }
