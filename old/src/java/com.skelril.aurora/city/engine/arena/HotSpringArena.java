@@ -155,7 +155,7 @@ public class HotSpringArena extends AbstractRegionedArena implements GenericAren
                     for (int i = 0; i < duration.length; i++) {
                         duration[i] *= 2;
                     }
-                    ChatUtil.sendNotice(player, "The gods double the effectiveness of the spring.");
+                    ChatUtil.send(player, "The gods double the effectiveness of the spring.");
                 }
 
                 player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20 * duration[0], 2));

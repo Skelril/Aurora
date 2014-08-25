@@ -16,15 +16,11 @@ import com.skelril.OpenBoss.instruction.processor.DamageProcessor;
 import com.skelril.OpenBoss.instruction.processor.DamagedProcessor;
 import com.skelril.OpenBoss.instruction.processor.UnbindProcessor;
 import com.skelril.aurora.combat.bosses.detail.WBossDetail;
-import com.skelril.aurora.combat.bosses.instruction.DynamicHPInstruction;
-import com.skelril.aurora.combat.bosses.instruction.HealthPrint;
-import com.skelril.aurora.combat.bosses.instruction.WDamageModifier;
-import com.skelril.aurora.combat.bosses.instruction.WDropInstruction;
+import com.skelril.aurora.combat.bosses.instruction.*;
 import com.skelril.aurora.items.custom.CustomItemCenter;
 import com.skelril.aurora.items.implementations.FearSwordImpl;
 import com.skelril.aurora.util.ChanceUtil;
 import org.bukkit.Server;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.EntityEquipment;
@@ -115,14 +111,7 @@ public class FearKnight {
 
         DamageProcessor damageProcessor = fearKnight.getDamageProcessor();
         damageProcessor.addInstruction(new WDamageModifier());
-        FearSwordImpl sword = new FearSwordImpl();
-        damageProcessor.addInstruction(condition -> {
-            LivingEntity boss = condition.getBoss().getEntity();
-            Entity eToHit = condition.getAttacked();
-            if (!(eToHit instanceof LivingEntity)) return null;
-            sword.getSpecial(boss, (LivingEntity) eToHit).activate();
-            return null;
-        });
+        damageProcessor.addInstruction(new SpecialWeaponAttack(new FearSwordImpl()));
 
         DamagedProcessor damagedProcessor = fearKnight.getDamagedProcessor();
         damagedProcessor.addInstruction(new HealthPrint());

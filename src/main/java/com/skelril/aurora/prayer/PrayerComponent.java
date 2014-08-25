@@ -199,9 +199,9 @@ public class PrayerComponent extends BukkitComponent implements Listener, Runnab
             }
 
             if (count > 1) {
-                ChatUtil.sendNotice(player, ChatColor.GOLD, "The Curses have been lifted!");
+                ChatUtil.send(player, ChatColor.GOLD, "The Curses have been lifted!");
             } else if (count > 0) {
-                ChatUtil.sendNotice(player, ChatColor.GOLD, "The Curse has been lifted!");
+                ChatUtil.send(player, ChatColor.GOLD, "The Curse has been lifted!");
             }
             uninfluencePlayer(player);
         }
@@ -264,7 +264,7 @@ public class PrayerComponent extends BukkitComponent implements Listener, Runnab
                         quantity++;
                     }
                     sb.append(ChatColor.YELLOW).append(".");
-                    ChatUtil.sendNotice(sender, sb.toString());
+                    ChatUtil.send(sender, sb.toString());
                     return;
                 } else {
                     throw new CommandUsageException("Too few arguments.", "/pray [csl] <player> <prayer>");
@@ -287,11 +287,11 @@ public class PrayerComponent extends BukkitComponent implements Listener, Runnab
 
                 if (prayerType.isUnholy()) {
                     inst.checkPermission(sender, "aurora.pray.unholy." + prayerString);
-                    ChatUtil.sendNotice(sender, ChatColor.DARK_RED + "The player: " + player.getDisplayName()
+                    ChatUtil.send(sender, ChatColor.DARK_RED + "The player: " + player.getDisplayName()
                             + " has been smited!");
                 } else {
                     inst.checkPermission(sender, "aurora.pray.holy." + prayerString);
-                    ChatUtil.sendNotice(sender, ChatColor.GOLD + "The player: " + player.getDisplayName()
+                    ChatUtil.send(sender, ChatColor.GOLD + "The player: " + player.getDisplayName()
                             + " has been blessed!");
                 }
 

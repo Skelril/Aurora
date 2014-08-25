@@ -58,7 +58,7 @@ public class CatacombsListener extends ShardListener<Catacombs> {
         CatacombsInstance inst = shard.getInstance(player.getLocation());
         if (inst != null && event.isFlying() && !inst.getMaster().getAdmin().isAdmin(player)) {
             event.setCancelled(true);
-            ChatUtil.sendNotice(player, "You cannot fly here!");
+            ChatUtil.send(player, "You cannot fly here!");
         }
     }
 

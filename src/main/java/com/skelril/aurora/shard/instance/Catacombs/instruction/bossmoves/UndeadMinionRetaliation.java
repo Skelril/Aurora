@@ -39,12 +39,18 @@ public class UndeadMinionRetaliation implements DamagedInstruction {
         return ChanceUtil.getChance(baseActivation - CatacombEntityDetail.getFrom(detail).getWave());
     }
 
+    public int quantity(EntityDetail detail) {
+        return activate(detail) ? ChanceUtil.getRangedRandom(3, 17) : 1;
+    }
+
     @Override
     public InstructionResult<DamagedInstruction> process(DamagedCondition condition) {
         Boss boss = condition.getBoss();
         CatacombsInstance instance = getInst(boss.getDetail());
         if (activate(boss.getDetail())) {
-            instance.spawnWaveMob(boss.getEntity().getLocation());
+            for (int i = quantity(boss.getDetail()); i > 0; --i){
+                instance.spawnWaveMob(boss.getEntity().getLocation());
+            }
         }
         return next;
     }

@@ -282,7 +282,7 @@ public class FunComponentOfDoom extends BukkitComponent implements Listener {
                 }
             }
             players.add(name);
-            ChatUtil.sendNotice(sender, "Firework(s) launching!");
+            ChatUtil.send(sender, "Firework(s) launching!");
         }
     }
 }

@@ -598,20 +598,20 @@ public class NinjaComponent extends BukkitComponent implements Listener, Runnabl
 
             if (invisibleNewCount.size() > 0) {
                 if (invisibleNewCount.size() > 3) {
-                    ChatUtil.sendNotice(player, "You are now invisible to multiple players.");
+                    ChatUtil.send(player, "You are now invisible to multiple players.");
                 } else {
                     for (Player aPlayer : invisibleNewCount) {
-                        ChatUtil.sendNotice(player, "You are now invisible to " + aPlayer.getDisplayName() + ".");
+                        ChatUtil.send(player, "You are now invisible to " + aPlayer.getDisplayName() + ".");
                     }
                 }
             }
 
             if (visibleNewCount.size() > 0) {
                 if (visibleNewCount.size() > 3) {
-                    ChatUtil.sendNotice(player, "You are now visible to multiple players.");
+                    ChatUtil.send(player, "You are now visible to multiple players.");
                 } else {
                     for (Player aPlayer : visibleNewCount) {
-                        ChatUtil.sendNotice(player, "You are now visible to " + aPlayer.getDisplayName() + ".");
+                        ChatUtil.send(player, "You are now visible to " + aPlayer.getDisplayName() + ".");
                     }
                 }
             }
@@ -641,9 +641,9 @@ public class NinjaComponent extends BukkitComponent implements Listener, Runnabl
             useTormentArrows(player, !args.hasFlag('t'));
 
             if (!isNinja) {
-                ChatUtil.sendNotice(player, "You are inspired and become a ninja!");
+                ChatUtil.send(player, "You are inspired and become a ninja!");
             } else {
-                ChatUtil.sendNotice(player, "Ninja flags updated!");
+                ChatUtil.send(player, "Ninja flags updated!");
             }
         }
 
@@ -658,7 +658,7 @@ public class NinjaComponent extends BukkitComponent implements Listener, Runnabl
 
             unninjaPlayer(player);
 
-            ChatUtil.sendNotice(player, "You return to your previous boring existence.");
+            ChatUtil.send(player, "You return to your previous boring existence.");
         }
     }
 

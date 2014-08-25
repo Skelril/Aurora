@@ -37,11 +37,11 @@ public class MagicBucketImpl extends AbstractItemFeatureImpl {
         if (player.getAllowFlight()) {
             player.setFlySpeed(.4F);
             exempt(player, PLAYER_FLY);
-            ChatUtil.sendNotice(player, "The bucket glows brightly.");
+            ChatUtil.send(player, "The bucket glows brightly.");
         } else {
             player.setFlySpeed(.1F);
             unexempt(player, PLAYER_FLY);
-            ChatUtil.sendNotice(player, "The power of the bucket fades.");
+            ChatUtil.send(player, "The power of the bucket fades.");
         }
         return true;
     }
@@ -73,7 +73,7 @@ public class MagicBucketImpl extends AbstractItemFeatureImpl {
                 }
                 if (!ItemUtil.hasItem(player, CustomItems.MAGIC_BUCKET)) {
                     if (player.getAllowFlight()) {
-                        ChatUtil.sendNotice(player, "The power of the bucket fades.");
+                        ChatUtil.send(player, "The power of the bucket fades.");
                     }
                     player.setAllowFlight(false);
                 }
@@ -112,7 +112,7 @@ public class MagicBucketImpl extends AbstractItemFeatureImpl {
             server().getScheduler().runTaskLater(inst(), () -> {
                 if (!ItemUtil.hasItem(player, CustomItems.MAGIC_BUCKET)) {
                     if (player.getAllowFlight()) {
-                        ChatUtil.sendNotice(player, "The power of the bucket fades.");
+                        ChatUtil.send(player, "The power of the bucket fades.");
                     }
                     player.setAllowFlight(false);
                     unexempt(player, PLAYER_FLY);
@@ -133,7 +133,7 @@ public class MagicBucketImpl extends AbstractItemFeatureImpl {
 
         if (!ItemUtil.hasItem(player, CustomItems.MAGIC_BUCKET)) {
             if (player.getAllowFlight()) {
-                ChatUtil.sendNotice(player, "The power of the bucket fades.");
+                ChatUtil.send(player, "The power of the bucket fades.");
             }
             player.setAllowFlight(false);
             unexempt(player, PLAYER_FLY);
@@ -148,7 +148,7 @@ public class MagicBucketImpl extends AbstractItemFeatureImpl {
 
         if (ItemUtil.findItemOfName(drops, CustomItems.MAGIC_BUCKET.toString())) {
             if (player.getAllowFlight()) {
-                ChatUtil.sendNotice(player, "The power of the bucket fades.");
+                ChatUtil.send(player, "The power of the bucket fades.");
             }
             player.setAllowFlight(false);
             unexempt(player, PLAYER_FLY);

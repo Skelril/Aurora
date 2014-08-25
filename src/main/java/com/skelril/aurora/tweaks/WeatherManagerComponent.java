@@ -66,12 +66,12 @@ public class WeatherManagerComponent extends BukkitComponent implements Listener
             if (args.hasFlag('r')) {
                 enabledFor.remove(player);
                 player.resetPlayerWeather();
-                ChatUtil.sendNotice(player, "Storms are no longer hidden.");
+                ChatUtil.send(player, "Storms are no longer hidden.");
             } else {
                 enabledFor.add(player);
                 player.setPlayerWeather(WeatherType.CLEAR);
-                ChatUtil.sendNotice(player, "Storms are now hidden.");
-                ChatUtil.sendNotice(player, "To show storms again please use /stopweather -r.");
+                ChatUtil.send(player, "Storms are now hidden.");
+                ChatUtil.send(player, "To show storms again please use /stopweather -r.");
             }
         }
     }
@@ -96,7 +96,7 @@ public class WeatherManagerComponent extends BukkitComponent implements Listener
                     ChatUtil.sendWarning(player, ChatColor.DARK_RED + "===============[WARNING]===============");
                 }
             }
-            ChatUtil.sendNotice(player, "A thunder storm is " + state + " on your world.");
+            ChatUtil.send(player, "A thunder storm is " + state + " on your world.");
         });
 
         if (event.toThunderState() && world.getWeatherDuration() < world.getThunderDuration()) {

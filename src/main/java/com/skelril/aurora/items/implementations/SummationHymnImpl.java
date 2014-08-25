@@ -33,7 +33,7 @@ public class SummationHymnImpl extends AbstractCondenserImpl {
                     player.getInventory().setContents(result);
                     //noinspection deprecation
                     player.updateInventory();
-                    ChatUtil.sendNotice(player, ChatColor.GOLD, "The hymn glows brightly...");
+                    ChatUtil.send(player, ChatColor.GOLD, "The hymn glows brightly...");
                 }
                 break;
         }

@@ -269,11 +269,11 @@ public class EggComponent extends BukkitComponent implements Listener, Runnable 
             switch (args.getString(0).toLowerCase()) {
                 case "on":
                     eggOn(player, EggType.INVALID);
-                    ChatUtil.sendNotice(sender, "You are filled with holiday spirit.");
+                    ChatUtil.send(sender, "You are filled with holiday spirit.");
                     break;
                 case "off":
                     eggOff(player, EggType.INVALID);
-                    ChatUtil.sendNotice(sender, "I guess the holidays aren't for everyone...");
+                    ChatUtil.send(sender, "I guess the holidays aren't for everyone...");
                     break;
                 default:
                     throw new CommandUsageException("Invalid egg dropping state.", "[on/off]");
@@ -469,7 +469,7 @@ public class EggComponent extends BukkitComponent implements Listener, Runnable 
             sb.append("eggs are now ");
             if (eggDrop) sb.append("enabled.");
             else sb.append("disabled.");
-            if (getPlayer().isOnline()) ChatUtil.sendNotice(getPlayer(), sb.toString());
+            if (getPlayer().isOnline()) ChatUtil.send(getPlayer(), sb.toString());
         }
 
         public Player getPlayer() {

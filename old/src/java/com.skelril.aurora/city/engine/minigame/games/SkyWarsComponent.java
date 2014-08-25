@@ -101,7 +101,7 @@ public class SkyWarsComponent extends MinigameComponent {
     public void initialize(Set<Character> flags) {
         super.initialize(flags);
 
-        ChatUtil.sendNotice(getContainedPlayers(), "Get ready...");
+        ChatUtil.send(getContainedPlayers(), "Get ready...");
     }
 
     @Override
@@ -117,7 +117,7 @@ public class SkyWarsComponent extends MinigameComponent {
 
         editStartingPad(0, 0);
 
-        ChatUtil.sendNotice(players, "Fight!");
+        ChatUtil.send(players, "Fight!");
     }
 
     private void launchPlayer(Player player, double mod) {
@@ -287,7 +287,7 @@ public class SkyWarsComponent extends MinigameComponent {
         player.updateInventory();
 
         // Display name doesn't need checked as all power ups have one assigned
-        ChatUtil.sendNotice(player, "You obtain a power-up: "
+        ChatUtil.send(player, "You obtain a power-up: "
                 + powerup.getItemMeta().getDisplayName() + ChatColor.YELLOW + "!");
     }
 
@@ -367,11 +367,11 @@ public class SkyWarsComponent extends MinigameComponent {
 
         Collection<Player> players = getContainedPlayers();
 
-        ChatUtil.sendNotice(players, ChatColor.GREEN + "The following flags are enabled: ");
+        ChatUtil.send(players, ChatColor.GREEN + "The following flags are enabled: ");
 
-        if (gameFlags.contains('q')) ChatUtil.sendNotice(players, ChatColor.GOLD, "Quick start");
-        if (gameFlags.contains('r')) ChatUtil.sendNotice(players, ChatColor.GOLD, "Regen enabled");
-        if (gameFlags.contains('c')) ChatUtil.sendNotice(players, ChatColor.GOLD, "Chicken++");
+        if (gameFlags.contains('q')) ChatUtil.send(players, ChatColor.GOLD, "Quick start");
+        if (gameFlags.contains('r')) ChatUtil.send(players, ChatColor.GOLD, "Regen enabled");
+        if (gameFlags.contains('c')) ChatUtil.send(players, ChatColor.GOLD, "Chicken++");
     }
 
     @Override
@@ -724,7 +724,7 @@ public class SkyWarsComponent extends MinigameComponent {
 
                                                 // Handle Sender
                                                 session.stopPushBack(250);
-                                                ChatUtil.sendNotice(player, "You push back: " + aPlayer.getName() + "!");
+                                                ChatUtil.send(player, "You push back: " + aPlayer.getName() + "!");
 
                                                 // Handle Target
                                                 server.getPluginManager().callEvent(new ThrowPlayerEvent(aPlayer));
@@ -749,7 +749,7 @@ public class SkyWarsComponent extends MinigameComponent {
 
                     if (!session.canUseOmen()) return;
 
-                    ChatUtil.sendNotice(player, "You used the Book o' Omens!");
+                    ChatUtil.send(player, "You used the Book o' Omens!");
 
                     session.stopOmen();
 
@@ -780,7 +780,7 @@ public class SkyWarsComponent extends MinigameComponent {
 
                     if (!session.canDefrost()) return;
 
-                    ChatUtil.sendNotice(player, "You used the Defroster!");
+                    ChatUtil.send(player, "You used the Defroster!");
 
                     session.stopDefrost();
                     session.stopFlight(0);
@@ -866,7 +866,7 @@ public class SkyWarsComponent extends MinigameComponent {
                     session.stopFlight(3000 + (1000 * ChanceUtil.getRandom(5)));
                     session.stopDefrost(15000);
                 }
-                ChatUtil.sendNotice(attackingPlayer, "You've hit " + defendingPlayer.getName() + "!");
+                ChatUtil.send(attackingPlayer, "You've hit " + defendingPlayer.getName() + "!");
             }
         }
 

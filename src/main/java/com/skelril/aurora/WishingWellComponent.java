@@ -391,7 +391,7 @@ public class WishingWellComponent extends BukkitComponent implements Listener {
             final int ending = session.remaining();
 
             if (starting != ending) {
-                ChatUtil.sendNotice(player, "Items deposited, " + ending + " items remaining!");
+                ChatUtil.send(player, "Items deposited, " + ending + " items remaining!");
             }
         }
     }
@@ -461,8 +461,8 @@ public class WishingWellComponent extends BukkitComponent implements Listener {
         }
 
         if (session.hasItems()) {
-            ChatUtil.sendNotice(player, "The well gives you the divine touch!");
-            ChatUtil.sendNotice(player, " - Punch a chest to fill it with items");
+            ChatUtil.send(player, "The well gives you the divine touch!");
+            ChatUtil.send(player, " - Punch a chest to fill it with items");
         }
 
         if (ChanceUtil.getChance(5) && value >= 500) {
@@ -496,7 +496,7 @@ public class WishingWellComponent extends BukkitComponent implements Listener {
             try {
                 Prayer givenPrayer = PrayerComponent.constructPrayer(player, prayerType, TimeUnit.MINUTES.toMillis(60));
                 if (prayer.influencePlayer(player, givenPrayer)) {
-                    ChatUtil.sendNotice(player, "You feel as though you have been blessed with "
+                    ChatUtil.send(player, "You feel as though you have been blessed with "
                             + prayerType.toString().toLowerCase() + ".");
                 }
             } catch (UnsupportedPrayerException e) {
@@ -529,7 +529,7 @@ public class WishingWellComponent extends BukkitComponent implements Listener {
 
             // Mask the value so it doesn't just show the market price and print it
             int shownValue = (int) Math.round(value * 60.243);
-            ChatUtil.sendNotice(player, "That item has a luck value of: " + shownValue + '.');
+            ChatUtil.send(player, "That item has a luck value of: " + shownValue + '.');
         }
     }
 

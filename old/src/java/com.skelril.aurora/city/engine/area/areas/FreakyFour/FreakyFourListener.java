@@ -146,7 +146,7 @@ public class FreakyFourListener extends AreaListener<FreakyFourArea> {
         Player player = event.getPlayer();
         if (event.isFlying() && parent.contains(player) && !parent.admin.isAdmin(player)) {
             event.setCancelled(true);
-            ChatUtil.sendNotice(player, "You cannot fly here!");
+            ChatUtil.send(player, "You cannot fly here!");
         }
     }
 
@@ -290,7 +290,7 @@ public class FreakyFourListener extends AreaListener<FreakyFourArea> {
                     double loot = parent.economy.getBalance(killer) * parent.getConfig().bankPercent;
                     loot = Math.max(loot, parent.getConfig().minLoot);
                     parent.economy.depositPlayer(killer, loot);
-                    ChatUtil.sendNotice(killer, "The boss drops " + ChatColor.WHITE + parent.economy.format(loot));
+                    ChatUtil.send(killer, "The boss drops " + ChatColor.WHITE + parent.economy.format(loot));
                 }
             }
             event.getDrops().clear();

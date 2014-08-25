@@ -100,7 +100,7 @@ public class WorldBorderComponent extends BukkitComponent implements Runnable {
                     player.teleport(v);
                     v.setPassenger(player);
                 }
-                ChatUtil.sendNotice(player, "You have reached the end of the accessible area of this world.");
+                ChatUtil.send(player, "You have reached the end of the accessible area of this world.");
             }
         }
     }

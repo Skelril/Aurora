@@ -141,7 +141,7 @@ public class LotteryComponent extends BukkitComponent implements Listener {
         @CommandPermissions({"aurora.lottery.draw"})
         public void lotteryDrawCmd(CommandContext args, CommandSender sender) throws CommandException {
 
-            ChatUtil.sendNotice(sender, "Lottery draw in progress.");
+            ChatUtil.send(sender, "Lottery draw in progress.");
             completeLottery();
         }
 
@@ -167,12 +167,12 @@ public class LotteryComponent extends BukkitComponent implements Listener {
         @CommandPermissions({"aurora.lottery.last"})
         public void lotteryLastCmd(CommandContext args, CommandSender sender) throws CommandException {
 
-            ChatUtil.sendNotice(sender, ChatColor.GRAY, "Lottery - Recent winners:");
+            ChatUtil.send(sender, ChatColor.GRAY, "Lottery - Recent winners:");
             List<LotteryWinner> winners = lotteryWinnerDatabase.getRecentWinner(config.recentLength);
             short number = 0;
             for (LotteryWinner winner : winners) {
                 number++;
-                ChatUtil.sendNotice(sender, "  " + ChatColor.GOLD + number + ". " + ChatColor.YELLOW
+                ChatUtil.send(sender, "  " + ChatColor.GOLD + number + ". " + ChatColor.YELLOW
                         + winner.getName() + ChatColor.GOLD + " - " + ChatColor.WHITE + economy.format(winner.getAmt()));
             }
         }
@@ -294,11 +294,11 @@ public class LotteryComponent extends BukkitComponent implements Listener {
         }
 
         if (sold * config.ticketPrice != 1) {
-            ChatUtil.sendNotice(player, "You purchased: "
+            ChatUtil.send(player, "You purchased: "
                     + ChatUtil.makeCountString(sold, " tickets for: ")
                     + ChatUtil.makeCountString(economy.format(sold * config.ticketPrice), "."));
         } else {
-            ChatUtil.sendNotice(player, "You purchased: "
+            ChatUtil.send(player, "You purchased: "
                     + ChatUtil.makeCountString(sold, " tickets for: ")
                     + ChatUtil.makeCountString(economy.format(sold * config.ticketPrice), "."));
         }
@@ -334,7 +334,7 @@ public class LotteryComponent extends BukkitComponent implements Listener {
     public void broadcastLottery(Iterable<? extends CommandSender> senders) {
 
         for (CommandSender receiver : senders) {
-            ChatUtil.sendNotice(receiver, "The lottery currently has: "
+            ChatUtil.send(receiver, "The lottery currently has: "
                     + ChatUtil.makeCountString(lotteryTicketDatabase.getTicketCount(), " tickets and is worth: ")
                     + ChatUtil.makeCountString(economy.format(getWinnerCash()),
                     "."));

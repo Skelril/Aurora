@@ -112,7 +112,7 @@ public class ProfanityComponent extends BukkitComponent implements Listener {
                 for (final Player otherPlayer : server.getOnlinePlayers()) {
                     // Don't tell the player we are sending this message
                     if (otherPlayer != player) {
-                        ChatUtil.sendNotice(otherPlayer, "The player: "
+                        ChatUtil.send(otherPlayer, "The player: "
                                 + player.getDisplayName() + " attempted "
                                 + "to place a sign containing one or more blacklisted word(s).");
                     }

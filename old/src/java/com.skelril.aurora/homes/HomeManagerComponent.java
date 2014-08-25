@@ -132,7 +132,7 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
             for (ProtectedRegion region : manager.getApplicableRegions(player.getLocation())) {
                 if (region.getId().endsWith("-s") && region.getFlag(DefaultFlag.PRICE) != null) {
                     event.setMessage(event.getMessage().replace("%cur-house%", region.getId()));
-                    ChatUtil.sendNotice(player, "Injected region: " + region.getId() + " as current house.");
+                    ChatUtil.send(player, "Injected region: " + region.getId() + " as current house.");
                     return;
                 }
             }
@@ -212,7 +212,7 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
 
             */
 
-            ChatUtil.sendNotice(sender, ChatColor.RESET, builtInfo.toString());
+            ChatUtil.send(sender, ChatColor.RESET, builtInfo.toString());
         }
 
         @Command(aliases = {"pcchunks"}, usage = "<# of chunks>", desc = "Get the cost of buying x number of chunks",
@@ -232,7 +232,7 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
 
             String priceString = ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(price), "");
 
-            ChatUtil.sendNotice(sender, acquisitionSize + " additional chunks will cost: " + priceString);
+            ChatUtil.send(sender, acquisitionSize + " additional chunks will cost: " + priceString);
         }
 
         @Command(aliases = {"addplayer"}, usage = "<player>", desc = "Add a player to your home",
@@ -253,7 +253,7 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
             } catch (ProtectionDatabaseException e) {
                 ChatUtil.sendError(sender, "Failed to add player to your home.");
             }
-            ChatUtil.sendNotice(player, "Home successfully updated!");
+            ChatUtil.send(player, "Home successfully updated!");
         }
 
         @Command(aliases = {"removeplayer"}, usage = "<player>", desc = "Remove a player from your home",
@@ -274,7 +274,7 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
             } catch (ProtectionDatabaseException e) {
                 ChatUtil.sendError(sender, "Failed to remove players from your home.");
             }
-            ChatUtil.sendNotice(player, "Home successfully updated!");
+            ChatUtil.send(player, "Home successfully updated!");
         }
 
         @Command(aliases = {"flag"}, usage = "<flag>", desc = "Flag a home",
@@ -351,7 +351,7 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
             price += RegionUtil.calcChunkPrice(newChunks) - RegionUtil.calcChunkPrice(chunks);
 
             String priceString = ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(price), "");
-            ChatUtil.sendNotice(player, "This property will cost you: " + priceString + ".");
+            ChatUtil.send(player, "This property will cost you: " + priceString + ".");
 
             // If they have used the flag y proceed to buy the house
             // otherwise inform them about how to buy the house
@@ -372,7 +372,7 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
                         outliner.revert(player.getWorld(), region);
 
                         econ.withdrawPlayer(player, price);
-                        ChatUtil.sendNotice(player, "Home successfully purchased!");
+                        ChatUtil.send(player, "Home successfully purchased!");
                     } else {
                         throw new CommandException();
                     }
@@ -380,7 +380,7 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
                     throw new CommandException("Failed to purchase this home.");
                 }
             } else {
-                ChatUtil.sendNotice(player, "If you would like to buy this home please use /home buy -y");
+                ChatUtil.send(player, "If you would like to buy this home please use /home buy -y");
             }
         }
 
@@ -408,7 +408,7 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
             double price = blockPrice + (RegionUtil.calcChunkPrice(chunks) - RegionUtil.calcChunkPrice(newChunks)) * .9;
 
             String priceString = ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(price), "");
-            ChatUtil.sendNotice(player, "Your will get: " + priceString + ".");
+            ChatUtil.send(player, "Your will get: " + priceString + ".");
 
             // If they have used the flag y proceed to sell the house
             // otherwise inform them about how to sell their house
@@ -426,7 +426,7 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
                         outliner.outline(player.getWorld(), region);
 
                         econ.depositPlayer(player, price);
-                        ChatUtil.sendNotice(player, "Home successfully sold!");
+                        ChatUtil.send(player, "Home successfully sold!");
                     } else {
                         throw new CommandException();
                     }
@@ -434,7 +434,7 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
                     throw new CommandException("Failed to sell your home.");
                 }
             } else {
-                ChatUtil.sendNotice(player, "If you would like to sell your home please use /home sell -y");
+                ChatUtil.send(player, "If you would like to sell your home please use /home sell -y");
             }
         }
 
@@ -512,10 +512,10 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
                 throw new CommandException("Failed to create the region: " + regionString + ".");
             }
 
-            ChatUtil.sendNotice(admin, "The home: " + regionString + " has been created successfully in "
+            ChatUtil.send(admin, "The home: " + regionString + " has been created successfully in "
                     + district + ".");
             if (player != null) {
-                ChatUtil.sendNotice(player, "A home has been created for you by: " + admin.getDisplayName() + ".");
+                ChatUtil.send(player, "A home has been created for you by: " + admin.getDisplayName() + ".");
                 log.info(admin.getName() + " created a home for: " + player
                         + " in the district: " + district + ".");
             }
@@ -549,7 +549,7 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
                 throw new CommandException("Failed to save the database.");
             }
 
-            ChatUtil.sendNotice(admin, "Region(s) recalculated successfully.");
+            ChatUtil.send(admin, "Region(s) recalculated successfully.");
         }
 
         @Command(aliases = {"pc"}, desc = "Price Checker",
@@ -576,12 +576,12 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
                     sender, player
             );
 
-            ChatUtil.sendNotice(target, "Chunks: " + size);
+            ChatUtil.send(target, "Chunks: " + size);
 
             double p1 = RegionUtil.calcChunkPrice(size);
 
             String chunkPrice = ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(p1), "");
-            ChatUtil.sendNotice(target, "Chunk Price: " + chunkPrice + ".");
+            ChatUtil.send(target, "Chunk Price: " + chunkPrice + ".");
 
             // Block Price
             double p2 = 0;
@@ -618,18 +618,18 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
             }
 
             String housePrice = ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(p2), "");
-            ChatUtil.sendNotice(target, "Block Price: " + housePrice + ".");
+            ChatUtil.send(target, "Block Price: " + housePrice + ".");
 
             double total = p1 + p2;
             if (args.hasFlag('c')) {
                 String commission = ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(total * .1), "");
 
-                ChatUtil.sendNotice(target, "Commission change: " + commission);
+                ChatUtil.send(target, "Commission change: " + commission);
                 total *= 1.1;
             }
 
             String totalPrice = ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(total), "");
-            ChatUtil.sendNotice(target, "Total Price: " + totalPrice + ".");
+            ChatUtil.send(target, "Total Price: " + totalPrice + ".");
         }
 
         /*
@@ -698,8 +698,8 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
 
             giveRuleBook(sender, player, district);
 
-            ChatUtil.sendNotice(admin, "The player: " + player + "'s house has been moved to: " + district + ".");
-            ChatUtil.sendNotice(player, "Your home has been moved for you by: " + admin.getDisplayName() + ".");
+            ChatUtil.send(admin, "The player: " + player + "'s house has been moved to: " + district + ".");
+            ChatUtil.send(player, "Your home has been moved for you by: " + admin.getDisplayName() + ".");
             log.info(admin.getName() + " moved a home for: " + player + " into the district: " + district + ".");
             */
         }
@@ -724,8 +724,8 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
             } catch (ProtectionDatabaseException e) {
                 throw new CommandException("Failed to remove the home of: " + player + ".");
             }
-            ChatUtil.sendNotice(admin, "The player: " + player + "'s house has been removed.");
-            ChatUtil.sendNotice(player, "Your home has been removed by: " + admin.getDisplayName() + ".");
+            ChatUtil.send(admin, "The player: " + player + "'s house has been removed.");
+            ChatUtil.send(player, "Your home has been removed by: " + admin.getDisplayName() + ".");
             log.info(admin.getName() + " deleted the player: " + player + "'s home.");
             */
         }
@@ -776,13 +776,13 @@ public class HomeManagerComponent extends BukkitComponent implements Listener {
         @Command(aliases = {"set"}, desc = "Set your home")
         public void setHomeLoc(CommandContext args, CommandSender sender) {
 
-            ChatUtil.sendNotice(sender, "To set your home, sleep in a bed during the night.");
+            ChatUtil.send(sender, "To set your home, sleep in a bed during the night.");
         }
 
         @Command(aliases = {"teleport", "tp"}, desc = "Go to your home")
         public void teleportHome(CommandContext args, CommandSender sender) {
 
-            ChatUtil.sendNotice(sender, "To go to your home, throw an ender pearl at your feet.");
+            ChatUtil.send(sender, "To go to your home, throw an ender pearl at your feet.");
         }
 
     }

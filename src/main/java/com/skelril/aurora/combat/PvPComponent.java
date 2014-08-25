@@ -110,7 +110,7 @@ public class PvPComponent extends BukkitComponent implements Listener {
 
             if (!args.hasFlag('s') || !session.hasPvPOn()) {
                 session.setPvP(!session.hasPvPOn());
-                ChatUtil.sendNotice(sender, "Global PvP has been: " + (session.hasPvPOn() ? "enabled" : "disabled") + ".");
+                ChatUtil.send(sender, "Global PvP has been: " + (session.hasPvPOn() ? "enabled" : "disabled") + ".");
 
                 session.useSafeSpots(!args.hasFlag('s'));
             } else {
@@ -122,7 +122,7 @@ public class PvPComponent extends BukkitComponent implements Listener {
             }
 
             if (session.hasPvPOn()) {
-                ChatUtil.sendNotice(sender, "Safe spots are: " + (session.useSafeSpots() ? "enabled" : "disabled") + ".");
+                ChatUtil.send(sender, "Safe spots are: " + (session.useSafeSpots() ? "enabled" : "disabled") + ".");
             }
         }
     }

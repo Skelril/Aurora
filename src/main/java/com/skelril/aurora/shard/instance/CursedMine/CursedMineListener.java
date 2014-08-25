@@ -172,7 +172,7 @@ public class CursedMineListener extends ShardListener<CursedMine> {
                     event.setExpToDrop((70 - player.getLocation().getBlockY()) / 2);
 
                     if (ChanceUtil.getChance(3000)) {
-                        ChatUtil.sendNotice(player, "You feel as though a spirit is trying to tell you something...");
+                        ChatUtil.send(player, "You feel as though a spirit is trying to tell you something...");
                         player.getInventory().addItem(BookUtil.Lore.Areas.theGreatMine());
                     }
 
@@ -197,7 +197,7 @@ public class CursedMineListener extends ShardListener<CursedMine> {
         CursedMineInstance inst = shard.getInstance(player);
         if (inst != null && !inst.getMaster().getAdmin().isAdmin(player, AdminState.ADMIN)) {
             event.setCancelled(true);
-            ChatUtil.sendNotice(player, ChatColor.DARK_RED, "You don't have permission for this area.");
+            ChatUtil.send(player, ChatColor.DARK_RED, "You don't have permission for this area.");
         }
     }
 
@@ -278,7 +278,7 @@ public class CursedMineListener extends ShardListener<CursedMine> {
         CursedMineInstance inst = shard.getInstance(block);
         if (inst != null && !inst.getMaster().getAdmin().isAdmin(player)) {
             event.setCancelled(true);
-            ChatUtil.sendNotice(player, ChatColor.DARK_RED, "You don't have permission for this area.");
+            ChatUtil.send(player, ChatColor.DARK_RED, "You don't have permission for this area.");
         }
     }
 
@@ -319,7 +319,7 @@ public class CursedMineListener extends ShardListener<CursedMine> {
             effectiveInstance.revertPlayer(player);
 
             if (inst != null && ChanceUtil.getChance(500)) {
-                ChatUtil.sendNotice(player, "You feel as though a spirit is trying to tell you something...");
+                ChatUtil.send(player, "You feel as though a spirit is trying to tell you something...");
                 event.getDrops().add(BookUtil.Lore.Areas.theGreatMine());
             }
 

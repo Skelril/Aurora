@@ -78,7 +78,7 @@ public class FactoryBrewer extends FactoryMech {
 
         Collection<Entity> contained = getContained(Entity.class);
         if (!contained.isEmpty()) {
-            ChatUtil.sendNotice(playerList, "Processing...");
+            ChatUtil.send(playerList, "Processing...");
 
             for (Entity e : contained) {
 
@@ -96,7 +96,7 @@ public class FactoryBrewer extends FactoryMech {
                     // Add the item to the list
                     if (wanted.contains(new BaseItem(workingStack.getTypeId(), workingStack.getData().getData()))) {
                         int total = workingStack.getAmount();
-                        ChatUtil.sendNotice(playerList, "Found: " + total + " " + workingStack.getType().toString() + ".");
+                        ChatUtil.send(playerList, "Found: " + total + " " + workingStack.getType().toString() + ".");
                         if (items.containsKey(workingStack.getTypeId())) {
                             total += items.get(workingStack.getTypeId());
                         }
@@ -238,7 +238,7 @@ public class FactoryBrewer extends FactoryMech {
         ItemStack potion = makePotion(target, level, splash, duration);
 
         // Tell the player what we are making
-        ChatUtil.sendNotice(playerList, "Brewing: " + max + " " + target.getName() + " "
+        ChatUtil.send(playerList, "Brewing: " + max + " " + target.getName() + " "
                 + (level == 1 ? "I" : "II") + (splash ? " splash" : "") + " potions.");
         // Return the product for the que
         List<ItemStack> product = new ArrayList<>();

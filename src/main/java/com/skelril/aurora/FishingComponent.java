@@ -122,7 +122,7 @@ public class FishingComponent extends BukkitComponent implements Listener {
 
                 // Update Block State
                 state.update(true);
-                ChatUtil.sendNotice(player, ChatColor.GREEN, "You use some fish to grow the crop!");
+                ChatUtil.send(player, ChatColor.GREEN, "You use some fish to grow the crop!");
             }
         }
     }

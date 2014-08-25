@@ -70,7 +70,7 @@ public class PvMComponent extends BukkitComponent implements Listener {
                 message = ChatColor.GOLD + String.valueOf(ChatColor.BOLD) + "KO!";
             }
 
-            ChatUtil.sendNotice(player, message);
+            ChatUtil.send(player, message);
         }, 1);
     }
 }

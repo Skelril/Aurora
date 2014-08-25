@@ -177,16 +177,16 @@ public class CursedMineInstance extends BukkitShardInstance<CursedMineShard> imp
                 if (ChanceUtil.getChance(2)) {
                     switch (ChanceUtil.getRandom(6)) {
                         case 1:
-                            ChatUtil.sendNotice(player, "Caspher the friendly ghost drops some bread.");
+                            ChatUtil.send(player, "Caspher the friendly ghost drops some bread.");
                             player.getWorld().dropItemNaturally(player.getLocation(),
                                     new ItemStack(ItemID.BREAD, ChanceUtil.getRandom(16)));
                             break;
                         case 2:
-                            ChatUtil.sendNotice(player, "COOKIE gives you a cookie.");
+                            ChatUtil.send(player, "COOKIE gives you a cookie.");
                             player.getWorld().dropItemNaturally(player.getLocation(), new ItemStack(ItemID.COOKIE));
                             break;
                         case 3:
-                            ChatUtil.sendNotice(player, "Caspher the friendly ghost appears.");
+                            ChatUtil.send(player, "Caspher the friendly ghost appears.");
                             for (int i = 0; i < 8; i++) {
                                 player.getWorld().dropItemNaturally(player.getLocation(),
                                         new ItemStack(ItemID.IRON_BAR, ChanceUtil.getRandom(64)));
@@ -197,11 +197,11 @@ public class CursedMineInstance extends BukkitShardInstance<CursedMineShard> imp
                             }
                             break;
                         case 4:
-                            ChatUtil.sendNotice(player, "John gives you a new jacket.");
+                            ChatUtil.send(player, "John gives you a new jacket.");
                             player.getWorld().dropItemNaturally(player.getLocation(), new ItemStack(ItemID.LEATHER_CHEST));
                             break;
                         case 5:
-                            ChatUtil.sendNotice(player, "Tim teleports items to you.");
+                            ChatUtil.send(player, "Tim teleports items to you.");
                             getContained(Item.class).forEach(i -> i.teleport(player));
 
                             // Add in some extra drops just in case the loot wasn't very juicy
@@ -210,7 +210,7 @@ public class CursedMineInstance extends BukkitShardInstance<CursedMineShard> imp
                             player.getWorld().dropItem(player.getLocation(), new ItemStack(ItemID.DIAMOND, ChanceUtil.getRandom(64)));
                             break;
                         case 6:
-                            ChatUtil.sendNotice(player, "Dan gives you a sparkling touch.");
+                            ChatUtil.send(player, "Dan gives you a sparkling touch.");
 
                             int id;
                             switch (ChanceUtil.getRandom(3)) {
@@ -237,7 +237,7 @@ public class CursedMineInstance extends BukkitShardInstance<CursedMineShard> imp
                 } else {
 
                     if (ChanceUtil.getChance(2) && (ItemUtil.hasAncientArmor(player) || ItemUtil.hasElderArmor(player))) {
-                        ChatUtil.sendNotice(player, ChatColor.AQUA, "Your armor blocks an incoming ghost attack.");
+                        ChatUtil.send(player, ChatColor.AQUA, "Your armor blocks an incoming ghost attack.");
                         return;
                     }
 
@@ -350,7 +350,7 @@ public class CursedMineInstance extends BukkitShardInstance<CursedMineShard> imp
                             break;
                         case 11:
                             if (blockID == BlockID.EMERALD_ORE) {
-                                ChatUtil.sendNotice(player, "Dave got a chemistry set!");
+                                ChatUtil.send(player, "Dave got a chemistry set!");
                                 getMaster().getHitList().addPlayer(player, this);
                                 prayerComponent.influencePlayer(player, PrayerComponent.constructPrayer(player,
                                         PrayerType.DEADLYPOTION, TimeUnit.MINUTES.toMillis(30)));
@@ -455,7 +455,7 @@ public class CursedMineInstance extends BukkitShardInstance<CursedMineShard> imp
 
                 if (e instanceof Player) {
                     if (ChanceUtil.getChance(15) && checkInventory((Player) e)) {
-                        ChatUtil.sendNotice((Player) e, "Divine intervention protects some of your items.");
+                        ChatUtil.send((Player) e, "Divine intervention protects some of your items.");
                         continue;
                     }
                 }

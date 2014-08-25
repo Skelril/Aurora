@@ -42,7 +42,7 @@ public class EffectUtil {
 
             if (target instanceof Player) {
                 target.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20 * 4, 0), true);
-                ChatUtil.sendNotice(owner, "Your weapon blinds your victim.");
+                ChatUtil.send(owner, "Your weapon blinds your victim.");
             } else {
                 healingLight(owner, target);
             }
@@ -56,18 +56,18 @@ public class EffectUtil {
             }
 
             target.damage(20);
-            ChatUtil.sendNotice(owner, "Your weapon glows dimly.");
+            ChatUtil.send(owner, "Your weapon glows dimly.");
         }
 
         public static void ultimateStrength(Player owner) {
 
             new HulkFX().add(owner);
-            ChatUtil.sendNotice(owner, "You gain a new sense of true power.");
+            ChatUtil.send(owner, "You gain a new sense of true power.");
         }
 
         public static void doomBlade(Player owner, Collection<LivingEntity> entities) {
 
-            ChatUtil.sendNotice(owner, "The Master Sword releases a huge burst of energy.");
+            ChatUtil.send(owner, "The Master Sword releases a huge burst of energy.");
 
             int dmgTotal = 0;
             for (LivingEntity e : entities) {
@@ -76,7 +76,7 @@ public class EffectUtil {
                 e.damage(maxHit);
                 dmgTotal += maxHit;
             }
-            ChatUtil.sendNotice(owner, "Your sword dishes out an incredible " + dmgTotal + " damage!");
+            ChatUtil.send(owner, "Your sword dishes out an incredible " + dmgTotal + " damage!");
         }
     }
 
@@ -85,8 +85,8 @@ public class EffectUtil {
         public static void powerBurst(LivingEntity entity, double attackDamage) {
 
             if (entity instanceof Player) {
-                ChatUtil.sendNotice((Player) entity, "Your armor releases a burst of energy.");
-                ChatUtil.sendNotice((Player) entity, "You are healed by an ancient force.");
+                ChatUtil.send((Player) entity, "Your armor releases a burst of energy.");
+                ChatUtil.send((Player) entity, "You are healed by an ancient force.");
             }
 
             EntityUtil.heal(entity, attackDamage);
@@ -96,7 +96,7 @@ public class EffectUtil {
                     ((LivingEntity) e).setHealth(Math.min(((LivingEntity) e).getHealth() + attackDamage,
                             ((LivingEntity) e).getMaxHealth()));
                     if (e instanceof Player) {
-                        ChatUtil.sendNotice((Player) e, "You are healed by an ancient force.");
+                        ChatUtil.send((Player) e, "You are healed by an ancient force.");
                     }
                 } else if (!(entity instanceof Player) || EnvironmentUtil.isHostileEntity(e)) {
                     if (e instanceof Player) {
@@ -118,7 +118,7 @@ public class EffectUtil {
         public static void deathStrike(LivingEntity entity, double attackDamage) {
 
             if (entity instanceof Player) {
-                ChatUtil.sendNotice((Player) entity, "You feel a necrotic power sweep over your soul.");
+                ChatUtil.send((Player) entity, "You feel a necrotic power sweep over your soul.");
             }
 
             EntityUtil.heal(entity, attackDamage * 1.7);
@@ -127,7 +127,7 @@ public class EffectUtil {
                 if (e.getType() == entity.getType()) {
                     EntityUtil.heal(entity, attackDamage * 1.5);
                     if (e instanceof Player) {
-                        ChatUtil.sendNotice((Player) e, "You feel a necrotic power sweep over your soul.");
+                        ChatUtil.send((Player) e, "You feel a necrotic power sweep over your soul.");
                     }
                 } else if (!(entity instanceof Player) || EnvironmentUtil.isHostileEntity(e)) {
                     ((LivingEntity) e).damage(attackDamage * 1.9);

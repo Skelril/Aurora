@@ -147,7 +147,7 @@ public class Prison extends AbstractRegionedArena implements GenericArena, Liste
         Player player = event.getPlayer();
         if (event.isFlying() && contains(player) && !adminComponent.isAdmin(player)) {
             event.setCancelled(true);
-            ChatUtil.sendNotice(player, "You cannot fly here!");
+            ChatUtil.send(player, "You cannot fly here!");
         }
     }
 
@@ -177,7 +177,7 @@ public class Prison extends AbstractRegionedArena implements GenericArena, Liste
             event.getPlayer().getInventory().addItem(loot.toArray(new ItemStack[loot.size()]));
 
             event.getPlayer().teleport(new Location(getWorld(), 256.18, 81, 136));
-            ChatUtil.sendNotice(event.getPlayer(), "You have successfully raided the jail!");
+            ChatUtil.send(event.getPlayer(), "You have successfully raided the jail!");
 
             //noinspection deprecation
             event.getPlayer().updateInventory();

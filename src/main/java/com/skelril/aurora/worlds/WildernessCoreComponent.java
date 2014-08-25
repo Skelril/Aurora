@@ -548,7 +548,7 @@ public class WildernessCoreComponent extends BukkitComponent implements Listener
                         blockInv.setItem(i, it.next());
                         it.remove();
                     }
-                    ChatUtil.sendNotice(player, "A grave has been created where you died.");
+                    ChatUtil.send(player, "A grave has been created where you died.");
                 }
             } catch (Exception ex) {
                 log.warning("Location could not be found to create a grave for: " + player.getName());
@@ -711,14 +711,14 @@ public class WildernessCoreComponent extends BukkitComponent implements Listener
             } else {
                 level = Math.max(1, getLevel(PlayerUtil.checkPlayer(sender).getLocation()));
             }
-            ChatUtil.sendNotice(sender, "Current Level: " + (level == 0 ? ChatColor.RED + "Not available" : level)
+            ChatUtil.send(sender, "Current Level: " + (level == 0 ? ChatColor.RED + "Not available" : level)
                     + ChatColor.YELLOW + ", Target Level: " + level + ".\n");
 
             DecimalFormat df = new DecimalFormat("#.#");
 
-            ChatUtil.sendNotice(sender, "Damage Modifier: +" + (level - 1));
-            ChatUtil.sendNotice(sender, "Ore Pool Modifier: " + df.format(getOreMod(level)) + "x");
-            ChatUtil.sendNotice(sender, "Mob Health Modifier: " + (level > 1 ? 5 * (level - 1) : 1) + "x");
+            ChatUtil.send(sender, "Damage Modifier: +" + (level - 1));
+            ChatUtil.send(sender, "Ore Pool Modifier: " + df.format(getOreMod(level)) + "x");
+            ChatUtil.send(sender, "Mob Health Modifier: " + (level > 1 ? 5 * (level - 1) : 1) + "x");
         }
 
         @Command(aliases = {"wparty", "wp"}, desc = "Party Commands")
@@ -745,7 +745,7 @@ public class WildernessCoreComponent extends BukkitComponent implements Listener
             String[] targets = args.getString(0).split(",");
             for (String target : targets) {
                 session.ignore(target);
-                ChatUtil.sendNotice(sender, "You will no longer be able to damage " + target + ", unless attacked first.");
+                ChatUtil.send(sender, "You will no longer be able to damage " + target + ", unless attacked first.");
             }
         }
 
@@ -757,7 +757,7 @@ public class WildernessCoreComponent extends BukkitComponent implements Listener
             String[] targets = args.getString(0).split(",");
             for (String target : targets) {
                 session.unignore(target);
-                ChatUtil.sendNotice(sender, "You will now be able to damage " + target + ".");
+                ChatUtil.send(sender, "You will now be able to damage " + target + ".");
             }
         }
 

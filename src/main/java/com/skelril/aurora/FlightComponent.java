@@ -55,8 +55,8 @@ public class FlightComponent extends BukkitComponent implements Listener {
         player.setAllowFlight(true);
         player.setFlySpeed(speed);
 
-        if (couldFly) ChatUtil.sendNotice(player, "Your wings have been changed!");
-        else ChatUtil.sendNotice(player, "You gain wings and can fly!");
+        if (couldFly) ChatUtil.send(player, "Your wings have been changed!");
+        else ChatUtil.send(player, "You gain wings and can fly!");
     }
 
     private void dewingPlayer(Player player) {
@@ -113,17 +113,17 @@ public class FlightComponent extends BukkitComponent implements Listener {
                 if (target.getAllowFlight()) {
                     throw new CommandException("The player: " + target.getName() + " already has wings.");
                 } else {
-                    ChatUtil.sendNotice(sender, "The player: " + target.getName() + " has been given wings.");
+                    ChatUtil.send(sender, "The player: " + target.getName() + " has been given wings.");
                     wingPlayer(target);
                 }
             } else {
                 if (speed == target.getFlySpeed() && target.getAllowFlight()) {
                     throw new CommandException("The player: " + target.getName() + " already has wings.");
                 } else if (speed != target.getFlySpeed() && target.getAllowFlight()) {
-                    ChatUtil.sendNotice(sender, "The player: " + target.getName() + "'s wings have been changed.");
+                    ChatUtil.send(sender, "The player: " + target.getName() + "'s wings have been changed.");
                     wingPlayer(target, speed);
                 } else {
-                    ChatUtil.sendNotice(sender, "The player: " + target.getName() + " has been given wings.");
+                    ChatUtil.send(sender, "The player: " + target.getName() + " has been given wings.");
                     wingPlayer(target, speed);
                 }
             }
@@ -149,7 +149,7 @@ public class FlightComponent extends BukkitComponent implements Listener {
             if (!target.getAllowFlight()) {
                 ChatUtil.sendError(sender, "The player: " + target.getName() + " has no wings to take.");
             } else {
-                ChatUtil.sendNotice(sender, "The player: " + target.getName() + " has lost his or her wings.");
+                ChatUtil.send(sender, "The player: " + target.getName() + " has lost his or her wings.");
                 dewingPlayer(target);
             }
         }

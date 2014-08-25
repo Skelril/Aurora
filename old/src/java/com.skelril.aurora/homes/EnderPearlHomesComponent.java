@@ -92,16 +92,16 @@ public class EnderPearlHomesComponent extends BukkitComponent implements Listene
                 || !event.getCause().equals(TeleportCause.ENDER_PEARL)) return;
         try {
             if (to.distanceSquared(player.getLocation()) < 1.5 * 1.5) {
-                ChatUtil.sendNotice(player, "A powerful vortex sucks you up!");
+                ChatUtil.send(player, "A powerful vortex sucks you up!");
                 if (!homeDatabase.houseExist(player.getName())
                         || homeDatabase.getHouse(player.getName()).getLocation().getBlock().getTypeId()
                         != BlockID.BED) {
-                    ChatUtil.sendNotice(player, "The vortex cannot find your home and sends you to spawn.");
+                    ChatUtil.send(player, "The vortex cannot find your home and sends you to spawn.");
                     event.setCancelled(true);
                     server.getScheduler().scheduleSyncDelayedTask(inst,
                             () -> player.teleport(player.getWorld().getSpawnLocation()), 1);
                 } else {
-                    ChatUtil.sendNotice(player, "The vortex sends you to your home.");
+                    ChatUtil.send(player, "The vortex sends you to your home.");
                     event.setCancelled(true);
                     server.getScheduler().scheduleSyncDelayedTask(inst, () -> {
                         HomeTeleportEvent HTE = new HomeTeleportEvent(player, getBedLocation(player));
@@ -143,8 +143,8 @@ public class EnderPearlHomesComponent extends BukkitComponent implements Listene
         homeDatabase.saveHouse(player, bedLoc.getWorld().getName(), bedLoc.getBlockX(), bedLoc.getBlockY(),
                 bedLoc.getBlockZ());
         if (homeDatabase.save()) {
-            if (!overWritten) ChatUtil.sendNotice(player, "Your bed location has been set.");
-            else ChatUtil.sendNotice(player, "Your bed location has been reset.");
+            if (!overWritten) ChatUtil.send(player, "Your bed location has been set.");
+            else ChatUtil.send(player, "Your bed location has been reset.");
         }
     }
 }

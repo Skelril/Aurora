@@ -52,27 +52,27 @@ public class ChatUtil {
                 "aurora.debug");
     }
 
-    public static void sendNotice(String playerName, String notice) {
+    public static void send(String playerName, String notice) {
         try {
-            sendNotice(InputUtil.PlayerParser.matchPlayerExactly(null, playerName), notice);
+            send(InputUtil.PlayerParser.matchPlayerExactly(null, playerName), notice);
         } catch (CommandException ignored) {
         }
     }
 
-    public static void sendNotice(CommandSender sender, String notice) {
+    public static void send(CommandSender sender, String notice) {
         message(sender, MessageType.NOTICE, notice);
     }
 
-    public static void sendNotice(Collection<? extends CommandSender> senders, String notice) {
+    public static void send(Collection<? extends CommandSender> senders, String notice) {
         message(senders, MessageType.NOTICE, notice);
     }
 
-    public static void sendNotice(CommandSender sender, ChatColor chatColor, String notice) {
+    public static void send(CommandSender sender, ChatColor chatColor, String notice) {
         sender.sendMessage(chatColor + notice.replace("%p%", chatColor.toString()));
     }
 
-    public static void sendNotice(Collection<? extends CommandSender> senders, ChatColor chatColor, String notice) {
-        senders.forEach(s -> sendNotice(s, chatColor, notice));
+    public static void send(Collection<? extends CommandSender> senders, ChatColor chatColor, String notice) {
+        senders.forEach(s -> send(s, chatColor, notice));
     }
 
     public static void sendError(CommandSender sender, String error) {

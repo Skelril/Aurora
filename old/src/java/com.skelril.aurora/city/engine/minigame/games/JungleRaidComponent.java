@@ -158,9 +158,9 @@ public class JungleRaidComponent extends MinigameComponent {
         Collection<Player> players = getContainedPlayers();
 
         if (gameFlags.contains('H')) {
-            ChatUtil.sendNotice(players, "Team two can now run.");
+            ChatUtil.send(players, "Team two can now run.");
         } else {
-            ChatUtil.sendNotice(players, "All players can now run.");
+            ChatUtil.send(players, "All players can now run.");
         }
     }
 
@@ -171,9 +171,9 @@ public class JungleRaidComponent extends MinigameComponent {
         Collection<Player> players = getContainedPlayers();
 
         if (gameFlags.contains('H')) {
-            ChatUtil.sendNotice(players, "All players can now run.");
+            ChatUtil.send(players, "All players can now run.");
         }
-        ChatUtil.sendNotice(players, "Fighting can now commence!");
+        ChatUtil.send(players, "Fighting can now commence!");
     }
 
     // Player Management
@@ -277,11 +277,11 @@ public class JungleRaidComponent extends MinigameComponent {
 
         Collection<Player> players = getContainedPlayers();
 
-        ChatUtil.sendNotice(players, ChatColor.GREEN + "The following flags are enabled: ");
-        if (gameFlags.contains('H')) ChatUtil.sendNotice(players, "Hunter Mode");
-        if (gameFlags.contains('G')) ChatUtil.sendNotice(players, "Guilds Enabled");
+        ChatUtil.send(players, ChatColor.GREEN + "The following flags are enabled: ");
+        if (gameFlags.contains('H')) ChatUtil.send(players, "Hunter Mode");
+        if (gameFlags.contains('G')) ChatUtil.send(players, "Guilds Enabled");
         if (gameFlags.contains('T')) {
-            ChatUtil.sendNotice(players, "Titan Mode");
+            ChatUtil.send(players, "Titan Mode");
 
             List<PlayerGameState> gameStates = Lists.newArrayList(playerState.values());
             for (PlayerGameState aPlayerState : gameStates) {
@@ -315,7 +315,7 @@ public class JungleRaidComponent extends MinigameComponent {
                 // antiCheat.exempt(aPlayer, CheckType.NO_SWING);
                 // antiCheat.exempt(aPlayer, CheckType.AUTOTOOL);
             } catch (Exception ex) {
-                ChatUtil.sendNotice(players, ChatColor.RED, "[ERROR] Cannot find titan.");
+                ChatUtil.send(players, ChatColor.RED, "[ERROR] Cannot find titan.");
             }
         }
         if (gameFlags.contains('r')) {
@@ -350,20 +350,20 @@ public class JungleRaidComponent extends MinigameComponent {
         if (gameFlags.contains('t')) ChatUtil.sendWarning(players, "Torment Arrows");
         if (gameFlags.contains('d')) ChatUtil.sendWarning(players, "Death touch");
         if (gameFlags.contains('a')) ChatUtil.sendWarning(players, "2012");
-        if (gameFlags.contains('p')) ChatUtil.sendNotice(players, "Potion Plummet");
+        if (gameFlags.contains('p')) ChatUtil.send(players, "Potion Plummet");
         if (gameFlags.contains('j')) {
             if (gameFlags.contains('s')) {
-                ChatUtil.sendNotice(players, ChatColor.AQUA, "Super jumpy");
+                ChatUtil.send(players, ChatColor.AQUA, "Super jumpy");
             } else {
-                ChatUtil.sendNotice(players, ChatColor.AQUA, "Jumpy");
+                ChatUtil.send(players, ChatColor.AQUA, "Jumpy");
             }
         }
-        if (gameFlags.contains('f')) ChatUtil.sendNotice(players, ChatColor.AQUA, "No fire spread");
-        if (gameFlags.contains('m')) ChatUtil.sendNotice(players, ChatColor.AQUA, "No mining");
-        if (gameFlags.contains('b')) ChatUtil.sendNotice(players, ChatColor.AQUA, "No block break");
+        if (gameFlags.contains('f')) ChatUtil.send(players, ChatColor.AQUA, "No fire spread");
+        if (gameFlags.contains('m')) ChatUtil.send(players, ChatColor.AQUA, "No mining");
+        if (gameFlags.contains('b')) ChatUtil.send(players, ChatColor.AQUA, "No block break");
 
-        if (gameFlags.contains('q')) ChatUtil.sendNotice(players, ChatColor.GOLD, "Quick start");
-        if (gameFlags.contains('S')) ChatUtil.sendNotice(players, ChatColor.GOLD, "Sudden death disabled");
+        if (gameFlags.contains('q')) ChatUtil.send(players, ChatColor.GOLD, "Quick start");
+        if (gameFlags.contains('S')) ChatUtil.send(players, ChatColor.GOLD, "Sudden death disabled");
     }
 
     @Override
@@ -431,7 +431,7 @@ public class JungleRaidComponent extends MinigameComponent {
         double amt = BASE_AMT * modifier;
 
         economy.depositPlayer(player, amt);
-        ChatUtil.sendNotice(player, "You received: " + economy.format(amt) + '.');
+        ChatUtil.send(player, "You received: " + economy.format(amt) + '.');
     }
 
     @Override
@@ -966,12 +966,12 @@ public class JungleRaidComponent extends MinigameComponent {
                     }
 
                     if (resultSet.isEmpty()) {
-                        ChatUtil.sendNotice(player, "No players found.");
+                        ChatUtil.send(player, "No players found.");
                     }
 
-                    ChatUtil.sendNotice(player, "Player - Distance");
+                    ChatUtil.send(player, "Player - Distance");
                     for (String string : resultSet) {
-                        ChatUtil.sendNotice(player, string);
+                        ChatUtil.send(player, string);
                     }
                 }
             }
@@ -1072,9 +1072,9 @@ public class JungleRaidComponent extends MinigameComponent {
 
                 if (gameFlags.contains('d')) {
                     event.setDamage(Math.pow(defendingPlayer.getMaxHealth(), 3));
-                    ChatUtil.sendNotice(attackingPlayer, "You've killed " + defendingPlayer.getName() + "!");
+                    ChatUtil.send(attackingPlayer, "You've killed " + defendingPlayer.getName() + "!");
                 } else {
-                    ChatUtil.sendNotice(attackingPlayer, "You've hit " + defendingPlayer.getName() + "!");
+                    ChatUtil.send(attackingPlayer, "You've hit " + defendingPlayer.getName() + "!");
                 }
             }
         }
@@ -1111,7 +1111,7 @@ public class JungleRaidComponent extends MinigameComponent {
                                 // antiCheat.exempt(aPlayer, CheckType.NO_SWING);
                                 // antiCheat.exempt(aPlayer, CheckType.AUTOTOOL);
                             } catch (Exception ex) {
-                                ChatUtil.sendNotice(getContainedPlayers(), ChatColor.RED, "[ERROR] Cannot find titan.");
+                                ChatUtil.send(getContainedPlayers(), ChatColor.RED, "[ERROR] Cannot find titan.");
                             }
                         } else if (titan.equals(killer.getName())) {
                             killerColor = -1;

@@ -175,17 +175,17 @@ public class AdminStoreComponent extends BukkitComponent {
             // Charge the money and send the sender some feedback
             econ.withdrawPlayer(player, price - rebate);
             String priceString = ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(price), "");
-            ChatUtil.sendNotice(sender, "Item(s) purchased for " + priceString + "!");
+            ChatUtil.send(sender, "Item(s) purchased for " + priceString + "!");
             if (rebate >= 0.01) {
                 String rebateString = ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(rebate), "");
-                ChatUtil.sendNotice(sender, "You get " + rebateString + " back.");
+                ChatUtil.send(sender, "You get " + rebateString + " back.");
             }
 
             // Market Command Help
             StoreSession sess = sessions.getSession(StoreSession.class, player);
             if (amt == 1 && sess.recentPurch() && sess.getLastPurch().equals(itemName)) {
-                ChatUtil.sendNotice(sender, "Did you know you can specify the amount of items to buy?");
-                ChatUtil.sendNotice(sender, "/market buy -a <amount> " + itemName);
+                ChatUtil.send(sender, "Did you know you can specify the amount of items to buy?");
+                ChatUtil.send(sender, "/market buy -a <amount> " + itemName);
             }
             sess.setLastPurch(itemName);
         }
@@ -324,16 +324,16 @@ public class AdminStoreComponent extends BukkitComponent {
             player.getInventory().setContents(itemStacks);
 
             String paymentString = ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(payment), "");
-            ChatUtil.sendNotice(player, "Item(s) sold for: " + paymentString + "!");
+            ChatUtil.send(player, "Item(s) sold for: " + paymentString + "!");
 
             // Market Command Help
             StoreSession sess = sessions.getSession(StoreSession.class, player);
             if (singleItem && sess.recentSale() && !sess.recentNotice()) {
-                ChatUtil.sendNotice(sender, "Did you know you can sell more than one stack at a time?");
-                ChatUtil.sendNotice(sender, "To sell all of what you're holding:");
-                ChatUtil.sendNotice(sender, "/market sell -a");
-                ChatUtil.sendNotice(sender, "To sell everything in your inventory:");
-                ChatUtil.sendNotice(sender, "/market sell -au");
+                ChatUtil.send(sender, "Did you know you can sell more than one stack at a time?");
+                ChatUtil.send(sender, "To sell all of what you're holding:");
+                ChatUtil.send(sender, "/market sell -a");
+                ChatUtil.send(sender, "To sell everything in your inventory:");
+                ChatUtil.send(sender, "/market sell -au");
                 sess.updateNotice();
             }
             sess.updateSale();
@@ -395,21 +395,21 @@ public class AdminStoreComponent extends BukkitComponent {
                 }
                 String priceString = ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(cost), "");
                 if (args.hasFlag('y')) {
-                    ChatUtil.sendNotice(sender, "Item enchanted for " + priceString + "!");
+                    ChatUtil.send(sender, "Item enchanted for " + priceString + "!");
                     econ.withdrawPlayer(player, cost);
                 } else {
-                    ChatUtil.sendNotice(sender, "That will cost " + priceString + '.');
-                    ChatUtil.sendNotice(sender, "To confirm, use:");
+                    ChatUtil.send(sender, "That will cost " + priceString + '.');
+                    ChatUtil.send(sender, "To confirm, use:");
                     String command = "/market enchant -y";
                     for (Character aChar : args.getFlags()) {
                         command += aChar;
                     }
                     command += ' ' + enchantment.getName() + ' ' + level;
-                    ChatUtil.sendNotice(sender, command);
+                    ChatUtil.send(sender, command);
                     return;
                 }
             } else {
-                ChatUtil.sendNotice(sender, "Item enchanted!");
+                ChatUtil.send(sender, "Item enchanted!");
             }
 
             targetItem.setItemMeta(meta);
@@ -507,25 +507,25 @@ public class AdminStoreComponent extends BukkitComponent {
 
             String purchasePrice = ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(itemPricePair.getPrice()), "");
             String sellPrice = ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(paymentPrice), "");
-            ChatUtil.sendNotice(sender, ChatColor.GOLD, "Price Information for: " + color + itemName.toUpperCase());
+            ChatUtil.send(sender, ChatColor.GOLD, "Price Information for: " + color + itemName.toUpperCase());
 
             // Purchase Information
             if (itemPricePair.isBuyable() || !itemPricePair.isEnabled()) {
-                ChatUtil.sendNotice(sender, "When you buy it you pay:");
-                ChatUtil.sendNotice(sender, " - " + purchasePrice + " each.");
+                ChatUtil.send(sender, "When you buy it you pay:");
+                ChatUtil.send(sender, " - " + purchasePrice + " each.");
             } else {
-                ChatUtil.sendNotice(sender, ChatColor.GRAY, "This item cannot be purchased.");
+                ChatUtil.send(sender, ChatColor.GRAY, "This item cannot be purchased.");
             }
             // Sale Information
             if (itemPricePair.isSellable() || !itemPricePair.isEnabled()) {
-                ChatUtil.sendNotice(sender, "When you sell it you get:");
-                ChatUtil.sendNotice(sender, " - " + sellPrice + " each.");
+                ChatUtil.send(sender, "When you sell it you get:");
+                ChatUtil.send(sender, " - " + sellPrice + " each.");
                 if (percentageSale != 1.0) {
                     sellPrice = ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(itemPricePair.getSellPrice()), "");
-                    ChatUtil.sendNotice(sender, " - " + sellPrice + " each when new.");
+                    ChatUtil.send(sender, " - " + sellPrice + " each when new.");
                 }
             } else {
-                ChatUtil.sendNotice(sender, ChatColor.GRAY, "This item cannot be sold.");
+                ChatUtil.send(sender, ChatColor.GRAY, "This item cannot be sold.");
             }
         }
 
@@ -581,9 +581,9 @@ public class AdminStoreComponent extends BukkitComponent {
             }
 
             String itemString = ChatColor.BLUE + itemName.toUpperCase() + ChatColor.YELLOW + ".";
-            ChatUtil.sendNotice(sender, target.getName() + " has been given " + amt + " new: " + itemString);
+            ChatUtil.send(sender, target.getName() + " has been given " + amt + " new: " + itemString);
             if (!sender.equals(target)) {
-                ChatUtil.sendNotice(target, "You have been given " + amt + " new: " + itemString);
+                ChatUtil.send(target, "You have been given " + amt + " new: " + itemString);
             }
         }
 
@@ -639,7 +639,7 @@ public class AdminStoreComponent extends BukkitComponent {
             }
             itemDatabase.save();
 
-            ChatUtil.sendNotice(sender, "Market Scaled by: " + factor + ".");
+            ChatUtil.send(sender, "Market Scaled by: " + factor + ".");
         }
 
         @Command(aliases = {"add"},
@@ -672,12 +672,12 @@ public class AdminStoreComponent extends BukkitComponent {
             // Notification
             String noticeString = oldItem == null ? " added with a price of " : " is now ";
             String priceString = ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(price), " ");
-            ChatUtil.sendNotice(sender, ChatColor.BLUE + itemName.toUpperCase() + ChatColor.YELLOW + noticeString + priceString + "!");
+            ChatUtil.send(sender, ChatColor.BLUE + itemName.toUpperCase() + ChatColor.YELLOW + noticeString + priceString + "!");
             if (disableBuy) {
-                ChatUtil.sendNotice(sender, " - It cannot be purchased.");
+                ChatUtil.send(sender, " - It cannot be purchased.");
             }
             if (disableSell) {
-                ChatUtil.sendNotice(sender, " - It cannot be sold.");
+                ChatUtil.send(sender, " - It cannot be sold.");
             }
         }
 
@@ -703,7 +703,7 @@ public class AdminStoreComponent extends BukkitComponent {
 
             itemDatabase.removeItem(sender.getName(), itemName);
             itemDatabase.save();
-            ChatUtil.sendNotice(sender, ChatColor.BLUE + itemName.toUpperCase() + ChatColor.YELLOW + " has been removed from the database!");
+            ChatUtil.send(sender, ChatColor.BLUE + itemName.toUpperCase() + ChatColor.YELLOW + " has been removed from the database!");
         }
     }
 

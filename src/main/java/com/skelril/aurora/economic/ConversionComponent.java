@@ -121,10 +121,10 @@ public class ConversionComponent extends BukkitComponent implements Listener {
 
                     economy.depositPlayer(player, amount - flexAmount);
                     if (amount - flexAmount != 1) {
-                        ChatUtil.sendNotice(player, "You deposited: "
+                        ChatUtil.send(player, "You deposited: "
                                 + ChatUtil.makeCountString(economy.format(amount - flexAmount), "."));
                     } else {
-                        ChatUtil.sendNotice(player, "You deposited: "
+                        ChatUtil.send(player, "You deposited: "
                                 + ChatUtil.makeCountString(economy.format(amount - flexAmount), "."));
                     }
 
@@ -176,10 +176,10 @@ public class ConversionComponent extends BukkitComponent implements Listener {
 
                     economy.withdrawPlayer(player, amount - flexAmount);
                     if (amount - flexAmount != 1) {
-                        ChatUtil.sendNotice(player, "You withdrew: "
+                        ChatUtil.send(player, "You withdrew: "
                                 + ChatUtil.makeCountString(economy.format(amount - flexAmount), "."));
                     } else {
-                        ChatUtil.sendNotice(player, "You withdrew: "
+                        ChatUtil.send(player, "You withdrew: "
                                 + ChatUtil.makeCountString(economy.format(amount - flexAmount), "."));
                     }
 

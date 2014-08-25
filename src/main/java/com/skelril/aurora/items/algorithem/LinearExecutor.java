@@ -78,7 +78,7 @@ public abstract class LinearExecutor {
                     newDist = 1;
                 }
                 tag.setProp(String.valueOf(newDist));
-                ChatUtil.sendNotice(player, "Distance set to: " + newDist);
+                ChatUtil.send(player, "Distance set to: " + newDist);
             }
         }
         ItemStack result = cItem.build();

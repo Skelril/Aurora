@@ -34,7 +34,7 @@ public class ChickenHymnImpl extends AbstractItemFeatureImpl {
                     chicken.setRemoveWhenFarAway(true);
                 }
                 e.remove();
-                ChatUtil.sendNotice(player, "The item transforms into chickens!");
+                ChatUtil.send(player, "The item transforms into chickens!");
             } else if (((Chicken) e).getRemoveWhenFarAway()) {
                 if (ChanceUtil.getChance(3)) {
                     l.getWorld().dropItem(l, new ItemStack(ItemID.COOKED_CHICKEN));

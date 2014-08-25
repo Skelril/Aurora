@@ -153,7 +153,7 @@ public class JailComponent extends BukkitComponent implements Listener, Runnable
             cells.remove(player);
 
             player.teleport(player.getWorld().getSpawnLocation());
-            ChatUtil.sendNotice(player, "You have been unjailed.");
+            ChatUtil.send(player, "You have been unjailed.");
         }
         return false;
     }
@@ -396,7 +396,7 @@ public class JailComponent extends BukkitComponent implements Listener, Runnable
             inmates.jail(inmateID, prisonName, sender, message, endDate, args.hasFlag('m'));
 
             // Tell the sender of their success
-            ChatUtil.sendNotice(sender, "The player: " + inmateName + " has been jailed!");
+            ChatUtil.send(sender, "The player: " + inmateName + " has been jailed!");
 
             if (!inmates.save()) {
                 throw new CommandException("Inmate database failed to save. See console.");
@@ -404,7 +404,7 @@ public class JailComponent extends BukkitComponent implements Listener, Runnable
 
             // Broadcast the Message
             if (config.broadcastJails && !args.hasFlag('s')) {
-                ChatUtil.sendNotice(server.getOnlinePlayers(), sender.getName() + " has jailed "
+                ChatUtil.send(server.getOnlinePlayers(), sender.getName() + " has jailed "
                         + inmateName + (message.isEmpty() ? "!" : " - " + message + "."));
             }
         }
@@ -424,7 +424,7 @@ public class JailComponent extends BukkitComponent implements Listener, Runnable
             UUID ID = CommandBook.server().getOfflinePlayer(inmateName).getUniqueId();
 
             if (inmates.unjail(ID, sender, message)) {
-                ChatUtil.sendNotice(sender, inmateName + " unjailed.");
+                ChatUtil.send(sender, inmateName + " unjailed.");
 
                 if (!inmates.save()) {
                     throw new CommandException("Inmate database failed to save. See console.");
@@ -458,7 +458,7 @@ public class JailComponent extends BukkitComponent implements Listener, Runnable
 
             jailCells.createJailCell(prisonName, cellName, player, loc);
 
-            ChatUtil.sendNotice(sender, "Cell '" + cellName + "' created.");
+            ChatUtil.send(sender, "Cell '" + cellName + "' created.");
 
             if (!jailCells.save()) {
                 throw new CommandException("Inmate database failed to save. See console.");
@@ -507,11 +507,11 @@ public class JailComponent extends BukkitComponent implements Listener, Runnable
             int max = Math.min(listSize, min + entryToShow);
 
             String type = prison == null ? "Prison" : "Cell";
-            ChatUtil.sendNotice(sender, ChatColor.GOLD,
+            ChatUtil.send(sender, ChatColor.GOLD,
                     type + " List - Page (" + Math.min(maxPage + 1, page + 1) + "/" + (maxPage + 1) + ")");
 
             for (int i = min; i < max; i++) {
-                ChatUtil.sendNotice(sender, items.get(i));
+                ChatUtil.send(sender, items.get(i));
             }
         }
 
@@ -526,7 +526,7 @@ public class JailComponent extends BukkitComponent implements Listener, Runnable
             if (!jailCells.deleteJailCell(prisonName, cellName, sender) || !jailCells.save()) {
                 throw new CommandException("No such cell could be successfully found/removed in that prison!");
             }
-            ChatUtil.sendNotice(sender, "Cell '" + cellName + "' deleted.");
+            ChatUtil.send(sender, "Cell '" + cellName + "' deleted.");
         }
     }
 

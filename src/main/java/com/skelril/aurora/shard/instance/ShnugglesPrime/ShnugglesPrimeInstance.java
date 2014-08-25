@@ -233,7 +233,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
         int current = (int) Math.ceil(boss.getHealth());
         int max = (int) Math.ceil(boss.getMaxHealth());
         String message = "Boss Health: " + current + " / " + max;
-        ChatUtil.sendNotice(getContained(Player.class), ChatColor.DARK_AQUA, message);
+        ChatUtil.send(getContained(Player.class), ChatColor.DARK_AQUA, message);
     }
 
     private static final ItemStack weapon = new ItemStack(ItemID.BONE);
@@ -335,7 +335,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                     Collection<Player> newContained = getContained(Player.class);
                     for (Player player : getMaster().getToolKit().removeAdmin(newContained)) {
                         if (boss.hasLineOfSight(player)) {
-                            ChatUtil.sendNotice(player, "Come closer...");
+                            ChatUtil.send(player, "Come closer...");
                             player.teleport(boss.getLocation());
                             player.damage(100, boss);
                             // Call this event to notify AntiCheat
@@ -346,10 +346,10 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                                     random.nextDouble() * 1.7 - 1.5
                             ));
                         } else {
-                            ChatUtil.sendNotice(player, "Fine... No tango this time...");
+                            ChatUtil.send(player, "Fine... No tango this time...");
                         }
                     }
-                    ChatUtil.sendNotice(newContained, "Now wasn't that fun?");
+                    ChatUtil.send(newContained, "Now wasn't that fun?");
                     activeAttacks.remove(4);
                 }, 20 * 7);
                 break;
@@ -362,7 +362,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                         if (damageHeals) {
                             damageHeals = false;
                             if (!isBossSpawned()) return;
-                            ChatUtil.sendNotice(getContained(Player.class), "Thank you for your assistance.");
+                            ChatUtil.send(getContained(Player.class), "Thank you for your assistance.");
                         }
                         activeAttacks.remove(5);
                     }, 20 * 12);
@@ -388,7 +388,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                         Collection<Player> newContained = getContained(Player.class);
                         for (Player player : getMaster().getToolKit().removeAdmin(newContained)) {
                             if (inst().hasPermission(player, "aurora.prayer.intervention") && ChanceUtil.getChance(3)) {
-                                ChatUtil.sendNotice(player, "A divine wind hides you from the boss.");
+                                ChatUtil.send(player, "A divine wind hides you from the boss.");
                                 continue;
                             }
                             if (boss.hasLineOfSight(player)) {
@@ -409,7 +409,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                             return;
                         }
                         // Notify if avoided
-                        ChatUtil.sendNotice(newContained, "Gah... Afraid are you friends?");
+                        ChatUtil.send(newContained, "Gah... Afraid are you friends?");
                         activeAttacks.remove(7);
                     }, 20 * 7);
                     break;
@@ -440,7 +440,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                 }, 20 * 7);
                 break;
             case 9:
-                ChatUtil.sendNotice(spectator, ChatColor.DARK_RED, "My minions our time is now!");
+                ChatUtil.send(spectator, ChatColor.DARK_RED, "My minions our time is now!");
                 activeAttacks.add(9);
                 IntegratedRunnable minionEater = new IntegratedRunnable() {
                     @Override
@@ -460,7 +460,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                             toHeal += realDamage / 3;
                         }
                         if (TimerUtil.matchesFilter(times + 1, -1, 2)) {
-                            ChatUtil.sendNotice(getContained(Player.class), ChatColor.DARK_AQUA, "The boss has drawn in: " + (int) toHeal + " health.");
+                            ChatUtil.send(getContained(Player.class), ChatColor.DARK_AQUA, "The boss has drawn in: " + (int) toHeal + " health.");
                         }
                         return true;
                     }
@@ -470,7 +470,7 @@ public class ShnugglesPrimeInstance extends BukkitShardInstance<ShnugglesPrimeSh
                         if (!isBossSpawned()) return;
                         EntityUtil.heal(boss, toHeal);
                         toHeal = 0;
-                        ChatUtil.sendNotice(getContained(Player.class), "Thank you my minions!");
+                        ChatUtil.send(getContained(Player.class), "Thank you my minions!");
                         printBossHealth();
                         activeAttacks.remove(9);
                     }

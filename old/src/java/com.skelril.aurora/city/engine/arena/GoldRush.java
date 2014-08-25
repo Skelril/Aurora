@@ -626,7 +626,7 @@ public class GoldRush extends AbstractRegionedArena implements MonitoredArena, L
         Player player = event.getPlayer();
         if (event.isFlying() && players.contains(player.getName())) {
             event.setCancelled(true);
-            ChatUtil.sendNotice(player, "You cannot fly here!");
+            ChatUtil.send(player, "You cannot fly here!");
         }
     }
 
@@ -658,7 +658,7 @@ public class GoldRush extends AbstractRegionedArena implements MonitoredArena, L
     public void onBlockBreak(BlockBreakEvent event) {
 
         if (players.contains(event.getPlayer().getName())) {
-            ChatUtil.sendNotice(event.getPlayer(), ChatColor.DARK_RED, "Are you sure that's a good idea right now?");
+            ChatUtil.send(event.getPlayer(), ChatColor.DARK_RED, "Are you sure that's a good idea right now?");
             event.setCancelled(true);
         }
     }
@@ -667,7 +667,7 @@ public class GoldRush extends AbstractRegionedArena implements MonitoredArena, L
     public void onBlockPlace(BlockPlaceEvent event) {
 
         if (players.contains(event.getPlayer().getName())) {
-            ChatUtil.sendNotice(event.getPlayer(), ChatColor.DARK_RED, "Are you sure that's a good idea right now?");
+            ChatUtil.send(event.getPlayer(), ChatColor.DARK_RED, "Are you sure that's a good idea right now?");
             event.setCancelled(true);
         }
     }
@@ -729,7 +729,7 @@ public class GoldRush extends AbstractRegionedArena implements MonitoredArena, L
                     location.setY(lobby.getMinimumPoint().getBlockY() + 1);
                 } while (location.getBlock().getTypeId() != BlockID.AIR);
                 event.getPlayer().teleport(location);
-                ChatUtil.sendNotice(event.getPlayer(), "[Partner] Ey there kid, just press that button over there to start.");
+                ChatUtil.send(event.getPlayer(), "[Partner] Ey there kid, just press that button over there to start.");
             }
         } else if (state.getTypeId() == BlockID.LEVER && leverBlocks.containsKey(state.getLocation())) {
             server.getScheduler().runTaskLater(inst, () -> {
@@ -749,10 +749,10 @@ public class GoldRush extends AbstractRegionedArena implements MonitoredArena, L
                 event.setUseInteractedBlock(Event.Result.DENY);
                 event.getPlayer().teleport(LocationUtil.grandBank(getWorld()));
 
-                ChatUtil.sendNotice(event.getPlayer(), "You have successfully robbed the bank!\n");
-                ChatUtil.sendNotice(event.getPlayer(), "[Partner] I've put your split of the money in your account.");
-                ChatUtil.sendNotice(event.getPlayer(), "[Partner] Don't question my logic...\n");
-                ChatUtil.sendNotice(event.getPlayer(), "You obtain: "
+                ChatUtil.send(event.getPlayer(), "You have successfully robbed the bank!\n");
+                ChatUtil.send(event.getPlayer(), "[Partner] I've put your split of the money in your account.");
+                ChatUtil.send(event.getPlayer(), "[Partner] Don't question my logic...\n");
+                ChatUtil.send(event.getPlayer(), "You obtain: "
                         + ChatUtil.makeCountString(ChatColor.YELLOW, economy.format(lootSplit), " as your split."));
 
                 economy.depositPlayer(event.getPlayer().getName(), lootSplit);

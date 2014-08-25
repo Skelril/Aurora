@@ -39,7 +39,7 @@ public class HymnImpl extends AbstractItemFeatureImpl {
         if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             for (Map.Entry<CustomItems, HymnSingEvent.Hymn> entry : hymns.entrySet()) {
                 if (ItemUtil.isItem(itemStack, entry.getKey())) {
-                    ChatUtil.sendNotice(player, "You sing the hymn...");
+                    ChatUtil.send(player, "You sing the hymn...");
                     callEvent(new HymnSingEvent(player, entry.getValue()));
                     break;
                 }

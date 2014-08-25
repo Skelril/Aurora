@@ -146,12 +146,12 @@ public class FirstLoginComponent extends BukkitComponent implements Listener {
             for (Player otherPlayer : server.getOnlinePlayers()) {
                 // Don't tell the player we are sending this message
                 if (otherPlayer != player) {
-                    ChatUtil.sendNotice(otherPlayer, "Please welcome, " + player.getDisplayName() + " to the server.");
+                    ChatUtil.send(otherPlayer, "Please welcome, " + player.getDisplayName() + " to the server.");
                 }
             }
 
             // Greeting
-            ChatUtil.sendNotice(player, "Welcome to Skelril!");
+            ChatUtil.send(player, "Welcome to Skelril!");
             inventory.addItem(startKit);
 
             // Surprise!
@@ -161,7 +161,7 @@ public class FirstLoginComponent extends BukkitComponent implements Listener {
                 inventory.addItem(new ItemStack(ItemID.DIAMOND, 1));
 
                 // Notify Player
-                ChatUtil.sendNotice(player, ChatColor.GOLD, "What's this, a diamond! You are very luck!");
+                ChatUtil.send(player, ChatColor.GOLD, "What's this, a diamond! You are very luck!");
             }
 
             player.teleport(world.getSpawnLocation());
@@ -206,8 +206,8 @@ public class FirstLoginComponent extends BukkitComponent implements Listener {
                         firstLoc.setPitch(2);
                         player.teleport(firstLoc);
 
-                        ChatUtil.sendNotice(player, "Welcome to Skelril!");
-                        ChatUtil.sendNotice(player, "Follow the path to begin your adventure!");
+                        ChatUtil.send(player, "Welcome to Skelril!");
+                        ChatUtil.send(player, "Follow the path to begin your adventure!");
                         if (!blockedPlayers.contains(player)) blockedPlayers.add(player);
                     } catch (Exception e) {
                         log.warning("Please ensure the following location exists: "
@@ -225,7 +225,7 @@ public class FirstLoginComponent extends BukkitComponent implements Listener {
                 inventory.addItem(new ItemStack(ItemID.DIAMOND, 1));
 
                 // Notify Player
-                ChatUtil.sendNotice(player, ChatColor.GOLD + "What's this, a diamond! You are very luck!");
+                ChatUtil.send(player, ChatColor.GOLD + "What's this, a diamond! You are very luck!");
             }
         } catch (Exception e) {
             log.warning("Please ensure the following region exists: "

@@ -69,7 +69,7 @@ public class BankComponent extends BukkitComponent implements Listener {
 
         BankState session = sessions.getSession(BankState.class, player);
         session.setLastLoc(new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ()));
-        ChatUtil.sendNotice(player, "You have entered the bank!");
+        ChatUtil.send(player, "You have entered the bank!");
     }
 
     protected boolean isInBank(Player player) {
@@ -99,7 +99,7 @@ public class BankComponent extends BukkitComponent implements Listener {
             @Override
             public void run() {
 
-                ChatUtil.sendNotice(player, "You have left the bank!");
+                ChatUtil.send(player, "You have left the bank!");
                 session.setLastLoc(null);
             }
         }, 1);

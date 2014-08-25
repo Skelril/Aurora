@@ -16,9 +16,7 @@ import com.skelril.OpenBoss.instruction.processor.UnbindProcessor;
 import com.skelril.aurora.combat.bosses.detail.GenericDetail;
 import com.skelril.aurora.combat.bosses.instruction.*;
 import com.skelril.aurora.util.ChanceUtil;
-import org.bukkit.Location;
 import org.bukkit.Server;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.ItemStack;
 
@@ -67,19 +65,7 @@ public class ThunderZombie {
         });
         
         DamageProcessor damageProcessor = thunderZombie.getDamageProcessor();
-        damageProcessor.addInstruction(condition -> {
-            Entity boss = condition.getBoss().getEntity();
-            Entity toHit = condition.getAttacked();
-            toHit.setVelocity(boss.getLocation().getDirection().multiply(2));
-
-            server.getScheduler().runTaskLater(inst, () -> {
-                Location targetLocation = toHit.getLocation();
-                server.getScheduler().runTaskLater(inst, () -> {
-                    targetLocation.getWorld().strikeLightning(targetLocation);
-                }, 15);
-            }, 30);
-            return null;
-        });
+        damageProcessor.addInstruction(new ThorAttack());
 
         DamagedProcessor damagedProcessor = thunderZombie.getDamagedProcessor();
         damagedProcessor.addInstruction(new HealthPrint());

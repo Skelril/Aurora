@@ -88,10 +88,10 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
             return;
         }
         defender.getInventory().addItem(scroll);
-        ChatUtil.sendNotice(defender, attacker.getName() + " has given you a party scroll!");
-        ChatUtil.sendNotice(defender, "Right click to accept, drop to decline.");
+        ChatUtil.send(defender, attacker.getName() + " has given you a party scroll!");
+        ChatUtil.send(defender, "Right click to accept, drop to decline.");
 
-        ChatUtil.sendNotice(attacker, "You've invited " + defender.getName() + " to your party!");
+        ChatUtil.send(attacker, "You've invited " + defender.getName() + " to your party!");
     }
 
     @EventHandler
@@ -152,15 +152,15 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
 
                     // Notify Book Holder
                     ChatUtil.sendError(target, "Your invitation to " + scroll.getShard() + " for " + player.getName() + " has been invalidated.");
-                    ChatUtil.sendNotice(target, "If you still want to play with " + player.getName() + " please make sure");
-                    ChatUtil.sendNotice(target, "you have only one Party Book, then reinvite " + player.getName() + ".");
+                    ChatUtil.send(target, "If you still want to play with " + player.getName() + " please make sure");
+                    ChatUtil.send(target, "you have only one Party Book, then reinvite " + player.getName() + ".");
                     return;
                 }
                 target.getInventory().setContents(itemStacks);
-                ChatUtil.sendNotice(player, "Invitation accepted!");
-                ChatUtil.sendNotice(target, ChatColor.BLUE, player.getName() + " accepted your invitation!");
+                ChatUtil.send(player, "Invitation accepted!");
+                ChatUtil.send(target, ChatColor.BLUE, player.getName() + " accepted your invitation!");
                 if (book != null) {
-                    ChatUtil.sendNotice(
+                    ChatUtil.send(
                             GeneralPlayerUtil.matchPlayers(book.getPlayers()),
                             ChatColor.BLUE,
                             player.getName() + " has joined the party."
@@ -221,10 +221,10 @@ public class PartyBookComponent extends BukkitComponent implements Listener {
                     throw new CommandPermissionsException();
                 }
                 player.getInventory().addItem(new PartyBookReader(type, player.getName()).build());
-                ChatUtil.sendNotice(player, "You've been given a Party Book to: " + type.getName() + ".");
+                ChatUtil.send(player, "You've been given a Party Book to: " + type.getName() + ".");
                 if (type.getMaxPlayers() == -1 || type.getMaxPlayers() > 1) {
-                    ChatUtil.sendNotice(player, "To invite other players to your party,");
-                    ChatUtil.sendNotice(player, "punch them while holding the book.");
+                    ChatUtil.send(player, "To invite other players to your party,");
+                    ChatUtil.send(player, "punch them while holding the book.");
                 }
             } catch (IllegalArgumentException ex) {
                 throw new CommandException("There's no instance by that name!");

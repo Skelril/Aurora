@@ -437,9 +437,9 @@ public class RogueComponent extends BukkitComponent implements Listener, Runnabl
             }
 
             if (!isRogue) {
-                ChatUtil.sendNotice(player, "You gain the power of a rogue warrior!");
+                ChatUtil.send(player, "You gain the power of a rogue warrior!");
             } else {
-                ChatUtil.sendNotice(player, "Rogue flags updated!");
+                ChatUtil.send(player, "Rogue flags updated!");
             }
         }
 
@@ -453,7 +453,7 @@ public class RogueComponent extends BukkitComponent implements Listener, Runnabl
             }
 
             deroguePlayer(player);
-            ChatUtil.sendNotice(player, "You return to your weak existence.");
+            ChatUtil.send(player, "You return to your weak existence.");
         }
     }
 

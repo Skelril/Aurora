@@ -272,8 +272,8 @@ public class LegitCoreComponent extends BukkitComponent implements Listener {
 
         homeDatabase.saveHouse(player, bedLoc.getWorld().getName(), bedLoc.getBlockX(), bedLoc.getBlockY(), bedLoc.getBlockZ());
         if (homeDatabase.save()) {
-            if (!overWritten) ChatUtil.sendNotice(player, "Your bed location has been set.");
-            else ChatUtil.sendNotice(player, "Your bed location has been changed.");
+            if (!overWritten) ChatUtil.send(player, "Your bed location has been set.");
+            else ChatUtil.send(player, "Your bed location has been changed.");
         }
     }
 
@@ -283,7 +283,7 @@ public class LegitCoreComponent extends BukkitComponent implements Listener {
         boolean fromMain = false;
         if (to.contains(config.legitWorld) && !from.contains(config.legitWorld)) {
 
-            ChatUtil.sendNotice(player, "You have entered legit world.");
+            ChatUtil.send(player, "You have entered legit world.");
 
             World fromW = Bukkit.getWorld(from);
             if (fromW != null && fromW.isThundering()) {
@@ -299,7 +299,7 @@ public class LegitCoreComponent extends BukkitComponent implements Listener {
             fromMain = true;
         } else if (from.contains(config.legitWorld) && !to.contains(config.legitWorld)) {
 
-            ChatUtil.sendNotice(player, "You have left legit world.");
+            ChatUtil.send(player, "You have left legit world.");
 
             result = true;
         }

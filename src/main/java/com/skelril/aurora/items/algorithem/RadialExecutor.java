@@ -82,7 +82,7 @@ public abstract class RadialExecutor {
                     newRadius = 0;
                 }
                 tag.setProp(String.valueOf(newRadius));
-                ChatUtil.sendNotice(player, "Radius set to: " + newRadius);
+                ChatUtil.send(player, "Radius set to: " + newRadius);
             }
         }
         ItemStack result = cItem.build();

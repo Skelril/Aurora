@@ -239,7 +239,7 @@ public class PatientXInstance extends BukkitShardInstance<PatientXShard> impleme
         lastTelep = System.currentTimeMillis();
 
         boss.getEntity().teleport(getRandomDest());
-        ChatUtil.sendNotice(getContained(Player.class), "Pause for a second chap, I need to answer the teleport!");
+        ChatUtil.send(getContained(Player.class), "Pause for a second chap, I need to answer the teleport!");
     }
 
     private void freezeEntities() {
@@ -350,7 +350,7 @@ public class PatientXInstance extends BukkitShardInstance<PatientXShard> impleme
         double maxDiff = config.maxDifficulty - config.minDifficulty;
         double curDiff = difficulty - config.minDifficulty;
         message += " Enragement: " + (int) Math.round((curDiff / maxDiff) * 100) + "%";
-        ChatUtil.sendNotice(getContained(Player.class), ChatColor.DARK_AQUA, message);
+        ChatUtil.send(getContained(Player.class), ChatColor.DARK_AQUA, message);
     }
 
     public static final int OPTION_COUNT = 9;

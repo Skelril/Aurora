@@ -117,15 +117,15 @@ public class LodestoneComponent extends BukkitComponent implements Listener {
             }
 
             // Tell the player
-            ChatUtil.sendNotice(player, "Teleport to: " + sign.getLine(2) + " activated!");
-            ChatUtil.sendNotice(player, "Use a portal to proceed.");
+            ChatUtil.send(player, "Teleport to: " + sign.getLine(2) + " activated!");
+            ChatUtil.send(player, "Use a portal to proceed.");
         } else if (sign.getLine(1).equalsIgnoreCase(ChatColor.BLUE + "[Lodestone]") && sign.getLine(3).equals
                 ("Teleport")) {
             deactivateSignTeleport(player);
 
             // Tell the player
-            ChatUtil.sendNotice(player, "Teleport deactivated!");
-            ChatUtil.sendNotice(player, "Portals have returned to their previous function.");
+            ChatUtil.send(player, "Teleport deactivated!");
+            ChatUtil.send(player, "Portals have returned to their previous function.");
         }
     }
 
@@ -150,7 +150,7 @@ public class LodestoneComponent extends BukkitComponent implements Listener {
                     event.setLine(3, "Teleport");
 
                     // Tell the player
-                    ChatUtil.sendNotice(player, "Portal activator to: " + event.getLine(2) + " created!");
+                    ChatUtil.send(player, "Portal activator to: " + event.getLine(2) + " created!");
                     break;
                 default:
                     event.setCancelled(true);

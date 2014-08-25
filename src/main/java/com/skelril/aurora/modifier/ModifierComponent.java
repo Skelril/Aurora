@@ -135,7 +135,7 @@ public class ModifierComponent extends BukkitComponent implements Listener {
         Player player = event.getPlayer();
         server().getScheduler().runTaskLater(inst(), () -> {
             for (String message : messages) {
-                com.skelril.aurora.util.ChatUtil.sendNotice(player, ChatColor.GOLD, message);
+                com.skelril.aurora.util.ChatUtil.send(player, ChatColor.GOLD, message);
             }
         }, 20);
     }

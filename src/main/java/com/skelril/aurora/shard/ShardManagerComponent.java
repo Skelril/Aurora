@@ -327,7 +327,7 @@ public class ShardManagerComponent extends BukkitComponent implements Listener {
                 throw new CommandException("You must be in an instance to use this command.");
             }
             if (leaveInstance(player)) {
-                ChatUtil.sendNotice(player, "You've left the instance.");
+                ChatUtil.send(player, "You've left the instance.");
             }
         }
 
@@ -361,7 +361,7 @@ public class ShardManagerComponent extends BukkitComponent implements Listener {
                 throw new CommandException("You must first make a selection!");
             }
             Location offset = player.getLocation().subtract(selection.getMinimumPoint());
-            ChatUtil.sendNotice(sender, "X: " + offset.getBlockX() + ", Y: " + offset.getBlockY() + ", Z: " + offset.getBlockZ());
+            ChatUtil.send(sender, "X: " + offset.getBlockX() + ", Y: " + offset.getBlockY() + ", Z: " + offset.getBlockZ());
         }
     }
 }

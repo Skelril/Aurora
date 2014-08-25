@@ -59,7 +59,7 @@ public class GoldRushListener extends ShardListener<GoldRush> {
         GoldRushInstance inst = shard.getInstance(player);
         if (inst != null && event.isFlying()) {
             event.setCancelled(true);
-            ChatUtil.sendNotice(player, "You cannot fly here!");
+            ChatUtil.send(player, "You cannot fly here!");
         }
     }
 
@@ -134,9 +134,9 @@ public class GoldRushListener extends ShardListener<GoldRush> {
         } else if (state.getLocation().equals(inst.getRewardChestLoc()) && inst.isComplete()) {
             event.setUseInteractedBlock(Event.Result.DENY);
 
-            ChatUtil.sendNotice(player, "You have successfully robbed the bank!\n");
-            ChatUtil.sendNotice(player, "[Partner] I've put your split of the money in your account.");
-            ChatUtil.sendNotice(player, "[Partner] Don't question my logic...\n");
+            ChatUtil.send(player, "You have successfully robbed the bank!\n");
+            ChatUtil.send(player, "[Partner] I've put your split of the money in your account.");
+            ChatUtil.send(player, "[Partner] Don't question my logic...\n");
             inst.payPlayer(player);
         }
     }
@@ -175,6 +175,6 @@ public class GoldRushListener extends ShardListener<GoldRush> {
                 break;
         }
         event.setDeathMessage(playerName + deathMessage);
-        ChatUtil.sendNotice(player, "Your partner posted bail as promised.");
+        ChatUtil.send(player, "Your partner posted bail as promised.");
     }
 }

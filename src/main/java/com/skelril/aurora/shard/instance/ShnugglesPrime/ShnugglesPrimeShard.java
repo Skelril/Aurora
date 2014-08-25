@@ -189,7 +189,7 @@ public class ShnugglesPrimeShard extends Shard<ShnugglesPrimeInstance> {
             }
             LocalDate date = LocalDate.now().with(Month.APRIL).withDayOfMonth(6);
             if (date.equals(LocalDate.now())) {
-                ChatUtil.sendNotice(spectators, ChatColor.GOLD, "DROPS DOUBLED!");
+                ChatUtil.send(spectators, ChatColor.GOLD, "DROPS DOUBLED!");
                 drops.addAll(drops.stream().map(ItemStack::clone).collect(Collectors.toList()));
             }
             // Reset respawn mechanics
@@ -242,7 +242,7 @@ public class ShnugglesPrimeShard extends Shard<ShnugglesPrimeInstance> {
                         }
                     }
                     if (affected > 0) {
-                        ChatUtil.sendNotice(inst.getContained(Player.class), "Feel my power!");
+                        ChatUtil.send(inst.getContained(Player.class), "Feel my power!");
                     }
                 }
             } else {

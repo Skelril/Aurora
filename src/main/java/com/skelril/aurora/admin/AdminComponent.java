@@ -689,7 +689,7 @@ public class AdminComponent extends BukkitComponent implements Listener {
             final int origin = random;
             random = ChanceUtil.getRandom(random);
 
-            ChatUtil.sendNotice(sender, "Number: " + random + " / " + origin);
+            ChatUtil.send(sender, "Number: " + random + " / " + origin);
         }
 
         @Command(aliases = {"simulatedamage"}, desc = "Simulate damage on the currently held item")
@@ -701,7 +701,7 @@ public class AdminComponent extends BukkitComponent implements Listener {
             ItemStack is = player.getInventory().getItemInHand();
             is.setDurability((short) Math.max(0, is.getData().getItemType().getMaxDurability() - 20));
             player.setItemInHand(is);
-            ChatUtil.sendNotice(player, "Damage simulated!");
+            ChatUtil.send(player, "Damage simulated!");
         }
 
         /*
@@ -716,7 +716,7 @@ public class AdminComponent extends BukkitComponent implements Listener {
             try {
                 float size = Float.parseFloat(args.getString(0));
                 player.getWorld().createExplosion(player.getLocation(), size);
-                ChatUtil.sendNotice(player, "Boom!");
+                ChatUtil.send(player, "Boom!");
             } catch (NumberFormatException ex) {
                 throw new CommandException("Please enter a valid number");
             }
@@ -756,7 +756,7 @@ public class AdminComponent extends BukkitComponent implements Listener {
                 }
 
                 if (admin) {
-                    ChatUtil.sendNotice(sender, "You have entered admin mode.");
+                    ChatUtil.send(sender, "You have entered admin mode.");
                 } else {
                     throw new CommandException("You fail to enter admin mode.");
                 }
@@ -778,7 +778,7 @@ public class AdminComponent extends BukkitComponent implements Listener {
                             "\nUse \"/deadmin -k\" to ignore this warning and continue anyways.");
                 }
                 if (deadmin(player, true)) {
-                    ChatUtil.sendNotice(sender, "You have left admin mode.");
+                    ChatUtil.send(sender, "You have left admin mode.");
                 } else {
                     throw new CommandException("You fail to leave admin mode.");
                 }
@@ -818,7 +818,7 @@ public class AdminComponent extends BukkitComponent implements Listener {
 
             server.getScheduler().runTaskAsynchronously(inst,
                     () -> IOUtil.toBinaryFile(profileDir, profileName, GeneralPlayerUtil.makeComplexState(player)));
-            ChatUtil.sendNotice(sender, "Profile: " + profileName + ", saved!");
+            ChatUtil.send(sender, "Profile: " + profileName + ", saved!");
         }
 
         @Command(aliases = {"load"},
@@ -868,7 +868,7 @@ public class AdminComponent extends BukkitComponent implements Listener {
             } else {
                 throw new CommandException("The profile: " + profileName + ", is corrupt!");
             }
-            ChatUtil.sendNotice(sender, "Profile loaded, and successfully applied!");
+            ChatUtil.send(sender, "Profile loaded, and successfully applied!");
         }
 
         @Command(aliases = {"list"},
@@ -905,7 +905,7 @@ public class AdminComponent extends BukkitComponent implements Listener {
             if (!file.delete()) {
                 throw new CommandException("That profile couldn't be deleted!");
             }
-            ChatUtil.sendNotice(sender, "Profile deleted!");
+            ChatUtil.send(sender, "Profile deleted!");
         }
     }
 
@@ -930,7 +930,7 @@ public class AdminComponent extends BukkitComponent implements Listener {
 
             // Tell Admin
             if (successful) {
-                ChatUtil.sendNotice(sender, "The player: " + player + " is now in the group: " + group + ".");
+                ChatUtil.send(sender, "The player: " + player + " is now in the group: " + group + ".");
             } else {
                 ChatUtil.sendError(sender, "The player: " + player + "'s group could not be set to the group: "
                         + group + ".");
@@ -951,7 +951,7 @@ public class AdminComponent extends BukkitComponent implements Listener {
 
             // Tell Admin
             if (successful) {
-                ChatUtil.sendNotice(sender, "The player: " + player + " is now in the group: " + group + ".");
+                ChatUtil.send(sender, "The player: " + player + " is now in the group: " + group + ".");
             } else {
                 ChatUtil.sendError(sender, "The player: " + player + " is now in the group: " + group + ".");
             }
@@ -971,7 +971,7 @@ public class AdminComponent extends BukkitComponent implements Listener {
 
             // Tell Admin
             if (successful) {
-                ChatUtil.sendNotice(sender, "The player: " + player + " has left the group: " + group + ".");
+                ChatUtil.send(sender, "The player: " + player + " has left the group: " + group + ".");
             } else {
                 ChatUtil.sendError(sender, "The player: " + player + " could not be removed from the group: "
                         + group + ".");

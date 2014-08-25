@@ -379,9 +379,9 @@ public abstract class MinigameComponent extends BukkitComponent implements Runna
 
         if (useQueue) {
             enqueue(targetPlayer, teamNumber, args.getFlags());
-            ChatUtil.sendNotice(targetPlayer, "You have been added to the " + casualName + " queue.");
+            ChatUtil.send(targetPlayer, "You have been added to the " + casualName + " queue.");
             if (!targetPlayer.equals(sender)) {
-                ChatUtil.sendNotice(sender, targetPlayer.getName() + " has been added to the "
+                ChatUtil.send(sender, targetPlayer.getName() + " has been added to the "
                         + casualName + " queue.");
             }
             if (isGameInitialised()) return;
@@ -392,9 +392,9 @@ public abstract class MinigameComponent extends BukkitComponent implements Runna
             throw new CommandException("That player couldn't be added to the " + casualName + "!");
         }
 
-        ChatUtil.sendNotice(targetPlayer, "You have joined the " + casualName + ".");
+        ChatUtil.send(targetPlayer, "You have joined the " + casualName + ".");
         if (!targetPlayer.equals(sender)) {
-            ChatUtil.sendNotice(sender, targetPlayer.getName() + " has joined the " + casualName + ".");
+            ChatUtil.send(sender, targetPlayer.getName() + " has joined the " + casualName + ".");
         }
 
         final Player finalTargetPlayer = targetPlayer;
@@ -403,14 +403,14 @@ public abstract class MinigameComponent extends BukkitComponent implements Runna
                 .collect(Collectors.toList());
 
         if (!containedPlayers.isEmpty()) {
-            ChatUtil.sendNotice(targetPlayer, ChatColor.DARK_GREEN, "Currently present players:");
+            ChatUtil.send(targetPlayer, ChatColor.DARK_GREEN, "Currently present players:");
             containedPlayers.forEach(p -> {
-                ChatUtil.sendNotice(
+                ChatUtil.send(
                         finalTargetPlayer,
                         ChatColor.GREEN,
                         p.getName()
                 );
-                ChatUtil.sendNotice(
+                ChatUtil.send(
                         p,
                         ChatColor.DARK_GREEN,
                         finalTargetPlayer.getName() + " has joined the " + casualName + "."
@@ -438,13 +438,13 @@ public abstract class MinigameComponent extends BukkitComponent implements Runna
         dequeue(targetPlayer);
         removeFromTeam(targetPlayer, false);
 
-        ChatUtil.sendNotice(targetPlayer, "You have left the " + casualName + ".");
+        ChatUtil.send(targetPlayer, "You have left the " + casualName + ".");
         if (!targetPlayer.equals(sender)) {
-            ChatUtil.sendNotice(sender, targetPlayer.getName() + " has left the " + casualName + ".");
+            ChatUtil.send(sender, targetPlayer.getName() + " has left the " + casualName + ".");
         }
 
         getContainedPlayers().stream().filter(p -> !p.equals(targetPlayer)).forEach(p -> {
-            ChatUtil.sendNotice(p, ChatColor.DARK_GREEN, targetPlayer.getName() + " has left the " + casualName + ".");
+            ChatUtil.send(p, ChatColor.DARK_GREEN, targetPlayer.getName() + " has left the " + casualName + ".");
         });
     }
 

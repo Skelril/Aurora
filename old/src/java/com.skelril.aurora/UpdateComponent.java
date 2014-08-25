@@ -61,7 +61,7 @@ public class UpdateComponent extends BukkitComponent implements Listener {
 
             if (!(sender instanceof Player)) throw new CommandException("You must be a player to use this command.");
 
-            ChatUtil.sendNotice(sender, "Click the chest you would like to update.");
+            ChatUtil.send(sender, "Click the chest you would like to update.");
             playerList.add((Player) sender);
         }
     }
@@ -196,7 +196,7 @@ public class UpdateComponent extends BukkitComponent implements Listener {
             c.update(true);
             playerList.remove(player);
             event.setUseInteractedBlock(Event.Result.DENY);
-            ChatUtil.sendNotice(player, "Updated!");
+            ChatUtil.send(player, "Updated!");
         }
     }
 }

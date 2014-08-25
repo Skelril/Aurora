@@ -220,7 +220,7 @@ public class EnchantedForest extends AbstractRegionedArena implements MonitoredA
                     }
                     pInv.setArmorContents(null);
                     pInv.clear();
-                    ChatUtil.sendNotice(player, "The fairies throws your stuff all over the place");
+                    ChatUtil.send(player, "The fairies throws your stuff all over the place");
                     break;
                 case 4:
                     for (final Player aPlayer : getContained(Player.class)) {
@@ -260,7 +260,7 @@ public class EnchantedForest extends AbstractRegionedArena implements MonitoredA
         Player player = event.getPlayer();
         if (event.isFlying() && contains(player) && !adminComponent.isAdmin(player)) {
             event.setCancelled(true);
-            ChatUtil.sendNotice(player, "You cannot fly here!");
+            ChatUtil.send(player, "You cannot fly here!");
         }
     }
 
@@ -343,7 +343,7 @@ public class EnchantedForest extends AbstractRegionedArena implements MonitoredA
         if (!adminComponent.isAdmin(player) && contains(event.getBlock())
                 && !inst.hasPermission(player, "aurora.mine.builder")) {
             event.setCancelled(true);
-            ChatUtil.sendNotice(player, ChatColor.DARK_RED, "You don't have permission for this area.");
+            ChatUtil.send(player, ChatColor.DARK_RED, "You don't have permission for this area.");
         }
     }
 
@@ -364,7 +364,7 @@ public class EnchantedForest extends AbstractRegionedArena implements MonitoredA
         Player player = event.getPlayer();
         if (!adminComponent.isAdmin(player) && contains(event.getBlockClicked())) {
             event.setCancelled(true);
-            ChatUtil.sendNotice(player, ChatColor.DARK_RED, "You don't have permission for this area.");
+            ChatUtil.send(player, ChatColor.DARK_RED, "You don't have permission for this area.");
         }
     }
 

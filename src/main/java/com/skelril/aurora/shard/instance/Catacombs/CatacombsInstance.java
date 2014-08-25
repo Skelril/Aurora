@@ -14,14 +14,22 @@ import com.skelril.OpenBoss.Boss;
 import com.skelril.OpenBoss.EntityDetail;
 import com.skelril.OpenBoss.SlaveBossManager;
 import com.skelril.OpenBoss.instruction.processor.BindProcessor;
+import com.skelril.OpenBoss.instruction.processor.DamageProcessor;
 import com.skelril.OpenBoss.instruction.processor.DamagedProcessor;
+import com.skelril.aurora.combat.bosses.instruction.BlipDefense;
 import com.skelril.aurora.combat.bosses.instruction.NamedBindInstruction;
+import com.skelril.aurora.combat.bosses.instruction.SpecialWeaponAttack;
+import com.skelril.aurora.combat.bosses.instruction.ThorAttack;
 import com.skelril.aurora.items.custom.CustomItems;
+import com.skelril.aurora.items.generic.weapons.SpecWeaponImpl;
+import com.skelril.aurora.items.implementations.FearSwordImpl;
+import com.skelril.aurora.items.implementations.MasterSwordImpl;
+import com.skelril.aurora.items.implementations.UnleashedSwordImpl;
+import com.skelril.aurora.items.specialattack.SpecialAttack;
 import com.skelril.aurora.shard.ShardInstance;
 import com.skelril.aurora.shard.instance.BukkitShardInstance;
 import com.skelril.aurora.shard.instance.Catacombs.instruction.CatacombsHealthInstruction;
-import com.skelril.aurora.shard.instance.Catacombs.instruction.bossmoves.CatacombsDamageNearby;
-import com.skelril.aurora.shard.instance.Catacombs.instruction.bossmoves.UndeadMinionRetaliation;
+import com.skelril.aurora.shard.instance.Catacombs.instruction.bossmoves.*;
 import com.skelril.aurora.util.ChanceUtil;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.item.ItemUtil;
@@ -147,9 +155,56 @@ public class CatacombsInstance extends BukkitShardInstance<CatacombsShard> imple
         Zombie z = getBukkitWorld().spawn(entryPoint, Zombie.class);
         Boss boss = new Boss(z, new CatacombEntityDetail(this, wave));
 
+        DamageProcessor damageProcessor = boss.getDamageProcessor();
+        if (ChanceUtil.getChance(5)) {
+            SpecWeaponImpl weapon;
+            switch (ChanceUtil.getRandom(3)) {
+                case 1:
+                    weapon = new MasterSwordImpl();
+                    break;
+                case 2:
+                    weapon = new FearSwordImpl();
+                    break;
+                case 3:
+                    weapon = new UnleashedSwordImpl();
+                    break;
+                default:
+                    // This should never happen
+                    throw new RuntimeException("Improper number given!");
+            }
+            int activationChance = ChanceUtil.getRangedRandom(3, 12);
+            damageProcessor.addInstruction(new SpecialWeaponAttack(weapon) {
+                @Override
+                public void activateSpecial(SpecialAttack attack) {
+                    if (ChanceUtil.getChance(activationChance)) {
+                        attack.activate();
+                    }
+                }
+            });
+        }
+        if (ChanceUtil.getChance(4)) {
+            damageProcessor.addInstruction(new ThorAttack());
+        }
+        if (ChanceUtil.getChance(3)) {
+            damageProcessor.addInstruction(new SoulReaper());
+        }
+
         DamagedProcessor damagedProcessor = boss.getDamagedProcessor();
-        damagedProcessor.addInstruction(new CatacombsDamageNearby());
-        damagedProcessor.addInstruction(new UndeadMinionRetaliation());
+        if (ChanceUtil.getChance(7)) {
+            damagedProcessor.addInstruction(new BlipDefense());
+        }
+        if (ChanceUtil.getChance(6)) {
+            damagedProcessor.addInstruction(new ExplosiveArrowBarrage());
+        }
+        if (ChanceUtil.getChance(5)) {
+            damagedProcessor.addInstruction(new DeathMark());
+        }
+        if (ChanceUtil.getChance(4)) {
+            damagedProcessor.addInstruction(new CatacombsDamageNearby());
+        }
+        if (ChanceUtil.getChance(3)) {
+            damagedProcessor.addInstruction(new UndeadMinionRetaliation(ChanceUtil.getRangedRandom(75, 100)));
+        }
 
         getMaster().getBossManager().bind(boss, bosses);
     }

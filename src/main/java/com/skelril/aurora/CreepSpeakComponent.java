@@ -160,7 +160,7 @@ public class CreepSpeakComponent extends BukkitComponent implements Listener {
                 CreepSpeakEvent creepyEvent = new CreepSpeakEvent(player, entity, color + message);
                 server.getPluginManager().callEvent(creepyEvent);
                 if (!creepyEvent.isCancelled()) {
-                    ChatUtil.sendNotice(creepyEvent.getPlayer(), creepyEvent.getMessage());
+                    ChatUtil.send(creepyEvent.getPlayer(), creepyEvent.getMessage());
                 }
 
             }

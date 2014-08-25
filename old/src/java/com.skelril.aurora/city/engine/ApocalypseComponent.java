@@ -301,7 +301,7 @@ public class ApocalypseComponent extends BukkitComponent implements Listener {
         applicable.stream().filter(Player::isFlying).forEach(player -> {
             player.setFlying(false);
             player.setAllowFlight(false);
-            ChatUtil.sendNotice(player, "The lightning hinders your ability to fly.");
+            ChatUtil.send(player, "The lightning hinders your ability to fly.");
         });
     }
 

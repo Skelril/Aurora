@@ -64,7 +64,7 @@ public class SnipeeBossManager extends BossManager {
                 double loot = economy.getBalance(player) * config.bankPercent;
                 loot = Math.max(loot, config.minLoot);
                 economy.depositPlayer(player, loot);
-                ChatUtil.sendNotice(player, "The boss drops " + ChatColor.WHITE + economy.format(loot));
+                ChatUtil.send(player, "The boss drops " + ChatColor.WHITE + economy.format(loot));
             }
             return null;
         });

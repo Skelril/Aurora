@@ -178,7 +178,7 @@ public class PatientXShard extends Shard<PatientXInstance> {
 
             LocalDate date = LocalDate.now().with(Month.APRIL).withDayOfMonth(6);
             if (date.equals(LocalDate.now())) {
-                ChatUtil.sendNotice(inst.getContained(Player.class), ChatColor.GOLD, "DROPS DOUBLED!");
+                ChatUtil.send(inst.getContained(Player.class), ChatColor.GOLD, "DROPS DOUBLED!");
                 drops.addAll(drops.stream().map(ItemStack::clone).collect(Collectors.toList()));
             }
 
@@ -229,7 +229,7 @@ public class PatientXShard extends Shard<PatientXInstance> {
             if (attacked instanceof Player) {
                 Player player = (Player) attacked;
                 if (inst().hasPermission(player, "aurora.prayer.intervention") && ChanceUtil.getChance(inst.getDifficulty())) {
-                    ChatUtil.sendNotice(player, "A divine force protects you.");
+                    ChatUtil.send(player, "A divine force protects you.");
                     return null;
                 }
             }

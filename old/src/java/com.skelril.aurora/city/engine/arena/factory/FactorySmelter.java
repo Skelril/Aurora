@@ -55,7 +55,7 @@ public class FactorySmelter extends FactoryMech {
         Collection<Player> playerList = getContained(1, Player.class);
 
         Collection<Item> lavaContained = lavaSupply.getContained(Item.class);
-        if (lavaContained.size() > 0) ChatUtil.sendNotice(playerList, "Adding lava...");
+        if (lavaContained.size() > 0) ChatUtil.send(playerList, "Adding lava...");
         int totalLava = items.containsKey(ItemID.LAVA_BUCKET) ? items.get(ItemID.LAVA_BUCKET) : 0;
         for (Item e : lavaContained) {
             // Find items and destroy those unwanted
@@ -79,7 +79,7 @@ public class FactorySmelter extends FactoryMech {
         }
 
         Collection<Item> contained = getContained(Item.class);
-        if (!contained.isEmpty()) ChatUtil.sendNotice(playerList, "Processing...");
+        if (!contained.isEmpty()) ChatUtil.send(playerList, "Processing...");
         for (Item e : contained) {
             // Find items and destroy those unwanted
             ItemStack workingStack = e.getItemStack();
@@ -87,7 +87,7 @@ public class FactorySmelter extends FactoryMech {
             // Add the item to the list
             if (wanted.contains(workingStack.getTypeId())) {
                 int total = workingStack.getAmount();
-                ChatUtil.sendNotice(playerList, "Found: " + total + " " + workingStack.getType().toString() + ".");
+                ChatUtil.send(playerList, "Found: " + total + " " + workingStack.getType().toString() + ".");
                 if (items.containsKey(workingStack.getTypeId())) {
                     total += items.get(workingStack.getTypeId());
                 }
@@ -138,10 +138,10 @@ public class FactorySmelter extends FactoryMech {
 
         // Tell the player what we are making
         if (maxIron > 0) {
-            ChatUtil.sendNotice(playerList, "Smelting: "  + maxIron + " iron ingots.");
+            ChatUtil.send(playerList, "Smelting: " + maxIron + " iron ingots.");
         }
         if (maxGold > 0) {
-            ChatUtil.sendNotice(playerList, "Smelting: " + maxGold + " gold ingots.");
+            ChatUtil.send(playerList, "Smelting: " + maxGold + " gold ingots.");
         }
         // Return the product for the que
         List<ItemStack> product = new ArrayList<>();

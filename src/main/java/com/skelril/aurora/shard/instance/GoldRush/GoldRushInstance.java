@@ -323,8 +323,8 @@ public class GoldRushInstance extends BukkitShardInstance<GoldRushShard> impleme
                     continue;
                 } else {
                     ChatUtil.sendWarning(aPlayer, "[Partner] Ey kid, I'm going to take some cash from ya.");
-                    ChatUtil.sendNotice(aPlayer, "[Partner] Ya know, just in case you get caught or somethin...");
-                    ChatUtil.sendNotice(aPlayer, "[Partner] Thief's honor, I swear!");
+                    ChatUtil.send(aPlayer, "[Partner] Ya know, just in case you get caught or somethin...");
+                    ChatUtil.send(aPlayer, "[Partner] Thief's honor, I swear!");
                 }
 
                 getMaster().getEcon().withdrawPlayer(aPlayer, fee);
@@ -368,7 +368,7 @@ public class GoldRushInstance extends BukkitShardInstance<GoldRushShard> impleme
 
                 // Partner talk
                 server().getScheduler().runTaskLater(inst(), () -> {
-                    ChatUtil.sendNotice(aPlayer, "[Partner] I've disabled the security systems for now.");
+                    ChatUtil.send(aPlayer, "[Partner] I've disabled the security systems for now.");
                     server().getScheduler().runTaskLater(inst(), () -> {
                         ChatUtil.sendWarning(aPlayer, "[Partner] For your sake kid I hope you can move quickly.");
                     }, 20);
@@ -430,7 +430,7 @@ public class GoldRushInstance extends BukkitShardInstance<GoldRushShard> impleme
         if (fee == null) return;
         getMaster().getEcon().depositPlayer(player, fee);
         getMaster().getManager().leaveInstance(player);
-        ChatUtil.sendNotice(player, "[Partner] These @$#&!@# restarts... Here, have your bail money...");
+        ChatUtil.send(player, "[Partner] These @$#&!@# restarts... Here, have your bail money...");
     }
 
     public boolean payPlayer(Player player) {
@@ -471,14 +471,14 @@ public class GoldRushInstance extends BukkitShardInstance<GoldRushShard> impleme
             goldValue += goldTypeVal * is.getAmount();
         }
 
-        ChatUtil.sendNotice(player, "You obtain: ");
-        ChatUtil.sendNotice(player, " - Bail: " + ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(fee), "."));
-        ChatUtil.sendNotice(player, " - Split: " + ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(lootSplit), "."));
+        ChatUtil.send(player, "You obtain: ");
+        ChatUtil.send(player, " - Bail: " + ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(fee), "."));
+        ChatUtil.send(player, " - Split: " + ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(lootSplit), "."));
         if (goldValue > 0) {
-            ChatUtil.sendNotice(player, " - Gold: " + ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(goldValue), "."));
+            ChatUtil.send(player, " - Gold: " + ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(goldValue), "."));
         }
         if (itemValue > 0) {
-            ChatUtil.sendNotice(player, " - Items: " + ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(itemValue), "."));
+            ChatUtil.send(player, " - Items: " + ChatUtil.makeCountString(ChatColor.YELLOW, econ.format(itemValue), "."));
         }
 
         getMaster().getEcon().depositPlayer(player, fee + lootSplit + goldValue + itemValue);

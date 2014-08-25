@@ -287,7 +287,7 @@ public class ArenaComponent extends BukkitComponent implements Listener, Runnabl
                         continue;
                     }
                     arena.run();
-                    ChatUtil.sendNotice(sender, "Triggered arena: " + arena.getId() + ".");
+                    ChatUtil.send(sender, "Triggered arena: " + arena.getId() + ".");
                 }
             }
         }

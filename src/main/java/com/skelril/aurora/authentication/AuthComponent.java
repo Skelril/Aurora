@@ -160,7 +160,7 @@ public class AuthComponent extends BukkitComponent implements Listener, Runnable
 
                 if (isListed(player.getName())) {
                     permission.playerAddGroup((World) null, player.getName(), config.greyListGroup);
-                    ChatUtil.sendNotice(player, "Thank you for registering your account.");
+                    ChatUtil.send(player, "Thank you for registering your account.");
                 } else {
                     ChatUtil.sendWarning(player, "You are currently a probationary player.");
                     ChatUtil.sendWarning(player, "To get full access please register your account at: " + config.websiteUrl + ".");
@@ -195,7 +195,7 @@ public class AuthComponent extends BukkitComponent implements Listener, Runnable
             String authToke = authenticate(sender.getName(), args.getString(0), args.getString(1));
 
             if (!authToke.equals("401")) {
-                ChatUtil.sendNotice(sender, "Successfully authenticated with shivtr.");
+                ChatUtil.send(sender, "Successfully authenticated with shivtr.");
 
                 AuthenticatedShivtrCharacter shivtrCharacter
                         = new AuthenticatedShivtrCharacter(sender.getName(), authToke);
@@ -216,7 +216,7 @@ public class AuthComponent extends BukkitComponent implements Listener, Runnable
         public void authUpdateCmd(CommandContext args, CommandSender sender) throws CommandException {
 
             run();
-            if (sender instanceof Player) ChatUtil.sendNotice(sender, "The Characters List(s) is now being updated.");
+            if (sender instanceof Player) ChatUtil.send(sender, "The Characters List(s) is now being updated.");
         }
     }
 

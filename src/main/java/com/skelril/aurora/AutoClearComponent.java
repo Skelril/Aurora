@@ -164,7 +164,7 @@ public class AutoClearComponent extends BukkitComponent implements Runnable {
             }
 
             sessions.getSession(DropClearObserver.class, sender).setStats(world, checkEntities(world).getStats());
-            ChatUtil.sendNotice(sender, "Stats updated.");
+            ChatUtil.send(sender, "Stats updated.");
         }
 
         @Command(aliases = {"info"},
@@ -207,12 +207,12 @@ public class AutoClearComponent extends BukkitComponent implements Runnable {
                 throw new CommandException("That chunk could not be found in the specified record");
             }
 
-            ChatUtil.sendNotice(sender, ChatColor.GOLD, "Chunk stats: (X: " + ChatColor.WHITE + target.getX()
+            ChatUtil.send(sender, ChatColor.GOLD, "Chunk stats: (X: " + ChatColor.WHITE + target.getX()
                     + "%p%, Z: " + ChatColor.WHITE + target.getZ()
                     + "%p%)");
-            ChatUtil.sendNotice(sender, "Total Drops: " + target.total());
+            ChatUtil.send(sender, "Total Drops: " + target.total());
             for (Map.Entry<EntityType, Integer> entry : target.getStats().entrySet()) {
-                ChatUtil.sendNotice(sender, entry.getKey().name() + ": " + entry.getValue());
+                ChatUtil.send(sender, entry.getKey().name() + ": " + entry.getValue());
             }
         }
 
@@ -301,10 +301,10 @@ public class AutoClearComponent extends BukkitComponent implements Runnable {
                 total += i;
             }
 
-            ChatUtil.sendNotice(sender, ChatColor.GOLD, "Drop Composition Report");
+            ChatUtil.send(sender, ChatColor.GOLD, "Drop Composition Report");
             DecimalFormat formatter = new DecimalFormat("#.##");
             for (Map.Entry<EntityType, Integer> entry : totals.entrySet()) {
-                ChatUtil.sendNotice(sender, ChatColor.YELLOW, entry.getKey().name() + " (Quantity: "
+                ChatUtil.send(sender, ChatColor.YELLOW, entry.getKey().name() + " (Quantity: "
                         + ChatColor.WHITE + entry.getValue()
                         + "%p% - "
                         + ChatColor.WHITE + formatter.format(((double) entry.getValue() / total) * 100)

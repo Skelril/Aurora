@@ -50,7 +50,7 @@ public class PixieDustImpl extends AbstractItemFeatureImpl {
         player.setFlySpeed(.6F);
         exempt(player, PLAYER_FLY);
 
-        ChatUtil.sendNotice(player, "You use the Pixie Dust to gain flight.");
+        ChatUtil.send(player, "You use the Pixie Dust to gain flight.");
 
         IntegratedRunnable integratedRunnable = new IntegratedRunnable() {
             @Override
@@ -78,7 +78,7 @@ public class PixieDustImpl extends AbstractItemFeatureImpl {
                         player.updateInventory();
 
                         if (System.currentTimeMillis() >= currentTime + 13000) {
-                            ChatUtil.sendNotice(player, "You use some more Pixie Dust to keep flying.");
+                            ChatUtil.send(player, "You use some more Pixie Dust to keep flying.");
                         }
                         return false;
                     }
@@ -92,7 +92,7 @@ public class PixieDustImpl extends AbstractItemFeatureImpl {
 
                 if (player.isValid()) {
                     if (player.getAllowFlight()) {
-                        ChatUtil.sendNotice(player, "You are no longer influenced by the Pixie Dust.");
+                        ChatUtil.send(player, "You are no longer influenced by the Pixie Dust.");
                         unexempt(player, PLAYER_FLY);
                     }
                     player.setFallDistance(0);
@@ -146,7 +146,7 @@ public class PixieDustImpl extends AbstractItemFeatureImpl {
 
             player.setAllowFlight(false);
             unexempt(player, PLAYER_FLY);
-            ChatUtil.sendNotice(player, "You are no longer influenced by the Pixie Dust.");
+            ChatUtil.send(player, "You are no longer influenced by the Pixie Dust.");
 
             final String playerName = player.getName();
 

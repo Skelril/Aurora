@@ -104,7 +104,7 @@ public class PetProtectorComponent extends BukkitComponent implements Listener {
 
                 ItemUtil.removeItemOfType(player, ItemID.RED_APPLE, 1, true);
 
-                ChatUtil.sendNotice(player, "You have gained possession of this horse.");
+                ChatUtil.send(player, "You have gained possession of this horse.");
                 return;
             } else if (player.isSneaking() && tameable.getOwner().getName().equals(player.getName())) {
 
@@ -114,7 +114,7 @@ public class PetProtectorComponent extends BukkitComponent implements Listener {
 
                 ItemUtil.removeItemOfType(player, ItemID.RED_APPLE, 1, true);
 
-                ChatUtil.sendNotice(player, "You have lost possession of this horse.");
+                ChatUtil.send(player, "You have lost possession of this horse.");
                 return;
             }
         }

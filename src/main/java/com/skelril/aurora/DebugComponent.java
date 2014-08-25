@@ -98,9 +98,9 @@ public class DebugComponent extends BukkitComponent {
         public void myLocCmd(CommandContext args, CommandSender sender) throws CommandException {
 
             Player player = PlayerUtil.checkPlayer(sender);
-            ChatUtil.sendNotice(player, "Food level: " + player.getFoodLevel());
-            ChatUtil.sendNotice(player, "Sat. level: " + player.getSaturation());
-            ChatUtil.sendNotice(player, "Exh. level: " + player.getExhaustion());
+            ChatUtil.send(player, "Food level: " + player.getFoodLevel());
+            ChatUtil.send(player, "Sat. level: " + player.getSaturation());
+            ChatUtil.send(player, "Exh. level: " + player.getExhaustion());
         }
     }
 
@@ -118,7 +118,7 @@ public class DebugComponent extends BukkitComponent {
             } catch (UnsupportedFeatureException e) {
                 throw new CommandException("This feature is not currently supported.");
             }
-            ChatUtil.sendNotice(player, "The chunk lighting has successfully been recalculated.");
+            ChatUtil.send(player, "The chunk lighting has successfully been recalculated.");
         }
     }
 
@@ -129,8 +129,8 @@ public class DebugComponent extends BukkitComponent {
         public void myLocCmd(CommandContext args, CommandSender sender) throws CommandException {
 
             Location l = PlayerUtil.checkPlayer(sender).getLocation();
-            ChatUtil.sendNotice(sender, "X: " + l.getX() + ", Y:" + l.getY() + ", Z: " + l.getZ());
-            ChatUtil.sendNotice(sender, "Pitch: " + l.getPitch() + ", Yaw: " + l.getYaw());
+            ChatUtil.send(sender, "X: " + l.getX() + ", Y:" + l.getY() + ", Z: " + l.getZ());
+            ChatUtil.send(sender, "Pitch: " + l.getPitch() + ", Yaw: " + l.getYaw());
         }
     }
 
@@ -151,7 +151,7 @@ public class DebugComponent extends BukkitComponent {
                             selection.getMinimumPoint().getBlockY(),
                             selection.getMaximumPoint().getBlockY()
                     );
-                    ChatUtil.sendNotice(sender, "Region Volume: " + region.volume());
+                    ChatUtil.send(sender, "Region Volume: " + region.volume());
                 }
                 // Do something with min/max
             } else {
@@ -168,7 +168,7 @@ public class DebugComponent extends BukkitComponent {
             ItemStack held = event.getItem();
             if (held != null && held.getType() == Material.COAL && event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
                 Block block = event.getClickedBlock();
-                ChatUtil.sendNotice(event.getPlayer(),
+                ChatUtil.send(event.getPlayer(),
                         "Block name: " + block.getType()
                                 + ", Type ID: " + block.getTypeId()
                                 + ", Block data: " + block.getData()

@@ -27,7 +27,6 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,15 +118,6 @@ public class LostRogue {
             }
             return null;
         });
-        damagedProcessor.addInstruction(condition -> {
-            if (ChanceUtil.getChance(5)) {
-                Entity boss = condition.getBoss().getEntity();
-                Vector vel = boss.getLocation().getDirection();
-                vel.multiply(4);
-                vel.setY(Math.min(.8, Math.max(.175, vel.getY())));
-                boss.setVelocity(vel);
-            }
-            return null;
-        });
+        damagedProcessor.addInstruction(new BlipDefense());
     }
 }

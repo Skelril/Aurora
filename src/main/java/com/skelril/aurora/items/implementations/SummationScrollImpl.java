@@ -39,7 +39,7 @@ public class SummationScrollImpl extends AbstractCondenserImpl {
                 if (result != null) {
                     player.getInventory().setContents(result);
                     ItemUtil.removeItemOfName(player, CustomItemCenter.build(CustomItems.SCROLL_OF_SUMMATION), 1, false);
-                    ChatUtil.sendNotice(player, ChatColor.GOLD, "The scroll glows brightly before turning to dust...");
+                    ChatUtil.send(player, ChatColor.GOLD, "The scroll glows brightly before turning to dust...");
                 }
             }
         }

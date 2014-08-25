@@ -116,27 +116,27 @@ public class ChestDepositComponent extends BukkitComponent implements Listener, 
         String[] lines = event.getLines();
 
         if (lines[1].equalsIgnoreCase("[CDestroy]")) {
-            ChatUtil.sendNotice(player, "Chest Filter Sign Successfully created.");
+            ChatUtil.send(player, "Chest Filter Sign Successfully created.");
 
             if (lines[2].equalsIgnoreCase("All")) {
                 event.setLine(2, "All");
-                ChatUtil.sendNotice(player, "Chest Will Destroy: EVERYTHING.");
+                ChatUtil.send(player, "Chest Will Destroy: EVERYTHING.");
             } else if (lines[2].trim().length() > 0) {
-                ChatUtil.sendNotice(player, "Chest Will Destroy: " + lines[2] + ".");
+                ChatUtil.send(player, "Chest Will Destroy: " + lines[2] + ".");
             }
 
             if (lines[3].trim().length() > 0 && !lines[2].equalsIgnoreCase("All")) {
-                ChatUtil.sendNotice(player, "Chest Will Destroy: " + lines[3] + ".");
+                ChatUtil.send(player, "Chest Will Destroy: " + lines[3] + ".");
             }
         } else if (lines[1].equalsIgnoreCase("[CFilter]")) {
-            ChatUtil.sendNotice(player, "Chest Filter Sign Successfully created.");
+            ChatUtil.send(player, "Chest Filter Sign Successfully created.");
 
             if (lines[2].equalsIgnoreCase("[CDestroy]")) {
-                ChatUtil.sendNotice(player, "Chest Will Avoid: " + lines[2] + ".");
+                ChatUtil.send(player, "Chest Will Avoid: " + lines[2] + ".");
             }
 
             if (lines[3].trim().length() > 0) {
-                ChatUtil.sendNotice(player, "Chest Will Avoid: " + lines[2] + ".");
+                ChatUtil.send(player, "Chest Will Avoid: " + lines[2] + ".");
             }
         }
     }
