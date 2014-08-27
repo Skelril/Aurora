@@ -6,6 +6,7 @@
 
 package com.skelril.aurora.shard.instance.Catacombs.instruction.bossmoves;
 
+import com.sk89q.commandbook.CommandBook;
 import com.skelril.OpenBoss.EntityDetail;
 import com.skelril.OpenBoss.InstructionResult;
 import com.skelril.OpenBoss.condition.DamageCondition;
@@ -46,10 +47,12 @@ public class SoulReaper implements DamageInstruction {
         CatacombEntityDetail detail = getFrom(condition.getBoss().getDetail());
         Entity attacked = condition.getAttacked();
         if (attacked instanceof Player && activate(detail)) {
-            double stolen = ((Player) attacked).getHealth() - 1;
-            ((Player) attacked).setHealth(1);
-            EntityUtil.heal(condition.getBoss().getEntity(), stolen);
-            ChatUtil.sendWarning((Player) attacked, "The necromancer reaps your soul.");
+            CommandBook.server().getScheduler().runTaskLater(CommandBook.inst(), () -> {
+                double stolen = ((Player) attacked).getHealth() - 1;
+                ((Player) attacked).setHealth(1);
+                EntityUtil.heal(condition.getBoss().getEntity(), stolen);
+                ChatUtil.sendWarning((Player) attacked, "The necromancer reaps your soul.");
+            }, 1);
         }
         return next;
     }
