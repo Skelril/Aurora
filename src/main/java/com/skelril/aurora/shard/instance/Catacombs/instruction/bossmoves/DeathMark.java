@@ -14,7 +14,6 @@ import com.skelril.aurora.shard.instance.Catacombs.CatacombEntityDetail;
 import com.skelril.aurora.shard.instance.Catacombs.CatacombsInstance;
 import com.skelril.aurora.util.ChanceUtil;
 import com.skelril.aurora.util.ChatUtil;
-import com.skelril.aurora.util.CollectionUtil;
 import com.skelril.aurora.util.extractor.entity.CombatantPair;
 import com.skelril.aurora.util.extractor.entity.EDBEExtractor;
 import org.bukkit.ChatColor;
@@ -34,7 +33,7 @@ public class DeathMark implements DamagedInstruction {
     private final int baseActivation;
 
     public DeathMark() {
-        this(10);
+        this(30);
     }
 
     public DeathMark(int baseActivation) {
@@ -67,13 +66,13 @@ public class DeathMark implements DamagedInstruction {
                 Collection<Player> players = inst.getContained(Player.class);
                 if (detail.getMarked() != null) {
                     if (result.getAttacker().equals(detail.getMarked())) {
-                        detail.setMarked(null);
                         ChatUtil.send(players, result.getAttacker().getName() + " has been freed!");
                     } else {
                         detail.getMarked().setHealth(0);
                     }
+                    detail.setMarked(null);
                 } else if (activate(detail)) {
-                    Player marked = CollectionUtil.getElement(players);
+                    Player marked = result.getAttacker();
                     detail.setMarked(marked);
                     ChatUtil.send(players, ChatColor.DARK_RED, marked.getName() + " has been marked!");
                 }
