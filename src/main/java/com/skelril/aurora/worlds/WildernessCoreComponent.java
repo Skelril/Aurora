@@ -839,7 +839,7 @@ public class WildernessCoreComponent extends BukkitComponent implements Listener
     }
 
     private int getOreMod(int level) {
-        double modifier = Math.max(1, (level * 1.5));
+        double modifier = Math.max(1, (level * 3));
         if (getModifierManager().isActive(ModifierType.DOUBLE_WILD_ORES)) {
             modifier *= 2;
         }
