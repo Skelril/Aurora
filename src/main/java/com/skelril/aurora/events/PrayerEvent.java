@@ -24,9 +24,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.player.PlayerEvent;
 
-/**
- * Author: Turtle9598
- */
 public abstract class PrayerEvent extends PlayerEvent implements Cancellable {
 
     private boolean cancelled = false;

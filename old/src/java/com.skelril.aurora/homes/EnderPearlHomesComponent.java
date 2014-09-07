@@ -45,9 +45,6 @@ import org.bukkit.inventory.ItemStack;
 import java.io.File;
 import java.util.logging.Logger;
 
-/**
- * @author Turtle9598
- */
 //@ComponentInformation(friendlyName = "Ender Pearl Homes", desc = "Teleport with enderpearls!")
 public class EnderPearlHomesComponent extends BukkitComponent implements Listener {
 

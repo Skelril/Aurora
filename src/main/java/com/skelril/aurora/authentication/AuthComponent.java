@@ -53,9 +53,6 @@ import java.util.logging.Logger;
 
 import static org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Auth", desc = "Authentication System for Shivtr")
 public class AuthComponent extends BukkitComponent implements Listener, Runnable {
 

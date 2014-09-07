@@ -45,9 +45,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
 
-/**
- * @author Turtle9598
- */
 @ComponentInformation(friendlyName = "Gone Fishing", desc = "Awesome fishing stuff.")
 public class FishingComponent extends BukkitComponent implements Listener {
 

@@ -23,9 +23,6 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
-/**
- * Author: Turtle9598
- */
 public class WealthStore extends GenericWealthStore {
 
     public WealthStore(String ownerName, ItemStack[] inventoryContents) {

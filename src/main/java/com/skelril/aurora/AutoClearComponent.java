@@ -45,9 +45,6 @@ import java.text.DecimalFormat;
 import java.util.*;
 import java.util.logging.Logger;
 
-/**
- * @author Turtle9598
- */
 @ComponentInformation(friendlyName = "Auto Clear", desc = "Automatically clears items on the ground.")
 @Depend(components = {SessionComponent.class})
 public class AutoClearComponent extends BukkitComponent implements Runnable {

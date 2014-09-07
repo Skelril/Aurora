@@ -40,9 +40,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Block Hack", desc = "Stop the nukers")
 @Depend(components = AdminComponent.class)
 public class AntiBlockBreakComponent extends BukkitComponent implements Listener {

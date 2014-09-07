@@ -32,9 +32,6 @@ import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 public class InventoryAuditLogger {
 
     private final Logger log = CommandBook.inst().getLogger();

@@ -67,9 +67,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 //@ComponentInformation(friendlyName = "Home Manager", desc = "Home ECS")
 //@Depend(plugins = {"WorldEdit", "WorldGuard"}, components = AdminStoreComponent.class)
 public class HomeManagerComponent extends BukkitComponent implements Listener {

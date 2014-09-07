@@ -19,9 +19,6 @@
 
 package com.skelril.aurora.authentication;
 
-/**
- * Author: Turtle9598
- */
 public class Character {
 
     final String playerName;

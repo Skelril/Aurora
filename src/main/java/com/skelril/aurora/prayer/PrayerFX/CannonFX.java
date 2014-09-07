@@ -24,9 +24,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 
-/**
- * Author: Turtle9598
- */
 public class CannonFX extends AbstractEffect {
 
     @Override

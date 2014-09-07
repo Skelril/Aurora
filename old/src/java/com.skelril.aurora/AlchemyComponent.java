@@ -35,9 +35,6 @@ import org.bukkit.inventory.ItemStack;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Alchemy", desc = "Deconstruct Materials!")
 public class AlchemyComponent extends BukkitComponent implements Listener {
 

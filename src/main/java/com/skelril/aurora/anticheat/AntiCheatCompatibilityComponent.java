@@ -48,9 +48,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Anit-Cheat Compat", desc = "Compatibility layer for Anti-Cheat plugins.")
 @Depend(plugins = {"NoCheatPlus"})
 public class AntiCheatCompatibilityComponent extends BukkitComponent implements Listener, Runnable {

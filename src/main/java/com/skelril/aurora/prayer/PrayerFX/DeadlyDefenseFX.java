@@ -26,9 +26,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
-/**
- * Author: Turtle9598
- */
 public class DeadlyDefenseFX extends AbstractEffect {
 
     @Override

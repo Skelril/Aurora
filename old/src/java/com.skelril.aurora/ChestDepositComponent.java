@@ -43,9 +43,6 @@ import org.bukkit.inventory.Inventory;
 
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Chest Deposit", desc = "Make item on top chest go into the chest.")
 public class ChestDepositComponent extends BukkitComponent implements Listener, Runnable {
 

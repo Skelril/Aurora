@@ -47,9 +47,6 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.logging.Logger;
 
-/**
- * @author Turtle9598
- */
 @ComponentInformation(friendlyName = "Creep Speak", desc = "Make mobs talk.")
 @Depend(components = {SessionComponent.class})
 public class CreepSpeakComponent extends BukkitComponent implements Listener {

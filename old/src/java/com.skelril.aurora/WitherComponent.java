@@ -35,9 +35,6 @@ import org.bukkit.event.entity.EntityDeathEvent;
 
 import java.util.logging.Logger;
 
-/**
- * @author Turtle9598
- */
 @ComponentInformation(friendlyName = "Wither", desc = "Watch dem withers")
 @Depend(components = {AdminComponent.class})
 public class WitherComponent extends BukkitComponent implements Listener {

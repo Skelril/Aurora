@@ -42,9 +42,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Pet Protector", desc = "Protectin dem petz.")
 @Depend(components = {AdminComponent.class})
 public class PetProtectorComponent extends BukkitComponent implements Listener {

@@ -40,9 +40,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 public class EffectUtil {
 
     private static final CommandBook inst = CommandBook.inst();

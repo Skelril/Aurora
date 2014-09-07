@@ -64,9 +64,6 @@ import java.io.File;
 import java.util.*;
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 public class EnchantedForest extends AbstractRegionedArena implements MonitoredArena, PersistentArena, Listener {
 
     private final CommandBook inst = CommandBook.inst();

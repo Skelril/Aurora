@@ -32,9 +32,6 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Pumpkin Scuba", desc = "Breath underwater.")
 public class PumpkinScubaHelmetComponent extends BukkitComponent implements Listener {
 

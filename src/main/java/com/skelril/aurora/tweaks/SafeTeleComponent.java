@@ -33,9 +33,6 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Safe Tele", desc = "No falling pl0x.")
 public class SafeTeleComponent extends BukkitComponent implements Listener {
 

@@ -81,9 +81,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-/**
- * @author Turtle9598
- */
 @ComponentInformation(friendlyName = "Admin", desc = "Player Administration commands.")
 @Depend(plugins = {"WorldEdit, Vault"}, components = {NinjaComponent.class, RogueComponent.class, GodComponent.class})
 public class AdminComponent extends BukkitComponent implements Listener {

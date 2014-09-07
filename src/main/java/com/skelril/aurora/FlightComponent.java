@@ -37,9 +37,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.logging.Logger;
 
-/**
- * @author Turtle9598
- */
 @ComponentInformation(friendlyName = "Wing", desc = "Fly like the wind!")
 public class FlightComponent extends BukkitComponent implements Listener {
 

@@ -22,9 +22,6 @@ package com.skelril.aurora.prayer.PrayerFX;
 import com.skelril.aurora.prayer.PrayerType;
 import org.bukkit.entity.Player;
 
-/**
- * Author: Turtle9598
- */
 public class InfiniteHungerFX extends AbstractEffect {
 
     @Override

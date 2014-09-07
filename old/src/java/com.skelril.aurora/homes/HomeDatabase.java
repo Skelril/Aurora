@@ -21,9 +21,6 @@ package com.skelril.aurora.homes;
 
 import org.bukkit.entity.Player;
 
-/**
- * Author: Turtle9598
- */
 public interface HomeDatabase {
 
     /**

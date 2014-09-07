@@ -34,9 +34,6 @@ import org.bukkit.event.entity.EntityCreatePortalEvent;
 
 import java.util.logging.Logger;
 
-/**
- * @author Turtle9598
- */
 @ComponentInformation(friendlyName = "Ender Dragon", desc = "Stop Enderdragon portals")
 public class EnderDragonComponent extends BukkitComponent implements Listener {
 

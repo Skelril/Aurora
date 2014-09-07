@@ -34,9 +34,6 @@ import java.util.Collection;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-/**
- * Author: Turtle9598
- */
 public abstract class AbstractRegionedArena {
 
     private final CommandBook inst = CommandBook.inst();

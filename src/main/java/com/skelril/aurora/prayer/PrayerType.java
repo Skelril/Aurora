@@ -25,9 +25,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Author: Turtle9598
- */
 public enum PrayerType {
 
     UNASSIGNED(0, 0, null),

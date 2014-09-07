@@ -37,9 +37,6 @@ import org.bukkit.inventory.meta.SkullMeta;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Author: Turtle9598
- */
 public class ItemUtil {
 
     public static final ItemStack[] leatherArmor = new ItemStack[]{

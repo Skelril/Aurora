@@ -47,9 +47,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Conversion", desc = "Convert your cash.")
 @Depend(plugins = {"Vault"}, components = {AdminComponent.class, ImpersonalComponent.class})
 public class ConversionComponent extends BukkitComponent implements Listener {

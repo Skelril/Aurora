@@ -46,9 +46,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
-/**
- * @author Turtle9598
- */
 @ComponentInformation(friendlyName = "Profanity", desc = "Kill Profanity.")
 public class ProfanityComponent extends BukkitComponent implements Listener {
 

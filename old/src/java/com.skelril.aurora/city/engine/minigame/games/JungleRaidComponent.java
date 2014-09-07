@@ -106,9 +106,6 @@ import java.util.stream.Collectors;
 
 //import net.gravitydevelopment.anticheat.check.CheckType;
 
-/**
- * @author Turtle9598
- */
 //@ComponentInformation(friendlyName = "Jungle Raid", desc = "Warfare at it's best!")
 //@Depend(components = {AdminComponent.class, PrayerComponent.class}, plugins = {"WorldEdit", "WorldGuard"})
 public class JungleRaidComponent extends MinigameComponent {

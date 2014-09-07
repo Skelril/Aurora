@@ -46,9 +46,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Weather Manager", desc = "Turn off the storm!")
 public class WeatherManagerComponent extends BukkitComponent implements Listener {
 

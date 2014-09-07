@@ -35,10 +35,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * User: Wyatt Childers
- * Date: 10/11/13
- */
 @SuppressWarnings("unchecked")
 public class SerializableItemStack implements Serializable {
 

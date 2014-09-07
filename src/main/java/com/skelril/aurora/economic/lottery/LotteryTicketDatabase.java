@@ -23,9 +23,6 @@ import com.skelril.aurora.util.player.GenericWealthStore;
 
 import java.util.List;
 
-/**
- * Author: Turtle9598
- */
 public interface LotteryTicketDatabase {
 
     public boolean load();

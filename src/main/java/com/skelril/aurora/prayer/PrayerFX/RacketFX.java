@@ -23,9 +23,6 @@ import com.skelril.aurora.prayer.PrayerType;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
-/**
- * Author: Turtle9598
- */
 public class RacketFX extends AbstractEffect {
 
     @Override

@@ -24,9 +24,6 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-/**
- * Author: Turtle9598
- */
 public interface JailCellDatabase extends Iterable<JailCell> {
 
     /**

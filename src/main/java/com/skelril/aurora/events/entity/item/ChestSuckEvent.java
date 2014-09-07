@@ -26,9 +26,6 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
 
-/**
- * Author: Turtle9598
- */
 public class ChestSuckEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();

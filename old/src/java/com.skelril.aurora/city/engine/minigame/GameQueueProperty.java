@@ -21,10 +21,6 @@ package com.skelril.aurora.city.engine.minigame;
 
 import java.util.Set;
 
-/**
- * User: Wyatt Childers
- * Date: 1/24/14
- */
 public class GameQueueProperty {
 
     protected String name;

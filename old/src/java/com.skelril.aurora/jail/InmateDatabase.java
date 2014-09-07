@@ -25,9 +25,6 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Author: Turtle9598
- */
 public interface InmateDatabase extends Iterable<Inmate> {
 
     /**

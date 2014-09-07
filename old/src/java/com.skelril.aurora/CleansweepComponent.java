@@ -27,11 +27,6 @@ import org.bukkit.event.Listener;
 
 import java.util.logging.Logger;
 
-/**
- * Nothing to see here move along
- *
- * @author Turtle9598
- */
 @ComponentInformation(friendlyName = "Cleansweep", desc = "Cleanup")
 public class CleansweepComponent extends BukkitComponent implements Listener {
 

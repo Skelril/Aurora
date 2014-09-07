@@ -23,9 +23,6 @@ import com.skelril.aurora.prayer.PrayerFX.AbstractEffect;
 import com.skelril.aurora.prayer.PrayerFX.AbstractTriggeredEffect;
 import org.bukkit.entity.Player;
 
-/**
- * Author: Turtle9598
- */
 public class Prayer implements Comparable<Prayer> {
 
     private final Player player;

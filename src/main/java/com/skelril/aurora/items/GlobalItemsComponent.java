@@ -55,9 +55,6 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 
 import static com.zachsthings.libcomponents.bukkit.BasePlugin.server;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Global Items Component", desc = "Global Custom Item effects")
 @Depend(components = {SessionComponent.class, AdminComponent.class,
         AntiCheatCompatibilityComponent.class, PvPComponent.class,

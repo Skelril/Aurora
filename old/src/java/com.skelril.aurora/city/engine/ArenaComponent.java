@@ -54,9 +54,6 @@ import java.io.File;
 import java.util.*;
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 //@ComponentInformation(friendlyName = "Arena", desc = "Arena Control.")
 //@Depend(components = {
 //        AdminComponent.class, JailComponent.class, PrayerComponent.class, SacrificeComponent.class,

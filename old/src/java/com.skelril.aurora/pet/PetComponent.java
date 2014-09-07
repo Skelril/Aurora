@@ -38,9 +38,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Pet", desc = "Pets!")
 public class PetComponent extends BukkitComponent implements Listener, Runnable {
 

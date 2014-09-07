@@ -54,9 +54,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 public class DropPartyArena extends AbstractRegionedArena implements CommandTriggeredArena, Listener {
 
     private final CommandBook inst = CommandBook.inst();

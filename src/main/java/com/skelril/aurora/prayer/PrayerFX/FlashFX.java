@@ -23,9 +23,6 @@ import com.skelril.aurora.prayer.PrayerType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-/**
- * Author: Turtle9598
- */
 public class FlashFX extends AbstractEffect {
 
     private static final AbstractEffect[] subFX = new AbstractEffect[]{

@@ -27,9 +27,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Author: Turtle9598
- */
 public abstract class AbstractEffect {
 
     private final Set<PotionEffect> effects = new HashSet<>();

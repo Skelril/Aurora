@@ -33,9 +33,6 @@ import org.bukkit.inventory.ItemStack;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * @author Turtle9598
- */
 public class EnvironmentUtil {
 
     public static boolean isNightTime(long time) {

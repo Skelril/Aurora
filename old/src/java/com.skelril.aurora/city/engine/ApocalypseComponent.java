@@ -67,9 +67,6 @@ import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-/**
- * @author Turtle9598
- */
 //@ComponentInformation(friendlyName = "Apocalypse", desc = "Sends an invasion force after the residents of the server.")
 //@Depend(components = {AdminComponent.class, EnderPearlHomesComponent.class})
 public class ApocalypseComponent extends BukkitComponent implements Listener {

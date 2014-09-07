@@ -59,9 +59,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Lottery", desc = "Can you win it big?")
 @Depend(plugins = {"Vault"}, components = {ImpersonalComponent.class})
 public class LotteryComponent extends BukkitComponent implements Listener {

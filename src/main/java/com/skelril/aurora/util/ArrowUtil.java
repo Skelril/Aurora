@@ -24,9 +24,6 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.util.Vector;
 
-/**
- * Author: Turtle9598
- */
 public class ArrowUtil {
 
     public static Arrow shootArrow(LivingEntity entity, LivingEntity targetEntity, float power, float accuracy) {

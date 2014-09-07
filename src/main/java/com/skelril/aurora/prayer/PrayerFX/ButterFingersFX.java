@@ -24,9 +24,6 @@ import com.skelril.aurora.prayer.PrayerType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-/**
- * Author: Turtle9598
- */
 public class ButterFingersFX extends AbstractEffect {
 
     @Override

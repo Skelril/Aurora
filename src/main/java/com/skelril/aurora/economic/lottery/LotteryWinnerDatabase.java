@@ -21,9 +21,6 @@ package com.skelril.aurora.economic.lottery;
 
 import java.util.List;
 
-/**
- * Author: Turtle9598
- */
 public interface LotteryWinnerDatabase {
 
     public boolean load();

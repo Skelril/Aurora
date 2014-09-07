@@ -24,10 +24,6 @@ import com.sk89q.commandbook.CommandBook;
 import java.io.*;
 import java.util.logging.Logger;
 
-/**
- * User: Wyatt Childers
- * Date: 10/12/13
- */
 public class IOUtil {
 
     private static Logger log = CommandBook.logger();

@@ -25,9 +25,6 @@ import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-/**
- * Author: Turtle9598
- */
 public class ThrownFireballFX extends AbstractTriggeredEffect {
 
     private long nextTime = -1;

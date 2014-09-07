@@ -22,9 +22,6 @@ package com.skelril.aurora.prayer.PrayerFX;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 
-/**
- * Author: Turtle9598
- */
 public abstract class AbstractTriggeredEffect extends AbstractEffect {
 
     private final Class triggerClass;

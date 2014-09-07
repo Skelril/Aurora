@@ -23,9 +23,6 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.entity.EntityEvent;
 
-/**
- * Author: Turtle9598
- */
 public class ProjectileTickEvent extends EntityEvent {
 
     private static final HandlerList handlers = new HandlerList();

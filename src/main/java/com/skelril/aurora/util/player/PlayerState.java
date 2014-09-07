@@ -24,9 +24,6 @@ import org.bukkit.inventory.ItemStack;
 
 import java.io.Serializable;
 
-/**
- * Author: Turtle9598
- */
 public class PlayerState extends GenericWealthStore implements Serializable {
 
     private double health = 20;

@@ -83,9 +83,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-/**
- * @author Turtle9598
- */
 //@ComponentInformation(friendlyName = "Sky Wars", desc = "Sky warfare at it's best!")
 //@Depend(components = {AdminComponent.class, PrayerComponent.class}, plugins = {"WorldEdit", "WorldGuard"})
 public class SkyWarsComponent extends MinigameComponent {

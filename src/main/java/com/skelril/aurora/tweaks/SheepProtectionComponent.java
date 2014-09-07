@@ -36,9 +36,6 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Sheep", desc = "No more dying sheep!")
 public class SheepProtectionComponent extends BukkitComponent implements Listener {
 

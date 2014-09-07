@@ -19,10 +19,6 @@
 
 package com.skelril.aurora.city.engine.minigame;
 
-/**
- * User: Wyatt Childers
- * Date: 1/13/14
- */
 public enum GameProgress {
     DONE(0),
     INITIALIZED(1),

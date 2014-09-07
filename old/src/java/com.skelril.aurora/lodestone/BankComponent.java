@@ -45,9 +45,6 @@ import java.util.concurrent.TimeUnit;
 
 import static com.skelril.aurora.util.LocationUtil.isInRegion;
 
-/**
- * @author Turtle9598
- */
 @ComponentInformation(friendlyName = "Bank", desc = "Manage the bank.")
 @Depend(components = SessionComponent.class, plugins = "WorldGuard")
 public class BankComponent extends BukkitComponent implements Listener {

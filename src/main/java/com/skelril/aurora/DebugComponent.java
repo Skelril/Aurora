@@ -54,9 +54,6 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "ADebug", desc = "Debug tools")
 public class DebugComponent extends BukkitComponent {
 

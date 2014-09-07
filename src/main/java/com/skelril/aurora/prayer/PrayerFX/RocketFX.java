@@ -24,9 +24,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-/**
- * Author: Turtle9598
- */
 public class RocketFX extends AbstractEffect {
 
     public RocketFX() {

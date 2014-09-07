@@ -51,9 +51,6 @@ import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Jail", desc = "Jail System")
 @Depend(plugins = {"WorldEdit"}, components = {AdminComponent.class})
 public class JailComponent extends BukkitComponent implements Listener, Runnable {

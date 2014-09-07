@@ -23,9 +23,6 @@ import com.skelril.aurora.prayer.PrayerType;
 import com.skelril.aurora.util.ChatUtil;
 import org.bukkit.entity.Player;
 
-/**
- * Author: Turtle9598
- */
 public class StarvationFX extends AbstractEffect {
 
     @Override

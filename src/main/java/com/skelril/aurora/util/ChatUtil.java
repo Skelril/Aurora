@@ -27,9 +27,6 @@ import org.bukkit.command.CommandSender;
 
 import java.util.Collection;
 
-/**
- * @author Turtle9598
- */
 public class ChatUtil {
 
     public enum MessageType {

@@ -35,10 +35,6 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
-
 @ComponentInformation(friendlyName = "Soft Wool", desc = "Fall softly my friends.")
 public class SoftWoolComponent extends BukkitComponent implements Listener {
 

@@ -24,9 +24,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-/**
- * Author: Turtle9598
- */
 public class PowerFX extends AbstractEffect {
 
     private static final AbstractEffect[] subFX = new AbstractEffect[]{

@@ -35,9 +35,6 @@ import org.bukkit.scheduler.BukkitTask;
 
 import java.util.logging.Logger;
 
-/**
- * @author Turtle9598
- */
 @ComponentInformation(friendlyName = "Shudown", desc = "Shutdown system")
 public class ShutdownComponent extends BukkitComponent {
 

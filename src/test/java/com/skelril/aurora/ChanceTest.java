@@ -24,10 +24,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-/**
- * User: Wyatt Childers
- * Date: 11/16/13
- */
 public class ChanceTest {
 
     @Test

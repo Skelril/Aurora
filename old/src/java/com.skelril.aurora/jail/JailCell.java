@@ -22,9 +22,6 @@ package com.skelril.aurora.jail;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
-/**
- * Author: Turtle9598
- */
 public class JailCell {
 
     private final String name;

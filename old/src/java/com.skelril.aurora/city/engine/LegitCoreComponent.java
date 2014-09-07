@@ -55,9 +55,6 @@ import java.io.File;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 //@ComponentInformation(friendlyName = "Legit Core", desc = "Operate the legit world.")
 //@Depend(components = {AdminComponent.class, SessionComponent.class, EnderPearlHomesComponent.class})
 public class LegitCoreComponent extends BukkitComponent implements Listener {

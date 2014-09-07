@@ -22,9 +22,6 @@ package com.skelril.aurora.pet;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 
-/**
- * Author: Turtle9598
- */
 public class Pet {
 
     private final String playerName;

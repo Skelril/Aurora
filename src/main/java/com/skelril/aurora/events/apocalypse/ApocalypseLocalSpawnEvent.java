@@ -25,9 +25,6 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
 
-/**
- * Author: Turtle9598
- */
 public class ApocalypseLocalSpawnEvent extends PlayerEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();

@@ -25,9 +25,6 @@ import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-/**
- * Author: Turtle9598
- */
 public class SmokeFX extends AbstractEffect {
 
     @Override

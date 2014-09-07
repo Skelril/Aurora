@@ -26,9 +26,6 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-/**
- * Author: Turtle9598
- */
 public class InventoryFX extends AbstractEffect {
 
     private int type, amount;

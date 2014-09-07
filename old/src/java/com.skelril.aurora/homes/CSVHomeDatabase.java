@@ -31,9 +31,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 public class CSVHomeDatabase implements HomeDatabase {
 
     private final Logger log = CommandBook.inst().getLogger();

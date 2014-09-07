@@ -39,9 +39,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Block Drops", desc = "More Block Drops")
 public class BlockDropsComponent extends BukkitComponent implements Listener {
 

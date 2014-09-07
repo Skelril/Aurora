@@ -51,9 +51,6 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author Turtle9598
- */
 @ComponentInformation(friendlyName = "Lodestone", desc = "Manages all lodestones")
 @Depend(components = SessionComponent.class)
 public class LodestoneComponent extends BukkitComponent implements Listener {

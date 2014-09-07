@@ -35,9 +35,6 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Impersonal", desc = "It's just business.")
 @Depend(plugins = {"WorldGuard"})
 public class ImpersonalComponent extends BukkitComponent implements Listener {

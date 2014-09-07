@@ -23,9 +23,6 @@ import com.sk89q.commandbook.CommandBook;
 
 import java.util.UUID;
 
-/**
- * Author: Turtle9598
- */
 public class Inmate {
 
     private UUID ID;

@@ -36,9 +36,6 @@ import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 public class CSVJailCellDatabase implements JailCellDatabase {
 
     private final Logger log = CommandBook.inst().getLogger();

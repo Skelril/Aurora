@@ -22,9 +22,6 @@ package com.skelril.aurora.admin;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Author: Turtle9598
- */
 public enum AdminState {
     MEMBER,
     MODERATOR(MEMBER),

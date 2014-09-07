@@ -46,9 +46,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Updater", desc = "Update old chest")
 public class UpdateComponent extends BukkitComponent implements Listener {
 

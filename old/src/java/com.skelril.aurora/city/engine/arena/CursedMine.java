@@ -83,9 +83,6 @@ import java.util.logging.Logger;
 
 import static com.skelril.aurora.modifier.ModifierComponent.getModifierManager;
 
-/**
- * Author: Turtle9598
- */
 public class CursedMine extends AbstractRegionedArena implements MonitoredArena, Listener {
 
     private final CommandBook inst = CommandBook.inst();

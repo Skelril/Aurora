@@ -25,9 +25,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-/**
- * Author: Turtle9598
- */
 public class GodFX extends AbstractTriggeredEffect {
 
     private static final AbstractEffect[] subFX = new AbstractEffect[]{

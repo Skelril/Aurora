@@ -47,9 +47,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Light Hack", desc = "Stop the light hackers")
 @Depend(components = AdminComponent.class)
 public class AntiLightHackComponent extends BukkitComponent implements Listener {

@@ -36,9 +36,6 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Aurora Admin", desc = "Player Administration commands.")
 public class XPBottlerComponent extends BukkitComponent implements Listener {
 

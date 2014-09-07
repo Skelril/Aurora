@@ -21,10 +21,6 @@ package com.skelril.aurora.util;
 
 import java.util.Calendar;
 
-/**
- * User: Wyatt Childers
- * Date: 9/20/13
- */
 public class TimeUtil {
 
     private static Calendar calendar = Calendar.getInstance();

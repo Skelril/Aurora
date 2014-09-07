@@ -21,9 +21,6 @@ package com.skelril.aurora.util;
 
 import java.util.Random;
 
-/**
- * @author Turtle9598
- */
 public class ChanceUtil {
 
     private static Random r = new Random(System.currentTimeMillis());

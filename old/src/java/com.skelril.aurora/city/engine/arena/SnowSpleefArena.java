@@ -37,9 +37,6 @@ import org.bukkit.event.block.BlockDamageEvent;
 
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 public class SnowSpleefArena extends AbstractRegionedArena implements SpleefArena, Listener {
 
     private final CommandBook inst = CommandBook.inst();

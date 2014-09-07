@@ -51,9 +51,6 @@ import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Fun of Doom", desc = "Fun of Doom")
 @Depend(components = {WishingWellComponent.class})
 public class FunComponentOfDoom extends BukkitComponent implements Listener {

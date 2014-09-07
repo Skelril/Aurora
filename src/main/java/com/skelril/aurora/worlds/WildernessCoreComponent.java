@@ -88,9 +88,6 @@ import static com.skelril.aurora.economic.store.AdminStoreComponent.priceCheck;
 import static com.skelril.aurora.modifier.ModifierComponent.getModifierManager;
 import static org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "Wilderness Core", desc = "Operate the wilderness.")
 @Depend(components = {AdminComponent.class, SessionComponent.class})
 public class WildernessCoreComponent extends BukkitComponent implements Listener, Runnable {

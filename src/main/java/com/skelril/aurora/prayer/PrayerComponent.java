@@ -57,9 +57,6 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-/**
- * @author Turtle9598
- */
 @ComponentInformation(friendlyName = "Prayers", desc = "Let the light (or darkness) be unleashed on thy!")
 @Depend(components = {AdminComponent.class})
 public class PrayerComponent extends BukkitComponent implements Listener, Runnable {

@@ -38,10 +38,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * User: Wyatt Childers
- * Date: 9/27/13
- */
 @ComponentInformation(friendlyName = "Chat Manager", desc = "Manages chat")
 @Depend(components = {SessionComponent.class})
 public class ChatManagerComponent extends BukkitComponent implements Listener {

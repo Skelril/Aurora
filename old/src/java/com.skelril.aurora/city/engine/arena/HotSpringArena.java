@@ -49,9 +49,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 public class HotSpringArena extends AbstractRegionedArena implements GenericArena, Listener {
 
     private final CommandBook inst = CommandBook.inst();

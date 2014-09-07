@@ -37,9 +37,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
-/**
- * Author: Turtle9598
- */
 @ComponentInformation(friendlyName = "MACL", desc = "Mob Arena Compatibility Layer")
 @Depend(plugins = {"MobArena"}, components = {AdminComponent.class})
 public class MobArenaCLComponent extends BukkitComponent implements Listener {

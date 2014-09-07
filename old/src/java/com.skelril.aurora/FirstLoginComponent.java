@@ -53,9 +53,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * @author Turtle9598
- */
 //@ComponentInformation(friendlyName = "First Login", desc = "Get stuff the first time you come.")
 //@Depend(plugins = {"WorldGuard"})
 public class FirstLoginComponent extends BukkitComponent implements Listener {

@@ -23,9 +23,6 @@ import org.bukkit.World;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-/**
- * Author: Turtle9598
- */
 public class DropClearPulseEvent extends Event {
 
     private static final HandlerList handlers = new HandlerList();
