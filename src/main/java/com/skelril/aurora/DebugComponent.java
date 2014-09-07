@@ -31,8 +31,6 @@ import com.sk89q.worldedit.bukkit.selections.Selection;
 import com.sk89q.worldguard.protection.regions.ProtectedPolygonalRegion;
 import com.skelril.aurora.util.ChatUtil;
 import com.skelril.aurora.util.item.ItemUtil;
-import com.skelril.hackbook.ChunkBook;
-import com.skelril.hackbook.exceptions.UnsupportedFeatureException;
 import com.zachsthings.libcomponents.ComponentInformation;
 import com.zachsthings.libcomponents.bukkit.BukkitComponent;
 import org.bukkit.Bukkit;
@@ -114,24 +112,6 @@ public class DebugComponent extends BukkitComponent {
             ChatUtil.send(player, "Food level: " + player.getFoodLevel());
             ChatUtil.send(player, "Sat. level: " + player.getSaturation());
             ChatUtil.send(player, "Exh. level: " + player.getExhaustion());
-        }
-    }
-
-
-    public class ChunkLighter {
-
-        @Command(aliases = {"relight"}, desc = "Get your location",
-                flags = "", min = 0, max = 0)
-        @CommandPermissions("aurora.debug.relight")
-        public void myLocCmd(CommandContext args, CommandSender sender) throws CommandException {
-
-            Player player = PlayerUtil.checkPlayer(sender);
-            try {
-                ChunkBook.relight(player.getLocation().getChunk());
-            } catch (UnsupportedFeatureException e) {
-                throw new CommandException("This feature is not currently supported.");
-            }
-            ChatUtil.send(player, "The chunk lighting has successfully been recalculated.");
         }
     }
 
